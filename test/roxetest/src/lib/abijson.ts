@@ -33,9 +33,9 @@ export class SwapAbiJson {
 
 export class DosAbiJson {
     static async dosjson() {
-        const swap = await loadJson("../abi/eosdos.abi");
-        const a = swap.actions.map((obj: any) => obj.type);
-        const actionjson = arrToObjES2019(swap.structs.filter((obj: any) => a.indexOf(obj.name) >= 0));
+        const dos = await loadJson("../abi/eosdos.abi");
+        const a = dos.actions.map((obj: any) => obj.type);
+        const actionjson = arrToObjES2019(dos.structs.filter((obj: any) => a.indexOf(obj.name) >= 0));
         // console.log(JSON.stringify());
 
         // console.log(a);
@@ -48,7 +48,7 @@ export class DosAbiJson {
 
     static async buildActionParameterJson(firstPara: any, ...restOfPara: any[]) {
         // console.log(JSON.stringify(restOfPara));
-        const actionparas = await SwapAbiJson.swapjson();
+        const actionparas = await DosAbiJson.dosjson();
         const ap = actionparas[firstPara];
         let json: any = {};
         for (var i = 0; i < ap.length; i++) {

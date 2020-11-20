@@ -48,7 +48,7 @@ curl -X POST --url http://10.100.1.10:8888/v1/chain/get_table_rows -d '{
 }' |jq
 ;;
 "dodos") 
-curl -X POST --url http://10.100.1.10:8888/v1/chain/get_table_rows -d '{  
+curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{  
    "scope":"eosdoseosdos",
    "code":"eosdoseosdos",
    "table":"dodos",
@@ -169,6 +169,55 @@ esac
 #   "account_name": "eosio.token"
 # }'
 
-
 # curl  http://10.11.5.37:8000/v1/wallet/list_keys
+
+
+curl -X POST --url http://47.91.226.192:7878/v1/history/get_transaction -d '{	"id":"1295233e6d72e252c15b2440da39fbc812936086d031e4a2e79a42cd6305d216"}' | jq
+curl -X POST --url http://47.91.226.192:7878/v1/history/get_transaction -d '{	"id":"ca197744cee06148ba92a82f4f2147350f44164400cec1f69f0331ee640aa6ee"}'
+ | jq
+
+curl -X POST --url http://47.91.226.192:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"eoswapeoswap"}'
+
+
+curl -X POST --url http://47.91.226.192:7878/v1/chain/get_block -d '{
+  "block_num_or_id": "8944822"
+}'
+
+
+curl http://47.91.226.192:7878/v1/chain/get_info
+
+curl -X POST --url http://10.100.1.10:8888/v1/chain/get_block -d '{
+  "block_num_or_id": "8611852"
+}'|jq
+
+
+curl -X POST --url http://10.100.1.10:8888/v1/history/get_transaction -d '{	"id":"1915a7f45f9f44ed2e0ce02896c73c46516200e84257504492052e7edf55e58d"}'
+
+
+
+clroxe convert unpack_transaction '{
+  "signatures": [
+    "SIG_K1_KmRbWahefwxs6uyCGNR6wNRjw7cntEeFQhNCbyg8S92Kbp7zdSSVGTD2QS7pNVWgcU126zpxaBp9CwUxFpRwSnfkjd46bS"
+  ],
+  "compression": "none",
+  "packed_context_free_data": "",
+  "packed_trx": "8468635b7f379feeb95500000000010000000000ea305500409e9a2264b89a010000000000ea305500000000a8ed3232660000000000ea305500a6823403ea30550100000001000240cc0bf90a5656c8bb81f0eb86f49f89613c5cd988c018715d4646c6bd0ad3d8010000000100000001000240cc0bf90a5656c8bb81f0eb86f49f89613c5cd988c018715d4646c6bd0ad3d80100000000"
+}'
+
+
+
+let data1 = await eos.setcode(contractAccount, 0, 0, wasm) 
+console.log("deploy:data1:")
+let data2 = await eos.setabi(contractAccount, JSON.parse(abi)) 
+console.log("deploy:data2:")
+
+
+
+const fs = require("fs");
+const wasm = fs.readFileSync("/path/to/wasm/file");
+const abi = JSON.parse(fs.readFileSync("/path/to/abi/file"));
+部署合约时，只调用如下代码即可：
+
+eos.setcode("your_account_name", 0, 0, wasm);
+
 

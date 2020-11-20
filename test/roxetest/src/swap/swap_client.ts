@@ -28,12 +28,15 @@ const prettyJson = async (log: any) => {
 
 
 
-
-
-const transactWithConfig = async (actionjson: any) => await api.transact(actionjson, {
-    blocksBehind: 3,
-    expireSeconds: 30,
-});
+const transactWithConfig = async (actionjson: any) => {
+    const results = await api.transact(actionjson, {
+        blocksBehind: 3,
+        expireSeconds: 30,
+    });
+    const blockInfo = await rpc.get_block(results.processed.block_num - 3);
+    // console.log(blockInfo);
+    return results;
+};
 
 const pushTransaction = async (account: any, action: any, data: any) => {
     const results = await transactWithConfig(ClientUtil.pushAction(Swap.swapContract, account, Swap.acc2pub_keys[account], action, data));
@@ -42,7 +45,6 @@ const pushTransaction = async (account: any, action: any, data: any) => {
 
 const pushAciton = async (action: any, ...restOfPara: any[]) => {
     const account = restOfPara[0];
-    console.log("account===", account);
     const data = await SwapAbiJson.buildActionParameterJson(action, ...restOfPara);
     const results = await pushTransaction(account, action, data);
     await prettyJson(results);
@@ -68,7 +70,7 @@ class SwapClient {
     }
 
     async extransfer() {
-        const results = await pushAciton("extransfer", 
+        const results = await pushAciton("extransfer",
             Swap.admin,
             Swap.nonadmin,
             ClientUtil.to_wei_asset(1, "ROC"),
@@ -88,10 +90,10 @@ process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
 
-const client = new SwapClient(Swap.pool4);
-
+const currPool = Swap.pool4;
+const client = new SwapClient(currPool);
 const handlers: any = {
-     "a": (async function () {
+    "a": (async function () {
         client.allowSwapContracts();
     }),
     "n": (async function () {
@@ -107,40 +109,36 @@ const handlers: any = {
         await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(200, "DAI"));
     }),
     "p": (async function () {
-        await pushAciton("newpool", Swap.admin, Swap.pool4);
-        await pushAciton("newpool", Swap.admin, Swap.pool3);
-    }),
-    "p2": (async function () {
-        await pushAciton("newpool", Swap.admin, Swap.pool5);
+        await pushAciton("newpool", Swap.admin, currPool);
     }),
     "s": (async function () {
-        await pushAciton("setswapfee", Swap.admin, Swap.pool4, 1000);
-        await pushAciton("setpubswap", Swap.admin, Swap.pool4, true);
+        await pushAciton("setswapfee", Swap.admin, currPool, 1000);
+        await pushAciton("setpubswap", Swap.admin, currPool, true);
     }),
     "b": (async function () {
-        await pushAciton("bind", Swap.admin, Swap.pool4, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, Swap.pool4, ClientUtil.to_wei_asset(200, "DAI"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(200, "DAI"), ClientUtil.to_wei(5));
     }),
     "f": (async function () {
-        await pushAciton("finalize", Swap.admin, Swap.pool4);
+        await pushAciton("finalize", Swap.admin, currPool);
     }),
     "j": (async function () {
-        await pushAciton("joinpool", Swap.nonadmin, Swap.pool4, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
+        await pushAciton("joinpool", Swap.nonadmin, currPool, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
     }),
     "x": (async function () {
-        await pushAciton("exitpool", Swap.nonadmin, Swap.pool4, ClientUtil.to_wei(10), [0, 0]);
+        await pushAciton("exitpool", Swap.nonadmin, currPool, ClientUtil.to_wei(10), [0, 0]);
     }),
     "c": (async function () {
-        await pushAciton("collect", Swap.admin, Swap.pool4);
+        await pushAciton("collect", Swap.admin, currPool);
     }),
     "i": (async function () {
-        await pushAciton("swapamtin", Swap.user1, Swap.pool4,
+        await pushAciton("swapamtin", Swap.user1, currPool,
             ClientUtil.to_asset(250, "WETH"),
             ClientUtil.to_wei_asset(4, "DAI"),
             ClientUtil.to_wei(200));
     }),
     "o": (async function () {
-        await pushAciton("swapamtout", Swap.user1, Swap.pool4,
+        await pushAciton("swapamtout", Swap.user1, currPool,
             ClientUtil.to_wei_asset(3, "WETH"),
             ClientUtil.to_wei_asset(1, "DAI"),
             ClientUtil.to_wei(500));
@@ -165,18 +163,18 @@ const handlers: any = {
         await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(40000, "DAI"));
         await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(10, "XXX"));
 
-        await pushAciton("newpool", Swap.admin, Swap.pool3);
+        await pushAciton("newpool", Swap.admin, currPool);
 
-        await pushAciton("setpubswap", Swap.admin, Swap.pool3, true);
-        await pushAciton("setswapfee", Swap.admin, Swap.pool3, 1000);
+        await pushAciton("setpubswap", Swap.admin, currPool, true);
+        await pushAciton("setswapfee", Swap.admin, currPool, 1000);
 
-        await pushAciton("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(50, "WETH"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(20, "MKR"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(10000, "DAI"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(50, "WETH"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(20, "MKR"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(10000, "DAI"), ClientUtil.to_wei(5));
 
-        await pushAciton("finalize", Swap.admin, Swap.pool3);
+        await pushAciton("finalize", Swap.admin, currPool);
 
-        await pushAciton("joinpool", Swap.user1, Swap.pool3, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
+        await pushAciton("joinpool", Swap.user1, currPool, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
     }),
     "default": (async function () {
         // console.log(__line); console.log("test option");

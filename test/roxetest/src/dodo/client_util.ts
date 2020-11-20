@@ -4,7 +4,7 @@ export default function date(value: number | string): Date {
 
 export class ClientUtil {
     static decimals = Math.pow(10, 4);
-    static BONE = Math.pow(10, 6);
+    static BONE = Math.pow(10, 4);
 
     static require_permissions = ({ account, key, actor, parent }: { account: any, key: any, actor: any, parent: any }) => {
         return {
