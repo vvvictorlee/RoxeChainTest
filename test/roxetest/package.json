@@ -1,0 +1,23 @@
+{
+  "name": "delpi-oracle-utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "updater.js",
+  "scripts": {
+    "start": "ts-node src/picture.ts",
+    "dev": "nodemon",
+    "test": "node --max_old_space_size=8192 bosoracle_updater.js"
+  },
+  "author": "Guillaume Babin-Tremblay",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "fs": "^0.0.1-security",
+    "roxejs": "^1.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}
