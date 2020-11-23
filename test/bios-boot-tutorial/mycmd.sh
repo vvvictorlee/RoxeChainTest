@@ -196,6 +196,10 @@ curl -X POST --url http://10.100.1.10:8888/v1/chain/get_block -d '{
 curl -X POST --url http://10.100.1.10:8888/v1/history/get_transaction -d '{	"id":"1915a7f45f9f44ed2e0ce02896c73c46516200e84257504492052e7edf55e58d"}'
 
 
+ curl http://192.168.38.227:5363/swap
+ curl http://192.168.38.227:5363/dodo
+
+
 
 clroxe convert unpack_transaction '{
   "signatures": [

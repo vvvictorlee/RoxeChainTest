@@ -24,12 +24,12 @@ export class IndexRoute extends BaseRoute {
         //log
         debug("[IndexRoute::create] Creating index route.");
 
-        router.get("/swap", (req: Request, res: Response, next: NextFunction) => {
+        router.get("/pricing/swap", (req: Request, res: Response, next: NextFunction) => {
             new IndexRoute().swap(req, res, next);
         });
 
         //add home page route
-        router.get("/dodo", (req: Request, res: Response, next: NextFunction) => {
+        router.get("/pricing/dodo", (req: Request, res: Response, next: NextFunction) => {
             new IndexRoute().dodo(req, res, next);
         });
 
