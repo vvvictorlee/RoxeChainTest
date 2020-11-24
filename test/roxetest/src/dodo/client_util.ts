@@ -113,7 +113,7 @@ export class ClientUtil {
     }
 
     static to_max_supply(sym: any) {
-        return { quantity: "100000000000.0000 " + sym, contract: "eoswapxtoken" };
+        return { quantity: "100000000000.0000 " + sym, contract: "eosdosxtoken" };
     }
 
     static get_core_symbol() {
@@ -121,7 +121,7 @@ export class ClientUtil {
     }
 
     static to_sym(sym: any) {
-        return { symbol: "4," + sym, contract: 'eoswapxtoken' };
+        return { symbol: "4," + sym, contract: 'eosdosxtoken' };
     }
     static tounit(value: any) {
         return ClientUtil.todecimal(ClientUtil.scalar_decimals(value));
@@ -140,7 +140,7 @@ export class ClientUtil {
     }
 
     static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(ClientUtil.scalar_decimals(value)) + sym, contract: "eoswapxtoken" };
+        return { quantity: ClientUtil.todecimal(ClientUtil.scalar_decimals(value)) + sym, contract: "eosdosxtoken" };
     }
 
     static to_wei_asset(value: any, sym: any) {

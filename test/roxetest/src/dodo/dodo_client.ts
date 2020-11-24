@@ -99,6 +99,7 @@ let handlers: any = {
         await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("WETH"));
         await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("DAI"));
         await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("MKR"));
+
     }),
     "m": (async function () {
         await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(1000, "MKR"));
@@ -128,15 +129,6 @@ let handlers: any = {
         await pushAciton("setparameter", Dos.admin, Dos.dodo_stablecoin_name, "mtfeerate", 3);
     }),
     "b": (async function () {
-        //  init(Dos.admin, Dos.maintainer, ClientUtil.to_sym("WETH"), get_core_symbol());
-        // // dodoZoo, weth, core_symbol
-        // // newethtoken(tokenissuer, ClientUtil.to_maximum_supply("WETH"));
-        // newtoken(tokenissuer, ClientUtil.to_maximum_supply("MKR"));
-        // mint(Dos.lp, ClientUtil.to_wei_asset(1000,"MKR"));
-        // mint(Dos.trader, ClientUtil.to_wei_asset(1000,"MKR"));
-        // await   pushAciton("neworacle",Dos.oracleadmin, ClientUtil.to_sym("WETH"));
-        // await client. neworacle(Dos.oracleadmin, ClientUtil.to_sym("MKR"));
-        //   setprice(Dos.oracleadmin, ClientUtil.to_asset(1000000,"WETH"));
         await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_wei_asset(100, "WETH"));
         const msg_sender = Dos.admin;
         const dodo_name = Dos.dodo_ethbase_name;
@@ -150,23 +142,14 @@ let handlers: any = {
         const gasPriceLimit = 0; // gweiStr("100")
         await pushAciton("breeddodo",
             msg_sender, dodo_name, Dos.maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enablex", Dos.admin, dodo_name, "enabletradin");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablequodep");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablebasdep");
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
         await pushAciton("depositquote", Dos.lp, Dos.dodo_ethbase_name, ClientUtil.to_wei_asset(1000, "MKR"));
         await pushAciton("depositethab", Dos.lp, ClientUtil.to_wei_asset(10, "WETH"), ClientUtil.to_sym("MKR"));
 
     }),
     "q": (async function () {
-        //  init(Dos.admin, Dos.maintainer, ClientUtil.to_sym("WETH"), get_core_symbol());
-        // // dodoZoo, weth, core_symbol
-        // // newethtoken(tokenissuer, ClientUtil.to_maximum_supply("WETH"));
-        // newtoken(tokenissuer, ClientUtil.to_maximum_supply("MKR"));
-        // mint(Dos.lp, ClientUtil.to_wei_asset(1000,"MKR"));
-        // mint(Dos.trader, ClientUtil.to_wei_asset(1000,"MKR"));
-        // await   pushAciton("neworacle",Dos.oracleadmin, ClientUtil.to_sym("WETH"));
-        // await client. neworacle(Dos.oracleadmin, ClientUtil.to_sym("MKR"));
-        //   setprice(Dos.oracleadmin, ClientUtil.to_asset(1000000,"WETH"));
         await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_asset(100, "MKR"));
 
         const msg_sender = Dos.admin;
@@ -181,9 +164,9 @@ let handlers: any = {
         const gasPriceLimit = 0; // gweiStr("100")
         await pushAciton("breeddodo",
             msg_sender, dodo_name, maintainer, quoteToken, baseToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enablex", Dos.admin, dodo_name, "enabletradin");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablequodep");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablebasdep");
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
         await pushAciton("depositbase", Dos.lp, Dos.dodo_ethquote_name, ClientUtil.to_wei_asset(1000, "MKR"));
         await pushAciton("depositethaq", Dos.lp, ClientUtil.to_wei_asset(10, "WETH"), ClientUtil.to_sym("MKR"));
     }),
@@ -201,22 +184,13 @@ let handlers: any = {
         const gasPriceLimit = 0; // gweiStr("100")
         await pushAciton("breeddodo",
             msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enablex", Dos.admin, dodo_name, "enabletradin");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablequodep");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablebasdep");
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
         await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "MKR"));
     }),
     "ss": (async function () {
-        //  init(Dos.admin, Dos.maintainer, ClientUtil.to_sym("WETH"), get_core_symbol());
-        // // dodoZoo, weth, core_symbol
-        // // newethtoken(tokenissuer, ClientUtil.to_maximum_supply("WETH"));
-        // newtoken(tokenissuer, ClientUtil.to_maximum_supply("MKR"));
-        // mint(Dos.lp, ClientUtil.to_wei_asset(1000,"MKR"));
-        // mint(Dos.trader, ClientUtil.to_wei_asset(1000,"MKR"));
-        // await   pushAciton("neworacle",Dos.oracleadmin, ClientUtil.to_sym("WETH"));
-        // await client. neworacle(Dos.oracleadmin, ClientUtil.to_sym("MKR"));
-        //   setprice(Dos.oracleadmin, ClientUtil.to_asset(1000000,"WETH"));
         await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("WETH"), ClientUtil.to_wei_asset(1, "DAI"));
         const msg_sender = Dos.admin;
         const dodo_name = Dos.dodo_stablecoin_name;
@@ -230,11 +204,68 @@ let handlers: any = {
         const gasPriceLimit = 0; // gweiStr("100")
         await pushAciton("breeddodo",
             msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enablex", Dos.admin, dodo_name, "enabletradin");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablequodep");
-        await pushAciton("enablex", Dos.admin, dodo_name, "enablebasdep");
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "WETH"));
         await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
+    }),
+    // # roUSD - roGBP 的池子： 100万美金  75万英镑
+    // # roUSD - roHKD的池子： 100万美金  775万港币
+    "nn": (async function () {
+        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("ROUSD"));
+        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("ROGBP"));
+        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("ROHKD"));
+        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(2000000, "ROUSD"));
+        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(2000000, "ROUSD"));
+        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(750000, "ROGBP"));
+        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(750000, "ROGBP"));
+        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(7750000, "ROHKD"));
+        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(7750000, "ROHKD"));
+    }),
+    "u2g": (async function () {
+        const basestr = "ROUSD";
+        const quotestr = "ROGBP";
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(7500, quotestr));
+        const msg_sender = Dos.admin;
+        const dodo_name = Dos.dodo_stablecoin_name;
+        const maintainer = Dos.doowner;
+        const baseToken = ClientUtil.to_sym(basestr);
+        const quoteToken = ClientUtil.to_sym(quotestr);
+        const oracle = ClientUtil.to_sym(basestr);
+        const lpFeeRate = 1;
+        const mtFeeRate = 0;
+        const k = 1;
+        const gasPriceLimit = 0; // gweiStr("100")
+        await pushAciton("breeddodo",
+            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
+        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(1000000, basestr));
+        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(750000, quotestr));
+    }),
+   "u2h": (async function () {
+        const basestr = "ROUSD";
+        const quotestr = "ROHKD";
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(75000, quotestr));
+        const msg_sender = Dos.admin;
+        const dodo_name = Dos.dodo_stablecoin_name;
+        const maintainer = Dos.doowner;
+        const baseToken = ClientUtil.to_sym(basestr);
+        const quoteToken = ClientUtil.to_sym(quotestr);
+        const oracle = ClientUtil.to_sym(basestr);
+        const lpFeeRate = 1;
+        const mtFeeRate = 0;
+        const k = 1;
+        const gasPriceLimit = 0; // gweiStr("100")
+        await pushAciton("breeddodo",
+            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
+        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(1000000, basestr));
+        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(7750000, quotestr));
     }),
     "scw": (async function () {
         const dodo_name = Dos.dodo_stablecoin_name;
@@ -264,7 +295,7 @@ let handlers: any = {
     "scd": (async function () {
         const dodo_name = Dos.dodo_stablecoin_name;
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "WETH"));
-        await pushAciton("depositquote",Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
+        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
     }),
     "bbt": (async function () {
         await pushAciton("buybasetoken", Dos.trader, Dos.dodo_stablecoin_name, ClientUtil.to_wei_asset(1, "WETH"), ClientUtil.to_wei_asset(1001, "DAI"));
