@@ -66,9 +66,9 @@ class DosClient {
 
     async extransfer() {
         const results = await pushAciton("extransfer",
-            Dos.admin,
+            Dos.bp,
             Dos.lp,
-            ClientUtil.to_wei_asset(1, "ROC"),
+            ClientUtil.to_core_asset(10000, "ROC"),
             "");
     }
 
@@ -228,7 +228,7 @@ let handlers: any = {
         const quotestr = "ROGBP";
         await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(7500, quotestr));
         const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_stablecoin_name;
+        const dodo_name = Dos.dodo_u2g_name;
         const maintainer = Dos.doowner;
         const baseToken = ClientUtil.to_sym(basestr);
         const quoteToken = ClientUtil.to_sym(quotestr);
@@ -250,7 +250,7 @@ let handlers: any = {
         const quotestr = "ROHKD";
         await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(75000, quotestr));
         const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_stablecoin_name;
+        const dodo_name = Dos.dodo_u2h_name;
         const maintainer = Dos.doowner;
         const baseToken = ClientUtil.to_sym(basestr);
         const quoteToken = ClientUtil.to_sym(quotestr);
@@ -302,6 +302,18 @@ let handlers: any = {
     }),
     "sbt": (async function () {
         await pushAciton("sellbastoken", Dos.trader, Dos.dodo_stablecoin_name, ClientUtil.to_wei_asset(8, "WETH"), ClientUtil.to_wei_asset(9, "DAI"));
+    }),
+    "bu2g": (async function () {
+        await pushAciton("buybasetoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(1, "ROUSD"), ClientUtil.to_wei_asset(1001, "ROGBP"));
+    }),
+    "su2g": (async function () {
+        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(8, "ROUSD"), ClientUtil.to_wei_asset(1, "ROHKD"));
+    }),
+   "bu2h": (async function () {
+        await pushAciton("buybasetoken", Dos.trader, Dos.dodo_u2h_name, ClientUtil.to_wei_asset(1, "ROUSD"), ClientUtil.to_wei_asset(1001, "ROHKD"));
+    }),
+    "su2h": (async function () {
+        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_u2h_name, ClientUtil.to_wei_asset(8, "ROUSD"), ClientUtil.to_wei_asset(1, "ROHKD"));
     }),
     "default": (async function () {
         console.log(ClientUtil.todecimal((1000)), "test option", ClientUtil.todecimal(1000));

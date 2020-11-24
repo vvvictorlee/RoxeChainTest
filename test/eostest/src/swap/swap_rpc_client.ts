@@ -66,7 +66,7 @@ class SwapClient {
         const results = await pushAciton("extransfer", Swap.admin,
             Swap.admin,
             Swap.nonadmin,
-            ClientUtil.to_wei_asset(1, "ROC"),
+            ClientUtil.to_core_asset(10000, "ROC"),
             "");
     }
 
