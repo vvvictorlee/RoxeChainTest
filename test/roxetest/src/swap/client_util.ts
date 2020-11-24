@@ -140,10 +140,10 @@ export class ClientUtil {
     }
 
     static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(ClientUtil.scalar_decimals(value)) + sym, contract: "eoswapxtoken" };
+        return { quantity: ClientUtil.todecimal(value) + sym, contract: "eosdosxtoken" };
     }
 
     static to_wei_asset(value: any, sym: any) {
-        return ClientUtil.to_asset(Number(value)*(Number(ClientUtil.BONE)/Number(ClientUtil.decimals)), sym);
+        return ClientUtil.to_asset(ClientUtil.scalar_decimals(Number(value) * (Number(ClientUtil.BONE) / Number(ClientUtil.decimals))), sym);
     }
 }

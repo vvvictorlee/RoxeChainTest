@@ -223,6 +223,16 @@ let handlers: any = {
         await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(7750000, "ROHKD"));
         await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(7750000, "ROHKD"));
     }),
+    "spu2h": (async function () {
+        const basestr = "ROUSD";
+        const quotestr = "ROHKD";
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(75000, quotestr)); 
+    }),
+    "spu2g": (async function () {
+        const basestr = "ROUSD";
+        const quotestr = "ROGBP";
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(7500, quotestr));
+    }),
     "u2g": (async function () {
         const basestr = "ROUSD";
         const quotestr = "ROGBP";
@@ -245,7 +255,7 @@ let handlers: any = {
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(1000000, basestr));
         await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(750000, quotestr));
     }),
-   "u2h": (async function () {
+    "u2h": (async function () {
         const basestr = "ROUSD";
         const quotestr = "ROHKD";
         await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(75000, quotestr));
@@ -307,9 +317,9 @@ let handlers: any = {
         await pushAciton("buybasetoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(1, "ROUSD"), ClientUtil.to_wei_asset(1001, "ROGBP"));
     }),
     "su2g": (async function () {
-        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(8, "ROUSD"), ClientUtil.to_wei_asset(1, "ROHKD"));
+        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(8, "ROUSD"), ClientUtil.to_wei_asset(1, "ROGBP"));
     }),
-   "bu2h": (async function () {
+    "bu2h": (async function () {
         await pushAciton("buybasetoken", Dos.trader, Dos.dodo_u2h_name, ClientUtil.to_wei_asset(1, "ROUSD"), ClientUtil.to_wei_asset(1001, "ROHKD"));
     }),
     "su2h": (async function () {
