@@ -169,15 +169,26 @@ esac
 #    "json":true
 # }'
 
+curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{  
+    "scope":"112acnogsedo",
+    "code":"eoswapxtoken",
+    "table":"accounts",
+    "json":true
+ }'
+
 
 
 # curl -X POST --url http://10.11.5.37:8000/v1/chain/get_code_hash -d '{
 #   "account_name": "eosio.token"
 # }'
 
-# curl -X POST --url http://10.11.5.37:8000/v1/chain/get_account -d '{
-#   "account_name": "eosio.token"
+# curl -X POST --url http://47.91.226.192:7878/v1/chain/get_account -d '{
+#   "account_name": "112acnogsedo"
 # }'
+
+curl -X POST --url http://47.91.226.192:7878/v1/chain/get_account -d '{
+   "account_name": "112acnogsedo"
+ }'
 
 # curl  http://10.11.5.37:8000/v1/wallet/list_keys
 
@@ -189,7 +200,6 @@ esac
 #  | jq
 
 # curl -X POST --url http://47.91.226.192:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"eoswapeoswap"}'
-
 
 # curl -X POST --url http://47.91.226.192:7878/v1/chain/get_block -d '{
 #   "block_num_or_id": "8944822"

@@ -21,6 +21,7 @@
     "node-schedule": "^1.3.2",
     "queue-fun": "^0.3.2",
     "request": "*",
+    "roxejs": "^1.0.4",
     "sleep": "^6.1.0",
     "ws": "^7.1.2"
   },

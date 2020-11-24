@@ -39,7 +39,9 @@ const transactWithConfig = async (actionjson: any) => {
 };
 
 const pushTransaction = async (account: any, action: any, data: any) => {
-    const results = await transactWithConfig(ClientUtil.pushAction(Swap.swapContract, account, Swap.acc2pub_keys[account], action, data));
+    const json = ClientUtil.pushAction(Swap.swapContract, account, Swap.acc2pub_keys[account], action, data);
+    await prettyJson(json);
+    const results = await transactWithConfig(json);
     return results;
 }
 
@@ -71,9 +73,9 @@ class SwapClient {
 
     async extransfer() {
         const results = await pushAciton("extransfer",
+            "112acnogsedo",
             Swap.admin,
-            Swap.nonadmin,
-            ClientUtil.to_core_asset(10000, "ROC"),
+            ClientUtil.to_asset(1, "BTC"),
             "");
     }
 
@@ -90,23 +92,29 @@ process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
 
-const currPool = Swap.pool4;
+const currPool = "btc2usdt";
+const token1 = "BTC";
+const token2 = "USDT";
 const client = new SwapClient(currPool);
 const handlers: any = {
+    "t": (async function () {
+        await client.extransfer();
+    }),
     "a": (async function () {
         client.allowSwapContracts();
     }),
     "n": (async function () {
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("WETH"));
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("DAI"));
+        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token1));
+        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token2));
     }),
     "m": (async function () {
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(500, "WETH"));
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(200, "DAI"));
-        await pushAciton("mint", Swap.nonadmin, ClientUtil.to_wei_asset(100, "WETH"));
-        await pushAciton("mint", Swap.nonadmin, ClientUtil.to_wei_asset(200, "DAI"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(1000, "WETH"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(200, "DAI"));
+        const users = [Swap.admin, Swap.nonadmin, Swap.user1];
+        const tokens = [token1, token2];
+        for (let u of users) {
+            for (let t of tokens) {
+                await pushAciton("mint", u, ClientUtil.to_wei_asset(1000, t));
+            }
+        }
     }),
     "p": (async function () {
         await pushAciton("newpool", Swap.admin, currPool);
@@ -116,8 +124,8 @@ const handlers: any = {
         await pushAciton("setpubswap", Swap.admin, currPool, true);
     }),
     "b": (async function () {
-        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(200, "DAI"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(5, token1), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(200, token2), ClientUtil.to_wei(5));
     }),
     "f": (async function () {
         await pushAciton("finalize", Swap.admin, currPool);
@@ -133,34 +141,34 @@ const handlers: any = {
     }),
     "i": (async function () {
         await pushAciton("swapamtin", Swap.user1, currPool,
-            ClientUtil.to_asset(250, "WETH"),
-            ClientUtil.to_wei_asset(4, "DAI"),
+            ClientUtil.to_asset(250, token1),
+            ClientUtil.to_asset(4, token2),
             ClientUtil.to_wei(200));
     }),
     "o": (async function () {
         await pushAciton("swapamtout", Swap.user1, currPool,
-            ClientUtil.to_wei_asset(3, "WETH"),
-            ClientUtil.to_wei_asset(1, "DAI"),
+            ClientUtil.to_wei_asset(100, token2),
+            ClientUtil.to_wei_asset(1, token1),
             ClientUtil.to_wei(500));
     }),
     "e": (async function () {
         await client.extransfer();
     }),
     "B": (async function () {
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("WETH"));
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("DAI"));
+        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token1));
+        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token2));
         await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("MKR"));
         await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("XXX"));
 
 
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(50, "WETH"));
+        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(50, token1));
         await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(200, "MKR"));
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(10000, "DAI"));
+        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(10000, token2));
         await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(10, "XXX"));
 
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(25, "WETH"));
+        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(25, token1));
         await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(4, "MKR"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(40000, "DAI"));
+        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(40000, token2));
         await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(10, "XXX"));
 
         await pushAciton("newpool", Swap.admin, currPool);
@@ -168,9 +176,9 @@ const handlers: any = {
         await pushAciton("setpubswap", Swap.admin, currPool, true);
         await pushAciton("setswapfee", Swap.admin, currPool, 1000);
 
-        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(50, "WETH"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(50, token1), ClientUtil.to_wei(5));
         await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(20, "MKR"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(10000, "DAI"), ClientUtil.to_wei(5));
+        await pushAciton("bind", Swap.admin, currPool, ClientUtil.to_wei_asset(10000, token2), ClientUtil.to_wei(5));
 
         await pushAciton("finalize", Swap.admin, currPool);
 
@@ -178,7 +186,7 @@ const handlers: any = {
     }),
     "default": (async function () {
         // console.log(__line); console.log("test option");
-        await prettyJson(ClientUtil.to_wei_asset(200, "DAI"));
+        await prettyJson(ClientUtil.to_wei_asset(200, token2));
     })
 
 };

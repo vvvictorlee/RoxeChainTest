@@ -1,9 +1,9 @@
 import { RefactoringTableJsonMin } from "./RefactoringTableJsonMin"
 
 // const jq = require('node-jq');
-const { chain } = require('../../../eos-rpc');
-// import { chain } from '../../../eos-rpc';
-const c = chain();
+// const { chain } = require('../../../eos-rpc');
+// // import { chain } from '../../../eos-rpc';
+// const c = chain();
 // const prettyJson =  (log: any) => {
 //     let jsonstr =  jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
 //     console.log(jsonstr);

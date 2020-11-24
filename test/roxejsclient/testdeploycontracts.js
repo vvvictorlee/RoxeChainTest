@@ -43,11 +43,6 @@ const transactWithoutConfig = async () => {
 }
 // transactWithoutConfig()
 
-
-
-
-
-
 const wasmFilePath = './hello.wasm'
  const abiFilePath = './hello.abi'
  const fs = require('fs')

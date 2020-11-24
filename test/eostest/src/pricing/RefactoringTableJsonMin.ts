@@ -1,47 +1,57 @@
+// import { isConstructorDeclaration } from "typescript";
 
+export class RefactoringTableJsonMin {
+    refactoring_fields: any[] = [
+        "_LP_FEE_RATE_",
+        "_MT_FEE_RATE_",
+        "_K_",
+        "_R_STATUS_",
+        "_TARGET_BASE_TOKEN_AMOUNT_",
+        "_TARGET_QUOTE_TOKEN_AMOUNT_",
+        "_BASE_BALANCE_",
+        "_QUOTE_BALANCE_"
+    ];
 
-const refactoring_fields: any[] = [
-    "_LP_FEE_RATE_",
-    "_MT_FEE_RATE_",
-    "_K_",
-    "_R_STATUS_",
-    "_TARGET_BASE_TOKEN_AMOUNT_",
-    "_TARGET_QUOTE_TOKEN_AMOUNT_",
-    "_BASE_BALANCE_",
-    "_QUOTE_BALANCE_"
-];
+    async refactoringTableDataJson(dodotablejson: any, oracletablejson: any) {
+        // console.log(dodotablejson,oracletablejson);
+        // let dodotablejson = JSON.parse(dodotablejsonstr);
+        // let oracletablejson = JSON.parse(oracletablejsonstr);
+        let oraclejson = await this.refactoringOracleTableJson(oracletablejson);
 
-function refactoringTableDataJson(dodotablejsonstr: any, oracletablejsonstr: any) {
-    let dodotablejson = JSON.parse(dodotablejsonstr);
-    let oracletablejson = JSON.parse(oracletablejsonstr);
-    let oraclejson = refactoringOracleTableJson(oracletablejson);
-    let dodos = refactoringDodoTableJson(dodotablejson, oraclejson);
-    return JSON.stringify(dodos);
-}
+        let dodos = await this.refactoringDodoTableJson(dodotablejson, oraclejson);
+        return dodos;
+        // return JSON.stringify(dodos);
+    }
 
-function refactoringDodoTableJson(dodotablejson: any, oraclejson: any) {
-    let dodos = dodotablejson.rows[0]["dodos"];
-    let alldodos: { [name: string]: any } = {};
-    for (let dodo of dodos) {
-        alldodos[dodo.key] = {};
-        let basetoken = dodo.value._BASE_TOKEN_.symbol.split(",")[1];
-        alldodos[dodo.key]._ORACLE_PRICE_ = Number(oraclejson[basetoken]);
-        for (let f of refactoring_fields) {
-            alldodos[dodo.key][f] = dodo.value[f];
+    async refactoringDodoTableJson(dodotablejson: any, oraclejson: any) {
+        let dodos = dodotablejson.rows;//[0]["dodos"];
+        let alldodos: any = {};
+        for (let d of dodos) {
+            alldodos[d.dodo] = {};
+            let basetoken = d.dodos._BASE_TOKEN_.symbol.split(",")[1];
+            let quotetoken = d.dodos._QUOTE_TOKEN_.symbol.split(",")[1];
+            alldodos[d.dodo]["_ORACLE_PRICE_"] = Number(oraclejson[basetoken][quotetoken]);
+            for (let f of this.refactoring_fields) {
+                alldodos[d.dodo][f] = d.dodos[f];
+            }
         }
+
+        return alldodos;
     }
 
-    return alldodos;
-}
+    async refactoringOracleTableJson(oracletablejson: any) {
+        let oracles = oracletablejson.rows;//[0]["oracles"];
+        let alloracles: any = {};
+        for (let oracle of oracles) {
+            let b = oracle.basetoken.symbol.split(",");
+            let q = oracle.quotetoken.quantity.split(" ");
+            alloracles[b[1]] = {};
+            alloracles[b[1]][q[1]] = q[0];
+            // Object.assign(alloracles, { [b[1]]: { [q[1]]: q[0] } });
+        }
 
-function refactoringOracleTableJson(oracletablejson: any) {
-    let oracles = oracletablejson.rows[0]["oracles"];
-    let alloracles: { [name: string]: any } = {};
-    for (let oracle of oracles) {
-        let arr = oracle.value.tokenPrice.quantity.split(" ");
-        alloracles[arr[1]] = arr[0];
+        return alloracles;
     }
-    return alloracles;
 }
 
 function testRefactoring() {
@@ -219,15 +229,15 @@ function testRefactoring() {
         "more": false
     };
 
-    let dodotablerowsstr = JSON.stringify(dodotablerows);
-    let oracletablerowsstr = JSON.stringify(oracletablerows);
-    let tablejson = refactoringTableDataJson(dodotablerowsstr, oracletablerowsstr);
+    // let dodotablerowsstr = JSON.stringify(dodotablerows);
+    // let oracletablerowsstr = JSON.stringify(oracletablerows);
+    let tablejson = new RefactoringTableJsonMin().refactoringTableDataJson(dodotablerows, oracletablerows);
     console.log("==tablejson==", tablejson, "=====");
 
 }
 
 
-testRefactoring();
+// testRefactoring();
 
 
 

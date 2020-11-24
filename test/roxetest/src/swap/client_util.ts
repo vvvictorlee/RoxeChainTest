@@ -140,7 +140,7 @@ export class ClientUtil {
     }
 
     static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(value) + sym, contract: "eosdosxtoken" };
+        return { quantity: ClientUtil.todecimal(value) + sym, contract: "eoswapxtoken" };
     }
 
     static to_wei_asset(value: any, sym: any) {
