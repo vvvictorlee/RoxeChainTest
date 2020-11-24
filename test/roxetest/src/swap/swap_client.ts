@@ -108,7 +108,7 @@ const handlers: any = {
         await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token2));
     }),
     "m": (async function () {
-        const users = [Swap.admin, Swap.nonadmin, Swap.user1];
+        const users = [Swap.admin, Swap.nonadmin, Swap.user1,"112acnogsedo"];
         const tokens = [token1, token2];
         for (let u of users) {
             for (let t of tokens) {
@@ -149,6 +149,12 @@ const handlers: any = {
         await pushAciton("swapamtout", Swap.user1, currPool,
             ClientUtil.to_wei_asset(100, token2),
             ClientUtil.to_wei_asset(1, token1),
+            ClientUtil.to_wei(500));
+    }),
+    "oo": (async function () {
+        await pushAciton("swapamtout", Swap.user1, currPool,
+            ClientUtil.to_asset(30000, token1),
+            ClientUtil.to_asset(10000, token2),
             ClientUtil.to_wei(500));
     }),
     "e": (async function () {
