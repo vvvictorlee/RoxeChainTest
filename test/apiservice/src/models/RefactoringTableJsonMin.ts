@@ -13,7 +13,7 @@ export class RefactoringTableJsonMin {
     ];
 
     async refactoringTableDataJson(dodotablejson: any, oracletablejson: any) {
-        // console.log(dodotablejson,oracletablejson);
+        // //console.log(dodotablejson,oracletablejson);
         // let dodotablejson = JSON.parse(dodotablejsonstr);
         // let oracletablejson = JSON.parse(oracletablejsonstr);
         let oraclejson = await this.refactoringOracleTableJson(oracletablejson);
@@ -232,7 +232,7 @@ function testRefactoring() {
     // let dodotablerowsstr = JSON.stringify(dodotablerows);
     // let oracletablerowsstr = JSON.stringify(oracletablerows);
     let tablejson = new RefactoringTableJsonMin().refactoringTableDataJson(dodotablerows, oracletablerows);
-    console.log("==tablejson==", tablejson, "=====");
+    //console.log("==tablejson==", tablejson, "=====");
 
 }
 

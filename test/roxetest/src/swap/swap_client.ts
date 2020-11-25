@@ -18,10 +18,12 @@ const api = new Api({
     textEncoder: new TextEncoder()
 })
 
+const prettier = require("prettier");
 
 const prettyJson = async (log: any) => {
+console.log(prettier.format(JSON.stringify(log),{ semi: false, parser: "json" }));
     // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-    console.log(JSON.stringify(log));
+    // console.log(JSON.stringify(log));
 };
 
 // # http://10.100.1.10:8889/v1/wallet/list_wallets

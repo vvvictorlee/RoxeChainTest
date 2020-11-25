@@ -3,15 +3,23 @@ const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // deve
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
 
-const defaultPrivateKey = "5KS2QMfShmDjHaLAZEPJgehVXAobgo5YfVw1mzPBHaPpGfKbkZL";
+const defaultPrivateKey = "5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey])
 const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
+// const prettier = require("prettier");
 
-const api = new Api({ 
-    rpc, 
-    signatureProvider, 
-    textDecoder: new TextDecoder(), 
-    textEncoder: new TextEncoder() 
+// const prettyJson = async (log) => {
+//     console.log(prettier.format(JSON.stringify(log), { semi: false, parser: "json" }));
+//     // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
+//     // console.log(JSON.stringify(log));
+// };
+const {prettyJson}  = require("./prettyjson");
+
+const api = new Api({
+    rpc,
+    signatureProvider,
+    textDecoder: new TextDecoder(),
+    textEncoder: new TextEncoder()
 })
 
 const transactWithConfig = async () => await api.transact({
@@ -44,6 +52,159 @@ const transactWithoutConfig = async () => {
 // transactWithoutConfig()
 
 
+
+const buyram = async (
+    account_name
+) => {
+    try {
+        const result = await api.transact(
+            {
+                actions: [
+                    {
+                        account: 'roxe',
+                        name: 'buyrambytes',
+                        authorization: [
+                            {
+                                actor: 'roxe1',
+                                permission: 'active',
+                            },
+                        ],
+                        data: {
+                            payer: 'roxe1',
+                            receiver: account_name,
+                            bytes: 81920,
+                        },
+                    }
+                ],
+            },
+            {
+                blocksBehind: 3,
+                expireSeconds: 30,
+            }
+        );
+        // console.log('transaction_id is : ', result.transaction_id);
+        // return trans_id;
+        prettyJson(result);
+    } catch (err) {
+        console.log('error is : ___', err);
+    }
+};
+
+
+
+const createNewAccount = async (
+    account_name,
+    owner_publicKey,
+    active_publicKey
+) => {
+    try {
+        const result = await api.transact(
+            {
+                actions: [
+                    {
+                        account: 'roxe',
+                        name: 'newaccount',
+                        authorization: [
+                            {
+                                actor: 'roxe1',
+                                permission: 'active',
+                            },
+                        ],
+                        data: {
+                            creator: 'roxe1',
+                            name: account_name,
+                            owner: {
+                                threshold: 1,
+                                keys: [
+                                    {
+                                        key: owner_publicKey,
+                                        weight: 1,
+                                    },
+                                ],
+                                accounts: [],
+                                waits: [],
+                            },
+                            active: {
+                                threshold: 1,
+                                keys: [
+                                    {
+                                        key: active_publicKey,
+                                        weight: 1,
+                                    },
+                                ],
+                                accounts: [],
+                                waits: [],
+                            },
+                        },
+                    },
+                    {
+                        account: 'roxe',
+                        name: 'buyrambytes',
+                        authorization: [
+                            {
+                                actor: 'roxe1',
+                                permission: 'active',
+                            },
+                        ],
+                        data: {
+                            payer: 'roxe1',
+                            receiver: account_name,
+                            bytes: 8192000,
+                        },
+                    },
+                    {
+                        account: 'roxe',
+                        name: 'delegatebw',
+                        authorization: [
+                            {
+                                actor: 'roxe1',
+                                permission: 'active',
+                            },
+                        ],
+                        data: {
+                            from: 'roxe1',
+                            receiver: account_name,
+                            stake_net_quantity: '10000.0000 ROC',
+                            stake_cpu_quantity: '10000.0000 ROC',
+                            transfer: false,
+                        },
+                    },
+                ],
+            },
+            {
+                blocksBehind: 3,
+                expireSeconds: 30,
+            }
+        );
+        // console.log('transaction_id is : ', JSONresult);
+        // return trans_id;
+        prettyJson(result);
+    } catch (err) {
+        console.log('error is : ___', err);
+    }
+};
+
+// buyram("roxe1");
+// const pub_key = "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH";
+// createNewAccount("gbp2usd11111", pub_key, pub_key);
+// createNewAccount("hkd2usd11111", pub_key, pub_key);
+
+// prettyJson("result");
+
+//   account: 'roxe',
+//         name: 'newaccount',
+//         authorization: [
+//           {
+//             actor: 'roxe1',
+//             permission: 'active',
+//           },
+//         ],
+//         data: {
+//           creator: 'roxe1',
+//           newact: account_name, // <--- Field key changed from 'name'
+
+
+
 // var eos = Eos({
 //     keyProvider: '5K4KSyfjjQiacYegYvxiXCGmNgoDZPmkXb7zeHRLuYRZdNdvoHg',// private key
 //     // httpEndpoint: 'https://nodes.get-scatter.com:443',
@@ -58,7 +219,7 @@ const transactWithoutConfig = async () => {
 // Var creatoraccount = issmile12345 // main account
 // Var newaccount = issmile11112 // new account
 // Var newaccount_pubkey= "EOS5DVR32n1B9V1igptPMy4nNPVEPfrVDddfHa9fy97a1DdFvH3pP"//Public key of new account
- 
+
 // // Building transaction objects
 // var res2  = await eos.transaction(tr => {
 //     // New Account
@@ -68,14 +229,14 @@ const transactWithoutConfig = async () => {
 //         owner: newaccount_pubkey,
 //         active: newaccount_pubkey
 //     })
-    
+
 //     // Refill RAM for new account
 //     tr.buyrambytes({
 //         payer: creatoraccount,
 //         receiver: newaccount,
 //         bytes: 8192
 //     })
- 
+
 //     // Mortgage CPU and NET resources for new accounts
 //     tr.delegatebw({
 //         from: creatoraccount,
@@ -87,115 +248,4 @@ const transactWithoutConfig = async () => {
 // })
 
 // console.log('test----res2>',res2)
-
-
-
-
-
-const createNewAccount = async (
-  account_name,
-  owner_publicKey,
-  active_publicKey
-) => {
-  try {
-    const result = await api.transact (
-      {
-        actions: [
-          {
-            account: 'eosio',
-            name: 'newaccount',
-            authorization: [
-              {
-                actor: 'nirdxxxxxxxx',
-                permission: 'active',
-              },
-            ],
-            data: {
-              creator: 'nirdxxxxxxxx',
-              name: account_name,
-              owner: {
-                threshold: 1,
-                keys: [
-                  {
-                    key: owner_publicKey,
-                    weight: 1,
-                  },
-                ],
-                accounts: [],
-                waits: [],
-              },
-              active: {
-                threshold: 1,
-                keys: [
-                  {
-                    key: active_publicKey,
-                    weight: 1,
-                  },
-                ],
-                accounts: [],
-                waits: [],
-              },
-            },
-          },
-          {
-            account: 'eosio',
-            name: 'buyrambytes',
-            authorization: [
-              {
-                actor: 'nirdxxxxxxxx',
-                permission: 'active',
-              },
-            ],
-            data: {
-              payer: 'nirdxxxxxxxx',
-              receiver: account_name,
-              bytes: 8192,
-            },
-          },
-          {
-            account: 'eosio',
-            name: 'delegatebw',
-            authorization: [
-              {
-                actor: 'nirdxxxxxxxx',
-                permission: 'active',
-              },
-            ],
-            data: {
-              from: 'nirdxxxxxxxx',
-              receiver: account_name,
-              stake_net_quantity: '1.0000 EOS',
-              stake_cpu_quantity: '1.0000 EOS',
-              transfer: false,
-            },
-          },
-        ],
-      },
-      {
-        blocksBehind: 3,
-        expireSeconds: 30,
-      }
-    );
-    console.log ('transaction_id is : ', result.transaction_id);
-    return trans_id;
-  } catch (err) {
-    console.log ('error is : ___', err);
-  }
-};
-
-
-
-//   account: 'eosio',
-//         name: 'newaccount',
-//         authorization: [
-//           {
-//             actor: 'nirdxxxxxxxx',
-//             permission: 'active',
-//           },
-//         ],
-//         data: {
-//           creator: 'nirdxxxxxxxx',
-//           newact: account_name, // <--- Field key changed from 'name'
-
-
 

@@ -775,7 +775,7 @@ function queryDodo(baseToken: string, quoteToken: string) {
     let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "11111";
     dodo_name = dodo_name.substr(0, 12);
     const testdodo_name: { [name: string]: string } = { "dai2mkr11111": "daimkrdaimkr", "eth2mkr11111": "ethbasemkr11" };
-    // console.log(dodo_name);
+    // //console.log(dodo_name);
     let dodo = galldodos[testdodo_name[dodo_name]];
 
     return dodo;
@@ -785,7 +785,7 @@ function buy(amount: number, baseToken: string, quoteToken: string) {
     let dodo = queryDodo(baseToken, quoteToken);
     t.setParameters(dodo);
     const r: any = t.queryBuyBaseToken(amount);
-    console.log(r);
+    //console.log(r);
     return r;
 }
 
@@ -793,7 +793,7 @@ function sell(amount: number, baseToken: string, quoteToken: string) {
     let dodo = queryDodo(baseToken, quoteToken);
     t.setParameters(dodo);
     const r: any = t.querySellBaseToken(amount);
-    console.log(r);
+    //console.log(r);
     return r;
 }
 
@@ -804,9 +804,9 @@ function test() {
     let baseToken = "DAI";
     let quoteToken = "MKR";
     const b: any = buy(amount, baseToken, quoteToken);
-    console.log("==b==", b, "=====");
+    //console.log("==b==", b, "=====");
     const s: any = sell(amount, baseToken, quoteToken);
-    console.log("==s==", s, "=====");
+    //console.log("==s==", s, "=====");
 }
 
 

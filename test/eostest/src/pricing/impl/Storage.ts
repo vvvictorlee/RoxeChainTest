@@ -119,8 +119,8 @@ export class Storage {
 
     setParameters(para: any) {
 
-        this._BASE_BALANCE_LIMIT_ = para._BASE_BALANCE_LIMIT_;
-        this._QUOTE_BALANCE_LIMIT_ = para._QUOTE_BALANCE_LIMIT_;
+        // this._BASE_BALANCE_LIMIT_ = para._BASE_BALANCE_LIMIT_;
+        // this._QUOTE_BALANCE_LIMIT_ = para._QUOTE_BALANCE_LIMIT_;
 
         // ============ Variables for PMM Algorithm ============
 
@@ -131,7 +131,9 @@ export class Storage {
         this._R_STATUS_ = para._R_STATUS_;
         this._TARGET_BASE_TOKEN_AMOUNT_ = para._TARGET_BASE_TOKEN_AMOUNT_;
         this._TARGET_QUOTE_TOKEN_AMOUNT_ = para._TARGET_QUOTE_TOKEN_AMOUNT_;
+        //console.log(this._BASE_BALANCE_, para._BASE_BALANCE_);
         this._BASE_BALANCE_ = para._BASE_BALANCE_;
+  //console.log(this._BASE_BALANCE_, para._BASE_BALANCE_);
         this._QUOTE_BALANCE_ = para._QUOTE_BALANCE_;
 
         this._ORACLE_PRICE_ = para._ORACLE_PRICE_;

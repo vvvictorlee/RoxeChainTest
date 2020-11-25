@@ -6,7 +6,7 @@
 */
 
 
-
+import "../utils/number.extensions";
 import {SafeMath} from "./SafeMath";
 import {DecimalMath} from "./DecimalMath";
 
@@ -32,10 +32,10 @@ export class DODOMath {
         i:number,
         k:number
     )  {
-        let fairAmount:number = DecimalMath.mul(i, V1.sub(V2)); // i*delta
+        let fairAmount:number = DecimalMath.mul(i, Number(V1).sub(V2)); // i*delta
         let V0V0V1V2:number = DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
         let penalty:number = DecimalMath.mul(k, V0V0V1V2); // k(V0^2/V1/V2)
-        return DecimalMath.mul(fairAmount, DecimalMath.ONE.sub(k).add(penalty));
+        return DecimalMath.mul(fairAmount, Number(DecimalMath.ONE).sub(k).add(penalty));
     }
 
     /*
@@ -62,7 +62,7 @@ export class DODOMath {
         // calculate -b value and sig
         // -b = (1-k)Q1-kQ0^2/Q1+i*deltaB
         let kQ02Q1:number = DecimalMath.mul(k, Q0).mul(Q0).div(Q1); // kQ0^2/Q1
-        let b:number = DecimalMath.mul(DecimalMath.ONE.sub(k), Q1); // (1-k)Q1
+        let b:number = DecimalMath.mul(Number(DecimalMath.ONE).sub(k), Q1); // (1-k)Q1
         let minusbSig:boolean = true;
         if (deltaBSig) {
             b = b.add(ideltaB); // (1-k)Q1+i*deltaB
@@ -70,27 +70,27 @@ export class DODOMath {
             kQ02Q1 = kQ02Q1.add(ideltaB); // i*deltaB+kQ0^2/Q1
         }
         if (b >= kQ02Q1) {
-            b = b.sub(kQ02Q1);
+            b = Number(b).sub(kQ02Q1);
             minusbSig = true;
         } else {
-            b = kQ02Q1.sub(b);
+            b = Number(kQ02Q1).sub(b);
             minusbSig = false;
         }
 
         // calculate sqrt
         let squareRoot:number = DecimalMath.mul(
-            DecimalMath.ONE.sub(k).mul(4),
+            Number(DecimalMath.ONE).sub(k).mul(4),
             DecimalMath.mul(k, Q0).mul(Q0)
         ); // 4(1-k)kQ0^2
         squareRoot = b.mul(b).add(squareRoot).sqrt(); // sqrt(b*b+4(1-k)kQ0*Q0)
 
         // final res
-        let denominator:number = DecimalMath.ONE.sub(k).mul(2); // 2(1-k)
+        let denominator:number = Number(DecimalMath.ONE).sub(k).mul(2); // 2(1-k)
         let numerator:number;
         if (minusbSig) {
             numerator = b.add(squareRoot);
         } else {
-            numerator = squareRoot.sub(b);
+            numerator = Number(squareRoot).sub(b);
         }
 
         if (deltaBSig) {
@@ -114,7 +114,7 @@ export class DODOMath {
         // V0 = V1+V1*(sqrt-1)/2k
         let sqrt:number = DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1);
         sqrt = sqrt.add(DecimalMath.ONE).mul(DecimalMath.ONE).sqrt();
-        let premium:number = DecimalMath.divCeil(sqrt.sub(DecimalMath.ONE), k.mul(2));
+        let premium:number = DecimalMath.divCeil(Number(sqrt).sub(DecimalMath.ONE), k.mul(2));
         // V0 is greater than or equal to V1 according to the solution
         return DecimalMath.mul(V1, DecimalMath.ONE.add(premium));
     }

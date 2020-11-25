@@ -7,6 +7,9 @@ const defaultPrivateKey = "5KS2QMfShmDjHaLAZEPJgehVXAobgo5YfVw1mzPBHaPpGfKbkZL";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey])
 const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
 
+
+const { prettyJson } = require("./prettyjson");
+
 const api = new Api({
     rpc,
     signatureProvider,
@@ -41,23 +44,48 @@ const transactWithoutConfig = async () => {
     // const blockInfo = await rpc.get_block(transactionResponse.processed.block_num - 3);
     // console.log(blockInfo)
 
-    const res = await rpc.get_table_rows({
-    code:'eosdoseosdos',
-    table:'dodos',
-    scope:'eosdoseosdos'
-  });
+    // const res = await rpc.get_table_rows({
+    //     code: 'eosdoseosdos',
+    //     table: 'dodos',
+    //     scope: 'eosdoseosdos'
+    // });
 
-    console.log(JSON.stringify(res));
-{
-  const res = await rpc.get_table_rows({
-    code:'eosdoseosdos',
-    table:'oracles',
-    scope:'eosdoseosdos'
-  });
+    // console.log(JSON.stringify(res));
+    // {
+    //     const res = await rpc.get_table_rows({
+    //         code: 'eosdoseosdos',
+    //         table: 'oracles',
+    //         scope: 'eosdoseosdos'
+    //     });
 
- console.log(JSON.stringify(res));
+    //     console.log(JSON.stringify(res));
+    // }
+
+    //     const users = ["gbp2usd11111","hkd2usd11111"];
+    //     for(let user of users)
+    //     {
+    //         const res = await rpc.get_account( user);
+
+    // // console.log(JSON.stringify(res));
+    //         // prettyJson(res);
+    //     }
+
+    const users = ["gbp2usd11111", "hkd2usd11111"];
+    //     for(let user of users)
+    //     {
+    //     const res = await rpc.get_raw_code_and_abi(user);
+
+    // // console.log(JSON.stringify(res));
+    //         prettyJson(res);
+    //     }
+    for (let user of users) {
+        const res = await rpc.get_abi(user);
+
+        // console.log(JSON.stringify(res));
+        prettyJson(res);
+    }
+
 }
 
-}
 transactWithoutConfig()
 

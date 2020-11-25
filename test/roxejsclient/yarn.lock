@@ -158,6 +158,11 @@ node-fetch@^2.6.1:
   resolved "https://registry.npm.taobao.org/node-fetch/download/node-fetch-2.6.1.tgz?cache=0&sync_timestamp=1599309119313&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnode-fetch%2Fdownload%2Fnode-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha1-BFvTI2Mfdu0uK1VXM5RBa2OaAFI=
 
+prettier@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/prettier/download/prettier-2.2.0.tgz?cache=0&sync_timestamp=1605845844954&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fprettier%2Fdownload%2Fprettier-2.2.0.tgz#8a03c7777883b29b37fb2c4348c66a78e980418b"
+  integrity sha1-igPHd3iDsps3+yxDSMZqeOmAQYs=
+
 randombytes@2.0.5:
   version "2.0.5"
   resolved "https://registry.npm.taobao.org/randombytes/download/randombytes-2.0.5.tgz#dc009a246b8d09a177b4b7a0ae77bc570f4b1b79"
@@ -207,10 +212,10 @@ roxejs-ecc@1.0.0:
     ecurve "1.0.5"
     randombytes "2.0.5"
 
-roxejs@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npm.taobao.org/roxejs/download/roxejs-1.0.3.tgz#61831aacec966e514d7e3e35a3bc3de6719a05f8"
-  integrity sha1-YYMarOyWblFNfj41o7w95nGaBfg=
+roxejs@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npm.taobao.org/roxejs/download/roxejs-1.0.4.tgz#e12f73ef18703c00edd9a161109549a6108baec5"
+  integrity sha1-4S9z7xhwPADt2aFhEJVJphCLrsU=
   dependencies:
     babel-runtime "6.26.0"
     roxejs-ecc "1.0.0"

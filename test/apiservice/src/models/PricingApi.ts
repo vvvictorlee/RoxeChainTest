@@ -9,7 +9,7 @@ const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
 // const c = chain();
 // const prettyJson =  (log: any) => {
 //     let jsonstr =  jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-//     console.log(jsonstr);
+//     //console.log(jsonstr);
 // };
 
 export class PricingApi {
@@ -20,7 +20,7 @@ export class PricingApi {
             table: 'dodos',
             scope: 'eosdoseosdos'
         });
-        console.log(JSON.stringify(res));
+        //console.log(JSON.stringify(res));
         // prettyJson(JSON.stringify(res));
         return res;
     }
@@ -30,7 +30,7 @@ export class PricingApi {
             table: 'oracles',
             scope: 'eosdoseosdos'
         });
-        console.log(JSON.stringify(res));
+        //console.log(JSON.stringify(res));
         // await prettyJson(res);
 
         return res;
@@ -48,9 +48,9 @@ export class PricingApi {
 // (async function () {
 //     const api = new PricingApi();
 //     let b: any = await api.getDodo();
-//     console.log( JSON.stringify(b) );
+//     //console.log( JSON.stringify(b) );
 //     // let s: any = await api.querySellToken(10000, "DAI", "MKR");
-//     // console.log("=s==", s, "===");
+//     // //console.log("=s==", s, "===");
 // })();
 
 

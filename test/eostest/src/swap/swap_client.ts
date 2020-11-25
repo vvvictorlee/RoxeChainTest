@@ -10,7 +10,10 @@ import { SwapAbiJson } from "../lib/abijson";
 const EOS_RPC = require('../lib/eos_rpc')
 const eosrpc = EOS_RPC();
 
+const prettier = require("prettier");
+
 const prettyJson = async (log: any) => {
+console.log(prettier.format(JSON.stringify(log),{ semi: false, parser: "json" }));
     // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
     console.log(JSON.stringify(log));
 };

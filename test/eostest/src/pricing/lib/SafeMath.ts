@@ -1,6 +1,6 @@
 const Decimal = require('decimal.js');
 // const num=111111;
-// console.log(num.thousandsSeperator() )
+// //console.log(num.thousandsSeperator() )
 
 
 

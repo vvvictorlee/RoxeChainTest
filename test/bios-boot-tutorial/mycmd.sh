@@ -247,3 +247,6 @@ curl -X POST --url http://47.91.226.192:7878/v1/chain/get_account -d '{
 # eos.setcode("your_account_name", 0, 0, wasm);
 
 
+
+
+# zip wasms eosdos/eosdos* eoswap/eoswap* roxe.token/roxe.token*

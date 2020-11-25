@@ -11,8 +11,10 @@
   "author": "Guillaume Babin-Tremblay",
   "license": "ISC",
   "dependencies": {
+    "delpi-oracle-utils": "/Users/lisheng/mygit/vvvictorlee/RoxeChainTest/test/roxetest",
     "dotenv": "^6.0.0",
     "fs": "^0.0.1-security",
+    "prettier": "^2.2.0",
     "roxejs": "^1.0.3"
   },
   "devDependencies": {
