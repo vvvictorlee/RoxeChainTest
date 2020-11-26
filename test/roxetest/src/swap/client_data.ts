@@ -13,7 +13,7 @@ export class Swap {
     static owner = process.env.ADMIN;
     static swapContract = process.env.CONTRACT;
 
-  static bp = "roxe1";
+    static bp = "roxe1";
     static nonadmin = "alice1111111";
     static user1 = "bob111111111";
     static admin = "eoswapeoswap";
@@ -32,7 +32,8 @@ export class Swap {
         "alice1111111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
         "bob111111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX",
         "carol1111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX",
-        "112acnogsedo": "ROXE7Bm8LAeVXTD1XMvRmj3gG4o89uySacRRvuSEQJxHBkKiiU1pZY"
+        "112acnogsedo": "ROXE7Bm8LAeVXTD1XMvRmj3gG4o89uySacRRvuSEQJxHBkKiiU1pZY",
+        "1114wmpblocm": "ROXE7DUJAgEwxbmY2ReM8rQVTjgw83AxaRrBvoc4fauxTSenMmaQhg"
     };
 
     static keys = [process.env.EOS_KEY,
@@ -40,6 +41,8 @@ export class Swap {
         "5JxT1aA8MiZZe7XjN3SYaQ65NSbZXrBcjePaSwRifK7jJLdjSf3",
         "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8",
         "5HwYSQMW2Xy37Q9nhdKz7T32eLxwbDq29rMzGXrRQJwveh9B7sG",
-        "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN", "5KQkb4xcjWfNvvotM6JspVpupddbPCj62SvTTUTKeLhHmfuH3Zp"];
+        "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN",
+        "5KQkb4xcjWfNvvotM6JspVpupddbPCj62SvTTUTKeLhHmfuH3Zp",
+        "5JyL5XytgZSdDK3DR2snUX5wVEGD7Jg7mXcVNq7tNgQL5T4DxC9"];
 
 }

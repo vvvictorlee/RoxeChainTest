@@ -1,12 +1,14 @@
 import { SwapAbiJson } from "../lib/abijson";
+import { buyram, createNewAccount, deployContract } from "../lib/api_utils";
+import { ClientUtil } from "./client_util";
+import { Swap } from "./client_data";
+import { prettyJson } from "../lib/prettyjson";
+
 // const jq = require('node-jq');
-const { Api, JsonRpc, RpcError } = require('roxejs')
+const { Api, JsonRpc, Serialize, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
-const defaultPrivateKey = "5KS2QMfShmDjHaLAZEPJgehVXAobgo5YfVw1mzPBHaPpGfKbkZL";
-import { ClientUtil } from "./client_util";
-import { Swap } from "./client_data";
 
 const signatureProvider = new JsSignatureProvider(Swap.keys)
 const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
@@ -18,14 +20,6 @@ const api = new Api({
     textEncoder: new TextEncoder()
 })
 
-const prettier = require("prettier");
-
-const prettyJson = async (log: any) => {
-console.log(prettier.format(JSON.stringify(log),{ semi: false, parser: "json" }));
-    // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-    // console.log(JSON.stringify(log));
-};
-
 // # http://10.100.1.10:8889/v1/wallet/list_wallets
 
 
@@ -35,7 +29,7 @@ const transactWithConfig = async (actionjson: any) => {
         blocksBehind: 3,
         expireSeconds: 30,
     });
-    const blockInfo = await rpc.get_block(results.processed.block_num - 3);
+    // const blockInfo = await rpc.get_block(results.processed.block_num - 3);
     // console.log(blockInfo);
     return results;
 };
@@ -55,7 +49,6 @@ const pushAciton = async (action: any, ...restOfPara: any[]) => {
     return results;
 }
 
-
 class SwapClient {
     poolName: string;
     constructor(pool_name: string) {
@@ -74,10 +67,15 @@ class SwapClient {
     }
 
     async extransfer() {
-        const results = await pushAciton("extransfer",
-            "112acnogsedo",
+        let results: any = await pushAciton("extransfer",
             Swap.admin,
-            ClientUtil.to_asset(1, "BTC"),
+            "1114wmpblocm",
+            ClientUtil.to_wei_asset(2000, "BTC"),
+            "");
+        results = await pushAciton("extransfer",
+            Swap.admin,
+            "1114wmpblocm",
+            ClientUtil.to_wei_asset(2000, "USDT"),
             "");
     }
 
@@ -93,14 +91,24 @@ process.argv.forEach(function (val, index, array) {
     // console.log(__line); 
     console.log(index + ': ' + val);
 });
-
+const tokenuser = "";
+const newuser = "";
+const filePath = '../wasms/roxe.token/roxe.token'
 const currPool = "btc2usdt";
 const token1 = "BTC";
 const token2 = "USDT";
+const utils = { api: api, Serialize: Serialize };
 const client = new SwapClient(currPool);
 const handlers: any = {
     "t": (async function () {
         await client.extransfer();
+    }),
+    "newacc": (async function () {
+        const pub_key = Swap.acc2pub_keys[newuser];
+        createNewAccount(newuser, pub_key, pub_key, api);
+    }),
+    "deploy": (async function () {
+        deployContract(tokenuser, filePath, utils);
     }),
     "a": (async function () {
         client.allowSwapContracts();
@@ -109,12 +117,12 @@ const handlers: any = {
         await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token1));
         await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token2));
     }),
-    "m": (async function () {
-        const users = [Swap.admin, Swap.nonadmin, Swap.user1,"112acnogsedo"];
+    "m": (async function () {///Swap.admin, Swap.nonadmin, Swap.user1, "112acnogsedo",
+        const users = ["1114wmpblocm"];
         const tokens = [token1, token2];
         for (let u of users) {
             for (let t of tokens) {
-                await pushAciton("mint", u, ClientUtil.to_wei_asset(1000, t));
+                await pushAciton("mint", u, ClientUtil.to_wei_asset(2000, t));
             }
         }
     }),

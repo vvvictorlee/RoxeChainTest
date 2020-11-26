@@ -4,6 +4,13 @@
   "description": "",
   "main": "updater.js",
   "scripts": {
+    "dodo:newpair:newaccount": "ts-node src/dodo/dodo_client.ts newacc",
+    "dodo:newpair:deploytoken": "ts-node src/dodo/dodo_client.ts depoly",
+    "dodo:newpair:minttoken": "ts-node src/dodo/dodo_client.ts m",
+    "dodo:newpair:newdodo": "ts-node src/dodo/dodo_client.ts newdo",
+    "dodo:newpair:setprice": "ts-node src/dodo/dodo_client.ts sp",
+    "dodo:newpair:setparameter": "ts-node src/dodo/dodo_client.ts spa",
+    "dodo:newpair:setprice": "ts-node src/dodo/dodo_client.ts sp",
     "start": "ts-node src/picture.ts",
     "dev": "nodemon",
     "test": "node --max_old_space_size=8192 bosoracle_updater.js"

@@ -1,4 +1,4 @@
-const { Api, JsonRpc, RpcError } = require('roxejs')
+const { Api, JsonRpc, Serialize, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
@@ -44,33 +44,32 @@ const transactWithoutConfig = async () => {
     // const blockInfo = await rpc.get_block(transactionResponse.processed.block_num - 3);
     // console.log(blockInfo)
 
-    // const res = await rpc.get_table_rows({
-    //     code: 'eosdoseosdos',
-    //     table: 'dodos',
-    //     scope: 'eosdoseosdos'
-    // });
+//     const res = await rpc.get_table_rows({
+//         code: 'eosdoseosdos',
+//         table: 'dodos',
+//         scope: 'eosdoseosdos'
+//     });
+//    prettyJson(res);
 
-    // console.log(JSON.stringify(res));
-    // {
-    //     const res = await rpc.get_table_rows({
-    //         code: 'eosdoseosdos',
-    //         table: 'oracles',
-    //         scope: 'eosdoseosdos'
-    //     });
 
-    //     console.log(JSON.stringify(res));
-    // }
+//     {
+//         const res = await rpc.get_table_rows({
+//             code: 'eosdoseosdos',
+//             table: 'oracles',
+//             scope: 'eosdoseosdos'
+//         });
+// prettyJson(res);
+//     }
 
     //     const users = ["gbp2usd11111","hkd2usd11111"];
     //     for(let user of users)
     //     {
     //         const res = await rpc.get_account( user);
 
-    // // console.log(JSON.stringify(res));
     //         // prettyJson(res);
     //     }
 
-    const users = ["gbp2usd11111", "hkd2usd11111"];
+    const users = ["alice1111111", "usd2gbp22222"];
     //     for(let user of users)
     //     {
     //     const res = await rpc.get_raw_code_and_abi(user);
@@ -78,12 +77,41 @@ const transactWithoutConfig = async () => {
     // // console.log(JSON.stringify(res));
     //         prettyJson(res);
     //     }
-    for (let user of users) {
-        const res = await rpc.get_abi(user);
+    // for (let user of users) {
+    //     const res = await rpc.get_abi(user);
 
-        // console.log(JSON.stringify(res));
+    //     // console.log(JSON.stringify(res));
+    //     prettyJson(res);
+    // }
+
+   for (let user of users) {
+       const res = await rpc.get_table_by_scope({
+        code: 'usd2gbp22222',
+        table: 'stat'
+    });
+        console.log(user,"=====");
         prettyJson(res);
     }
+
+//    for (let user of users) {
+//        const res = await rpc.get_table_rows({
+//         code: 'usd2gbp11111',
+//         table: 'stat',
+//         scope: ".....l2nepbp2"
+//     });
+//         console.log(user,"=====");
+//         prettyJson(res);
+//     }
+
+
+// {
+//     const res = await rpc.get_table_rows({
+//         code: 'eoswapeoswap',
+//         table: 'tokenstore',
+//         scope: 'eoswapeoswap'
+//     });
+//     prettyJson(res);
+// }
 
 }
 

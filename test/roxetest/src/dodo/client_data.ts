@@ -56,3 +56,78 @@ export class Dos {
         "5HwYSQMW2Xy37Q9nhdKz7T32eLxwbDq29rMzGXrRQJwveh9B7sG",
         "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN"];
 }
+
+
+export class U2G_PAIR_DATA {
+    static PAIR = { base: "USD", quote: "GBP" };
+    static DODO_NAME="usd2gbp22222";
+    static pairpara = {
+        currentDodo: U2G_PAIR_DATA.DODO_NAME,
+        currentbasestr: U2G_PAIR_DATA.PAIR.base,
+        currentquotestr: U2G_PAIR_DATA.PAIR.quote,
+        currentLp: Dos.lp,
+        currentTrader: Dos.trader,
+        newaccdata: {
+            newuser: U2G_PAIR_DATA.DODO_NAME,
+            pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
+        },
+        mintdata: {
+            users: [Dos.lp, Dos.trader],
+            tokens: [[1000000, U2G_PAIR_DATA.PAIR.base], [750000, U2G_PAIR_DATA.PAIR.quote]]
+        },
+        depositdata:
+        {
+            baseamount: 1000000,
+            quoteamount: 750000
+        },
+        lpFeeRate: 1,
+        mtFeeRate: 0,
+        k: 1,
+        oracleprice: 7500,
+        buydata: {
+            amount: 1,
+            maxPay: 10
+        },
+        selldata: {
+            amount: 1,
+            minReceive: 1
+        }
+    }
+}
+
+export class U2H_PAIR_DATA {
+    static PAIR = { base: "USD", quote: "HKD" };
+    static DODO_NAME="usd2hkd22222";
+    static pairpara = {
+        currentDodo: U2H_PAIR_DATA.DODO_NAME,
+        currentbasestr: U2H_PAIR_DATA.PAIR.base,
+        currentquotestr: U2H_PAIR_DATA.PAIR.quote,
+        currentLp: Dos.lp,
+        currentTrader: Dos.trader,
+        newaccdata: {
+            newuser: U2H_PAIR_DATA.DODO_NAME,
+            pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
+        },
+        mintdata: {
+            users: [Dos.lp, Dos.trader],
+            tokens: [[1000000, U2H_PAIR_DATA.PAIR.base], [750000, U2H_PAIR_DATA.PAIR.quote]]
+        },
+        depositdata:
+        {
+            baseamount: 1000000,
+            quoteamount: 750000
+        },
+        lpFeeRate: 1,
+        mtFeeRate: 0,
+        k: 1,
+        oracleprice: 7500,
+        buydata: {
+            amount: 1,
+            maxPay: 10
+        },
+        selldata: {
+            amount: 1,
+            minReceive: 1
+        }
+    }
+}

@@ -1,11 +1,15 @@
 import { DosAbiJson } from "../lib/abijson";
+import { buyram, createNewAccount, deployContract } from "../lib/api_utils";
+import { ClientUtil } from "./client_util";
+import { Dos, U2G_PAIR_DATA, U2H_PAIR_DATA } from "./client_data";
+import { prettyJson } from "../lib/prettyjson";
+const { deployContractjs } = require('../lib/deployContract_api_utils')
+
 // const jq = require('node-jq');
-const { Api, JsonRpc, RpcError } = require('roxejs')
+const { Api, JsonRpc, Serialize, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
-import { ClientUtil } from "./client_util";
-import { Dos } from "./client_data";
 
 const signatureProvider = new JsSignatureProvider(Dos.keys)
 const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
@@ -17,17 +21,28 @@ const api = new Api({
     textEncoder: new TextEncoder()
 })
 
-const prettier = require("prettier");
-
-const prettyJson = async (log: any) => {
-console.log(prettier.format(JSON.stringify(log),{ semi: false, parser: "json" }));
-    // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-    console.log(JSON.stringify(log));
-};
 
 
 // # http://10.100.1.10:8889/v1/wallet/list_wallets
 
+
+const createtoken = async () => await api.transact({
+    actions: [{
+        account: 'usd2gbp22222',
+        name: 'create',
+        authorization: [{
+            actor: 'usd2gbp22222',
+            permission: 'active',
+        }],
+        data: {
+            issuer: 'usd2gbp22222',
+            maximum_supply: '10000000000.0000 GBP'
+        },
+    }]
+}, {
+    blocksBehind: 3,
+    expireSeconds: 30,
+});
 
 const transactWithConfig = async (actionjson: any) => await api.transact(actionjson, {
     blocksBehind: 3,
@@ -49,31 +64,122 @@ const pushAciton = async (action: any, ...restOfPara: any[]) => {
     return results;
 }
 
+const utils = { api: api, Serialize: Serialize };
+const filePath = '/Users/lisheng/mygit/vvvictorlee/RoxeChainTest/test/roxetest/src/wasms/roxe.token/roxe.token';
+
 class DosClient {
-    poolName: string;
-    constructor(pool_name: string) {
-        this.poolName = pool_name;
+    para: { [name: string]: any } = {}
+    constructor(para: any) {
+        this.para = para;
     }
+
     async allowDosContract(user: any, pubk: any) {
         const json = ClientUtil.allowContract(user, pubk, Dos.dosContract);
         console.log(JSON.stringify(json));
         const results = await transactWithConfig(json);
         await prettyJson(results);
     }
-
     async allowDosContracts() {
+        const newuser = this.para.newaccdata.newuser;
+        const pub_key = this.para.newaccdata.pub_key;
+        this.allowDosContract(newuser, pub_key);
         const accounts = Object.keys(Dos.acc2pub_keys);
         for (let acc of accounts) {
             this.allowDosContract(acc, Dos.acc2pub_keys[acc]);
         }
     }
+    async newacc() {
+        const newuser = this.para.newaccdata.newuser;
+        const pub_key = this.para.newaccdata.pub_key;
+        // const pub_key = Dos.acc2pub_keys[this.para.newuser];
+        createNewAccount(newuser, pub_key, pub_key, api);
 
+    }
+    async deploy() {
+        deployContractjs(this.para.currentDodo, filePath, utils);
+    }
+    async newtoken() {
+        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentbasestr));
+        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentquotestr));
+    }
+    async mint() {
+        const users = this.para.mintdata.users;
+        const tokens = this.para.mintdata.tokens;
+        for (let u of users) {
+            for (let t of tokens) {
+                await pushAciton("mint", u, ClientUtil.to_wei_asset(t[0], t[1]));
+            }
+        }
+    }
+    async initproxy() {
+        await pushAciton("init", Dos.admin, Dos.maintainer, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.get_core_symbol());
+    }
+    async newdodo() {
+        const basestr = this.para.currentbasestr;
+        const quotestr = this.para.currentquotestr;
+        const msg_sender = Dos.admin;
+        const dodo_name = this.para.currentDodo;
+        const maintainer = Dos.doowner;
+        const baseToken = ClientUtil.to_sym(basestr);
+        const quoteToken = ClientUtil.to_sym(quotestr);
+        const oracle = ClientUtil.to_sym(basestr);
+        const lpFeeRate = this.para.lpFeeRate;
+        const mtFeeRate = this.para.mtFeeRate;
+        const k = this.para.k;
+        const gasPriceLimit = 0; // gweiStr("100")
+        await pushAciton("breeddodo",
+            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
+    }
+    async enable() {
+        const dodo_name = this.para.currentDodo;
+        await pushAciton("enabletradin", Dos.admin, dodo_name);
+        await pushAciton("enablequodep", Dos.admin, dodo_name);
+        await pushAciton("enablebasdep", Dos.admin, dodo_name);
+    }
+    async setprice() {
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
+    }
+    async setparameter() {
+        await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "k", this.para.k);
+        await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "lpfeerate", this.para.lpFeeRate);
+        await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "mtfeerate", this.para.mtFeeRate);
+    }
+    async depositbasequote() {
+        const dodo_name = this.para.currentDodo;
+        const baseamount = this.para.depositdata.baseamount;
+        const quoteamount = this.para.depositdata.quoteamount;
+        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+    }
+    async buybt() {
+        await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.buydata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+    }
+    async sellbt() {
+        await pushAciton("sellbastoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.selldata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.selldata.minReceive, this.para.currentquotestr));
+    }
     async extransfer() {
-        const results = await pushAciton("extransfer",
-            Dos.bp,
-            Dos.lp,
-            ClientUtil.to_core_asset(10000, "ROC"),
-            "");
+        const users = [Dos.admin,Dos.lp,"usd2gbp22222"];
+        const tokens = ["USD", "GBP", "HKD"];
+        for (let u of users) {
+            for (let t of tokens) {
+                await pushAciton("mint", u, ClientUtil.to_wei_asset(20000, t));
+            }
+        }
+
+        {
+            const users = ["114listvtuib"];
+            const tokens = ["ROUSD", "ROGBP", "ROHKD"];
+            for (let u of users) {
+                for (let t of tokens) {
+                    let results: any = await pushAciton("extransfer",
+                        Dos.admin,
+                        u,
+                        ClientUtil.to_wei_asset(20000, t),
+                        "");
+                }
+            }
+        }
+
     }
 
 }
@@ -89,245 +195,65 @@ process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
 
-const client = new DosClient(Dos.dodo_stablecoin_name);
+let client = new DosClient(U2G_PAIR_DATA.pairpara);
+// client = new DosClient(U2H_PAIR_DATA.pairpara);
 
-
-let handlers: any = {
-    "t": (async function () {
-        await client.extransfer();
-    }),
-    "ip": (async function () {
-        await pushAciton("init", Dos.admin, Dos.maintainer, ClientUtil.to_sym("WETH"), ClientUtil.get_core_symbol());
-    }),
-    "n": (async function () {
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("WETH"));
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("DAI"));
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("MKR"));
-
-    }),
-    "m": (async function () {
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(1000, "MKR"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(1000, "MKR"));
-    }),
-    "ms": (async function () {
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(10000, "WETH"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(10000, "WETH"));
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(10000, "DAI"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(10000, "DAI"));
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(10000, "MKR"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(10000, "MKR"));
-    }),
-    "o": (async function () {
-        await pushAciton("neworacle", Dos.oracleadmin, ClientUtil.to_sym("WETH"));
-        await pushAciton("neworacle", Dos.oracleadmin, ClientUtil.to_sym("DAI"));
-        await pushAciton("neworacle", Dos.oracleadmin, ClientUtil.to_sym("MKR"));
-    }),
-    "sp": (async function () {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("WETH"), ClientUtil.to_wei_asset(1, "DAI"));
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("MKR"), ClientUtil.to_wei_asset(1, "DAI"));
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("DAI"), ClientUtil.to_wei_asset(1, "MKR"));
-    }),
-    "spa": (async function () {
-        await pushAciton("setparameter", Dos.admin, Dos.dodo_stablecoin_name, "k", 100);
-        await pushAciton("setparameter", Dos.admin, Dos.dodo_stablecoin_name, "lpfeerate", 2);
-        await pushAciton("setparameter", Dos.admin, Dos.dodo_stablecoin_name, "mtfeerate", 3);
-    }),
-    "b": (async function () {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_wei_asset(100, "WETH"));
-        const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_ethbase_name;
-        const maintainer = Dos.doowner;
-        const baseToken = ClientUtil.to_sym("WETH");
-        const quoteToken = ClientUtil.to_sym("MKR");
-        const oracle = ClientUtil.to_sym("WETH");
-        const lpFeeRate = 2;
-        const mtFeeRate = 1;
-        const k = 1;
-        const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
-            msg_sender, dodo_name, Dos.maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        await pushAciton("depositquote", Dos.lp, Dos.dodo_ethbase_name, ClientUtil.to_wei_asset(1000, "MKR"));
-        await pushAciton("depositethab", Dos.lp, ClientUtil.to_wei_asset(10, "WETH"), ClientUtil.to_sym("MKR"));
-
-    }),
-    "q": (async function () {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_asset(100, "MKR"));
-
-        const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_ethquote_name;
-        const maintainer = Dos.doowner;
-        const baseToken = ClientUtil.to_sym("WETH");
-        const quoteToken = ClientUtil.to_sym("MKR");
-        const oracle = ClientUtil.to_sym("MKR");
-        const lpFeeRate = 2;
-        const mtFeeRate = 1;
-        const k = 1;
-        const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
-            msg_sender, dodo_name, maintainer, quoteToken, baseToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        await pushAciton("depositbase", Dos.lp, Dos.dodo_ethquote_name, ClientUtil.to_wei_asset(1000, "MKR"));
-        await pushAciton("depositethaq", Dos.lp, ClientUtil.to_wei_asset(10, "WETH"), ClientUtil.to_sym("MKR"));
-    }),
-    "s": (async function () {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("DAI"), ClientUtil.to_wei_asset(1, "MKR"));
-        const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_stablecoin_name;
-        const maintainer = Dos.doowner;
-        const baseToken = ClientUtil.to_sym("DAI");
-        const quoteToken = ClientUtil.to_sym("MKR");
-        const oracle = ClientUtil.to_sym("DAI");
-        const lpFeeRate = 1;
-        const mtFeeRate = 0;
-        const k = 1;
-        const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
-            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "MKR"));
-    }),
-    "ss": (async function () {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("WETH"), ClientUtil.to_wei_asset(1, "DAI"));
-        const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_stablecoin_name;
-        const maintainer = Dos.doowner;
-        const baseToken = ClientUtil.to_sym("WETH");
-        const quoteToken = ClientUtil.to_sym("DAI");
-        const oracle = ClientUtil.to_sym("WETH");
-        const lpFeeRate = 1;
-        const mtFeeRate = 0;
-        const k = 1;
-        const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
-            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "WETH"));
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
-    }),
-    // # roUSD - roGBP 的池子： 100万美金  75万英镑
-    // # roUSD - roHKD的池子： 100万美金  775万港币
-    "nn": (async function () {
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("ROUSD"));
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("ROGBP"));
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply("ROHKD"));
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(2000000, "ROUSD"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(2000000, "ROUSD"));
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(750000, "ROGBP"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(750000, "ROGBP"));
-        await pushAciton("mint", Dos.lp, ClientUtil.to_wei_asset(7750000, "ROHKD"));
-        await pushAciton("mint", Dos.trader, ClientUtil.to_wei_asset(7750000, "ROHKD"));
-    }),
-    "spu2h": (async function () {
-        const basestr = "ROUSD";
-        const quotestr = "ROHKD";
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(75000, quotestr)); 
-    }),
-    "spu2g": (async function () {
-        const basestr = "ROUSD";
-        const quotestr = "ROGBP";
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(7500, quotestr));
-    }),
-    "u2g": (async function () {
-        const basestr = "ROUSD";
-        const quotestr = "ROGBP";
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(7500, quotestr));
-        const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_u2g_name;
-        const maintainer = Dos.doowner;
-        const baseToken = ClientUtil.to_sym(basestr);
-        const quoteToken = ClientUtil.to_sym(quotestr);
-        const oracle = ClientUtil.to_sym(basestr);
-        const lpFeeRate = 1;
-        const mtFeeRate = 0;
-        const k = 1;
-        const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
-            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(1000000, basestr));
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(750000, quotestr));
-    }),
-    "u2h": (async function () {
-        const basestr = "ROUSD";
-        const quotestr = "ROHKD";
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(basestr), ClientUtil.to_asset(75000, quotestr));
-        const msg_sender = Dos.admin;
-        const dodo_name = Dos.dodo_u2h_name;
-        const maintainer = Dos.doowner;
-        const baseToken = ClientUtil.to_sym(basestr);
-        const quoteToken = ClientUtil.to_sym(quotestr);
-        const oracle = ClientUtil.to_sym(basestr);
-        const lpFeeRate = 1;
-        const mtFeeRate = 0;
-        const k = 1;
-        const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
-            msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(1000000, basestr));
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(7750000, quotestr));
-    }),
-    "scw": (async function () {
-        const dodo_name = Dos.dodo_stablecoin_name;
-        await pushAciton("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
-        await pushAciton("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "MKR"));
-    }),
-    "scwa": (async function () {
-        const dodo_name = Dos.dodo_stablecoin_name;
-        await pushAciton("withdrawallb", Dos.lp, dodo_name);
-        await pushAciton("withdrawallq", Dos.lp, dodo_name);
-    }),
-    "buy": (async function () {
-        await pushAciton("buyethtoken", Dos.trader, ClientUtil.to_wei_asset(1, "WETH"), ClientUtil.to_wei_asset(200, "MKR"));
-        await pushAciton("sellethtoken", Dos.trader, ClientUtil.to_wei_asset(1, "WETH"), ClientUtil.to_wei_asset(50, "MKR"));
-        await pushAciton("withdraweab", Dos.lp, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_sym("MKR"));
-        await pushAciton("withdrawaeab", Dos.lp, ClientUtil.to_sym("MKR"));
-        await pushAciton("buytokeneth", Dos.trader, ClientUtil.to_wei_asset(200, "MKR"), ClientUtil.to_asset(21000, "WETH"));
-        await pushAciton("selltokeneth", Dos.trader, ClientUtil.to_wei_asset(50, "MKR"), ClientUtil.to_asset(4500, "WETH"));
-        await pushAciton("withdraweaq", Dos.lp, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_sym("MKR"));
-        await pushAciton("withdrawaeaq", Dos.lp, ClientUtil.to_sym("MKR"));
-        await pushAciton("buybasetoken", Dos.trader, ClientUtil.to_wei_asset(1000, "DAI"), ClientUtil.to_wei_asset(1001, "MKR"));
-        await pushAciton("sellbastoken", Dos.trader, ClientUtil.to_wei_asset(8990, "DAI"), ClientUtil.to_wei_asset(10000, "MKR"));
-    }),
+const handlers: any = {
     "a": (async function () {
         await client.allowDosContracts();
     }),
-    "scd": (async function () {
-        const dodo_name = Dos.dodo_stablecoin_name;
-        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "WETH"));
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(10000, "DAI"));
+    "t": (async function () {
+        await client.extransfer();
     }),
-    "bbt": (async function () {
-        await pushAciton("buybasetoken", Dos.trader, Dos.dodo_stablecoin_name, ClientUtil.to_wei_asset(1, "WETH"), ClientUtil.to_wei_asset(1001, "DAI"));
+    "newacc": (async function () {
+        await client.newacc();
     }),
-    "sbt": (async function () {
-        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_stablecoin_name, ClientUtil.to_wei_asset(8, "WETH"), ClientUtil.to_wei_asset(9, "DAI"));
+    "deploy": (async function () {
+        await client.deploy();
     }),
-    "bu2g": (async function () {
-        await pushAciton("buybasetoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(1, "ROUSD"), ClientUtil.to_wei_asset(1001, "ROGBP"));
+    "newtoken": (async function () {
+        await client.newtoken();
     }),
-    "su2g": (async function () {
-        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_u2g_name, ClientUtil.to_wei_asset(8, "ROUSD"), ClientUtil.to_wei_asset(1, "ROGBP"));
+    "mint": (async function () {
+        await client.mint();
     }),
-    "bu2h": (async function () {
-        await pushAciton("buybasetoken", Dos.trader, Dos.dodo_u2h_name, ClientUtil.to_wei_asset(1, "ROUSD"), ClientUtil.to_wei_asset(1001, "ROHKD"));
+    "newdodo": (async function () {
+        await client.newdodo();
     }),
-    "su2h": (async function () {
-        await pushAciton("sellbastoken", Dos.trader, Dos.dodo_u2h_name, ClientUtil.to_wei_asset(8, "ROUSD"), ClientUtil.to_wei_asset(1, "ROHKD"));
+    "enable": (async function () {
+        await client.enable();
+    }),
+    "setprice": (async function () {
+        await client.setprice();
+    }),
+    "setparameter": (async function () {
+        await client.setparameter();
+    }),
+    "depositbasequote": (async function () {
+        await client.depositbasequote();
+    }),
+    "buybt": (async function () {
+        await client.buybt();
+    }),
+    "sellbt": (async function () {
+        await client.sellbt();
+    }),
+    "initproxy": (async function () {
+        await client.initproxy();
+    }),
+    "buy": (async function () {
+        const currentbasestr = "";
+        const currentquotestr = "";
+        await pushAciton("buyethtoken", Dos.trader, ClientUtil.to_wei_asset(1, currentbasestr), ClientUtil.to_wei_asset(200, "MKR"));
+        await pushAciton("sellethtoken", Dos.trader, ClientUtil.to_wei_asset(1, currentbasestr), ClientUtil.to_wei_asset(50, "MKR"));
+        await pushAciton("withdraweab", Dos.lp, ClientUtil.to_wei_asset(5, currentbasestr), ClientUtil.to_sym("MKR"));
+        await pushAciton("withdrawaeab", Dos.lp, ClientUtil.to_sym("MKR"));
+        await pushAciton("buytokeneth", Dos.trader, ClientUtil.to_wei_asset(200, "MKR"), ClientUtil.to_asset(21000, currentbasestr));
+        await pushAciton("selltokeneth", Dos.trader, ClientUtil.to_wei_asset(50, "MKR"), ClientUtil.to_asset(4500, currentbasestr));
+        await pushAciton("withdraweaq", Dos.lp, ClientUtil.to_wei_asset(5, currentbasestr), ClientUtil.to_sym("MKR"));
+        await pushAciton("withdrawaeaq", Dos.lp, ClientUtil.to_sym("MKR"));
+        await pushAciton("buybasetoken", Dos.trader, ClientUtil.to_wei_asset(1000, currentquotestr), ClientUtil.to_wei_asset(1001, "MKR"));
+        await pushAciton("sellbastoken", Dos.trader, ClientUtil.to_wei_asset(8990, currentquotestr), ClientUtil.to_wei_asset(10000, "MKR"));
     }),
     "default": (async function () {
         console.log(ClientUtil.todecimal((1000)), "test option", ClientUtil.todecimal(1000));
@@ -335,5 +261,34 @@ let handlers: any = {
 
 };
 
-const f = handlers[argumentss[0]] || handlers["default"];
+// "newacc", "deploy",
+// const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
+
+// "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
+const actions = ["sellbt"];//, "depositbasequote", "buybt", "sellbt"
+
+
+const batchhandlers: any = {
+    "u2g": (async function () {
+        client = new DosClient(U2G_PAIR_DATA.pairpara);
+        for (let ac of actions) {
+            await handlers[ac]();
+        }
+    }),
+    "u2h": (async function () {
+        client = new DosClient(U2H_PAIR_DATA.pairpara);
+        for (let ac of actions) {
+            await handlers[ac]();
+        }
+    }),
+    "default": (async function () {
+        const f = handlers[argumentss[0]] || handlers["default"];
+        f();
+    })
+};
+
+const f = batchhandlers[argumentss[0]] || batchhandlers["default"];
 f();
+
+
+// createtoken();
