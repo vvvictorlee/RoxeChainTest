@@ -34,7 +34,7 @@ export class TraderPricingApi {
     }
 
     async queryDodo(baseToken: any, quoteToken: any) {
-        let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "11111";
+        let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "22222";
         dodo_name = dodo_name.substr(0, 12);
         const testdodo_name: any = { "rousd2rogbp1": "usd2gbp11111", "rousd2rohkd1": "usd2hkd11111", "weth2dai1111": "dai2mkr11111", "eth2mkr11111": "ethbasemkr11" };
         const mapname = testdodo_name[dodo_name];
@@ -81,15 +81,17 @@ export class TraderPricingApi {
 }
 
 (async function () {
+    const basetoken = "USD";
+    const quotetoken = "GBP";
     const papi = new PricingApi();
     let bb: any = await papi.getDodo();
     //console.log(JSON.stringify(bb));
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
-    let b: any = await api.queryBuyToken(10000, "ROUSD", "ROGBP");
-    //console.log("==b==", b, "=====");
-    let s: any = await api.querySellToken(10000, "ROUSD", "ROGBP");
-    //console.log("=s==", s, "===");
+    let b: any = await api.queryBuyToken(10000, basetoken, quotetoken);
+    console.log("==b==", b, "=====");
+    let s: any = await api.querySellToken(10000, basetoken, quotetoken);
+    console.log("=s==", s, "===");
 })();
 
 

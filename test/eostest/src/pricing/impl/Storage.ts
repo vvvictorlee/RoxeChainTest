@@ -124,19 +124,19 @@ export class Storage {
 
         // ============ Variables for PMM Algorithm ============
 
-        this._LP_FEE_RATE_ = para._LP_FEE_RATE_;
-        this._MT_FEE_RATE_ = para._MT_FEE_RATE_;
-        this._K_ = para._K_;
+        this._LP_FEE_RATE_ = Number(para._LP_FEE_RATE_);
+        this._MT_FEE_RATE_ = Number(para._MT_FEE_RATE_);
+        this._K_ = Number(para._K_);
 
-        this._R_STATUS_ = para._R_STATUS_;
-        this._TARGET_BASE_TOKEN_AMOUNT_ = para._TARGET_BASE_TOKEN_AMOUNT_;
-        this._TARGET_QUOTE_TOKEN_AMOUNT_ = para._TARGET_QUOTE_TOKEN_AMOUNT_;
+        this._R_STATUS_ = Number(para._R_STATUS_);
+        this._TARGET_BASE_TOKEN_AMOUNT_ = Number(para._TARGET_BASE_TOKEN_AMOUNT_);
+        this._TARGET_QUOTE_TOKEN_AMOUNT_ = Number(para._TARGET_QUOTE_TOKEN_AMOUNT_);
         //console.log(this._BASE_BALANCE_, para._BASE_BALANCE_);
-        this._BASE_BALANCE_ = para._BASE_BALANCE_;
-  //console.log(this._BASE_BALANCE_, para._BASE_BALANCE_);
-        this._QUOTE_BALANCE_ = para._QUOTE_BALANCE_;
+        this._BASE_BALANCE_ = Number(para._BASE_BALANCE_);
+        //console.log(this._BASE_BALANCE_, para._BASE_BALANCE_);
+        this._QUOTE_BALANCE_ = Number(para._QUOTE_BALANCE_);
 
-        this._ORACLE_PRICE_ = para._ORACLE_PRICE_;
+        this._ORACLE_PRICE_ = Number(para._ORACLE_PRICE_);
 
     }
 

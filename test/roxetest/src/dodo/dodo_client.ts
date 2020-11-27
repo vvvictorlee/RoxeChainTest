@@ -50,9 +50,16 @@ const transactWithConfig = async (actionjson: any) => await api.transact(actionj
 });
 
 const pushTransaction = async (account: any, action: any, data: any) => {
-    const json = ClientUtil.pushAction(Dos.dosContract, account, Dos.acc2pub_keys[account], action, data);
-    console.log(JSON.stringify(json));
-    const results = await transactWithConfig(json);
+    let results = {};
+    try {
+        const json = ClientUtil.pushAction(Dos.dosContract, account, Dos.acc2pub_keys[account], action, data);
+        console.log(JSON.stringify(json));
+        results = await transactWithConfig(json);
+    }
+    catch (error) {
+        console.log(JSON.stringify(error));
+    }
+
     return results;
 }
 
@@ -74,10 +81,15 @@ class DosClient {
     }
 
     async allowDosContract(user: any, pubk: any) {
-        const json = ClientUtil.allowContract(user, pubk, Dos.dosContract);
-        console.log(JSON.stringify(json));
-        const results = await transactWithConfig(json);
-        await prettyJson(results);
+        try {
+            const json = ClientUtil.allowContract(user, pubk, Dos.dosContract);
+            console.log(JSON.stringify(json));
+            const results = await transactWithConfig(json);
+            await prettyJson(results);
+        }
+        catch (error) {
+            console.log(JSON.stringify(error));
+        }
     }
     async allowDosContracts() {
         const newuser = this.para.newaccdata.newuser;
@@ -158,7 +170,7 @@ class DosClient {
         await pushAciton("sellbastoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.selldata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.selldata.minReceive, this.para.currentquotestr));
     }
     async extransfer() {
-        const users = [Dos.admin, Dos.lp, "usd2gbp22222"];
+        const users = [Dos.admin];
         const tokens = ["USD", "GBP", "HKD"];
         for (let u of users) {
             for (let t of tokens) {
@@ -168,7 +180,7 @@ class DosClient {
 
         {
             const users = ["114listvtuib"];
-            const tokens = ["ROUSD", "ROGBP", "ROHKD"];
+            // const tokens = ["USD", "GBP", "HKD"];
             for (let u of users) {
                 for (let t of tokens) {
                     let results: any = await pushAciton("extransfer",
@@ -195,8 +207,8 @@ process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
 
-let client = new DosClient(U2G_PAIR_DATA.pairpara);
-// client = new DosClient(U2H_PAIR_DATA.pairpara);
+// let client = new DosClient(U2G_PAIR_DATA.pairpara);
+let client = new DosClient(U2H_PAIR_DATA.pairpara);
 
 const handlers: any = {
     "a": (async function () {
@@ -265,7 +277,7 @@ const handlers: any = {
 // const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-const actions = ["sellbt"];//, "depositbasequote", "buybt", "sellbt"
+const actions = ["newtoken"];//, "depositbasequote", "buybt", "sellbt"
 
 
 const batchhandlers: any = {
