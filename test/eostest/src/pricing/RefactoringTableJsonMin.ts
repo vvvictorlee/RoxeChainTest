@@ -1,5 +1,7 @@
 // import { isConstructorDeclaration } from "typescript";
 
+import { prettyJson } from "./utils/prettyjson";
+
 export class RefactoringTableJsonMin {
     refactoring_fields: any[] = [
         "_LP_FEE_RATE_",
@@ -45,9 +47,13 @@ export class RefactoringTableJsonMin {
         for (let oracle of oracles) {
             let b = oracle.basetoken.symbol.split(",");
             let q = oracle.quotetoken.quantity.split(" ");
-            alloracles[b[1]] = {};
-            alloracles[b[1]][q[1]] = q[0];
-            // Object.assign(alloracles, { [b[1]]: { [q[1]]: q[0] } });
+            if (undefined == alloracles[b[1]]) {
+                alloracles[b[1]] = {};
+            }
+            // alloracles[b[1]] = {};
+            // alloracles[b[1]][q[1]] = q[0];
+            Object.assign(alloracles[b[1]], { [q[1]]: q[0] });
+            Object.assign(alloracles, alloracles[b[1]]);
         }
 
         return alloracles;

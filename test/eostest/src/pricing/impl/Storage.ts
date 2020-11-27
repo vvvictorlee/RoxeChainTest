@@ -120,10 +120,9 @@ export class Storage {
     setParameters(para: any) {
 
         // this._BASE_BALANCE_LIMIT_ = para._BASE_BALANCE_LIMIT_;
-        // this._QUOTE_BALANCE_LIMIT_ = para._QUOTE_BALANCE_LIMIT_;
-
+        // // this._QUOTE_BALANCE_LIMIT_ = para._QUOTE_BALANCE_LIMIT_;
+      
         // ============ Variables for PMM Algorithm ============
-
         this._LP_FEE_RATE_ = Number(para._LP_FEE_RATE_);
         this._MT_FEE_RATE_ = Number(para._MT_FEE_RATE_);
         this._K_ = Number(para._K_);

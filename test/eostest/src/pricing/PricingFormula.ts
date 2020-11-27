@@ -1,13 +1,8 @@
 import "./utils/number.extensions";
 import { Trader } from "./impl/Trader";
 import { PricingApi } from "./PricingApi";
-const prettier = require("prettier");
+import { prettyJson } from "./utils/prettyjson";
 
-const prettyJson = async (log: any) => {
-    //console.log(prettier.format(JSON.stringify(log), { semi: false, parser: "json" }));
-    // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-    //console.log(JSON.stringify(log));
-};
 // import { SafeMath } from "./lib/SafeMath";
 // //console.log(SafeMath.divCeil(70, 7));
 // let n: number = 70;
@@ -31,6 +26,7 @@ export class TraderPricingApi {
 
     init(strdodos: any) {
         this.galldodos = JSON.parse(strdodos);
+        prettyJson(this.galldodos);
     }
 
     async queryDodo(baseToken: any, quoteToken: any) {
@@ -82,7 +78,7 @@ export class TraderPricingApi {
 
 (async function () {
     const basetoken = "USD";
-    const quotetoken = "GBP";
+    const quotetoken = "HKD";
     const papi = new PricingApi();
     let bb: any = await papi.getDodo();
     //console.log(JSON.stringify(bb));

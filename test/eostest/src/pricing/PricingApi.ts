@@ -4,6 +4,8 @@ const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
 
+import { prettyJson } from "./utils/prettyjson";
+
 // const jq = require('node-jq');
 // const { chain } = require('../../../eos-rpc');
 // // import { chain } from '../../../eos-rpc';
@@ -33,7 +35,7 @@ export class PricingApi {
             scope: 'eosdoseosdos'
         });
         //console.log(JSON.stringify(res));
-        // await prettyJson(res);
+        await prettyJson(res);
 
         return res;
     }
@@ -46,14 +48,6 @@ export class PricingApi {
         return dodojsonstr;
     }
 }
-
-// (async function () {
-//     const api = new PricingApi();
-//     let b: any = await api.getDodo();
-//     //console.log( JSON.stringify(b) );
-//     // let s: any = await api.querySellToken(10000, "DAI", "MKR");
-//     // //console.log("=s==", s, "===");
-// })();
 
 
 

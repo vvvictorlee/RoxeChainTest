@@ -274,10 +274,10 @@ const handlers: any = {
 };
 
 // "newacc", "deploy",
-// const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
+const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-const actions = ["newtoken"];//, "depositbasequote", "buybt", "sellbt"
+// const actions = ["newtoken"];//, "depositbasequote", "buybt", "sellbt"
 
 
 const batchhandlers: any = {

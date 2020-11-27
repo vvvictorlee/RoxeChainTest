@@ -44,22 +44,22 @@ const transactWithoutConfig = async () => {
     // const blockInfo = await rpc.get_block(transactionResponse.processed.block_num - 3);
     // console.log(blockInfo)
 
-    //     const res = await rpc.get_table_rows({
-    //         code: 'eosdoseosdos',
-    //         table: 'dodos',
-    //         scope: 'eosdoseosdos'
-    //     });
-    //    prettyJson(res);
+    const res = await rpc.get_table_rows({
+        code: 'eosdoseosdos',
+        table: 'dodos',
+        scope: 'eosdoseosdos'
+    });
+    prettyJson(res);
 
 
-    //     {
-    //         const res = await rpc.get_table_rows({
-    //             code: 'eosdoseosdos',
-    //             table: 'oracles',
-    //             scope: 'eosdoseosdos'
-    //         });
-    // prettyJson(res);
-    //     }
+    {
+        const res = await rpc.get_table_rows({
+            code: 'eosdoseosdos',
+            table: 'oracles',
+            scope: 'eosdoseosdos'
+        });
+        prettyJson(res);
+    }
 
     //     const users = ["114listvtuib","hkd2usd11111"];
     //     for(let user of users)
