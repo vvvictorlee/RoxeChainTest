@@ -22,7 +22,7 @@ public class SwapApiDemo {
    public static void testbuysell() {
         String pool = "";
         try {
-           pool = readJsonData("./pool.json");
+           pool = readJsonData("./pools.json");
            init(pool);
         } catch (IOException e) {
            e.getStackTrace();

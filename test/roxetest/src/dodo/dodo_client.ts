@@ -65,7 +65,7 @@ const pushAciton = async (action: any, ...restOfPara: any[]) => {
 }
 
 const utils = { api: api, Serialize: Serialize };
-const filePath = '/Users/lisheng/mygit/vvvictorlee/RoxeChainTest/test/roxetest/src/wasms/roxe.token/roxe.token';
+const filePath = '../wasms/roxe.token/roxe.token';
 
 class DosClient {
     para: { [name: string]: any } = {}
@@ -158,7 +158,7 @@ class DosClient {
         await pushAciton("sellbastoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.selldata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.selldata.minReceive, this.para.currentquotestr));
     }
     async extransfer() {
-        const users = [Dos.admin,Dos.lp,"usd2gbp22222"];
+        const users = [Dos.admin, Dos.lp, "usd2gbp22222"];
         const tokens = ["USD", "GBP", "HKD"];
         for (let u of users) {
             for (let t of tokens) {

@@ -1,31 +1,23 @@
-import { SwapRefactoringTableJson } from "./SwapRefactoringTableJson"
+import { refactoringPoolTableJson } from "./SwapRefactoringTableJson"
 
-const { chain } = require('../../../eos-rpc');
-// import { chain } from '../../../eos-rpc';
-const c = chain();
-
+const { Api, JsonRpc, RpcError } = require('roxejs')
+const fetch = require('node-fetch')                                   // node only; not needed in browsers
+const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
 
 export class SwapPricingApi {
-
     async getPools() {
-        const res = await c.get_table_rows('eoswapeoswap', 'eoswapeoswap', 'poolstore', true);
-        // console.log(JSON.stringify(res));
-        // prettyJson(JSON.stringify(res));
+        const res = await rpc.get_table_rows({
+            code: 'eoswapeoswap',
+            table: 'poolstore',
+            scope: 'eoswapeoswap'
+        });
         return res;
     }
-    // async getOraclePrices() {
-    //     const res = await c.get_table_rows('eoswapeoswap', 'eoswapeoswap', 'oracles', true);
-    //     console.log(JSON.stringify(res));
-    //     // await prettyJson(res);
-
-    //     return res;
-    // }
-
+   
     async getPool() {
         let pool = await this.getPools();
         // let oracle = await this.getOraclePrices();
-        let jsonstr = await new SwapRefactoringTableJson().refactoringTableDataJson(pool);
-        // await prettyJson(dodojsonstr);
+        let jsonstr = refactoringPoolTableJson(pool);
         return jsonstr;
     }
 }

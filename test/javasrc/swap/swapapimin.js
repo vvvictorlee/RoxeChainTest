@@ -4940,7 +4940,7 @@ function calcSingleInGivenPoolOut(tokenBalanceIn, tokenWeightIn, poolSupply, tot
 
 
 
-var s ={};
+var s = {};
 //  {
 //     pool: {
 //         DAI: { denorm: 5000000, balance: 2400000 },
@@ -4993,15 +4993,45 @@ var sumWeights = Number(1);
 var tokenInNorm = Decimal(tokenInDenorm).div(Decimal(sumWeights));
 var tokenOutNorm = Decimal(tokenOutDenorm).div(Decimal(sumWeights));
 
+var Object_assign = function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+                target[key] = source[key];
+            }
+        }
+    }
+    return target;
+};
+
+function refactoringPoolTableJson(pooltablejson) {
+    var pools = pooltablejson.rows[0]["pools"];
+    // let poolsobj = arrToObjES2019(pools);
+    var allpools = pools.map(function (pool) {
+        var refactoring_records = pool.value.records.map(function (record) {
+            var token = record.value.exsym.symbol.split(",")[1];
+            var o = {};
+            o[token] = { denorm: record.value.denorm, balance: record.value.balance };
+            return o;
+        }).reduce(function (obj, o) { Object_assign(obj, o); return obj; }, {});
+        Object_assign(refactoring_records, { swapFee: pool.value.swapFee }, { totalWeight: pool.value.totalWeight });
+        var po = {};
+        po[pool.key] = refactoring_records;
+        return po;
+    }).reduce(function (obj, o) { Object_assign(obj, o); return obj; }, {});
+    return allpools;
+}
 
 function init(p) {
     s = JSON.parse(p);
+    s = refactoringPoolTableJson(s);
 }
 
 function queryPool(tokenIn, tokenOut) {
     var pool_name = tokenIn.toLowerCase() + "2" + tokenOut.toLowerCase();
     pool_name = pool_name.substr(0, 12);
-     var testpool_name = { "dai2weth": "pool4", "weth2dai": "pool3" };
+    var testpool_name = { "dai2weth": "pool4", "weth2dai": "pool3" };
     pool_name = testpool_name[pool_name];
 
     // console.log(pool_name);
@@ -5063,9 +5093,4 @@ function buy(tokenAmountOut, tokenIn, tokenOut) {
 
     return Number(expected).toFixed(4);
 }
-
-
-
-
-
 
