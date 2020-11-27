@@ -78,7 +78,7 @@ export class TraderPricingApi {
 
 (async function () {
     const basetoken = "USD";
-    const quotetoken = "HKD";
+    const quotetoken = "GBP";
     const papi = new PricingApi();
     let bb: any = await papi.getDodo();
     //console.log(JSON.stringify(bb));

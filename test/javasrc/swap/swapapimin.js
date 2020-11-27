@@ -5031,8 +5031,8 @@ function init(p) {
 function queryPool(tokenIn, tokenOut) {
     var pool_name = tokenIn.toLowerCase() + "2" + tokenOut.toLowerCase();
     pool_name = pool_name.substr(0, 12);
-    var testpool_name = { "dai2weth": "pool4", "weth2dai": "pool3" };
-    pool_name = testpool_name[pool_name];
+    // var testpool_name = { "dai2weth": "pool4", "weth2dai": "pool3" };
+    // pool_name = testpool_name[pool_name];
 
     // console.log(pool_name);
     var pool = s[pool_name];
