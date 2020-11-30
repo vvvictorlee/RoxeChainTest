@@ -2,7 +2,7 @@ import { RefactoringTableJsonMin } from "./RefactoringTableJsonMin"
 
 const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
-const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
+const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 // const jq = require('node-jq');
 // const { chain } = require('../../../eos-rpc');
 // // import { chain } from '../../../eos-rpc';

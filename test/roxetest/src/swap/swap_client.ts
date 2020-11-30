@@ -11,7 +11,7 @@ const fetch = require('node-fetch')                                   // node on
 const { TextEncoder, TextDecoder } = require('util')
 
 const signatureProvider = new JsSignatureProvider(Swap.keys)
-const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
+const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
 const api = new Api({
     rpc,
@@ -129,6 +129,9 @@ const handlers: any = {
     "p": (async function () {
         await pushAciton("newpool", Swap.admin, currPool);
     }),
+    "cp": (async function () {
+        await pushAciton("cppool2table", Swap.admin, currPool);
+    }),
     "s": (async function () {
         await pushAciton("setswapfee", Swap.admin, currPool, 1000);
         await pushAciton("setpubswap", Swap.admin, currPool, true);
@@ -151,8 +154,8 @@ const handlers: any = {
     }),
     "i": (async function () {
         await pushAciton("swapamtin", Swap.user1, currPool,
-            ClientUtil.to_asset(250, token1),
-            ClientUtil.to_asset(4, token2),
+            ClientUtil.to_asset(2500000, token1),
+            ClientUtil.to_wei_asset(4, token2),
             ClientUtil.to_wei(200));
     }),
     "o": (async function () {

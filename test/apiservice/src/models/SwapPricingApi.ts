@@ -2,13 +2,13 @@ import { refactoringPoolTableJson } from "./SwapRefactoringTableJson"
 
 const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
-const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
+const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
 export class SwapPricingApi {
     async getPools() {
         const res = await rpc.get_table_rows({
             code: 'eoswapeoswap',
-            table: 'poolstore',
+            table: 'pools',
             scope: 'eoswapeoswap'
         });
         return res;

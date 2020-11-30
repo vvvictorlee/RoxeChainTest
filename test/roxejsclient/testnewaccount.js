@@ -5,7 +5,7 @@ const { TextEncoder, TextDecoder } = require('util')
 
 const defaultPrivateKey = "5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey])
-const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
+const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 // const prettier = require("prettier");
 
 // const prettyJson = async (log) => {

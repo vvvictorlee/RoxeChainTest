@@ -1,12 +1,12 @@
-const { Api, JsonRpc,Serialize , RpcError} = require('roxejs')
+const { Api, JsonRpc, Serialize, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
 
 const defaultPrivateKey = "5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w";
-const signatureProvider = new JsSignatureProvider([defaultPrivateKey,"5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8"])
-const rpc = new JsonRpc('http://47.91.226.192:7878', { fetch })
-const {prettyJson}  = require("./prettyjson");
+const signatureProvider = new JsSignatureProvider([defaultPrivateKey, "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8"])
+const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
+const { prettyJson } = require("./prettyjson");
 
 const api = new Api({
     rpc,
@@ -17,7 +17,7 @@ const api = new Api({
 
 const transactWithConfig = async () => await api.transact({
     actions: [{
-        account: 'roxe.token',
+        account: 'eoswap',
         name: 'transfer',
         authorization: [{
             actor: 'defi',
@@ -48,8 +48,11 @@ const transactWithoutConfig = async () => {
 const fs = require('fs')
 
 async function deployContract(user_name) {
-    const wasmFilePath = './wasms/roxe.token/roxe.token.wasm'
-    const abiFilePath = './wasms/roxe.token/roxe.token.abi'
+    // const wasmFilePath = './wasms/eoswap/eoswap.wasm'
+    // const abiFilePath = './wasms/eoswap/eoswap.abi'
+
+    const wasmFilePath = './wasms/eoswap/eoswap.wasm'
+    const abiFilePath = './wasms/eoswap/eoswap.abi'
 
     const wasmHexString = fs.readFileSync(wasmFilePath).toString('hex')
 
@@ -69,7 +72,7 @@ async function deployContract(user_name) {
     let serializedAbiHexString = Buffer.from(buffer.asUint8Array()).toString('hex')
 
     try {
-        await api.transact(
+        const res = await api.transact(
             {
                 actions: [
                     {
@@ -109,13 +112,14 @@ async function deployContract(user_name) {
                 expireSeconds: 30,
             }
         )
+        prettyJson(res);
     }
     catch (e) {
-        console.log(e)
+        console.log(JSON.stringify(e))
     }
 }
 
 // createNewAccount("gbp2usd11111", pub_key, pub_key);
 // createNewAccount("hkd2usd11111", pub_key, pub_key);
-    // deployContract("gbp2usd11111");
-//  deployContract("hkd2usd11111");
+// deployContract("gbp2usd11111");
+deployContract("eoswapeoswap");

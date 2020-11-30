@@ -5006,18 +5006,18 @@ var Object_assign = function (target) {
 };
 
 function refactoringPoolTableJson(pooltablejson) {
-    var pools = pooltablejson.rows[0]["pools"];
+    var pools = pooltablejson.rows;//[0]["pools"];
     // let poolsobj = arrToObjES2019(pools);
     var allpools = pools.map(function (pool) {
-        var refactoring_records = pool.value.records.map(function (record) {
+        var refactoring_records = pool.pools.records.map(function (record) {
             var token = record.value.exsym.symbol.split(",")[1];
             var o = {};
             o[token] = { denorm: record.value.denorm, balance: record.value.balance };
             return o;
         }).reduce(function (obj, o) { Object_assign(obj, o); return obj; }, {});
-        Object_assign(refactoring_records, { swapFee: pool.value.swapFee }, { totalWeight: pool.value.totalWeight });
+        Object_assign(refactoring_records, { swapFee: pool.pools.swapFee }, { totalWeight: pool.pools.totalWeight });
         var po = {};
-        po[pool.key] = refactoring_records;
+        po[pool.pool] = refactoring_records;
         return po;
     }).reduce(function (obj, o) { Object_assign(obj, o); return obj; }, {});
     return allpools;

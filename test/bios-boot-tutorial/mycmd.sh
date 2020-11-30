@@ -50,7 +50,7 @@ $CLS transfer rox1 eoswapeoswap "1000000.0000 ROC"
 }'|jq
 ;;
 "gt") 
-curl -X POST --url http://10.100.1.10:8888/v1/chain/get_table_rows -d '{  
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
    "scope":"eoswapeoswap",
    "code":"eoswapeoswap",
    "table":"poolstore",
@@ -58,7 +58,7 @@ curl -X POST --url http://10.100.1.10:8888/v1/chain/get_table_rows -d '{
 }' |jq
 ;;
 "dodos") 
-curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{  
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
    "scope":"eosdoseosdos",
    "code":"eosdoseosdos",
    "table":"dodos",
@@ -67,7 +67,7 @@ curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{
 ;;
 "if") 
 curl http://10.100.1.10:8888/v1/chain/get_info|jq
-curl http://47.91.226.192:7878/v1/chain/get_info|jq
+curl http://172.17.3.161:8888/v1/chain/get_info|jq
 ;;
 *) echo "u --unlock \n n --new account \n d  --depoly contract";;
 esac
@@ -169,7 +169,7 @@ esac
 #    "json":true
 # }'
 
-curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{  
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
     "scope":"112acnogsedo",
     "code":"eoswapxtoken",
     "table":"accounts",
@@ -182,11 +182,11 @@ curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{
 #   "account_name": "eosio.token"
 # }'
 
-# curl -X POST --url http://47.91.226.192:7878/v1/chain/get_account -d '{
+# curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
 #   "account_name": "112acnogsedo"
 # }'
 
-curl -X POST --url http://47.91.226.192:7878/v1/chain/get_account -d '{
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
    "account_name": "112acnogsedo"
  }'
 
@@ -195,18 +195,18 @@ curl -X POST --url http://47.91.226.192:7878/v1/chain/get_account -d '{
 
 # curl -X POST --url http://127.0.0.1:8888/v1/history/get_transaction -d '{	"id":"1295233e6d72e252c15b2440da39fbc812936086d031e4a2e79a42cd6305d216"}' | jq
 
-# curl -X POST --url http://47.91.226.192:7878/v1/history/get_transaction -d '{	"id":"1295233e6d72e252c15b2440da39fbc812936086d031e4a2e79a42cd6305d216"}' | jq
-# curl -X POST --url http://47.91.226.192:7878/v1/history/get_transaction -d '{	"id":"ca197744cee06148ba92a82f4f2147350f44164400cec1f69f0331ee640aa6ee"}'
+# curl -X POST --url http://172.17.3.161:8888/v1/history/get_transaction -d '{	"id":"1295233e6d72e252c15b2440da39fbc812936086d031e4a2e79a42cd6305d216"}' | jq
+# curl -X POST --url http://172.17.3.161:8888/v1/history/get_transaction -d '{	"id":"ca197744cee06148ba92a82f4f2147350f44164400cec1f69f0331ee640aa6ee"}'
 #  | jq
 
-# curl -X POST --url http://47.91.226.192:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"eoswapeoswap"}'
+# curl -X POST --url http://172.17.3.161:8888/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"eoswapeoswap"}'
 
-# curl -X POST --url http://47.91.226.192:7878/v1/chain/get_block -d '{
+# curl -X POST --url http://172.17.3.161:8888/v1/chain/get_block -d '{
 #   "block_num_or_id": "8944822"
 # }'
 
 
-# curl http://47.91.226.192:7878/v1/chain/get_info
+# curl http://172.17.3.161:8888/v1/chain/get_info
 
 # curl -X POST --url http://10.100.1.10:8888/v1/chain/get_block -d '{
 #   "block_num_or_id": "8611852"

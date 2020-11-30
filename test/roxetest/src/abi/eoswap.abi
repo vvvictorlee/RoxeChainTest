@@ -1,6 +1,6 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
-    "version": "eosio::abi/1.1",
+    "____comment": "This file was generated with roxe-abigen. DO NOT EDIT ",
+    "version": "roxe::abi/1.1",
     "types": [
         {
             "new_type_name": "namesym",
@@ -155,6 +155,20 @@
             ]
         },
         {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sequence",
+                    "type": "uint64"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
             "name": "approve",
             "base": "",
             "fields": [
@@ -209,6 +223,20 @@
             ]
         },
         {
+            "name": "close",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
             "name": "collect",
             "base": "",
             "fields": [
@@ -218,6 +246,52 @@
                 },
                 {
                     "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "cppool2table",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "create",
+            "base": "",
+            "fields": [
+                {
+                    "name": "issuer",
+                    "type": "name"
+                },
+                {
+                    "name": "maximum_supply",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
                     "type": "name"
                 }
             ]
@@ -267,7 +341,7 @@
             "base": "",
             "fields": [
                 {
-                    "name": "sym",
+                    "name": "symbol",
                     "type": "symbol"
                 },
                 {
@@ -345,6 +419,24 @@
                 {
                     "name": "amt",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "issue",
+            "base": "",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         },
@@ -427,6 +519,24 @@
                 {
                     "name": "token",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "open",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "ram_payer",
+                    "type": "name"
                 }
             ]
         },
@@ -515,6 +625,20 @@
             ]
         },
         {
+            "name": "pool_storage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pool",
+                    "type": "name"
+                },
+                {
+                    "name": "pools",
+                    "type": "BPoolStore"
+                }
+            ]
+        },
+        {
             "name": "rebind",
             "base": "",
             "fields": [
@@ -533,6 +657,20 @@
                 {
                     "name": "denorm",
                     "type": "uint"
+                }
+            ]
+        },
+        {
+            "name": "retire",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         },
@@ -732,8 +870,23 @@
             "ricardian_contract": ""
         },
         {
+            "name": "close",
+            "type": "close",
+            "ricardian_contract": ""
+        },
+        {
             "name": "collect",
             "type": "collect",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "cppool2table",
+            "type": "cppool2table",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "create",
+            "type": "create",
             "ricardian_contract": ""
         },
         {
@@ -767,6 +920,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "issue",
+            "type": "issue",
+            "ricardian_contract": ""
+        },
+        {
             "name": "joinpool",
             "type": "joinpool",
             "ricardian_contract": ""
@@ -792,8 +950,18 @@
             "ricardian_contract": ""
         },
         {
+            "name": "open",
+            "type": "open",
+            "ricardian_contract": ""
+        },
+        {
             "name": "rebind",
             "type": "rebind",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "retire",
+            "type": "retire",
             "ricardian_contract": ""
         },
         {
@@ -844,6 +1012,13 @@
     ],
     "tables": [
         {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "factorystore",
             "type": "BFactoryStorage",
             "index_type": "i64",
@@ -851,8 +1026,22 @@
             "key_types": []
         },
         {
+            "name": "pools",
+            "type": "pool_storage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "poolstore",
             "type": "BPoolStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

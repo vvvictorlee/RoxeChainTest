@@ -1,8 +1,8 @@
 const chain = require('./chain');
 const wallet = require('./wallet');
-// 47.91.226.192:7878
+// 172.17.3.161:8888
 let HOST = '47.91.226.192';
-let CHAIN_PORT = '7878';
+let CHAIN_PORT = '8888';
 
 // let HOST = '10.100.1.10';
 let WALLET_HOST = '10.100.1.10';

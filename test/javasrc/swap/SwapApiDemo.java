@@ -27,10 +27,10 @@ public class SwapApiDemo {
         } catch (IOException e) {
            e.getStackTrace();
         }
-      double tokenAmountIn  = 2;
-      double tokenAmountOut = 1;
-      String tokenIn        = "DAI";
-      String tokenOut       = "WETH";
+      double tokenAmountIn  = 1;
+      double tokenAmountOut = 2;
+      String tokenIn        = "BTC";
+      String tokenOut       = "USDT";
       query("sell", tokenAmountIn, tokenIn, tokenOut);
       query("buy", tokenAmountOut, tokenIn, tokenOut);
    }
