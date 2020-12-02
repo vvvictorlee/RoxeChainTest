@@ -19,7 +19,6 @@ export class RefactoringTableJsonMin {
         // let dodotablejson = JSON.parse(dodotablejsonstr);
         // let oracletablejson = JSON.parse(oracletablejsonstr);
         let oraclejson = await this.refactoringOracleTableJson(oracletablejson);
-
         let dodos = await this.refactoringDodoTableJson(dodotablejson, oraclejson);
         return dodos;
         // return JSON.stringify(dodos);
@@ -50,10 +49,7 @@ export class RefactoringTableJsonMin {
             if (undefined == alloracles[b[1]]) {
                 alloracles[b[1]] = {};
             }
-            // alloracles[b[1]] = {};
-            // alloracles[b[1]][q[1]] = q[0];
             Object.assign(alloracles[b[1]], { [q[1]]: q[0] });
-            Object.assign(alloracles, alloracles[b[1]]);
         }
 
         return alloracles;

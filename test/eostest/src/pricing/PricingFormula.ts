@@ -77,17 +77,28 @@ export class TraderPricingApi {
 }
 
 (async function () {
-    const basetoken = "USD";
-    const quotetoken = "GBP";
+
     const papi = new PricingApi();
     let bb: any = await papi.getDodo();
-    //console.log(JSON.stringify(bb));
+    // prettyJson(bb);
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
-    let b: any = await api.queryBuyToken(10000, basetoken, quotetoken);
+    const amount: number = 10000;
+    const basetoken = "USD";
+    const quotetoken = "GBP";
+    let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
     console.log("==b==", b, "=====");
-    let s: any = await api.querySellToken(10000, basetoken, quotetoken);
+    let s: any = await api.querySellToken(amount, basetoken, quotetoken);
     console.log("=s==", s, "===");
+    {
+        const basetoken = "GBP";
+        const quotetoken = "HKD";
+        let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+        console.log("==b==", b, "=====");
+        let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+        console.log("=s==", s, "===");
+    }
+
 })();
 
 

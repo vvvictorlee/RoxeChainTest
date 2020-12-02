@@ -1,6 +1,8 @@
 const Decimal = require('decimal.js');
 // import {Decimal} from 'decimal.js';
-import {dodotablerows} from './testjson'
+import { dodotablerows } from './testjson'
+import { PricingApi } from './PricingApi'
+
 enum Types_RStatus { ONE, ABOVE_ONE, BELOW_ONE }
 
 class SafeMath {
@@ -798,15 +800,15 @@ function sell(amount: number, baseToken: string, quoteToken: string) {
 }
 
 function test() {
-    // let dodotablerows: any = dodotablerows;
     init(dodotablerows);
     let amount: number = 10000;
-    let baseToken = "DAI";
-    let quoteToken = "MKR";
+    let baseToken = "USD";
+    let quoteToken = "GBP";
     const b: any = buy(amount, baseToken, quoteToken);
-    //console.log("==b==", b, "=====");
+    console.log("==b==", b, "=====");
     const s: any = sell(amount, baseToken, quoteToken);
-    //console.log("==s==", s, "=====");
+    console.log("==s==", s, "=====");
+
 }
 
 

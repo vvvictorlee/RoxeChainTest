@@ -6,15 +6,6 @@ const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
 import { prettyJson } from "./utils/prettyjson";
 
-// const jq = require('node-jq');
-// const { chain } = require('../../../eos-rpc');
-// // import { chain } from '../../../eos-rpc';
-// const c = chain();
-// const prettyJson =  (log: any) => {
-//     let jsonstr =  jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-//     //console.log(jsonstr);
-// };
-
 export class PricingApi {
 
     async getDodos() {
@@ -29,15 +20,22 @@ export class PricingApi {
     }
 
     async getOraclePrices() {
-        const res = await rpc.get_table_rows({
-            code: 'eosdoseosdos',
-            table: 'oracles',
-            scope: 'eosdoseosdos'
-        });
-        //console.log(JSON.stringify(res));
-        await prettyJson(res);
+       let allrows = { rows: [], more: false };
+        let res = { rows: [], more: true };
+        let reverses = [false, true];
+        for (let reverse of reverses) {
+            res = await rpc.get_table_rows({
+                code: 'eosdoseosdos',
+                table: 'oracles',
+                scope: 'eosdoseosdos',
+                reverse: reverse
+            });
+            allrows.rows = allrows.rows.concat(res.rows);
 
-        return res;
+        }
+        // console.log(JSON.stringify(allrows));
+
+        return allrows;
     }
 
     async getDodo() {
