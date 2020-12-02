@@ -1,16 +1,9 @@
 import { RefactoringTableJsonMin } from "./RefactoringTableJsonMin"
-
-const { Api, JsonRpc, RpcError } = require('roxejs')
+const { JsonRpc } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
-// const jq = require('node-jq');
-// const { chain } = require('../../../eos-rpc');
-// // import { chain } from '../../../eos-rpc';
-// const c = chain();
-// const prettyJson =  (log: any) => {
-//     let jsonstr =  jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
-//     //console.log(jsonstr);
-// };
+// import { prettyJson } from "./prettyjson";
+
 
 export class PricingApi {
 
@@ -25,15 +18,22 @@ export class PricingApi {
         return res;
     }
     async getOraclePrices() {
-        const res = await rpc.get_table_rows({
-            code: 'eosdoseosdos',
-            table: 'oracles',
-            scope: 'eosdoseosdos'
-        });
-        //console.log(JSON.stringify(res));
-        // await prettyJson(res);
+        let allrows = { rows: [], more: false };
+        let res = { rows: [], more: true };
+        let reverses = [false, true];
+        for (let reverse of reverses) {
+            res = await rpc.get_table_rows({
+                code: 'eosdoseosdos',
+                table: 'oracles',
+                scope: 'eosdoseosdos',
+                reverse: reverse
+            });
+            allrows.rows = allrows.rows.concat(res.rows);
 
-        return res;
+        }
+        // console.log(JSON.stringify(allrows));
+
+        return allrows;
     }
 
     async getDodo() {
@@ -45,13 +45,16 @@ export class PricingApi {
     }
 }
 
-// (async function () {
-//     const api = new PricingApi();
-//     let b: any = await api.getDodo();
-//     //console.log( JSON.stringify(b) );
-//     // let s: any = await api.querySellToken(10000, "DAI", "MKR");
-//     // //console.log("=s==", s, "===");
-// })();
+
+(async function () {
+    const api = new PricingApi();
+    let b: any = await api.getDodo();
+    console.log(JSON.stringify(b));
+    // let s: any = await api.querySellToken(10000, "GBP", "HKD");
+    // console.log("=s==", s, "===");
+
+
+})();
 
 
 

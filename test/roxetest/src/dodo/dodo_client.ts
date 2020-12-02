@@ -149,7 +149,9 @@ class DosClient {
         await pushAciton("enablebasdep", Dos.admin, dodo_name);
     }
     async setprice() {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("GBP"), ClientUtil.to_asset(100000, "HKD"));
+
+        // await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
     }
     async setparameter() {
         await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "k", this.para.k);
@@ -274,10 +276,10 @@ const handlers: any = {
 };
 
 // "newacc", "deploy",
-const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
+// const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-// const actions = ["newtoken"];//, "depositbasequote", "buybt", "sellbt"
+const actions = ["setprice"];//, "depositbasequote", "buybt", "sellbt"
 
 
 const batchhandlers: any = {

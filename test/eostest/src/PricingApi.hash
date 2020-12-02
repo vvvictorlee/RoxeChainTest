@@ -1,0 +1,136 @@
+import { RefactoringTableJsonMin } from "./RefactoringTableJsonMin"
+// import { ecc } from 'roxejs-ecc'
+const ecc = require('roxejs-ecc')
+const { JsonRpc, Serialize } = require('roxejs')
+const fetch = require('node-fetch')                                   // node only; not needed in browsers
+const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
+const { TextEncoder, TextDecoder } = require('util');
+// import { SerialBuffer } from 'eosjs-serialize';
+// import { prettyJson } from "./prettyjson";
+
+
+// const jq = require('node-jq');
+// const { chain } = require('../../../eos-rpc');
+// // import { chain } from '../../../eos-rpc';
+// const c = chain();
+// const prettyJson =  (log: any) => {
+//     let jsonstr =  jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
+//     //console.log(jsonstr);
+// };
+
+
+
+
+export class PricingApi {
+
+    async getDodos() {
+        const res = await rpc.get_table_rows({
+            code: 'eosdoseosdos',
+            table: 'dodos',
+            scope: 'eosdoseosdos'
+        });
+        //console.log(JSON.stringify(res));
+        // prettyJson(JSON.stringify(res));
+        return res;
+    }
+    async getOraclePrices() {
+        let allrows = { rows: [], more: false };
+        let res = { rows: [], more: true };
+        let lower_bound: String = '1';
+        let reverses = [false, true];
+        // while (res.more) {
+        for (let reverse of reverses) {
+            res = await rpc.get_table_rows({
+                code: 'eosdoseosdos',
+                table: 'oracles',
+                scope: 'eosdoseosdos',
+                reverse: reverse
+            });
+            allrows.rows = allrows.rows.concat(res.rows);
+            // lower_bound = res.rows[res.rows.length - 1];
+            // ecc.sha256('hashme')
+            // lower_bound = JSON.stringify(lower_bound).toString();
+            // console.log(JSON.stringify(res));
+        }
+        // await prettyJson(allrows
+        console.log(JSON.stringify(allrows));
+
+        return allrows;
+    }
+
+    async getDodo() {
+        let dodo = await this.getDodos();
+        let oracle = await this.getOraclePrices();
+        let dodojsonstr = await new RefactoringTableJsonMin().refactoringTableDataJson(dodo, oracle);
+        // await prettyJson(dodojsonstr);
+        return dodojsonstr;
+    }
+}
+
+async function serialnamesym(namesym: any) {
+    let serialBuffer: any;// Serialize.SerialBuffer;
+
+    serialBuffer = new Serialize.SerialBuffer({
+        textEncoder: new TextEncoder(),
+        textDecoder: new TextDecoder()
+    });
+
+    // let { name, precision }: { name: string, precision: number };//={String("namesym.sym.name"),Number(1)};
+    for (let ny of namesym) {
+        serialBuffer.pushName(ny.contract);
+        let name: string = ny.sym.name;
+        let precision: number = ny.sym.precision;
+        serialBuffer.pushSymbol({ name, precision });
+    }
+    return serialBuffer.asUint8Array();
+    // ecc.sha256('hashme') === '02208b..';
+    // ```
+
+    // ```javascript
+    // ecc.sha256(Buffer.from('02208b', 'hex')) === '29a23..'
+
+
+}
+
+
+async function hashkey(tokens: any) {
+    const b = tokens.basetoken.symbol.split(",");
+    // let { name, precision }: { name: string, precision: number }
+    const base = { contract: tokens.basetoken.contract, sym: { name: b[1], precision: 4 } };
+    const q = tokens.quotetoken.quantity.split(" ");
+    const quote = { contract: tokens.basetoken.contract, symbol: { name: q[1], precision: 4 } };
+    const res = await serialnamesym([b, q]);
+    return res;
+
+}
+
+
+(async function () {
+    const api = new PricingApi();
+    let b: any = await api.getDodo();
+    console.log(JSON.stringify(b));
+    // let s: any = await api.querySellToken(10000, "GBP", "HKD");
+    // console.log("=s==", s, "===");
+
+    // const j = {
+    //     "basetoken": {
+    //         "symbol": "4,USD",
+    //         "contract": "eosdosxtoken"
+    //     },
+    //     "quotetoken": {
+    //         "quantity": "0.7500 GBP",
+    //         "contract": "eosdosxtoken"
+    //     },
+    //     "_OWNER_": "",
+    //     "_NEW_OWNER_": ""
+    // };
+    // const str = await hashkey(j);
+    // console.log(str);
+
+
+})();
+
+
+
+
+

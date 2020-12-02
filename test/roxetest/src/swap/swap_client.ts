@@ -118,11 +118,11 @@ const handlers: any = {
         await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply(token2));
     }),
     "m": (async function () {///Swap.admin, Swap.nonadmin, Swap.user1, "112acnogsedo",
-        const users = ["1114wmpblocm"];
+        const users = ["112acnogsedo","1114wmpblocm"];
         const tokens = [token1, token2];
         for (let u of users) {
             for (let t of tokens) {
-                await pushAciton("mint", u, ClientUtil.to_wei_asset(2000, t));
+                await pushAciton("mint", u, ClientUtil.to_wei_asset(5000000, t));
             }
         }
     }),
@@ -160,15 +160,15 @@ const handlers: any = {
     }),
     "o": (async function () {
         await pushAciton("swapamtout", Swap.user1, currPool,
-            ClientUtil.to_wei_asset(100, token2),
+            ClientUtil.to_wei_asset(4000, token2),
             ClientUtil.to_wei_asset(1, token1),
             ClientUtil.to_wei(500));
     }),
     "oo": (async function () {
         await pushAciton("swapamtout", Swap.user1, currPool,
-            ClientUtil.to_asset(30000, token1),
-            ClientUtil.to_asset(10000, token2),
-            ClientUtil.to_wei(500));
+            ClientUtil.to_asset(5000000000, token2),
+            ClientUtil.to_asset(10000, token1),
+            ClientUtil.to_wei(50000));
     }),
     "e": (async function () {
         await client.extransfer();

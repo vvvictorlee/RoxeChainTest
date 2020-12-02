@@ -1,4 +1,5 @@
 const { Api, JsonRpc, Serialize, RpcError } = require('roxejs')
+const ecc = require('roxejs-ecc')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
@@ -49,14 +50,13 @@ const transactWithoutConfig = async () => {
 
 
 var arguments = process.argv.splice(2);
- console.log('所传递的参数是：', arguments);
+console.log('所传递的参数是：', arguments);
 
 //////////////////////////
 // print process.argv
 process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
-
 
 //     const users = ["114listvtuib","hkd2usd11111"];
 const users = ["bob111111111"];
@@ -72,12 +72,12 @@ let handlers = {
         });
         prettyJson(res);
 
-
         {
             const res = await rpc.get_table_rows({
                 code: 'eosdoseosdos',
                 table: 'oracles',
-                scope: 'eosdoseosdos'
+                scope: 'eosdoseosdos',
+                reverse: true
             });
             prettyJson(res);
         }
@@ -107,26 +107,28 @@ let handlers = {
 
     }),
     "scope": (async function () {
-        for (let user of users) {
-            const res = await rpc.get_table_by_scope({
-                code: 'eosdosxtoken',
-                table: 'accounts'
-            });
-            console.log(user, "=====");
-            prettyJson(res);
-        }
+        const res = await rpc.get_table_by_scope({
+            code: 'eoswapxtoken',
+            table: 'stat'
+        });
+        prettyJson(res);
+
     }),
     "stat": (async function () {
-           for (let user of users) {
-               const res = await rpc.get_table_rows({
-                code: 'usd2gbp11111',
+        let res = await rpc.get_table_by_scope({
+            code: 'eoswapxtoken',
+            table: 'stat'
+        });
+        prettyJson(res);
+        for (let r of res.rows) {
+            res = await rpc.get_table_rows({
+                code: 'eoswapxtoken',
                 table: 'stat',
-                scope: ".....l2nepbp2"
+                scope: r.scope
             });
-                console.log(user,"=====");
-                prettyJson(res);
-            }
-      
+            prettyJson(res);
+        }
+
     }),
     "token": (async function () {
         for (let user of users) {
@@ -140,15 +142,15 @@ let handlers = {
         }
     }),
     "pool": (async function () {
-            const res = await rpc.get_table_rows({
-                code: 'eoswapeoswap',
-                table: 'pools',
-                scope: 'eoswapeoswap'
-            });
-            prettyJson(res);
+        const res = await rpc.get_table_rows({
+            code: 'eoswapeoswap',
+            table: 'pools',
+            scope: 'eoswapeoswap'
+        });
+        prettyJson(res);
     }),
     "default": (async function () {
-         console.log("test option");
+        console.log("test option");
     })
 
 };
