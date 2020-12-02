@@ -8,40 +8,51 @@ const {
 } = require('./calc_comparisons');
 
 var s = {
-    pool: {
-        DAI: { denorm: 5000000, balance: 2400000 },
-        WETH: { denorm: 5000000, balance: 60000 },
-        swapFee: 3000,
-        totalWeight: 10000000
-    },
-    pool1: {
-        DAI: { denorm: 5000000, balance: 220000000 },
-        WETH: { denorm: 5000000, balance: 5500000 },
-        swapFee: 3000,
-        totalWeight: 10000000
-    },
-    pool2: {
-        DAI: { denorm: 5000000, balance: 220000000 },
-        WETH: { denorm: 5000000, balance: 5500000 },
-        swapFee: 3000,
-        totalWeight: 10000000
-    },
-    pool3: {
-        DAI: { denorm: 10, balance: 12 },
-        WETH: { denorm: 10, balance: 4 },
-        swapFee: 0.001,
-        totalWeight: 20
-    },
-    pool4: {
-        DAI: { denorm: 5000000, balance: 220000000 },
-        WETH: { denorm: 5000000, balance: 5500000 },
-        swapFee: 1000,
-        totalWeight: 10000000
+  "rows": [
+    {
+      "pool": "btc2usdt",
+      "pools": {
+        "mutex": 0,
+        "factory": "eoswapeoswap",
+        "controller": "eoswapeoswap",
+        "publicSwap": 1,
+        "swapFee": 1000,
+        "finalized": 1,
+        "tokens": [
+          "0x04425443000000003015a4b957c33155",
+          "0x04555344540000003015a4b957c33155"
+        ],
+        "records": [
+          {
+            "key": "0x04425443000000003015a4b957c33155",
+            "value": {
+              "bound": 1,
+              "index": 0,
+              "denorm": 5000000,
+              "balance": 184939,
+              "exsym": { "symbol": "4,BTC", "contract": "eoswapxtoken" }
+            }
+          },
+          {
+            "key": "0x04555344540000003015a4b957c33155",
+            "value": {
+              "bound": 1,
+              "index": 1,
+              "denorm": 5000000,
+              "balance": 7818011161,
+              "exsym": { "symbol": "4,USDT", "contract": "eoswapxtoken" }
+            }
+          }
+        ],
+        "totalWeight": 10000000
+      }
     }
+  ],
+  "more": false
 };
 
 
-var BONE = Math.pow(10, 6);
+var BONE = Math.pow(10, 4);
 var swapFee = 1000;// ** -3; // 0.001;
 
 var tokenInBalance = '4';
@@ -59,8 +70,28 @@ var tokenInNorm = Decimal(tokenInDenorm).div(Decimal(sumWeights));
 var tokenOutNorm = Decimal(tokenOutDenorm).div(Decimal(sumWeights));
 
 
+
+function refactoringPoolTableJson(pooltablejson) {
+    var pools = pooltablejson.rows;//[0]["pools"];
+    // let poolsobj = arrToObjES2019(pools);
+    var allpools = pools.map(function (pool) {
+        var refactoring_records = pool.pools.records.map(function (record) {
+            var token = record.value.exsym.symbol.split(",")[1];
+            var o = {};
+            o[token] = { denorm: record.value.denorm, balance: record.value.balance };
+            return o;
+        }).reduce(function (obj, o) { Object.assign(obj, o); return obj; }, {});
+        Object.assign(refactoring_records, { swapFee: pool.pools.swapFee }, { totalWeight: pool.pools.totalWeight });
+        var po = {};
+        po[pool.pool] = refactoring_records;
+        return po;
+    }).reduce(function (obj, o) { Object.assign(obj, o); return obj; }, {});
+    return allpools;
+}
+
 function init(p) {
-    s = p;
+    s = JSON.parse(p);
+    s = refactoringPoolTableJson(s);
 }
 
 function queryPool(tokenIn, tokenOut) {
@@ -132,7 +163,8 @@ function buy(tokenAmountOut, tokenIn, tokenOut) {
 
 // console.log(givenIn(2, "WETH", "DAI"));
 // console.log(givenOut(1, "WETH", "DAI"));
-console.log(sell(2, "DAI", "WETH"));
-console.log(buy(1, "DAI", "WETH"));
+init(JSON.stringify(s));
+console.log("sell==",sell(1, "BTC", "USDT"));
+console.log("buy==",buy(1, "BTC", "USDT"));
 
 

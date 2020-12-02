@@ -123,6 +123,21 @@ class DosClient {
             }
         }
     }
+
+    async mintx() {
+        let mintdata = {
+            users: [Dos.lp, Dos.trader],
+            tokens: [[7000000, U2H_PAIR_DATA.PAIR.quote]]
+        };
+        const users = mintdata.users;
+        const tokens = mintdata.tokens;
+        for (let u of users) {
+            for (let t of tokens) {
+                await pushAciton("mint", u, ClientUtil.to_wei_asset(t[0], t[1]));
+            }
+        }
+    }
+
     async initproxy() {
         await pushAciton("init", Dos.admin, Dos.maintainer, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.get_core_symbol());
     }
@@ -149,9 +164,11 @@ class DosClient {
         await pushAciton("enablebasdep", Dos.admin, dodo_name);
     }
     async setprice() {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym("GBP"), ClientUtil.to_asset(100000, "HKD"));
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
+    }
 
-        // await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
+    async setpricex() {
+        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(77500, this.para.currentquotestr));
     }
     async setparameter() {
         await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "k", this.para.k);
@@ -163,6 +180,11 @@ class DosClient {
         const baseamount = this.para.depositdata.baseamount;
         const quoteamount = this.para.depositdata.quoteamount;
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+    }
+    async depositbasequotex() {
+        const dodo_name = this.para.currentDodo;
+        const quoteamount = 7000000;
         await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
     async buybt() {
@@ -270,6 +292,9 @@ const handlers: any = {
         await pushAciton("sellbastoken", Dos.trader, ClientUtil.to_wei_asset(8990, currentquotestr), ClientUtil.to_wei_asset(10000, "MKR"));
     }),
     "default": (async function () {
+        // await client.mintx();
+        await client.setpricex();
+        // await client.depositbasequotex();
         console.log(ClientUtil.todecimal((1000)), "test option", ClientUtil.todecimal(1000));
     })
 

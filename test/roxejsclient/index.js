@@ -68,7 +68,8 @@ let handlers = {
         const res = await rpc.get_table_rows({
             code: 'eosdoseosdos',
             table: 'dodos',
-            scope: 'eosdoseosdos'
+            scope: 'eosdoseosdos',
+            reverse: true
         });
         prettyJson(res);
 

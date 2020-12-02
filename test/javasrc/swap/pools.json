@@ -20,7 +20,7 @@
               "bound": 1,
               "index": 0,
               "denorm": 5000000,
-              "balance": 8500000,
+              "balance": 494073,
               "exsym": { "symbol": "4,BTC", "contract": "eoswapxtoken" }
             }
           },
@@ -30,7 +30,7 @@
               "bound": 1,
               "index": 1,
               "denorm": 5000000,
-              "balance": 169461586,
+              "balance": 2923553580,
               "exsym": { "symbol": "4,USDT", "contract": "eoswapxtoken" }
             }
           }

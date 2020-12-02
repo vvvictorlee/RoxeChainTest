@@ -168,7 +168,7 @@ const handlers: any = {
         await pushAciton("swapamtout", Swap.user1, currPool,
             ClientUtil.to_asset(5000000000, token2),
             ClientUtil.to_asset(10000, token1),
-            ClientUtil.to_wei(50000));
+            ClientUtil.to_wei(500000));
     }),
     "e": (async function () {
         await client.extransfer();

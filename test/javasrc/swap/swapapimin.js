@@ -4941,41 +4941,10 @@ function calcSingleInGivenPoolOut(tokenBalanceIn, tokenWeightIn, poolSupply, tot
 
 
 var s = {};
-//  {
-//     pool: {
-//         DAI: { denorm: 5000000, balance: 2400000 },
-//         WETH: { denorm: 5000000, balance: 60000 },
-//         swapFee: 3000,
-//         totalWeight: 10000000
-//     },
-//     pool1: {
-//         DAI: { denorm: 5000000, balance: 220000000 },
-//         WETH: { denorm: 5000000, balance: 5500000 },
-//         swapFee: 3000,
-//         totalWeight: 10000000
-//     },
-//     pool2: {
-//         DAI: { denorm: 5000000, balance: 220000000 },
-//         WETH: { denorm: 5000000, balance: 5500000 },
-//         swapFee: 3000,
-//         totalWeight: 10000000
-//     },
-//        pool3: {
-//         DAI: { denorm: 10, balance: 12 },
-//         WETH: { denorm: 10, balance: 4 },
-//         swapFee: 0.001,
-//         totalWeight: 20
-//     },
-//     pool4: {
-//         DAI: { denorm: 5000000, balance: 220000000 },
-//         WETH: { denorm: 5000000, balance: 5500000 },
-//         swapFee: 1000,
-//         totalWeight: 10000000
-//     }
-// };
 
 
-var BONE = Math.pow(10, 6);
+
+var BONE = Math.pow(10, 4);
 
 var swapFee = 10;// ** -3; // 0.001;
 

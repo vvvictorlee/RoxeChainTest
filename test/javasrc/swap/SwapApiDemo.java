@@ -28,7 +28,7 @@ public class SwapApiDemo {
            e.getStackTrace();
         }
       double tokenAmountIn  = 1;
-      double tokenAmountOut = 2;
+      double tokenAmountOut = 1;
       String tokenIn        = "BTC";
       String tokenOut       = "USDT";
       query("sell", tokenAmountIn, tokenIn, tokenOut);

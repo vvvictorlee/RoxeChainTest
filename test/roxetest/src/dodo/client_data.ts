@@ -110,17 +110,17 @@ export class U2H_PAIR_DATA {
         },
         mintdata: {
             users: [Dos.lp, Dos.trader],
-            tokens: [[1000000, U2H_PAIR_DATA.PAIR.base], [750000, U2H_PAIR_DATA.PAIR.quote]]
+            tokens: [[1000000, U2H_PAIR_DATA.PAIR.base], [7750000, U2H_PAIR_DATA.PAIR.quote]]
         },
         depositdata:
         {
             baseamount: 1000000,
-            quoteamount: 750000
+            quoteamount: 7750000
         },
         lpFeeRate: 1,
         mtFeeRate: 0,
         k: 1,
-        oracleprice: 7500,
+        oracleprice: 77500,
         buydata: {
             amount: 1,
             maxPay: 10
