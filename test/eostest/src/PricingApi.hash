@@ -44,10 +44,10 @@ export class PricingApi {
                 code: 'eosdoseosdos',
                 table: 'oracles',
                 scope: 'eosdoseosdos',
-                reverse: reverse
+                lower_bound: lower_bound
             });
             allrows.rows = allrows.rows.concat(res.rows);
-            // lower_bound = res.rows[res.rows.length - 1];
+            // lower_bound = res.rows[res.rows.length - 1][Objects.keys(res.rows[res.rows.length - 1])];
             // ecc.sha256('hashme')
             // lower_bound = JSON.stringify(lower_bound).toString();
             // console.log(JSON.stringify(res));

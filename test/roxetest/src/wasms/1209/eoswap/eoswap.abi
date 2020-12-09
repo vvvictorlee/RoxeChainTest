@@ -1,0 +1,1020 @@
+{
+    "____comment": "This file was generated with roxe-abigen. DO NOT EDIT ",
+    "version": "roxe::abi/1.1",
+    "types": [
+        {
+            "new_type_name": "namesym",
+            "type": "uint128"
+        }
+    ],
+    "structs": [
+        {
+            "name": "Account2Amt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "dst2amt",
+                    "type": "pair_name_uint64[]"
+                }
+            ]
+        },
+        {
+            "name": "BFactoryStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "blabs",
+                    "type": "name"
+                },
+                {
+                    "name": "isBPool",
+                    "type": "pair_name_bool[]"
+                }
+            ]
+        },
+        {
+            "name": "BPoolStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pools",
+                    "type": "pair_name_BPoolStore[]"
+                }
+            ]
+        },
+        {
+            "name": "BPoolStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "mutex",
+                    "type": "bool"
+                },
+                {
+                    "name": "factory",
+                    "type": "name"
+                },
+                {
+                    "name": "controller",
+                    "type": "name"
+                },
+                {
+                    "name": "publicSwap",
+                    "type": "bool"
+                },
+                {
+                    "name": "swapFee",
+                    "type": "uint64"
+                },
+                {
+                    "name": "finalized",
+                    "type": "bool"
+                },
+                {
+                    "name": "tokens",
+                    "type": "namesym[]"
+                },
+                {
+                    "name": "records",
+                    "type": "pair_namesym_Record[]"
+                },
+                {
+                    "name": "totalWeight",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "BTokenStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "tokens",
+                    "type": "pair_namesym_BTokenStore[]"
+                }
+            ]
+        },
+        {
+            "name": "BTokenStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "names",
+                    "type": "string"
+                },
+                {
+                    "name": "symbol",
+                    "type": "string"
+                },
+                {
+                    "name": "decimals",
+                    "type": "uint8"
+                },
+                {
+                    "name": "balance",
+                    "type": "pair_name_uint64[]"
+                },
+                {
+                    "name": "allowance",
+                    "type": "pair_name_Account2Amt[]"
+                },
+                {
+                    "name": "totalSupply",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "Record",
+            "base": "",
+            "fields": [
+                {
+                    "name": "bound",
+                    "type": "bool"
+                },
+                {
+                    "name": "index",
+                    "type": "uint64"
+                },
+                {
+                    "name": "denorm",
+                    "type": "uint64"
+                },
+                {
+                    "name": "balance",
+                    "type": "uint64"
+                },
+                {
+                    "name": "exsym",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sequence",
+                    "type": "uint64"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "bind",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "denorm",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "burn",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "burnex",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "close",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "collect",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "cppool2table",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "create",
+            "base": "",
+            "fields": [
+                {
+                    "name": "issuer",
+                    "type": "name"
+                },
+                {
+                    "name": "maximum_supply",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "exitpool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "poolAmountIn",
+                    "type": "uint64"
+                },
+                {
+                    "name": "minAmountsOut",
+                    "type": "uint64[]"
+                }
+            ]
+        },
+        {
+            "name": "extended_symbol",
+            "base": "",
+            "fields": [
+                {
+                    "name": "symbol",
+                    "type": "symbol"
+                },
+                {
+                    "name": "contract",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "extransfer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "finalize",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "gulp",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "token",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "issue",
+            "base": "",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "joinpool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "poolAmountOut",
+                    "type": "uint64"
+                },
+                {
+                    "name": "maxAmountsIn",
+                    "type": "uint64[]"
+                }
+            ]
+        },
+        {
+            "name": "mint",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "mintex",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "newpool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "newtoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "token",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "newtokenex",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "token",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "open",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "ram_payer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_Account2Amt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "Account2Amt"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_BPoolStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "BPoolStore"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_bool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_uint64",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "pair_namesym_BTokenStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "namesym"
+                },
+                {
+                    "name": "value",
+                    "type": "BTokenStore"
+                }
+            ]
+        },
+        {
+            "name": "pair_namesym_Record",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "namesym"
+                },
+                {
+                    "name": "value",
+                    "type": "Record"
+                }
+            ]
+        },
+        {
+            "name": "pool_storage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pool",
+                    "type": "name"
+                },
+                {
+                    "name": "pools",
+                    "type": "BPoolStore"
+                }
+            ]
+        },
+        {
+            "name": "rebind",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "denorm",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "retire",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "setblabs",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "blabs",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "setcontroler",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "setpubswap",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "public_",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "setswapfee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "swapFee",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "swapamtin",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "tokenAmountIn",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minAmountOut",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPrice",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "swapamtout",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "maxAmountIn",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "tokenAmountOut",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPrice",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "transfer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "transferex",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dst",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "unbind",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "pool_name",
+                    "type": "name"
+                },
+                {
+                    "name": "token",
+                    "type": "extended_symbol"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "bind",
+            "type": "bind",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "burn",
+            "type": "burn",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "burnex",
+            "type": "burnex",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "close",
+            "type": "close",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "collect",
+            "type": "collect",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "cppool2table",
+            "type": "cppool2table",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "create",
+            "type": "create",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "exitpool",
+            "type": "exitpool",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "extransfer",
+            "type": "extransfer",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "finalize",
+            "type": "finalize",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "gulp",
+            "type": "gulp",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "issue",
+            "type": "issue",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "joinpool",
+            "type": "joinpool",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "mint",
+            "type": "mint",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "mintex",
+            "type": "mintex",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newpool",
+            "type": "newpool",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newtoken",
+            "type": "newtoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newtokenex",
+            "type": "newtokenex",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "open",
+            "type": "open",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rebind",
+            "type": "rebind",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "retire",
+            "type": "retire",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setblabs",
+            "type": "setblabs",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setcontroler",
+            "type": "setcontroler",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setpubswap",
+            "type": "setpubswap",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setswapfee",
+            "type": "setswapfee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "swapamtin",
+            "type": "swapamtin",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "swapamtout",
+            "type": "swapamtout",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transfer",
+            "type": "transfer",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transferex",
+            "type": "transferex",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "unbind",
+            "type": "unbind",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "factorystore",
+            "type": "BFactoryStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "pools",
+            "type": "pool_storage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "poolstore",
+            "type": "BPoolStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "tokenstore",
+            "type": "BTokenStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": []
+}

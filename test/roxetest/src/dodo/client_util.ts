@@ -1,10 +1,11 @@
 export default function date(value: number | string): Date {
     return new Date(value);
 }
-
+const ONE_DECIMALS = 6;
+const TOKEN_CONTRACT="roxearntoken";
 export class ClientUtil {
-    static decimals = Math.pow(10, 4);
-    static BONE = Math.pow(10, 4);
+    static decimals = Math.pow(10, ONE_DECIMALS);
+    static BONE = Math.pow(10, ONE_DECIMALS);
 
     static require_permissions = ({ account, key, actor, parent }: { account: any, key: any, actor: any, parent: any }) => {
         return {
@@ -109,26 +110,26 @@ export class ClientUtil {
     }
 
     static to_wei(value: any) {
-        return value * Math.pow(10, 6);
+        return value * Math.pow(10, ONE_DECIMALS);
     }
 
     static to_max_supply(sym: any) {
-        return { quantity: "100000000000.0000 " + sym, contract: "eosdosxtoken" };
+        return { quantity: "100000000000.000000 " + sym, contract: TOKEN_CONTRACT };
     }
 
     static get_core_symbol() {
-        return { symbol: "4,ROC", contract: 'roxe.token' };
+        return { symbol: ONE_DECIMALS+",ROC", contract: 'roxe.token' };
     }
 
     static to_sym(sym: any) {
-        return { symbol: "4," + sym, contract: 'eosdosxtoken' };
+        return { symbol: ONE_DECIMALS+"," + sym, contract: TOKEN_CONTRACT };
     }
     static tounit(value: any) {
         return ClientUtil.todecimal(ClientUtil.scalar_decimals(value));
     }
 
     static todecimal(value: any) {
-        return Number(Number(value) / Number(ClientUtil.decimals)).toFixed(4) + " ";
+        return Number(Number(value) / Number(ClientUtil.decimals)).toFixed(ONE_DECIMALS) + " ";
     }
 
     static scalar_decimals(value: any) {
@@ -140,11 +141,11 @@ export class ClientUtil {
     }
 
     // static to_asset(value: any, sym: any) {
-    //     return { quantity: ClientUtil.todecimal(ClientUtil.scalar_decimals(value)) + sym, contract: "eosdosxtoken" };
+    //     return { quantity: ClientUtil.todecimal(ClientUtil.scalar_decimals(value)) + sym, contract: TOKEN_CONTRACT };
     // }
 
     static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(value) + sym, contract: "eosdosxtoken" };
+        return { quantity: ClientUtil.todecimal(value) + sym, contract: TOKEN_CONTRACT };
     }
 
     static to_wei_asset(value: any, sym: any) {

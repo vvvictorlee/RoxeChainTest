@@ -28,15 +28,15 @@ const api = new Api({
 
 const createtoken = async () => await api.transact({
     actions: [{
-        account: 'usd2gbp22222',
+        account: 'usd2gbp33333',
         name: 'create',
         authorization: [{
-            actor: 'usd2gbp22222',
+            actor: 'usd2gbp33333',
             permission: 'active',
         }],
         data: {
-            issuer: 'usd2gbp22222',
-            maximum_supply: '10000000000.0000 GBP'
+            issuer: 'usd2gbp33333',
+            maximum_supply: '10000000000.000000 GBP'
         },
     }]
 }, {
@@ -73,6 +73,7 @@ const pushAciton = async (action: any, ...restOfPara: any[]) => {
 
 const utils = { api: api, Serialize: Serialize };
 const filePath = '../wasms/roxe.token/roxe.token';
+const dodofilePath = '../wasms/1209/eosdos/eosdos';
 
 class DosClient {
     para: { [name: string]: any } = {}
@@ -107,8 +108,28 @@ class DosClient {
         createNewAccount(newuser, pub_key, pub_key, api);
 
     }
+    async newdodoacc() {
+        const newuser = Dos.admin;
+        // const pub_key = this.para.newaccdata.pub_key;
+        const pub_key = Dos.acc2pub_keys[newuser];
+        createNewAccount(newuser, pub_key, pub_key, api);
+
+    }
+    async newtokenacc() {
+        const newuser = Dos.tokenowner;
+        // const pub_key = this.para.newaccdata.pub_key;
+        const pub_key = Dos.acc2pub_keys[newuser];
+        createNewAccount(newuser, pub_key, pub_key, api);
+
+    }
     async deploy() {
         deployContractjs(this.para.currentDodo, filePath, utils);
+    }
+    async deploytoken() {
+        deployContractjs(Dos.tokenowner, filePath, utils);
+    }
+    async deploydodo() {
+        deployContractjs(Dos.admin, dodofilePath, utils);
     }
     async newtoken() {
         await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentbasestr));
@@ -164,11 +185,11 @@ class DosClient {
         await pushAciton("enablebasdep", Dos.admin, dodo_name);
     }
     async setprice() {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
+        await pushAciton("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
     }
 
     async setpricex() {
-        await pushAciton("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(77500, this.para.currentquotestr));
+        await pushAciton("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(77500, this.para.currentquotestr));
     }
     async setparameter() {
         await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "k", this.para.k);
@@ -231,8 +252,8 @@ process.argv.forEach(function (val, index, array) {
     console.log(index + ': ' + val);
 });
 
-// let client = new DosClient(U2G_PAIR_DATA.pairpara);
-let client = new DosClient(U2H_PAIR_DATA.pairpara);
+let client = new DosClient(U2G_PAIR_DATA.pairpara);
+// let client = new DosClient(U2H_PAIR_DATA.pairpara);
 
 const handlers: any = {
     "a": (async function () {
@@ -244,8 +265,20 @@ const handlers: any = {
     "newacc": (async function () {
         await client.newacc();
     }),
+    "newtokenacc": (async function () {
+        await client.newtokenacc();
+    }),
+    "newdodoacc": (async function () {
+        await client.newdodoacc();
+    }),
     "deploy": (async function () {
         await client.deploy();
+    }),
+    "deploytoken": (async function () {
+        await client.deploytoken();
+    }),
+    "deploydodo": (async function () {
+        await client.deploydodo();
     }),
     "newtoken": (async function () {
         await client.newtoken();

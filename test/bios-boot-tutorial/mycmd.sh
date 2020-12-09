@@ -34,12 +34,12 @@ $CLS set contract dai2mkr11111 /data/roxe/balanceos/RoxeChain/roxe.contracts/bui
 # roUSD - roGBP 的池子： 100万美金  75万英镑
 # roUSD - roHKD的池子： 100万美金  775万港币
 "u2g") 
-$CLS system newaccount roxe1 usd2gbp11111 ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
-$CLS set contract usd2gbp11111 /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p usd2gbp11111
+$CLS system newaccount roxe1 usd2gbp2222 ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
+$CLS set contract usd2gbp2222 /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p usd2gbp2222
 ;;
 "u2h") 
-$CLS system newaccount roxe1 usd2hkd11111 ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
-$CLS set contract usd2hkd11111 /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p usd2hkd11111
+$CLS system newaccount roxe1 usd2hkd2222 ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
+$CLS set contract usd2hkd2222 /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p usd2hkd2222
 ;;
 "t") 
 $CLS transfer rox1 eoswapeoswap "1000000.0000 ROC"

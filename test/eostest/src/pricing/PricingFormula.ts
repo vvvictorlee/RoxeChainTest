@@ -32,7 +32,7 @@ export class TraderPricingApi {
     async queryDodo(baseToken: any, quoteToken: any) {
         let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "22222";
         dodo_name = dodo_name.substr(0, 12);
-        const testdodo_name: any = { "rousd2rogbp1": "usd2gbp11111", "rousd2rohkd1": "usd2hkd11111", "weth2dai1111": "dai2mkr11111", "eth2mkr11111": "ethbasemkr11" };
+        const testdodo_name: any = { "rousd2rogbp1": "usd2gbp2222", "rousd2rohkd1": "usd2hkd2222", "weth2dai1111": "dai2mkr11111", "eth2mkr11111": "ethbasemkr11" };
         const mapname = testdodo_name[dodo_name];
         if (undefined != mapname) {
             dodo_name = mapname;
