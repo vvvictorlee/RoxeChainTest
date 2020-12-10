@@ -1,10 +1,14 @@
 export default function date(value: number | string): Date {
     return new Date(value);
 }
+const SWAP_CONTRACT = "roxearntoken";
+const ONE_DECIMALS = 9;
+const sym2dec:{[name:string]:any}={"USD":6,"BTC":8,"ROC":4};
+const MAX_SUPPLY="10000000";
 
 export class ClientUtil {
-    static decimals = Math.pow(10, 4);
-    static BONE = Math.pow(10, 6);
+    static decimals = Math.pow(10, ONE_DECIMALS);
+    static BONE = Math.pow(10, 9);
 
     static require_permissions = ({ account, key, actor, parent }: { account: any, key: any, actor: any, parent: any }) => {
         return {
@@ -113,7 +117,7 @@ export class ClientUtil {
     }
 
     static to_max_supply(sym: any) {
-        return { quantity: "100000000000.0000 " + sym, contract: "eoswapxtoken" };
+        return { quantity: ClientUtil.todecimal(MAX_SUPPLY,sym2dec[sym])+sym, contract: SWAP_CONTRACT };
     }
 
     static get_core_symbol() {
@@ -121,29 +125,30 @@ export class ClientUtil {
     }
 
     static to_sym(sym: any) {
-        return { symbol: "4," + sym, contract: 'eoswapxtoken' };
+        return { symbol: ONE_DECIMALS + "," + sym, contract: SWAP_CONTRACT };
     }
-    static tounit(value: any) {
-        return ClientUtil.todecimal(ClientUtil.scalar_decimals(value));
-    }
-
-    static todecimal(value: any) {
-        return Number(Number(value) / Number(ClientUtil.decimals)).toFixed(4) + " ";
+    static tounit(value: any,decimals:Number) {
+        return ClientUtil.todecimal(ClientUtil.scalar_decimals(value,decimals),decimals);
     }
 
-    static scalar_decimals(value: any) {
-        return Number(value) * Number(ClientUtil.decimals);
+    static todecimal(value: any, decimals: any = ONE_DECIMALS) {
+        return Number(Number(value) / Number(Math.pow(10, decimals))).toFixed(decimals) + " ";
+    }
+
+    static scalar_decimals(value: any,decimals:any) {
+        return Number(value) * Number(Math.pow(10, decimals));
     }
 
     static to_core_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.tounit(value) + sym, contract: "roxe.token" };
+        return { quantity: ClientUtil.tounit(value,sym2dec[sym]) + sym, contract: "roxe.token" };
     }
 
     static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(value) + sym, contract: "eoswapxtoken" };
+        return { quantity: ClientUtil.todecimal(value,sym2dec[sym]) + sym, contract: SWAP_CONTRACT };
     }
 
     static to_wei_asset(value: any, sym: any) {
-        return ClientUtil.to_asset(ClientUtil.scalar_decimals(Number(value) * (Number(ClientUtil.BONE) / Number(ClientUtil.decimals))), sym);
+        return ClientUtil.to_asset(ClientUtil.scalar_decimals(value,sym2dec[sym]), sym);
+        // return ClientUtil.to_asset(ClientUtil.scalar_decimals(Number(value) * (Number(ClientUtil.BONE) / Number(ClientUtil.decimals))), sym);
     }
 }

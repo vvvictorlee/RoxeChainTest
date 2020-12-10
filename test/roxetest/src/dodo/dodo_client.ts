@@ -57,6 +57,7 @@ const pushTransaction = async (account: any, action: any, data: any) => {
         results = await transactWithConfig(json);
     }
     catch (error) {
+        results = error;
         console.log(JSON.stringify(error));
     }
 
@@ -73,7 +74,7 @@ const pushAciton = async (action: any, ...restOfPara: any[]) => {
 
 const utils = { api: api, Serialize: Serialize };
 const filePath = '../wasms/roxe.token/roxe.token';
-const dodofilePath = '../wasms/1209/eosdos/eosdos';
+const dodofilePath = '../wasms/eosdos/eosdos';
 
 class DosClient {
     para: { [name: string]: any } = {}
@@ -326,7 +327,7 @@ const handlers: any = {
     }),
     "default": (async function () {
         // await client.mintx();
-        await client.setpricex();
+        // await client.setpricex();
         // await client.depositbasequotex();
         console.log(ClientUtil.todecimal((1000)), "test option", ClientUtil.todecimal(1000));
     })

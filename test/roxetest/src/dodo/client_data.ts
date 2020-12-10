@@ -85,8 +85,8 @@ export class U2G_PAIR_DATA {
         k: 1,
         oracleprice: 750000,
         buydata: {
-            amount: 1,
-            maxPay: 10
+            amount:1,
+            maxPay: 100
         },
         selldata: {
             amount: 1,

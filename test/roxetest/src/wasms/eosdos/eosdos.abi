@@ -653,6 +653,20 @@
             ]
         },
         {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sequence",
+                    "type": "uint64"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
             "name": "adddodo",
             "base": "",
             "fields": [
@@ -811,6 +825,24 @@
                 {
                     "name": "state",
                     "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
                 }
             ]
         },
@@ -1015,6 +1047,16 @@
             ]
         },
         {
+            "name": "moveoracle",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "newdodo",
             "base": "",
             "fields": [
@@ -1079,6 +1121,32 @@
                 {
                     "name": "token",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "oracle_prices",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pair_token_hash_key",
+                    "type": "uint64"
+                },
+                {
+                    "name": "basetoken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quotetoken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "_OWNER_",
+                    "type": "address"
+                },
+                {
+                    "name": "_NEW_OWNER_",
+                    "type": "address"
                 }
             ]
         },
@@ -1730,6 +1798,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "moveoracle",
+            "type": "moveoracle",
+            "ricardian_contract": ""
+        },
+        {
             "name": "newdodo",
             "type": "newdodo",
             "ricardian_contract": ""
@@ -1837,6 +1910,13 @@
     ],
     "tables": [
         {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "dodo",
             "type": "DODOStorage",
             "index_type": "i64",
@@ -1872,6 +1952,13 @@
             "key_types": []
         },
         {
+            "name": "oracleprices",
+            "type": "oracle_prices",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "oracles",
             "type": "oracle_storage",
             "index_type": "i64",
@@ -1881,6 +1968,13 @@
         {
             "name": "proxy",
             "type": "ProxyStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

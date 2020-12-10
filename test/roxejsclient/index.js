@@ -66,18 +66,18 @@ let handlers = {
     "do": (async function () {
 
         const res = await rpc.get_table_rows({
-            code: 'eosdoseosdos',
+            code: 'roxeearn1213',
             table: 'dodos',
-            scope: 'eosdoseosdos',
+            scope: 'roxeearn1213',
             reverse: true
         });
         prettyJson(res);
 
         {
             const res = await rpc.get_table_rows({
-                code: 'eosdoseosdos',
-                table: 'oracles',
-                scope: 'eosdoseosdos',
+                code: 'roxeearn1213',
+                table: 'oracleprices',
+                scope: 'roxeearn1213',
                 reverse: true
             });
             prettyJson(res);
@@ -144,9 +144,9 @@ let handlers = {
     }),
     "pool": (async function () {
         const res = await rpc.get_table_rows({
-            code: 'eoswapeoswap',
+            code: 'roxeswap1213',
             table: 'pools',
-            scope: 'eoswapeoswap'
+            scope: 'roxeswap1213'
         });
         prettyJson(res);
     }),

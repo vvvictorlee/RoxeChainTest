@@ -5,10 +5,6 @@
         {
             "new_type_name": "namesym",
             "type": "uint128"
-        },
-        {
-            "new_type_name": "uint",
-            "type": "uint64"
         }
     ],
     "structs": [
@@ -18,7 +14,7 @@
             "fields": [
                 {
                     "name": "dst2amt",
-                    "type": "pair_name_uint[]"
+                    "type": "pair_name_uint64[]"
                 }
             ]
         },
@@ -68,7 +64,7 @@
                 },
                 {
                     "name": "swapFee",
-                    "type": "uint"
+                    "type": "uint64"
                 },
                 {
                     "name": "finalized",
@@ -84,7 +80,7 @@
                 },
                 {
                     "name": "totalWeight",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -116,7 +112,7 @@
                 },
                 {
                     "name": "balance",
-                    "type": "pair_name_uint[]"
+                    "type": "pair_name_uint64[]"
                 },
                 {
                     "name": "allowance",
@@ -124,7 +120,7 @@
                 },
                 {
                     "name": "totalSupply",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -138,15 +134,15 @@
                 },
                 {
                     "name": "index",
-                    "type": "uint"
+                    "type": "uint64"
                 },
                 {
                     "name": "denorm",
-                    "type": "uint"
+                    "type": "uint64"
                 },
                 {
                     "name": "balance",
-                    "type": "uint"
+                    "type": "uint64"
                 },
                 {
                     "name": "exsym",
@@ -155,19 +151,15 @@
             ]
         },
         {
-            "name": "approve",
+            "name": "account",
             "base": "",
             "fields": [
                 {
-                    "name": "msg_sender",
-                    "type": "name"
+                    "name": "sequence",
+                    "type": "uint64"
                 },
                 {
-                    "name": "dst",
-                    "type": "name"
-                },
-                {
-                    "name": "amt",
+                    "name": "balance",
                     "type": "extended_asset"
                 }
             ]
@@ -190,7 +182,7 @@
                 },
                 {
                     "name": "denorm",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -209,6 +201,34 @@
             ]
         },
         {
+            "name": "burnex",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "close",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
             "name": "collect",
             "base": "",
             "fields": [
@@ -223,7 +243,7 @@
             ]
         },
         {
-            "name": "decapproval",
+            "name": "cppool2table",
             "base": "",
             "fields": [
                 {
@@ -231,12 +251,40 @@
                     "type": "name"
                 },
                 {
-                    "name": "dst",
+                    "name": "pool_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "create",
+            "base": "",
+            "fields": [
+                {
+                    "name": "issuer",
                     "type": "name"
                 },
                 {
-                    "name": "amt",
+                    "name": "maximum_supply",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
                 }
             ]
         },
@@ -254,11 +302,11 @@
                 },
                 {
                     "name": "poolAmountIn",
-                    "type": "uint"
+                    "type": "uint64"
                 },
                 {
                     "name": "minAmountsOut",
-                    "type": "uint[]"
+                    "type": "uint64[]"
                 }
             ]
         },
@@ -331,20 +379,20 @@
             ]
         },
         {
-            "name": "incapproval",
+            "name": "issue",
             "base": "",
             "fields": [
                 {
-                    "name": "msg_sender",
+                    "name": "to",
                     "type": "name"
                 },
                 {
-                    "name": "dst",
-                    "type": "name"
-                },
-                {
-                    "name": "amt",
+                    "name": "quantity",
                     "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         },
@@ -362,11 +410,11 @@
                 },
                 {
                     "name": "poolAmountOut",
-                    "type": "uint"
+                    "type": "uint64"
                 },
                 {
                     "name": "maxAmountsIn",
-                    "type": "uint[]"
+                    "type": "uint64[]"
                 }
             ]
         },
@@ -385,15 +433,11 @@
             ]
         },
         {
-            "name": "move",
+            "name": "mintex",
             "base": "",
             "fields": [
                 {
                     "name": "msg_sender",
-                    "type": "name"
-                },
-                {
-                    "name": "dst",
                     "type": "name"
                 },
                 {
@@ -427,6 +471,38 @@
                 {
                     "name": "token",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "newtokenex",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "token",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "open",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "ram_payer",
+                    "type": "name"
                 }
             ]
         },
@@ -473,7 +549,7 @@
             ]
         },
         {
-            "name": "pair_name_uint",
+            "name": "pair_name_uint64",
             "base": "",
             "fields": [
                 {
@@ -482,7 +558,7 @@
                 },
                 {
                     "name": "value",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -515,6 +591,20 @@
             ]
         },
         {
+            "name": "pool_storage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pool",
+                    "type": "name"
+                },
+                {
+                    "name": "pools",
+                    "type": "BPoolStore"
+                }
+            ]
+        },
+        {
             "name": "rebind",
             "base": "",
             "fields": [
@@ -532,7 +622,21 @@
                 },
                 {
                     "name": "denorm",
-                    "type": "uint"
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "retire",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         },
@@ -600,7 +704,7 @@
                 },
                 {
                     "name": "swapFee",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -626,7 +730,7 @@
                 },
                 {
                     "name": "maxPrice",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -652,7 +756,7 @@
                 },
                 {
                     "name": "maxPrice",
-                    "type": "uint"
+                    "type": "uint64"
                 }
             ]
         },
@@ -661,29 +765,29 @@
             "base": "",
             "fields": [
                 {
-                    "name": "msg_sender",
+                    "name": "from",
                     "type": "name"
                 },
                 {
-                    "name": "dst",
+                    "name": "to",
                     "type": "name"
                 },
                 {
-                    "name": "amt",
+                    "name": "quantity",
                     "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         },
         {
-            "name": "transferfrom",
+            "name": "transferex",
             "base": "",
             "fields": [
                 {
                     "name": "msg_sender",
-                    "type": "name"
-                },
-                {
-                    "name": "src",
                     "type": "name"
                 },
                 {
@@ -717,11 +821,6 @@
     ],
     "actions": [
         {
-            "name": "approve",
-            "type": "approve",
-            "ricardian_contract": ""
-        },
-        {
             "name": "bind",
             "type": "bind",
             "ricardian_contract": ""
@@ -732,13 +831,28 @@
             "ricardian_contract": ""
         },
         {
+            "name": "burnex",
+            "type": "burnex",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "close",
+            "type": "close",
+            "ricardian_contract": ""
+        },
+        {
             "name": "collect",
             "type": "collect",
             "ricardian_contract": ""
         },
         {
-            "name": "decapproval",
-            "type": "decapproval",
+            "name": "cppool2table",
+            "type": "cppool2table",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "create",
+            "type": "create",
             "ricardian_contract": ""
         },
         {
@@ -762,8 +876,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "incapproval",
-            "type": "incapproval",
+            "name": "issue",
+            "type": "issue",
             "ricardian_contract": ""
         },
         {
@@ -777,8 +891,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "move",
-            "type": "move",
+            "name": "mintex",
+            "type": "mintex",
             "ricardian_contract": ""
         },
         {
@@ -792,8 +906,23 @@
             "ricardian_contract": ""
         },
         {
+            "name": "newtokenex",
+            "type": "newtokenex",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "open",
+            "type": "open",
+            "ricardian_contract": ""
+        },
+        {
             "name": "rebind",
             "type": "rebind",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "retire",
+            "type": "retire",
             "ricardian_contract": ""
         },
         {
@@ -832,8 +961,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "transferfrom",
-            "type": "transferfrom",
+            "name": "transferex",
+            "type": "transferex",
             "ricardian_contract": ""
         },
         {
@@ -844,6 +973,13 @@
     ],
     "tables": [
         {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "factorystore",
             "type": "BFactoryStorage",
             "index_type": "i64",
@@ -851,8 +987,22 @@
             "key_types": []
         },
         {
+            "name": "pools",
+            "type": "pool_storage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "poolstore",
             "type": "BPoolStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
