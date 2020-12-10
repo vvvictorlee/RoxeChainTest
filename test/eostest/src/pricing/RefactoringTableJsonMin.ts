@@ -1,6 +1,6 @@
 // import { isConstructorDeclaration } from "typescript";
 
-import { prettyJson } from "./utils/prettyjson";
+import { prettyJson } from "../lib/prettyjson";
 
 export class RefactoringTableJsonMin {
     refactoring_fields: any[] = [

@@ -4,7 +4,7 @@ const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
-import { prettyJson } from "./utils/prettyjson";
+import { prettyJson } from "../lib/prettyjson";
 
 export class PricingApi {
 
@@ -33,7 +33,7 @@ export class PricingApi {
         }
         //console.log(JSON.stringify(res));
         // prettyJson(JSON.stringify(res));
-        return res;
+        return allrows;
     }
 
     async getOraclePrices() {

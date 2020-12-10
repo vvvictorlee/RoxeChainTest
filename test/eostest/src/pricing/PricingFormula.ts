@@ -1,7 +1,7 @@
 import "./utils/number.extensions";
 import { Trader } from "./impl/Trader";
 import { PricingApi } from "./PricingApi";
-import { prettyJson } from "./utils/prettyjson";
+import { prettyJson } from "../lib/prettyjson";
 
 // import { SafeMath } from "./lib/SafeMath";
 // //console.log(SafeMath.divCeil(70, 7));
@@ -88,7 +88,7 @@ export class TraderPricingApi {
     // prettyJson(bb);
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
-    const amount: number = 10000;
+    const amount: number = 1000000;
     const basetoken = "USD";
     const quotetoken = "GBP";
     let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
