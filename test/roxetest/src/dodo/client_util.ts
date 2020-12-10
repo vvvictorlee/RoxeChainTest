@@ -2,7 +2,7 @@ export default function date(value: number | string): Date {
     return new Date(value);
 }
 const ONE_DECIMALS = 6;
-const TOKEN_CONTRACT="roxearntoken";
+const TOKEN_CONTRACT = "roxearntoken";
 export class ClientUtil {
     static decimals = Math.pow(10, ONE_DECIMALS);
     static BONE = Math.pow(10, ONE_DECIMALS);
@@ -118,11 +118,11 @@ export class ClientUtil {
     }
 
     static get_core_symbol() {
-        return { symbol: ONE_DECIMALS+",ROC", contract: 'roxe.token' };
+        return { symbol: ONE_DECIMALS + ",ROC", contract: 'roxe.token' };
     }
 
     static to_sym(sym: any) {
-        return { symbol: ONE_DECIMALS+"," + sym, contract: TOKEN_CONTRACT };
+        return { symbol: ONE_DECIMALS + "," + sym, contract: TOKEN_CONTRACT };
     }
     static tounit(value: any) {
         return ClientUtil.todecimal(ClientUtil.scalar_decimals(value));
@@ -140,15 +140,19 @@ export class ClientUtil {
         return { quantity: ClientUtil.tounit(value) + sym, contract: "roxe.token" };
     }
 
-    // static to_asset(value: any, sym: any) {
-    //     return { quantity: ClientUtil.todecimal(ClientUtil.scalar_decimals(value)) + sym, contract: TOKEN_CONTRACT };
-    // }
+    static toonedecimal(value: any) {
+        return Number(Number(value) / Number(ClientUtil.decimals)).toFixed(ONE_DECIMALS+1) + " ";
+    }
+
+    static to_dec_asset(value: any, sym: any) {
+        return { quantity: ClientUtil.toonedecimal(value) + sym, contract: TOKEN_CONTRACT };
+    }
 
     static to_asset(value: any, sym: any) {
         return { quantity: ClientUtil.todecimal(value) + sym, contract: TOKEN_CONTRACT };
     }
 
     static to_wei_asset(value: any, sym: any) {
-        return ClientUtil.to_asset(ClientUtil.scalar_decimals(Number(value)*(Number(ClientUtil.BONE)/Number(ClientUtil.decimals))), sym);
+        return ClientUtil.to_asset(ClientUtil.scalar_decimals(Number(value) * (Number(ClientUtil.BONE) / Number(ClientUtil.decimals))), sym);
     }
 }

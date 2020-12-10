@@ -212,6 +212,13 @@ class DosClient {
     async buybt() {
         await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.buydata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
     }
+    async buyfakebt() {
+        const a = { quantity: "1.000000 XXX", contract: "a" };
+        await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, a, ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+    }
+    async buydecbt() {
+        await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_dec_asset(10000000, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+    }
     async sellbt() {
         await pushAciton("sellbastoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.selldata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.selldata.minReceive, this.para.currentquotestr));
     }
@@ -307,6 +314,12 @@ const handlers: any = {
     }),
     "sellbt": (async function () {
         await client.sellbt();
+    }),
+    "buyfakebt": (async function () {
+        await client.buyfakebt();
+    }),
+    "buydecbt": (async function () {
+        await client.buydecbt();
     }),
     "initproxy": (async function () {
         await client.initproxy();

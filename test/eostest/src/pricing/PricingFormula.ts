@@ -30,7 +30,7 @@ export class TraderPricingApi {
     }
 
     async queryDodo(baseToken: any, quoteToken: any) {
-        let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "22222";
+        let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "333333";
         dodo_name = dodo_name.substr(0, 12);
         const testdodo_name: any = { "rousd2rogbp1": "usd2gbp2222", "rousd2rohkd1": "usd2hkd2222", "weth2dai1111": "dai2mkr11111", "eth2mkr11111": "ethbasemkr11" };
         const mapname = testdodo_name[dodo_name];
@@ -38,8 +38,12 @@ export class TraderPricingApi {
             dodo_name = mapname;
         }
 
-        // //console.log(dodo_name);
-        let dodo = this.galldodos[dodo_name];
+        // console.log("======dodo_name======",dodo_name);
+        let dodo = this.galldodos[Object.keys(this.galldodos)[0]];
+        if (this.galldodos.hasOwnProperty(dodo_name)) {
+            dodo = this.galldodos[dodo_name];
+        }
+
         // dodo._ORACLE_PRICE_ = Number(galloracles[baseToken]);
         // //console.log(dodo);
 
@@ -80,6 +84,7 @@ export class TraderPricingApi {
 
     const papi = new PricingApi();
     let bb: any = await papi.getDodo();
+    // console.log("===m======");
     // prettyJson(bb);
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
