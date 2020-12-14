@@ -8,6 +8,7 @@
 
 import { SafeMath } from "./SafeMath";
 import "../utils/number.extensions";
+const ONE_DECIMALS = process.env.PRICING_DODO_EARN_ONE_DECIMALS;
 /**
  * @title DecimalMath
  * @author DODO Breeder

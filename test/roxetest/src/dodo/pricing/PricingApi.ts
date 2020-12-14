@@ -4,20 +4,22 @@ const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
-import { prettyJson } from "../lib/prettyjson";
+import { prettyJson } from "../../lib/prettyjson";
+const dodotablecode = process.env.PRICING_EARN_DODO_CONTRACT_ACCOUNT;
 
 export class PricingApi {
 
     async getDodos() {
+        console.log("==dodotablecode===",dodotablecode);
         let allrows = { rows: [], more: false };
         let res = { rows: [], more: true };
         let lower_bound = "1";
         while (res.more) {
             console.log(JSON.stringify(res));
             res = await rpc.get_table_rows({
-                code: 'roxeearn1213',
+                code: dodotablecode,
                 table: 'dodos',
-                scope: 'roxeearn1213',
+                scope: dodotablecode,
                 lower_bound: lower_bound
             });
             if (res.more) {
@@ -44,9 +46,9 @@ export class PricingApi {
         while (res.more) {
             // console.log(JSON.stringify(res));
             res = await rpc.get_table_rows({
-                code: 'roxeearn1213',
+                code: dodotablecode,
                 table: 'oracleprices',
-                scope: 'roxeearn1213',
+                scope: dodotablecode,
                 lower_bound: lower_bound + 1
             });
             if (res.more) {

@@ -1,8 +1,8 @@
 {
-  "name": "delpi-oracle-utils",
+  "name": "pricing",
   "version": "1.0.0",
   "description": "",
-  "main": "updater.js",
+  "main": "",
   "scripts": {
     "dodo:newpair:newaccount": "ts-node src/dodo/dodo_client.ts newacc",
     "dodo:newpair:deploytoken": "ts-node src/dodo/dodo_client.ts depoly",
@@ -10,19 +10,22 @@
     "dodo:newpair:newdodo": "ts-node src/dodo/dodo_client.ts newdo",
     "dodo:newpair:setprice": "ts-node src/dodo/dodo_client.ts sp",
     "dodo:newpair:setparameter": "ts-node src/dodo/dodo_client.ts spa",
-    "dodo:newpair:setprice": "ts-node src/dodo/dodo_client.ts sp",
+    "dodo:pricing:dev": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.dev",
+    "dodo:pricing:test": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.test",
+    "dodo:pricing:prod": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.prod",
+
     "start": "ts-node src/picture.ts",
     "dev": "nodemon",
     "test": "node --max_old_space_size=8192 bosoracle_updater.js"
   },
-  "author": "Guillaume Babin-Tremblay",
-  "license": "ISC",
+  "author": "",
+  "license": "",
   "dependencies": {
-    "delpi-oracle-utils": "/Users/lisheng/mygit/vvvictorlee/RoxeChainTest/test/roxetest",
+    "decimal.js": "^10.2.1",
     "dotenv": "^6.0.0",
     "fs": "^0.0.1-security",
     "prettier": "^2.2.0",
-    "roxejs": "^1.0.3"
+    "roxejs": "^1.0.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",

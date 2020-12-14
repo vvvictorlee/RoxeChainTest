@@ -80,3 +80,42 @@ export class BTC2USD_PAIR_DATA {
         }
     }
 }
+
+export class ETH2USD_PAIR_DATA {
+    static PAIR = { token1: "ETH", token2: "USD" };
+    static POOL_NAME = "eth2usd33333";
+    static pairpara = {
+        currentPool: ETH2USD_PAIR_DATA.POOL_NAME,
+        token1: ETH2USD_PAIR_DATA.PAIR.token1,
+        token2: ETH2USD_PAIR_DATA.PAIR.token2,
+        newaccdata: {
+            newuser: ETH2USD_PAIR_DATA.POOL_NAME,
+            pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
+        },
+        mintdata: {
+            users: [Swap.nonadmin, Swap.user1],
+            tokens: [[10000, ETH2USD_PAIR_DATA.PAIR.token1], [20000000, ETH2USD_PAIR_DATA.PAIR.token2]]
+        },
+        binddata:
+        {
+            token1: { amount: 10000, denorm: 5 },
+            token2: { amount: 200000000, denorm: 5 }
+        },
+        joinpooldata: 90,
+        exitpooldata: 10,
+        swapfee: 1000000,
+        pubswap: true,
+        swapindata: {
+            user: Swap.user1,
+            tokenAmountIn: 210000,
+            minAmountOut: 400,
+            maxPrice: 200
+        },
+        swapoutdata: {
+            user: Swap.user1,
+            maxAmountIn: 4000000000,
+            tokenAmountOut: 2100000,
+            maxPrice: 50000
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { SwapAbiJson } from "../lib/abijson";
 import { buyram, createNewAccount, deployContract } from "../lib/api_utils";
 import { ClientUtil } from "./client_util";
-import { Swap, BTC2USD_PAIR_DATA } from "./client_data";
+import { Swap, BTC2USD_PAIR_DATA,ETH2USD_PAIR_DATA } from "./client_data";
 import { prettyJson } from "../lib/prettyjson";
 const { deployContractjs } = require('../lib/deployContract_api_utils')
 
@@ -77,7 +77,9 @@ class SwapClient {
             this.allowSwapContract(acc, Swap.acc2pub_keys[acc]);
         }
     }
-
+    async cppool2table() {
+        await pushAciton("cppool2table", Swap.admin, this.para.currentPool);
+    }
     async extransfer() {
         let results: any = await pushAciton("extransfer",
             Swap.admin,
@@ -136,8 +138,8 @@ class SwapClient {
     async newpool() {
         await pushAciton("newpool", Swap.admin, this.para.currentPool);
     }
-    async cppool2table() {
-        await pushAciton("cppool2table", Swap.admin, this.para.currentPool);
+   async newtestpool() {
+        await pushAciton("newpool", Swap.admin, "testpool");
     }
     async setswapfee() {
         await pushAciton("setswapfee", Swap.admin, this.para.currentPool, this.para.swapfee);
@@ -189,6 +191,9 @@ const utils = { api: api, Serialize: Serialize };
 let client = new SwapClient(BTC2USD_PAIR_DATA.pairpara);
 
 const handlers: any = {
+   "newtestpool": (async function () {
+        await client.newtestpool();
+    }),
     "t": (async function () {
         await client.extransfer();
     }),
@@ -289,12 +294,18 @@ const handlers: any = {
 // "newacc", "deploy","exitpool","collect"
 // const actions = ["a", "newtoken", "mint", "newpool", "setswapfee", "bind", "finalize", "joinpool", "swapamtin","swapamtout"];
 
-const actions = ["newacc"];
+const actions = ["newacc","newpool"];
 
 
 const batchhandlers: any = {
     "b2u": (async function () {
         client = new SwapClient(BTC2USD_PAIR_DATA.pairpara);
+        for (let ac of actions) {
+            await handlers[ac]();
+        }
+    }),
+    "e2u": (async function () {
+        client = new SwapClient(ETH2USD_PAIR_DATA.pairpara);
         for (let ac of actions) {
             await handlers[ac]();
         }
