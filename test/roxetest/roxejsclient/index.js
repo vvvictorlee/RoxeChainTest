@@ -64,20 +64,20 @@ const users = ["bob111111111"];
 
 let handlers = {
     "do": (async function () {
-
+const code = "roxeearntest"
         const res = await rpc.get_table_rows({
-            code: 'roxeearn1213',
+            code: code,
             table: 'dodos',
-            scope: 'roxeearn1213',
+            scope: code,
             reverse: true
         });
         prettyJson(res);
 
         {
             const res = await rpc.get_table_rows({
-                code: 'roxeearn1213',
+                code: code,
                 table: 'oracleprices',
-                scope: 'roxeearn1213',
+                scope: code,
                 reverse: true
             });
             prettyJson(res);

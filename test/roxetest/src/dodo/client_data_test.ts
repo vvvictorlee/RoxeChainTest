@@ -167,7 +167,7 @@ export class G2H_PAIR_DATA {
         oracleprice:10472973,
         buydata: {
             amount: 1,
-            maxPay: 10
+            maxPay: 15
         },
         selldata: {
             amount: 1,

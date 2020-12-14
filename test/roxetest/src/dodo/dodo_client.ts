@@ -213,6 +213,20 @@ prettyJson(this.para);
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
         await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
+    async  g2hwithdrawbase() {
+        const dodo_name = this.para.currentDodo;
+        const baseamount = this.para.depositdata.baseamount;
+        const quoteamount = this.para.depositdata.quoteamount;
+        await pushAciton("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        // await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+    }
+    async  u2gwithdrawquote() {
+        const dodo_name = this.para.currentDodo;
+        const baseamount = this.para.depositdata.baseamount;
+        const quoteamount = this.para.depositdata.quoteamount;
+        // await pushAciton("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        await pushAciton("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+    }
     async depositbasequotex() {
         const dodo_name = this.para.currentDodo;
         const quoteamount = 7000000;
@@ -316,6 +330,12 @@ const handlers: any = {
     "setparameter": (async function () {
         await client.setparameter();
     }),
+    "g2hwithdrawbase": (async function () {
+        await client.g2hwithdrawbase();
+    }),
+    "u2gwithdrawquote": (async function () {
+        await client.u2gwithdrawquote();
+    }),
     "depositbasequote": (async function () {
         await client.depositbasequote();
     }),
@@ -361,8 +381,9 @@ const handlers: any = {
 // const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-const actions = ["depositbasequote"];//, "depositbasequote", "buybt", "sellbt"
+const actions = ["buybt", "sellbt"];//, "depositbasequote", "buybt", "sellbt"
 
+// const actions = ["u2gwithdrawquote"];//, "depositbasequote", "buybt", "sellbt"
 
 const batchhandlers: any = {
     "u2g": (async function () {
