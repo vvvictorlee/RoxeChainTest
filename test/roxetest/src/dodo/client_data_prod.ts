@@ -10,8 +10,9 @@ dotenv.load();
 export class Dos {
     static interval = process.env.FREQ;
     static owner = process.env.ADMIN;
-    static dosContract = process.env.DOS_CONTRACT;
-
+    static dosContract = "roxeearnprod";//process.env.DOS_CONTRACT;
+    static ONE_DECIMALS = 6;
+    static TOKEN_CONTRACT = "roxe.ro";
 
     //cosnt      doowner            = "dodoowner111";
     static bp = "roxe1";

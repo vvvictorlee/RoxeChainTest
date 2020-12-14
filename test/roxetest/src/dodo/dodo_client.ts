@@ -1,7 +1,9 @@
 import { DosAbiJson } from "../lib/abijson";
 import { buyram, createNewAccount, deployContract } from "../lib/api_utils";
 import { ClientUtil } from "./client_util";
-import { Dos, U2G_PAIR_DATA, U2H_PAIR_DATA } from "./client_data";
+// import { Dos, U2G_PAIR_DATA, U2H_PAIR_DATA } from "./client_data";
+import { Dos, U2G_PAIR_DATA, U2H_PAIR_DATA, G2H_PAIR_DATA } from "./client_data_test";
+// import { Dos, U2G_PAIR_DATA, U2H_PAIR_DATA } from "./client_data_prod";
 import { prettyJson } from "../lib/prettyjson";
 const { deployContractjs } = require('../lib/deployContract_api_utils')
 
@@ -21,10 +23,7 @@ const api = new Api({
     textEncoder: new TextEncoder()
 })
 
-
-
 // # http://10.100.1.10:8889/v1/wallet/list_wallets
-
 
 const createtoken = async () => await api.transact({
     actions: [{
@@ -76,10 +75,13 @@ const utils = { api: api, Serialize: Serialize };
 const filePath = '../wasms/roxe.token/roxe.token';
 const dodofilePath = '../wasms/eosdos/eosdos';
 
+ClientUtil.para = { ONE_DECIMALS: Dos.ONE_DECIMALS, TOKEN_CONTRACT: Dos.TOKEN_CONTRACT };
+
 class DosClient {
     para: { [name: string]: any } = {}
     constructor(para: any) {
         this.para = para;
+prettyJson(this.para);
     }
 
     async allowDosContract(user: any, pubk: any) {
@@ -188,6 +190,9 @@ class DosClient {
         await pushAciton("enabletradin", Dos.admin, dodo_name);
         await pushAciton("enablequodep", Dos.admin, dodo_name);
         await pushAciton("enablebasdep", Dos.admin, dodo_name);
+        // await pushAciton("setparameter", Dos.admin, dodo_name,"trading",1);
+        // await pushAciton("setparameter", Dos.admin, dodo_name,"quotedeposit",1);
+        // await pushAciton("setparameter", Dos.admin, dodo_name,"basedeposit",1);
     }
     async setprice() {
         await pushAciton("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
@@ -356,7 +361,7 @@ const handlers: any = {
 // const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-const actions = ["setprice"];//, "depositbasequote", "buybt", "sellbt"
+const actions = ["depositbasequote"];//, "depositbasequote", "buybt", "sellbt"
 
 
 const batchhandlers: any = {
@@ -368,6 +373,12 @@ const batchhandlers: any = {
     }),
     "u2h": (async function () {
         client = new DosClient(U2H_PAIR_DATA.pairpara);
+        for (let ac of actions) {
+            await handlers[ac]();
+        }
+    }),
+    "g2h": (async function () {
+        client = new DosClient(G2H_PAIR_DATA.pairpara);
         for (let ac of actions) {
             await handlers[ac]();
         }
