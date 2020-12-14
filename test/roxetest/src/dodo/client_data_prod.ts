@@ -11,8 +11,7 @@ export class Dos {
     static interval = process.env.FREQ;
     static owner = process.env.ADMIN;
     static dosContract = process.env.DOS_CONTRACT;
-    static ONE_DECIMALS = 6;
-    static TOKEN_CONTRACT = "roxearntoken";
+
 
     //cosnt      doowner            = "dodoowner111";
     static bp = "roxe1";
@@ -21,7 +20,7 @@ export class Dos {
     static hexuser = "carol1111111";
     static testadmin = "roxeearntest";
     static prodadmin = "roxeearnprod";
-    static admin = "roxeearn1213";
+    static admin = Dos.testadmin;//"roxeearn1213";
     static tokenowner = "roxearntoken";
     static tokenissuer = "tokenissuer1";
     static maintainer = "maintainer11";

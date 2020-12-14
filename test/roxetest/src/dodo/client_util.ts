@@ -1,13 +1,18 @@
 export default function date(value: number | string): Date {
     return new Date(value);
 }
-const ONE_DECIMALS = 6;
-const TOKEN_CONTRACT = "roxearntoken";
-export class ClientUtil {
-    static decimals = Math.pow(10, ONE_DECIMALS);
-    static BONE = Math.pow(10, ONE_DECIMALS);
 
-    static require_permissions = ({ account, key, actor, parent }: { account: any, key: any, actor: any, parent: any }) => {
+export class ClientUtil {
+    para: { [name: string]: any } = {}
+ 
+    decimals = Math.pow(10, this.para.ONE_DECIMALS);
+    BONE = Math.pow(10, this.para.ONE_DECIMALS);
+
+   constructor(para: any) {
+        this.para = para;
+    }
+
+    require_permissions = ({ account, key, actor, parent }: { account: any, key: any, actor: any, parent: any }) => {
         return {
             account: `${account}`,
             permission: "active",
@@ -34,7 +39,7 @@ export class ClientUtil {
         };
     };
 
-    static allowContract = (auth: any, key: any, contract: any, parent: any = "owner") => {
+    allowContract = (auth: any, key: any, contract: any, parent: any = "owner") => {
         let [account, permission] = auth.split("@");
         permission = permission || "active";
         parent = parent || "owner";
@@ -50,7 +55,7 @@ export class ClientUtil {
                             permission: permission
                         }
                     ],
-                    data: ClientUtil.require_permissions({
+                    data: this.require_permissions({
                         account: account,
                         key: key,
                         actor: contract,
@@ -64,7 +69,7 @@ export class ClientUtil {
     };
 
 
-    static pushAction = (contract: any, account: any, key: any, action: any, data: any) => {
+    pushAction = (contract: any, account: any, key: any, action: any, data: any) => {
         // let [account, permission] = auth.split("@");
         let permission = "active";
         const pub_keys = [key];
@@ -89,7 +94,7 @@ export class ClientUtil {
     };
 
 
-    static find_from_array(arr: any[]) {
+    find_from_array(arr: any[]) {
         let newArr = arr.filter((p) => {
             return p.name === "United States";
         });
@@ -97,62 +102,62 @@ export class ClientUtil {
         return newArr;
     }
 
-    static repeat(str: any, n: any) {
+    repeat(str: any, n: any) {
         return new Array(n + 1).join(str);
     }
 
-    static current_time() {
+    current_time() {
         return Date.parse(new Date().toString()) / 1000;
     }
 
-    static to_timestamp(time: any) {
+    to_timestamp(time: any) {
         return Date.parse(new Date(time).toString()) / 1000;
     }
 
-    static to_wei(value: any) {
-        return value * Math.pow(10, ONE_DECIMALS);
+    to_wei(value: any) {
+        return value * Math.pow(10, this.para.ONE_DECIMALS);
     }
 
-    static to_max_supply(sym: any) {
-        return { quantity: "100000000000.000000 " + sym, contract: TOKEN_CONTRACT };
+    to_max_supply(sym: any) {
+        return { quantity: "100000000000.000000 " + sym, contract: this.para.TOKEN_CONTRACT };
     }
 
-    static get_core_symbol() {
-        return { symbol: ONE_DECIMALS + ",ROC", contract: 'roxe.token' };
+    get_core_symbol() {
+        return { symbol: this.para.ONE_DECIMALS + ",ROC", contract: 'roxe.token' };
     }
 
-    static to_sym(sym: any) {
-        return { symbol: ONE_DECIMALS + "," + sym, contract: TOKEN_CONTRACT };
+    to_sym(sym: any) {
+        return { symbol: this.para.ONE_DECIMALS + "," + sym, contract: this.para.TOKEN_CONTRACT };
     }
-    static tounit(value: any) {
-        return ClientUtil.todecimal(ClientUtil.scalar_decimals(value));
-    }
-
-    static todecimal(value: any) {
-        return Number(Number(value) / Number(ClientUtil.decimals)).toFixed(ONE_DECIMALS) + " ";
+    tounit(value: any) {
+        return this.todecimal(this.scalar_decimals(value));
     }
 
-    static scalar_decimals(value: any) {
-        return Number(value) * Number(ClientUtil.decimals);
+    todecimal(value: any) {
+        return Number(Number(value) / Number(this.decimals)).toFixed(this.para.ONE_DECIMALS) + " ";
     }
 
-    static to_core_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.tounit(value) + sym, contract: "roxe.token" };
+    scalar_decimals(value: any) {
+        return Number(value) * Number(this.decimals);
     }
 
-    static toonedecimal(value: any) {
-        return Number(Number(value) / Number(ClientUtil.decimals)).toFixed(ONE_DECIMALS+1) + " ";
+    to_core_asset(value: any, sym: any) {
+        return { quantity: this.tounit(value) + sym, contract: "roxe.token" };
     }
 
-    static to_dec_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.toonedecimal(value) + sym, contract: TOKEN_CONTRACT };
+    toonedecimal(value: any) {
+        return Number(Number(value) / Number(this.decimals)).toFixed(this.para.ONE_DECIMALS + 1) + " ";
     }
 
-    static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(value) + sym, contract: TOKEN_CONTRACT };
+    to_dec_asset(value: any, sym: any) {
+        return { quantity: this.toonedecimal(value) + sym, contract: this.para.TOKEN_CONTRACT };
     }
 
-    static to_wei_asset(value: any, sym: any) {
-        return ClientUtil.to_asset(ClientUtil.scalar_decimals(Number(value) * (Number(ClientUtil.BONE) / Number(ClientUtil.decimals))), sym);
+    to_asset(value: any, sym: any) {
+        return { quantity: this.todecimal(value) + sym, contract: this.para.TOKEN_CONTRACT };
+    }
+
+    to_wei_asset(value: any, sym: any) {
+        return this.to_asset(this.scalar_decimals(Number(value) * (Number(this.BONE) / Number(this.decimals))), sym);
     }
 }

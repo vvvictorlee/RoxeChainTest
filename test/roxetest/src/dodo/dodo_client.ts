@@ -110,12 +110,15 @@ class DosClient {
 
     }
     async newdodoacc() {
-        const newuser = Dos.admin;
-        // const pub_key = this.para.newaccdata.pub_key;
-        const pub_key = Dos.acc2pub_keys[newuser];
-        createNewAccount(newuser, pub_key, pub_key, api);
-
+        const users = [Dos.testadmin, Dos.prodadmin];//Dos.admin,
+        for (let u of users) {
+            const newuser = u;
+            // const pub_key = this.para.newaccdata.pub_key;
+            const pub_key = Dos.acc2pub_keys[newuser];
+            createNewAccount(newuser, pub_key, pub_key, api);
+        }
     }
+
     async newtokenacc() {
         const newuser = Dos.tokenowner;
         // const pub_key = this.para.newaccdata.pub_key;
@@ -129,9 +132,10 @@ class DosClient {
     async deploytoken() {
         deployContractjs(Dos.tokenowner, filePath, utils);
     }
-    async deploydodo() {
-        deployContractjs(Dos.admin, dodofilePath, utils);
+    async deploydodo(sc_acc: any) {
+        deployContractjs(sc_acc, dodofilePath, utils);
     }
+
     async newtoken() {
         await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentbasestr));
         await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentquotestr));
@@ -286,7 +290,8 @@ const handlers: any = {
         await client.deploytoken();
     }),
     "deploydodo": (async function () {
-        await client.deploydodo();
+        await client.deploydodo(Dos.testadmin);
+        await client.deploydodo(Dos.prodadmin);
     }),
     "newtoken": (async function () {
         await client.newtoken();
