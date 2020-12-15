@@ -91,12 +91,16 @@ export class Pricing extends Storage {
 
         let fairAmount: number = DecimalMath.mul(spareBase, price);
 
-        let newTargetQuote: number = DODOMath._SolveQuadraticForTarget(
+        let newTargetQuote: number = Number(DODOMath._SolveQuadraticForTarget(
             this._QUOTE_BALANCE_,
             this._K_,
             fairAmount
-        );
-        return Number(newTargetQuote).sub(this._QUOTE_BALANCE_);
+        ).toFixed(0));
+
+        // console.log("==",Number(newTargetQuote),"===",(this._QUOTE_BALANCE_),"====Number(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Number(newTargetQuote).sub(this._QUOTE_BALANCE_));
+
+
+        return (Number(newTargetQuote).sub(this._QUOTE_BALANCE_));
     }
 
     // ============ R > 1 cases ============
@@ -141,11 +145,13 @@ export class Pricing extends Storage {
     getExpectedTarget() {
         let Q: number = this._QUOTE_BALANCE_;
         let B: number = this._BASE_BALANCE_;
+// console.log("==this._QUOTE_BALANCE_==",this._QUOTE_BALANCE_,"==this._BASE_BALANCE_===",this._BASE_BALANCE_);
+
         if (this._R_STATUS_ == Types_RStatus.ONE) {
             return [this._TARGET_BASE_TOKEN_AMOUNT_, this._TARGET_QUOTE_TOKEN_AMOUNT_];
         } else if (this._R_STATUS_ == Types_RStatus.BELOW_ONE) {
             let payQuoteToken: number = this._RBelowBackToOne();
-            //console.log("==Q===", Q,payQuoteToken);
+            // console.log("==Q===", Q,payQuoteToken,"====");
             return [this._TARGET_BASE_TOKEN_AMOUNT_, Number(Q).add(payQuoteToken)];
         } else if (this._R_STATUS_ == Types_RStatus.ABOVE_ONE) {
             let payBaseToken: number = this._RAboveBackToOne();

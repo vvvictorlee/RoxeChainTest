@@ -43,8 +43,8 @@ export class Trader extends Pricing {
             newRStatus = Types_RStatus.BELOW_ONE;
         } else if (this._R_STATUS_ == Types_RStatus.ABOVE_ONE) {
             let backToOnePayBase: number = Number(newBaseTarget).sub(this._BASE_BALANCE_);
-           //console.log("===========",backToOnePayBase);
- let backToOneReceiveQuote: number = Number(this._QUOTE_BALANCE_).sub(newQuoteTarget);
+            //console.log("===========",backToOnePayBase);
+            let backToOneReceiveQuote: number = Number(this._QUOTE_BALANCE_).sub(newQuoteTarget);
             // case 2: R>1
             // complex case, R status depends on trading amount
             if (sellBaseAmount < backToOnePayBase) {
@@ -100,8 +100,11 @@ export class Trader extends Pricing {
             payQuote = this._RAboveBuyBaseToken(buyBaseAmount, this._BASE_BALANCE_, newBaseTarget);
             newRStatus = Types_RStatus.ABOVE_ONE;
         } else if (this._R_STATUS_ == Types_RStatus.BELOW_ONE) {
+// console.log("==newQuoteTarget==",newQuoteTarget,"==this._QUOTE_BALANCE_===",this._QUOTE_BALANCE_);
+
             let backToOnePayQuote: number = Number(newQuoteTarget).sub(this._QUOTE_BALANCE_);
             let backToOneReceiveBase: number = Number(this._BASE_BALANCE_).sub(newBaseTarget);
+// console.log("==backToOneReceiveBase==",backToOneReceiveBase,"==backToOnePayQuote===",backToOnePayQuote);
             // case 3: R<1
             // complex case, R status may change
             if (buyBaseAmount < backToOneReceiveBase) {
