@@ -77,11 +77,11 @@ const dodofilePath = '../wasms/eosdos/eosdos';
 
 ClientUtil.para = { ONE_DECIMALS: Dos.ONE_DECIMALS, TOKEN_CONTRACT: Dos.TOKEN_CONTRACT };
 
-class DosClient {
+export class DosClient {
     para: { [name: string]: any } = {}
     constructor(para: any) {
         this.para = para;
-prettyJson(this.para);
+        prettyJson(this.para);
     }
 
     async allowDosContract(user: any, pubk: any) {
@@ -213,14 +213,14 @@ prettyJson(this.para);
         await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
         await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
-    async  g2hwithdrawbase() {
+    async g2hwithdrawbase() {
         const dodo_name = this.para.currentDodo;
         const baseamount = this.para.depositdata.baseamount;
         const quoteamount = this.para.depositdata.quoteamount;
         await pushAciton("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
         // await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
-    async  u2gwithdrawquote() {
+    async u2gwithdrawquote() {
         const dodo_name = this.para.currentDodo;
         const baseamount = this.para.depositdata.baseamount;
         const quoteamount = this.para.depositdata.quoteamount;

@@ -11,48 +11,7 @@ const ONE_DECIMALS = 9;
 const SYM2DEC={"BTC":8,"USD":6};
 
 var s = {
-    "rows": [
-        {
-            "pool": "btc2usdt",
-            "pools": {
-                "mutex": 0,
-                "factory": "eoswapeoswap",
-                "controller": "eoswapeoswap",
-                "publicSwap": 1,
-                "swapFee": 1000,
-                "finalized": 1,
-                "tokens": [
-                    "0x04425443000000003015a4b957c33155",
-                    "0x04555344540000003015a4b957c33155"
-                ],
-                "records": [
-                    {
-                        "key": "0x04425443000000003015a4b957c33155",
-                        "value": {
-                            "bound": 1,
-                            "index": 0,
-                            "denorm": 5000000,
-                            "balance": 184939,
-                            "exsym": { "symbol": "4,BTC", "contract": "eoswapxtoken" }
-                        }
-                    },
-                    {
-                        "key": "0x04555344540000003015a4b957c33155",
-                        "value": {
-                            "bound": 1,
-                            "index": 1,
-                            "denorm": 5000000,
-                            "balance": 7818011161,
-                            "exsym": { "symbol": "4,USDT", "contract": "eoswapxtoken" }
-                        }
-                    }
-                ],
-                "totalWeight": 10000000
-            }
-        }
-    ],
-    "more": false
-};
+   };
 
 
 var BONE = Math.pow(10, 9);

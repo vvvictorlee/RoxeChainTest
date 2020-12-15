@@ -4942,7 +4942,7 @@ function calcSingleInGivenPoolOut(tokenBalanceIn, tokenWeightIn, poolSupply, tot
 
 var s = {};
 
-
+var POOL_NAME_SUFFIX="333333";
 var ONE_DECIMALS =  9;
 var BONE = Math.pow(10, 9);
 
@@ -4998,7 +4998,7 @@ function init(p) {
 }
 
 function queryPool(tokenIn, tokenOut) {
-    var pool_name = tokenIn.toLowerCase() + "2" + tokenOut.toLowerCase();
+    var pool_name = tokenIn.toLowerCase() + "2" + tokenOut.toLowerCase()+"33333";
     pool_name = pool_name.substr(0, 12);
     // var testpool_name = { "dai2weth": "pool4", "weth2dai": "pool3" };
     // pool_name = testpool_name[pool_name];

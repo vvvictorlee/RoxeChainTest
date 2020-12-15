@@ -4042,7 +4042,7 @@ tr46@^2.0.2:
 
 ts-jest@^26.4.4:
   version "26.4.4"
-  resolved "https://registry.npm.taobao.org/ts-jest/download/ts-jest-26.4.4.tgz#61f13fb21ab400853c532270e52cc0ed7e502c49"
+  resolved "https://registry.npm.taobao.org/ts-jest/download/ts-jest-26.4.4.tgz?cache=0&sync_timestamp=1606402952635&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-jest%2Fdownload%2Fts-jest-26.4.4.tgz#61f13fb21ab400853c532270e52cc0ed7e502c49"
   integrity sha1-YfE/shq0AIU8UyJw5SzA7X5QLEk=
   dependencies:
     "@types/jest" "26.x"

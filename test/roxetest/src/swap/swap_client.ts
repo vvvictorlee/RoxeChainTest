@@ -61,7 +61,7 @@ const pushAciton = async (action: any, ...restOfPara: any[]) => {
 const filePath = '../wasms/roxe.token/roxe.token';
 const swapfilePath = '../wasms/eoswap/eoswap';
 
-class SwapClient {
+export class SwapClient {
     para: { [name: string]: any } = {}
     constructor(para: any) {
         this.para = para;

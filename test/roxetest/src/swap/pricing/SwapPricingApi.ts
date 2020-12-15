@@ -13,7 +13,6 @@ export class SwapPricingApi {
         let res = { rows: [], more: true };
         let lower_bound = "1";
         while (res.more) {
-            console.log(JSON.stringify(res));
             res = await rpc.get_table_rows({
                 code: 'roxeswap1213',
                 table: 'pools',
@@ -32,7 +31,7 @@ export class SwapPricingApi {
 
         }
         //console.log(JSON.stringify(res));
-        // prettyJson(JSON.stringify(res));
+        prettyJson(allrows);
         return allrows;
     }
 
@@ -45,12 +44,12 @@ export class SwapPricingApi {
 }
 
 (async function () {
-    const api = new SwapPricingApi();
-    let b: any = await api.getPool();
-    console.log(JSON.stringify(b));
-    init(JSON.stringify(b));
-    console.log(sell(0.00000001, "BTC", "USD"));
-    console.log(buy(0.00000001, "BTC", "USD"));
+    // const api = new SwapPricingApi();
+    // let b: any = await api.getPool();
+    // // console.log(JSON.stringify(b));
+    // init(JSON.stringify(b));
+    // console.log(sell(0.00000001, "BTC", "USD"));
+    // console.log(buy(0.00000001, "BTC", "USD"));
     // let s: any = await api.querySellToken(10000, "DAI", "MKR");
     // console.log("=s==", s, "===");
 })();

@@ -1,43 +1,43 @@
 {
-  "rows": [
-    {
-      "pool": "btc2usdt",
-      "pools": {
-        "mutex": 0,
-        "factory": "eoswapeoswap",
-        "controller": "eoswapeoswap",
-        "publicSwap": 1,
-        "swapFee": 1000,
-        "finalized": 1,
-        "tokens": [
-          "0x04425443000000003015a4b957c33155",
-          "0x04555344540000003015a4b957c33155"
-        ],
-        "records": [
+        "rows": [
           {
-            "key": "0x04425443000000003015a4b957c33155",
-            "value": {
-              "bound": 1,
-              "index": 0,
-              "denorm": 5000000,
-              "balance": 494073,
-              "exsym": { "symbol": "4,BTC", "contract": "eoswapxtoken" }
-            }
-          },
-          {
-            "key": "0x04555344540000003015a4b957c33155",
-            "value": {
-              "bound": 1,
-              "index": 1,
-              "denorm": 5000000,
-              "balance": 2923553580,
-              "exsym": { "symbol": "4,USDT", "contract": "eoswapxtoken" }
+            "pool": "btc2usd33333",
+            "pools": {
+              "mutex": 0,
+              "factory": "roxeswap1213",
+              "controller": "roxeswap1213",
+              "publicSwap": 1,
+              "swapFee": 1000000,
+              "finalized": 1,
+              "tokens": [
+                "0x08425443000000003015a4795ea33abd",
+                "0x06555344000000003015a4795ea33abd"
+              ],
+              "records": [
+                {
+                  "key": "0x08425443000000003015a4795ea33abd",
+                  "value": {
+                    "bound": 1,
+                    "index": 0,
+                    "denorm": 5000000,
+                    "balance": "10049543990020852",
+                    "exsym": { "symbol": "8,BTC", "contract": "roxearntoken" }
+                  }
+                },
+                {
+                  "key": "0x06555344000000003015a4795ea33abd",
+                  "value": {
+                    "bound": 1,
+                    "index": 1,
+                    "denorm": 5000000,
+                    "balance": "200489683601209983",
+                    "exsym": { "symbol": "6,USD", "contract": "roxearntoken" }
+                  }
+                }
+              ],
+              "totalWeight": 10000000
             }
           }
         ],
-        "totalWeight": 10000000
+        "more": false
       }
-    }
-  ],
-  "more": false
-}

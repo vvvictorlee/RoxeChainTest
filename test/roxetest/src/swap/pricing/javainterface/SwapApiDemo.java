@@ -7,10 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.script.*;
-/**
- * 调用JavaScript脚本演示
- * @author Zebe
- */
+
 public class SwapApiDemo {
 
    /**
@@ -30,7 +27,7 @@ public class SwapApiDemo {
       double tokenAmountIn  = 1;
       double tokenAmountOut = 1;
       String tokenIn        = "BTC";
-      String tokenOut       = "USDT";
+      String tokenOut       = "USD";
       query("sell", tokenAmountIn, tokenIn, tokenOut);
       query("buy", tokenAmountOut, tokenIn, tokenOut);
    }

@@ -3,7 +3,7 @@
         "target": "es2019",
         "module": "commonjs",
         "types": [
-            "node"
+            "node","jest"
         ],
         "outDir": "./dist/",
         "rootDir": "./src/",
