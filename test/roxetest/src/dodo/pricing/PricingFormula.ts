@@ -1,7 +1,10 @@
 import "./utils/number.extensions";
 import { Trader } from "./impl/Trader";
 import { PricingApi } from "./PricingApi";
-import { prettyJson } from "../../lib/prettyjson";
+import { prettyJson } from "../lib/prettyjson";
+const   dotenv = require('dotenv');
+dotenv.load();
+const TokenDecimal= Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS);
 
 // import { SafeMath } from "./lib/SafeMath";
 // console.log(SafeMath.divCeil(70, 7));
@@ -77,6 +80,20 @@ export class TraderPricingApi {
         let r = await this.querySellTokenWithDodo(amount, dodo);
         //////console.log(r);
         return Number(r);
+    }
+
+    async queryBuyTokenDetail(amount: any, baseToken: any, quoteToken: any) {
+        let dodo = await this.queryDodo(baseToken, quoteToken);
+        this.t.setParameters(dodo);
+        return this.t.queryBuyBaseTokenDetail(amount * TokenDecimal);
+        //////console.log(r);
+    }
+
+    async querySellTokenDetail(amount: any, baseToken: any, quoteToken: any) {
+        let dodo = await this.queryDodo(baseToken, quoteToken);
+        this.t.setParameters(dodo);
+        return this.t.querySellBaseTokenDetail(amount * TokenDecimal);
+        //////console.log(r);
     }
 }
 

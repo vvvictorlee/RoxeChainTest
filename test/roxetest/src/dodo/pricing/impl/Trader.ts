@@ -4,12 +4,13 @@
     SPDX-License-Identifier: Apache-2.0
 
 */
-import { SafeMath } from "../lib/SafeMath";
-import { DecimalMath } from "../lib/DecimalMath";
-import { Types_RStatus } from "../lib/Types";
-import { Pricing } from "./Pricing";
+import {SafeMath} from "../lib/SafeMath";
+import {DecimalMath} from "../lib/DecimalMath";
+import {Types_RStatus} from "../lib/Types";
+import {Pricing} from "./Pricing";
 import "../utils/number.extensions";
 
+const TokenDecimal= Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS)|6;
 /**
  * @title Trader
  * @author DODO Breeder
@@ -19,6 +20,31 @@ import "../utils/number.extensions";
 export class Trader extends Pricing {
 
     // ============ Query s ============
+
+
+    querySellBaseTokenDetail(amount: number) {
+        let [receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget] = this._querySellBaseToken(amount)
+        return {
+            receiveQuote: receiveQuote,
+            lpFeeQuote: lpFeeQuote,
+            mtFeeQuote: mtFeeQuote,
+            newRStatus: newRStatus,
+            newQuoteTarget: newQuoteTarget,
+            newBaseTarget: newBaseTarget
+        }
+    }
+
+    queryBuyBaseTokenDetail(amount: number) {
+        let [payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget] = this._queryBuyBaseToken(amount)
+        return {
+            payQuote: payQuote,
+            lpFeeBase: (lpFeeBase==undefined?0:lpFeeBase) / TokenDecimal,
+            mtFeeBase: (mtFeeBase==undefined?0:mtFeeBase) / TokenDecimal,
+            newRStatus: newRStatus,
+            newQuoteTarget: newQuoteTarget,
+            newBaseTarget: newBaseTarget
+        }
+    }
 
     querySellBaseToken(amount: number) {
         let [receiveQuote] = this._querySellBaseToken(amount);
@@ -100,11 +126,8 @@ export class Trader extends Pricing {
             payQuote = this._RAboveBuyBaseToken(buyBaseAmount, this._BASE_BALANCE_, newBaseTarget);
             newRStatus = Types_RStatus.ABOVE_ONE;
         } else if (this._R_STATUS_ == Types_RStatus.BELOW_ONE) {
-// console.log("==newQuoteTarget==",newQuoteTarget,"==this._QUOTE_BALANCE_===",this._QUOTE_BALANCE_);
-
             let backToOnePayQuote: number = Number(newQuoteTarget).sub(this._QUOTE_BALANCE_);
             let backToOneReceiveBase: number = Number(this._BASE_BALANCE_).sub(newBaseTarget);
-// console.log("==backToOneReceiveBase==",backToOneReceiveBase,"==backToOnePayQuote===",backToOnePayQuote);
             // case 3: R<1
             // complex case, R status may change
             if (buyBaseAmount < backToOneReceiveBase) {

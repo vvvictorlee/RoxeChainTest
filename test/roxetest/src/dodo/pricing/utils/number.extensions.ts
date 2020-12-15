@@ -1,5 +1,5 @@
 // import { SafeMath } from "../lib/SafeMath";
-const Decimaljs = require('Decimal.js');
+const Decimaljs = require('decimal.js');
 // import {Decimaljs} from 'Decimaljs.js';
 
 
@@ -19,20 +19,20 @@ interface Number {
 }
 
 Number.prototype.mul = function (b: number): number {
-    return Decimaljs(this).mul(b);
+    return Decimaljs(this.toString()).mul(b);
 }
 Number.prototype.div = function (b: number): number {
-    return Decimaljs(this).div(b);
+    return Decimaljs(this.toString()).div(b);
 }
 
 Number.prototype.sub = function (b: number): number {
-    return Decimaljs(this).sub(b);
+    return Decimaljs(this.toString()).sub(b);
 }
 Number.prototype.add = function (b: number): number {
-    return Decimaljs(this).add(b);
+    return Decimaljs(this.toString()).add(b);
 }
 Number.prototype.sqrt = function (): number {
-    return Decimaljs(this).sqrt();
+    return Decimaljs(this.toString()).sqrt();
 }
 Number.prototype.divCeil = function (b: number): number {
     let a:number = this.valueOf();
