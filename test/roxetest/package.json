@@ -4,7 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "dodo:newpair:newaccount": "ts-node src/dodo/dodo_client.ts newacc",
+    "dodo:pricing:dev": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.dev",
+    "dodo:pricing:test": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.test",
+    "dodo:pricing:prod": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.prod",
     "start": "ts-node src/picture.ts",
     "dev": "nodemon",
     "jest": "jest src/tests/dodo/*",
