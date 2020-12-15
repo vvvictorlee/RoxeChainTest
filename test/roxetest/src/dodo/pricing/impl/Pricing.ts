@@ -132,11 +132,11 @@ export class Pricing extends Storage {
         let spareQuote: number = Number(this._QUOTE_BALANCE_).sub(this._TARGET_QUOTE_TOKEN_AMOUNT_);
         let price: number = this.getOraclePrice();
         let fairAmount: number = DecimalMath.divFloor(spareQuote, price);
-        let newTargetBase: number = DODOMath._SolveQuadraticForTarget(
+        let newTargetBase: number = Number(DODOMath._SolveQuadraticForTarget(
             this._BASE_BALANCE_,
             this._K_,
             fairAmount
-        );
+        ).toFixed(0));
         return Number(newTargetBase).sub(this._BASE_BALANCE_);
     }
 

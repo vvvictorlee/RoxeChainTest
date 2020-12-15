@@ -9,6 +9,9 @@
 import { SafeMath } from "./SafeMath";
 import "../utils/number.extensions";
 
+const   dotenv = require('dotenv');
+dotenv.load();
+const ONE_DECIMAL= Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS);
 /**
  * @title DecimalMath
  * @author DODO Breeder
@@ -17,7 +20,7 @@ import "../utils/number.extensions";
  */
 export class DecimalMath {
 
-    static ONE: number = Math.pow(10, 6);
+    static ONE: number = Math.pow(10, ONE_DECIMAL);
 
     static mul(target: number, d: number) {
         //console.log("====mul=====",target, d);

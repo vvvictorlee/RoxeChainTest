@@ -1,12 +1,15 @@
 import { RefactoringTableJsonMin } from "./RefactoringTableJsonMin"
 
 const { Api, JsonRpc, RpcError } = require('roxejs')
-const fetch = require('node-fetch')       
-const   dotenv = require('dotenv');
+const fetch = require('node-fetch')
+const dotenv = require('dotenv');
 dotenv.load();
-                          // node only; not needed in browsers
+// node only; not needed in browsers
+const protocol = process.env.EOS_PROTOCOL||"http";
+const host = process.env.EOS_HOST||"172.17.3.161";
+const port = process.env.EOS_PORT||"7878";
 
-const rpc = new JsonRpc('http://172.17.3.161:7878', { fetch })
+const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
 import { prettyJson } from "../lib/prettyjson";
 
@@ -15,7 +18,7 @@ const dodotablecode = process.env.PRICING_EARN_DODO_CONTRACT_ACCOUNT;
 export class PricingApi {
 
     async getDodos() {
-        console.log("==dodotablecode===",dodotablecode);
+        console.log("==dodotablecode===", dodotablecode);
         let allrows = { rows: [], more: false };
         let res = { rows: [], more: true };
         let lower_bound = "1";

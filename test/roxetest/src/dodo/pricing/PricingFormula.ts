@@ -4,7 +4,7 @@ import { PricingApi } from "./PricingApi";
 import { prettyJson } from "../lib/prettyjson";
 const   dotenv = require('dotenv');
 dotenv.load();
-const TokenDecimal= Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS);
+const TokenDecimal= Math.pow(10,Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
 
 // import { SafeMath } from "./lib/SafeMath";
 // console.log(SafeMath.divCeil(70, 7));
@@ -109,14 +109,14 @@ export class TraderPricingApi {
     const basetoken = "USD";
     const quotetoken = "GBP";
     let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-    console.log("==b==", Number(b)*Number(amount), "=====");
+    console.log("==b==", Number(b)* TokenDecimal, "=====");
     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
     console.log("=s==", s, "===");
     {
         const basetoken = "GBP";
         const quotetoken = "HKD";
         let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-        console.log("==b==", Number(b)*Number(amount), "=====");
+        console.log("==b==", Number(b)*TokenDecimal, "=====");
         let s: any = await api.querySellToken(amount, basetoken, quotetoken);
         console.log("=s==", s, "===");
     }
@@ -125,7 +125,7 @@ export class TraderPricingApi {
         const basetoken = "USD";
         const quotetoken = "HKD";
         let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-        console.log("==b==", Number(b)*Number(amount), "=====");
+        console.log("==b==", Number(b)*TokenDecimal, "=====");
         let s: any = await api.querySellToken(amount, basetoken, quotetoken);
         console.log("=s==", s, "===");
     }

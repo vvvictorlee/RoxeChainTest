@@ -10,7 +10,10 @@ import {Types_RStatus} from "../lib/Types";
 import {Pricing} from "./Pricing";
 import "../utils/number.extensions";
 
-const TokenDecimal= Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS)|6;
+const   dotenv = require('dotenv');
+dotenv.load();
+const TokenDecimal= Math.pow(10,Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
+
 /**
  * @title Trader
  * @author DODO Breeder
