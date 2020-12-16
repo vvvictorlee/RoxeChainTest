@@ -1,8 +1,11 @@
 
-import {SwapClient} from "../../swap/swap_client"
+import { SwapClient } from "../../swap/swap_client"
+import { AbiJson } from "../../lib/abijson";
+import { Swap } from "../../swap/client_data_test";
+
 
 describe('eosjs-api', () => {
-    // let api: any;
+    let client: any;
     // let rpc: any;
     // const fetch = async (input: any, init: any): Promise<any> => ({
     //     ok: true,
@@ -19,6 +22,7 @@ describe('eosjs-api', () => {
     // });
 
     beforeEach(() => {
+        client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
         // rpc = new JsonRpc('', { fetch });
         // const signatureProvider = new JsSignatureProvider(['5JtUScZK2XEp3g9gh7F8bwtPTRAkASmNrrftmx4AxDKD5K4zDnr']);
         // const chainId = '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca';
@@ -28,8 +32,11 @@ describe('eosjs-api', () => {
     });
 
 
-   
-    it('rawAbiToJson returns correct Json from raw Abi', async () => {
+    it('abitojson', async () => {
+        const data = await AbiJson.buildActionParameterJson("cppool2table", "admin", "pool");
+        // await prettyJson(data);
+        console.log(JSON.stringify(data));
+
         // const expected = await api.getAbi('testeostoken');
         // const response = await rpc.getRawAbi('testeostoken');
         // const actual = api.rawAbiToJson(response.abi);
@@ -37,5 +44,71 @@ describe('eosjs-api', () => {
         // expect(actual).toEqual(expected);
     });
 
-   
+    it('newtestpool', async () => {
+        await client.newtestpool("testpool1111");
+    });
+
+    it('extransfer', async () => {
+        await client.extransfer();
+    });
+
+    it('newacc', async () => {
+        await client.newacc();
+    });
+
+    it('deployContract', async () => {
+        await client.deployContract();
+    });
+
+    it('allowContracts', async () => {
+        await client.common_client.allowContracts();
+    });
+
+    it('newtoken', async () => {
+        await client.newtoken();
+    });
+
+    it('mint', async () => {
+        await client.mint();
+    });
+
+    it('newpool', async () => {
+        await client.newpool();
+    });
+
+    it('cppool2table', async () => {
+        await client.cppool2table();
+    });
+
+    it('setswapfee', async () => {
+        await client.setswapfee();
+    });
+
+    it('bind', async () => {
+        await client.bind();
+    });
+
+    it('finalize', async () => {
+        await client.finalize();
+    });
+
+    it('joinpool', async () => {
+        await client.joinpool();
+    });
+
+    it('exitpool', async () => {
+        await client.exitpool();
+    });
+
+    it('collect', async () => {
+        await client.collect();
+    });
+
+    it('swapamtin', async () => {
+        await client.swapamtin();
+    });
+
+    it('swapamtout', async () => {
+        await client.swapamtout();
+    });
 });

@@ -63,7 +63,7 @@ const pushTransaction = async (account: any, action: any, data: any) => {
     return results;
 }
 
-const pushAciton = async (action: any, ...restOfPara: any[]) => {
+const pushAction = async (action: any, ...restOfPara: any[]) => {
     const account = restOfPara[0];
     const data = await DosAbiJson.buildActionParameterJson(action, ...restOfPara);
     const results = await pushTransaction(account, action, data);
@@ -139,15 +139,15 @@ export class DosClient {
     }
 
     async newtoken() {
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentbasestr));
-        await pushAciton("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentquotestr));
+        await pushAction("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentbasestr));
+        await pushAction("newtoken", Dos.tokenissuer, ClientUtil.to_max_supply(this.para.currentquotestr));
     }
     async mint() {
         const users = this.para.mintdata.users;
         const tokens = this.para.mintdata.tokens;
         for (let u of users) {
             for (let t of tokens) {
-                await pushAciton("mint", u, ClientUtil.to_wei_asset(t[0], t[1]));
+                await pushAction("mint", u, ClientUtil.to_wei_asset(t[0], t[1]));
             }
         }
     }
@@ -161,13 +161,13 @@ export class DosClient {
         const tokens = mintdata.tokens;
         for (let u of users) {
             for (let t of tokens) {
-                await pushAciton("mint", u, ClientUtil.to_wei_asset(t[0], t[1]));
+                await pushAction("mint", u, ClientUtil.to_wei_asset(t[0], t[1]));
             }
         }
     }
 
     async initproxy() {
-        await pushAciton("init", Dos.admin, Dos.maintainer, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.get_core_symbol());
+        await pushAction("init", Dos.admin, Dos.maintainer, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.get_core_symbol());
     }
     async newdodo() {
         const basestr = this.para.currentbasestr;
@@ -182,75 +182,75 @@ export class DosClient {
         const mtFeeRate = this.para.mtFeeRate;
         const k = this.para.k;
         const gasPriceLimit = 0; // gweiStr("100")
-        await pushAciton("breeddodo",
+        await pushAction("breeddodo",
             msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
     }
     async enable() {
         const dodo_name = this.para.currentDodo;
-        await pushAciton("enabletradin", Dos.admin, dodo_name);
-        await pushAciton("enablequodep", Dos.admin, dodo_name);
-        await pushAciton("enablebasdep", Dos.admin, dodo_name);
-        // await pushAciton("setparameter", Dos.admin, dodo_name,"trading",1);
-        // await pushAciton("setparameter", Dos.admin, dodo_name,"quotedeposit",1);
-        // await pushAciton("setparameter", Dos.admin, dodo_name,"basedeposit",1);
+        await pushAction("enabletradin", Dos.admin, dodo_name);
+        await pushAction("enablequodep", Dos.admin, dodo_name);
+        await pushAction("enablebasdep", Dos.admin, dodo_name);
+        // await pushAction("setparameter", Dos.admin, dodo_name,"trading",1);
+        // await pushAction("setparameter", Dos.admin, dodo_name,"quotedeposit",1);
+        // await pushAction("setparameter", Dos.admin, dodo_name,"basedeposit",1);
     }
     async setprice() {
-        await pushAciton("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
+        await pushAction("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(this.para.oracleprice, this.para.currentquotestr));
     }
 
     async setpricex() {
-        await pushAciton("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(77500, this.para.currentquotestr));
+        await pushAction("setprice", Dos.admin, ClientUtil.to_sym(this.para.currentbasestr), ClientUtil.to_asset(77500, this.para.currentquotestr));
     }
     async setparameter() {
-        await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "k", this.para.k);
-        await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "lpfeerate", this.para.lpFeeRate);
-        await pushAciton("setparameter", Dos.admin, this.para.currentDodo, "mtfeerate", this.para.mtFeeRate);
+        await pushAction("setparameter", Dos.admin, this.para.currentDodo, "k", this.para.k);
+        await pushAction("setparameter", Dos.admin, this.para.currentDodo, "lpfeerate", this.para.lpFeeRate);
+        await pushAction("setparameter", Dos.admin, this.para.currentDodo, "mtfeerate", this.para.mtFeeRate);
     }
     async depositbasequote() {
         const dodo_name = this.para.currentDodo;
         const baseamount = this.para.depositdata.baseamount;
         const quoteamount = this.para.depositdata.quoteamount;
-        await pushAciton("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+        await pushAction("depositbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        await pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
     async g2hwithdrawbase() {
         const dodo_name = this.para.currentDodo;
         const baseamount = this.para.depositdata.baseamount;
         const quoteamount = this.para.depositdata.quoteamount;
-        await pushAciton("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
-        // await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+        await pushAction("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        // await pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
     async u2gwithdrawquote() {
         const dodo_name = this.para.currentDodo;
         const baseamount = this.para.depositdata.baseamount;
         const quoteamount = this.para.depositdata.quoteamount;
-        // await pushAciton("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
-        await pushAciton("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+        // await pushAction("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_wei_asset(baseamount, this.para.currentbasestr));
+        await pushAction("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
     async depositbasequotex() {
         const dodo_name = this.para.currentDodo;
         const quoteamount = 7000000;
-        await pushAciton("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
+        await pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
     async buybt() {
-        await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.buydata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+        await pushAction("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.buydata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
     }
     async buyfakebt() {
         const a = { quantity: "1.000000 XXX", contract: "a" };
-        await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, a, ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+        await pushAction("buybasetoken", Dos.trader, this.para.currentDodo, a, ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
     }
     async buydecbt() {
-        await pushAciton("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_dec_asset(10000000, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+        await pushAction("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_dec_asset(10000000, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
     }
     async sellbt() {
-        await pushAciton("sellbastoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.selldata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.selldata.minReceive, this.para.currentquotestr));
+        await pushAction("sellbastoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.selldata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.selldata.minReceive, this.para.currentquotestr));
     }
     async extransfer() {
         const users = [Dos.admin];
         const tokens = ["USD", "GBP", "HKD"];
         for (let u of users) {
             for (let t of tokens) {
-                await pushAciton("mint", u, ClientUtil.to_wei_asset(20000, t));
+                await pushAction("mint", u, ClientUtil.to_wei_asset(20000, t));
             }
         }
 
@@ -259,7 +259,7 @@ export class DosClient {
             // const tokens = ["USD", "GBP", "HKD"];
             for (let u of users) {
                 for (let t of tokens) {
-                    let results: any = await pushAciton("extransfer",
+                    let results: any = await pushAction("extransfer",
                         Dos.admin,
                         u,
                         ClientUtil.to_wei_asset(20000, t),
@@ -357,16 +357,16 @@ const handlers: any = {
     "buy": (async function () {
         const currentbasestr = "";
         const currentquotestr = "";
-        await pushAciton("buyethtoken", Dos.trader, ClientUtil.to_wei_asset(1, currentbasestr), ClientUtil.to_wei_asset(200, "MKR"));
-        await pushAciton("sellethtoken", Dos.trader, ClientUtil.to_wei_asset(1, currentbasestr), ClientUtil.to_wei_asset(50, "MKR"));
-        await pushAciton("withdraweab", Dos.lp, ClientUtil.to_wei_asset(5, currentbasestr), ClientUtil.to_sym("MKR"));
-        await pushAciton("withdrawaeab", Dos.lp, ClientUtil.to_sym("MKR"));
-        await pushAciton("buytokeneth", Dos.trader, ClientUtil.to_wei_asset(200, "MKR"), ClientUtil.to_asset(21000, currentbasestr));
-        await pushAciton("selltokeneth", Dos.trader, ClientUtil.to_wei_asset(50, "MKR"), ClientUtil.to_asset(4500, currentbasestr));
-        await pushAciton("withdraweaq", Dos.lp, ClientUtil.to_wei_asset(5, currentbasestr), ClientUtil.to_sym("MKR"));
-        await pushAciton("withdrawaeaq", Dos.lp, ClientUtil.to_sym("MKR"));
-        await pushAciton("buybasetoken", Dos.trader, ClientUtil.to_wei_asset(1000, currentquotestr), ClientUtil.to_wei_asset(1001, "MKR"));
-        await pushAciton("sellbastoken", Dos.trader, ClientUtil.to_wei_asset(8990, currentquotestr), ClientUtil.to_wei_asset(10000, "MKR"));
+        await pushAction("buyethtoken", Dos.trader, ClientUtil.to_wei_asset(1, currentbasestr), ClientUtil.to_wei_asset(200, "MKR"));
+        await pushAction("sellethtoken", Dos.trader, ClientUtil.to_wei_asset(1, currentbasestr), ClientUtil.to_wei_asset(50, "MKR"));
+        await pushAction("withdraweab", Dos.lp, ClientUtil.to_wei_asset(5, currentbasestr), ClientUtil.to_sym("MKR"));
+        await pushAction("withdrawaeab", Dos.lp, ClientUtil.to_sym("MKR"));
+        await pushAction("buytokeneth", Dos.trader, ClientUtil.to_wei_asset(200, "MKR"), ClientUtil.to_asset(21000, currentbasestr));
+        await pushAction("selltokeneth", Dos.trader, ClientUtil.to_wei_asset(50, "MKR"), ClientUtil.to_asset(4500, currentbasestr));
+        await pushAction("withdraweaq", Dos.lp, ClientUtil.to_wei_asset(5, currentbasestr), ClientUtil.to_sym("MKR"));
+        await pushAction("withdrawaeaq", Dos.lp, ClientUtil.to_sym("MKR"));
+        await pushAction("buybasetoken", Dos.trader, ClientUtil.to_wei_asset(1000, currentquotestr), ClientUtil.to_wei_asset(1001, "MKR"));
+        await pushAction("sellbastoken", Dos.trader, ClientUtil.to_wei_asset(8990, currentquotestr), ClientUtil.to_wei_asset(10000, "MKR"));
     }),
     "default": (async function () {
         // await client.mintx();

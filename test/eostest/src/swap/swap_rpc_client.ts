@@ -25,7 +25,7 @@ const pushTransaction = async (account: any, action: any, data: any) => {
     return results;
 }
 
-const pushAciton = async (action: any, ...restOfPara: any[]) => {
+const pushAction = async (action: any, ...restOfPara: any[]) => {
     const account = restOfPara[0];
     console.log("account===", account);
     const data = await SwapAbiJson.buildActionParameterJson(action, ...restOfPara);
@@ -63,7 +63,7 @@ class SwapClient {
     }
 
     async extransfer() {
-        const results = await pushAciton("extransfer", Swap.admin,
+        const results = await pushAction("extransfer", Swap.admin,
             Swap.admin,
             Swap.nonadmin,
             ClientUtil.to_core_asset(10000, "ROC"),
@@ -96,52 +96,52 @@ const handlers: any = {
         client.allowSwapContracts();
     }),
     "n": (async function () {
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("WETH"));
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("DAI"));
+        await pushAction("newtoken", Swap.admin, ClientUtil.to_max_supply("WETH"));
+        await pushAction("newtoken", Swap.admin, ClientUtil.to_max_supply("DAI"));
     }),
     "m": (async function () {
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(500, "WETH"));
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(200, "DAI"));
-        await pushAciton("mint", Swap.nonadmin, ClientUtil.to_wei_asset(100, "WETH"));
-        await pushAciton("mint", Swap.nonadmin, ClientUtil.to_wei_asset(200, "DAI"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(1000, "WETH"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(200, "DAI"));
+        await pushAction("mint", Swap.admin, ClientUtil.to_wei_asset(500, "WETH"));
+        await pushAction("mint", Swap.admin, ClientUtil.to_wei_asset(200, "DAI"));
+        await pushAction("mint", Swap.nonadmin, ClientUtil.to_wei_asset(100, "WETH"));
+        await pushAction("mint", Swap.nonadmin, ClientUtil.to_wei_asset(200, "DAI"));
+        await pushAction("mint", Swap.user1, ClientUtil.to_wei_asset(1000, "WETH"));
+        await pushAction("mint", Swap.user1, ClientUtil.to_wei_asset(200, "DAI"));
     }),
     "p": (async function () {
-        await pushAciton("newpool", Swap.admin, Swap.pool4);
-        await pushAciton("newpool", Swap.admin, Swap.pool3);
+        await pushAction("newpool", Swap.admin, Swap.pool4);
+        await pushAction("newpool", Swap.admin, Swap.pool3);
     }),
     "p2": (async function () {
-        await pushAciton("newpool", Swap.admin, Swap.pool4);
+        await pushAction("newpool", Swap.admin, Swap.pool4);
     }),
     "s": (async function () {
-        await pushAciton("setswapfee", Swap.admin, Swap.pool4, 1000);
-        await pushAciton("setpubswap", Swap.admin, Swap.pool4, true);
+        await pushAction("setswapfee", Swap.admin, Swap.pool4, 1000);
+        await pushAction("setpubswap", Swap.admin, Swap.pool4, true);
     }),
     "b": (async function () {
-        await pushAciton("bind", Swap.admin, Swap.pool4, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, Swap.pool4, ClientUtil.to_wei_asset(200, "DAI"), ClientUtil.to_wei(5));
+        await pushAction("bind", Swap.admin, Swap.pool4, ClientUtil.to_wei_asset(5, "WETH"), ClientUtil.to_wei(5));
+        await pushAction("bind", Swap.admin, Swap.pool4, ClientUtil.to_wei_asset(200, "DAI"), ClientUtil.to_wei(5));
     }),
     "f": (async function () {
-        await pushAciton("finalize", Swap.admin, Swap.pool4);
+        await pushAction("finalize", Swap.admin, Swap.pool4);
     }),
     "j": (async function () {
-        await pushAciton("joinpool", Swap.nonadmin, Swap.pool4, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
+        await pushAction("joinpool", Swap.nonadmin, Swap.pool4, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
     }),
     "x": (async function () {
-        await pushAciton("exitpool", Swap.nonadmin, Swap.pool4, ClientUtil.to_wei(10), [0, 0]);
+        await pushAction("exitpool", Swap.nonadmin, Swap.pool4, ClientUtil.to_wei(10), [0, 0]);
     }),
     "c": (async function () {
-        await pushAciton("collect", Swap.admin, Swap.pool4);
+        await pushAction("collect", Swap.admin, Swap.pool4);
     }),
     "i": (async function () {
-        await pushAciton("swapamtin", Swap.user1, Swap.pool4,
+        await pushAction("swapamtin", Swap.user1, Swap.pool4,
             ClientUtil.to_asset(250, "WETH"),
             ClientUtil.to_wei_asset(4, "DAI"),
             ClientUtil.to_wei(200));
     }),
     "o": (async function () {
-        await pushAciton("swapamtout", Swap.user1, Swap.pool4,
+        await pushAction("swapamtout", Swap.user1, Swap.pool4,
             ClientUtil.to_wei_asset(3, "WETH"),
             ClientUtil.to_wei_asset(1, "DAI"),
             ClientUtil.to_wei(500));
@@ -150,34 +150,34 @@ const handlers: any = {
         await client.extransfer();
     }),
     "B": (async function () {
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("WETH"));
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("DAI"));
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("MKR"));
-        await pushAciton("newtoken", Swap.admin, ClientUtil.to_max_supply("XXX"));
+        await pushAction("newtoken", Swap.admin, ClientUtil.to_max_supply("WETH"));
+        await pushAction("newtoken", Swap.admin, ClientUtil.to_max_supply("DAI"));
+        await pushAction("newtoken", Swap.admin, ClientUtil.to_max_supply("MKR"));
+        await pushAction("newtoken", Swap.admin, ClientUtil.to_max_supply("XXX"));
 
 
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(50, "WETH"));
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(200, "MKR"));
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(10000, "DAI"));
-        await pushAciton("mint", Swap.admin, ClientUtil.to_wei_asset(10, "XXX"));
+        await pushAction("mint", Swap.admin, ClientUtil.to_wei_asset(50, "WETH"));
+        await pushAction("mint", Swap.admin, ClientUtil.to_wei_asset(200, "MKR"));
+        await pushAction("mint", Swap.admin, ClientUtil.to_wei_asset(10000, "DAI"));
+        await pushAction("mint", Swap.admin, ClientUtil.to_wei_asset(10, "XXX"));
 
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(25, "WETH"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(4, "MKR"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(40000, "DAI"));
-        await pushAciton("mint", Swap.user1, ClientUtil.to_wei_asset(10, "XXX"));
+        await pushAction("mint", Swap.user1, ClientUtil.to_wei_asset(25, "WETH"));
+        await pushAction("mint", Swap.user1, ClientUtil.to_wei_asset(4, "MKR"));
+        await pushAction("mint", Swap.user1, ClientUtil.to_wei_asset(40000, "DAI"));
+        await pushAction("mint", Swap.user1, ClientUtil.to_wei_asset(10, "XXX"));
 
-        await pushAciton("newpool", Swap.admin, Swap.pool3);
+        await pushAction("newpool", Swap.admin, Swap.pool3);
 
-        await pushAciton("setpubswap", Swap.admin, Swap.pool3, true);
-        await pushAciton("setswapfee", Swap.admin, Swap.pool3, 1000);
+        await pushAction("setpubswap", Swap.admin, Swap.pool3, true);
+        await pushAction("setswapfee", Swap.admin, Swap.pool3, 1000);
 
-        await pushAciton("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(50, "WETH"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(20, "MKR"), ClientUtil.to_wei(5));
-        await pushAciton("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(10000, "DAI"), ClientUtil.to_wei(5));
+        await pushAction("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(50, "WETH"), ClientUtil.to_wei(5));
+        await pushAction("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(20, "MKR"), ClientUtil.to_wei(5));
+        await pushAction("bind", Swap.admin, Swap.pool3, ClientUtil.to_wei_asset(10000, "DAI"), ClientUtil.to_wei(5));
 
-        await pushAciton("finalize", Swap.admin, Swap.pool3);
+        await pushAction("finalize", Swap.admin, Swap.pool3);
 
-        await pushAciton("joinpool", Swap.user1, Swap.pool3, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
+        await pushAction("joinpool", Swap.user1, Swap.pool3, ClientUtil.to_wei(10), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
     }),
     "default": (async function () {
         // console.log(__line); console.log("test option");

@@ -10,7 +10,11 @@
     "start": "ts-node src/picture.ts",
     "dev": "nodemon",
     "jest": "jest src/tests/dodo/*",
-    "test": "jest src/tests/swap/*"
+    "test": "jest src/tests/swap/*",
+    "test:swaprpc": "jest src/tests/swap/swapjs-jsonrpc.test.ts",
+    "test:newacc": "jest -i src/tests/swap/swapjs-api.test.ts -t \"newacc\"",
+    "test:swaprpc:pools": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"roxeswaptest pools\"",
+    "test:math1": "jest -t \"abitojson\""
   },
   "author": "",
   "license": "",

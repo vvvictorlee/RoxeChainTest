@@ -7,25 +7,18 @@ export class SwapAbiJson {
         const swap = await loadJson("../abi/eoswap.abi");
         const a = swap.actions.map((obj: any) => obj.type);
         const actionjson = arrToObjES2019(swap.structs.filter((obj: any) => a.indexOf(obj.name) >= 0));
-        // console.log(JSON.stringify());
-
-        // console.log(a);
-        // console.log(swap.actions);
-        // console.log(swap.structs);
         return actionjson;
     }
 
 
 
     static async buildActionParameterJson(firstPara: any, ...restOfPara: any[]) {
-        // console.log(JSON.stringify(restOfPara));
         const actionparas = await SwapAbiJson.swapjson();
         const ap = actionparas[firstPara];
         let json: any = {};
         for (var i = 0; i < ap.length; i++) {
             json[ap[i]] = restOfPara[i];
         }
-        // console.log(JSON.stringify(json));
         return json;
     }
 }
@@ -60,11 +53,25 @@ export class DosAbiJson {
 }
 
 
-// (async function () {
-//     const s = await  SwapAbiJson.buildActionParameterJson("newpool", "msg_sender_value", "pool_name_value");
-//     console.log(JSON.stringify(s));
-// }
-// )();
+export class AbiJson {
+    static abiPath = "/Users/lisheng/mygit/vvvictorlee/RoxeChainTest/test/roxetest/src/abi/eoswap.abi";
+    static async json() {
+        const dos = await loadJson(AbiJson.abiPath);
+        const a = dos.actions.map((obj: any) => obj.type);
+        const actionjson = arrToObjES2019(dos.structs.filter((obj: any) => a.indexOf(obj.name) >= 0));
+        return actionjson;
+    }
+
+    static async buildActionParameterJson(firstPara: any, ...restOfPara: any[]) {
+        const actionparas = await AbiJson.json();
+        // const ap = actionparas[firstPara];
+        // let json: any = {};
+        // for (var i = 0; i < ap.length; i++) {
+        //     json[ap[i]] = restOfPara[i];
+        // }
+        return actionparas[firstPara].reduce((obj:any, curval:any, currindex:any) => { obj[curval] = restOfPara[currindex]; return obj; }, {}as { [k: string]: any });
+    }
+}
 
 
 // If your target environment supports ES2019, you could use Object.fromEntries(), like this:
@@ -96,135 +103,3 @@ function arrToObj(arr: any[]) {
 // Okay, hope that helps. Good luck!
 
 
-
-
-// {
-//   "approve": [
-//     "msg_sender",
-//     "dst",
-//     "amt"
-//   ],
-//   "bind": [
-//     "msg_sender",
-//     "pool_name",
-//     "balance",
-//     "denorm"
-//   ],
-//   "burn": [
-//     "msg_sender",
-//     "amt"
-//   ],
-//   "collect": [
-//     "msg_sender",
-//     "pool_name"
-//   ],
-//   "decapproval": [
-//     "msg_sender",
-//     "dst",
-//     "amt"
-//   ],
-//   "exitpool": [
-//     "msg_sender",
-//     "pool_name",
-//     "poolAmountIn",
-//     "minAmountsOut"
-//   ],
-//   "extransfer": [
-//     "from",
-//     "to",
-//     "quantity",
-//     "memo"
-//   ],
-//   "finalize": [
-//     "msg_sender",
-//     "pool_name"
-//   ],
-//   "gulp": [
-//     "msg_sender",
-//     "pool_name",
-//     "token"
-//   ],
-//   "incapproval": [
-//     "msg_sender",
-//     "dst",
-//     "amt"
-//   ],
-//   "joinpool": [
-//     "msg_sender",
-//     "pool_name",
-//     "poolAmountOut",
-//     "maxAmountsIn"
-//   ],
-//   "mint": [
-//     "msg_sender",
-//     "amt"
-//   ],
-//   "move": [
-//     "msg_sender",
-//     "dst",
-//     "amt"
-//   ],
-//   "newpool": [
-//     "msg_sender",
-//     "pool_name"
-//   ],
-//   "newtoken": [
-//     "msg_sender",
-//     "token"
-//   ],
-//   "rebind": [
-//     "msg_sender",
-//     "pool_name",
-//     "balance",
-//     "denorm"
-//   ],
-//   "setblabs": [
-//     "msg_sender",
-//     "blabs"
-//   ],
-//   "setcontroler": [
-//     "msg_sender",
-//     "pool_name",
-//     "manager"
-//   ],
-//   "setpubswap": [
-//     "msg_sender",
-//     "pool_name",
-//     "public_"
-//   ],
-//   "setswapfee": [
-//     "msg_sender",
-//     "pool_name",
-//     "swapFee"
-//   ],
-//   "swapamtin": [
-//     "msg_sender",
-//     "pool_name",
-//     "tokenAmountIn",
-//     "minAmountOut",
-//     "maxPrice"
-//   ],
-//   "swapamtout": [
-//     "msg_sender",
-//     "pool_name",
-//     "maxAmountIn",
-//     "tokenAmountOut",
-//     "maxPrice"
-//   ],
-//   "transfer": [
-//     "msg_sender",
-//     "dst",
-//     "amt"
-//   ],
-//   "transferfrom": [
-//     "msg_sender",
-//     "src",
-//     "dst",
-//     "amt"
-//   ],
-//   "unbind": [
-//     "msg_sender",
-//     "pool_name",
-//     "token"
-//   ]
-// }
