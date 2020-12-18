@@ -7,11 +7,11 @@
 
 
 import { SafeMath } from "./SafeMath";
-import "../utils/number.extensions";
-
+// import "../utils/number.extensions";
+const Decimal = require('decimal.js');
 const   dotenv = require('dotenv');
 dotenv.load();
-const ONE_DECIMAL= Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS);
+const ONE_DECIMAL= Decimal(process.env.PRICING_DODO_EARN_ONE_DECIMALS);
 /**
  * @title DecimalMath
  * @author DODO Breeder
@@ -24,21 +24,21 @@ export class DecimalMath {
 
     static mul(target: number, d: number) {
         //console.log("====mul=====",target, d);
-        return Number(target).mul(d) / DecimalMath.ONE;
+        return Decimal(target).mul(Decimal(d)) / DecimalMath.ONE;
     }
 
     static mulCeil(target: number, d: number) {
-        // return target.mul(d).divCeil(DecimalMath.ONE);
-        return target.mul(d).div(DecimalMath.ONE);
+        // return Decimal(target).mul(Decimal(d)).divCeil(DecimalMath.ONE);
+        return Decimal(target).mul(Decimal(d)).div(DecimalMath.ONE);
     }
 
     static divFloor(target: number, d: number) {
-        return target.mul(DecimalMath.ONE).div(d);
+        return Decimal(target).mul(Decimal(DecimalMath.ONE)).div(Decimal(d));
     }
 
     static divCeil(target: number, d: number) {
-        // return target.mul(DecimalMath.ONE).divCeil(d);
-        return target.mul(DecimalMath.ONE).div(d);
+        // return Decimal(target).mul(DecimalMath.ONE).divCeil(Decimal(d));
+        return Decimal(target).mul(DecimalMath.ONE).div(Decimal(d));
     }
 }
 

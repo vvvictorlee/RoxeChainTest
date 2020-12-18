@@ -7,8 +7,9 @@
 
 
 import "../utils/number.extensions";
-import {SafeMath} from "./SafeMath";
-import {DecimalMath} from "./DecimalMath";
+import { SafeMath } from "./SafeMath";
+import { DecimalMath } from "./DecimalMath";
+const Decimal = require('decimal.js');
 
 /**
  * @title DODOMath
@@ -25,17 +26,20 @@ export class DODOMath {
         let V1-V2=delta
         res = i*delta*(1-k+k(V0^2/V1/V2))
     */
-    static  _GeneralIntegrate(
-        V0:number,
-        V1:number,
-        V2:number,
-        i:number,
-        k:number
-    )  {
-        let fairAmount:number = DecimalMath.mul(i, Number(V1).sub(V2)); // i*delta
-        let V0V0V1V2:number = DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
-        let penalty:number = DecimalMath.mul(k, V0V0V1V2); // k(V0^2/V1/V2)
-        return DecimalMath.mul(fairAmount, Number(DecimalMath.ONE).sub(k).add(penalty));
+    static _GeneralIntegrate(
+        V0: number,
+        V1: number,
+        V2: number,
+        i: number,
+        k: number
+    ) {
+        let fairAmount: number = DecimalMath.mul(i, Decimal(V1).sub(V2)); // i*delta
+        let V0V0V1V2: number = DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
+        let penalty: number = DecimalMath.mul(k, V0V0V1V2); // k(V0^2/V1/V2)
+
+        //console.log("DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty))", Decimal(DecimalMath.ONE).sub(k).add(penalty));
+
+        return DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty));
     }
 
     /*
@@ -52,50 +56,54 @@ export class DODOMath {
         if deltaBSig=true, then Q2>Q1
         if deltaBSig=false, then Q2<Q1
     */
-    static  _SolveQuadraticForTrade(
-        Q0:number,
-        Q1:number,
-        ideltaB:number,
-        deltaBSig:boolean ,
-        k:number
-    )  {
+    static _SolveQuadraticForTrade(
+        Q0: number,
+        Q1: number,
+        ideltaB: number,
+        deltaBSig: boolean,
+        k: number
+    ) {
         // calculate -b value and sig
         // -b = (1-k)Q1-kQ0^2/Q1+i*deltaB
-        let kQ02Q1:number = DecimalMath.mul(k, Q0).mul(Q0).div(Q1); // kQ0^2/Q1
-        let b:number = DecimalMath.mul(Number(DecimalMath.ONE).sub(k), Q1); // (1-k)Q1
-        let minusbSig:boolean = true;
+        let kQ02Q1: number = DecimalMath.mul(k, Q0).mul(Q0).div(Q1); // kQ0^2/Q1
+        let b: number = DecimalMath.mul(Decimal(DecimalMath.ONE).sub(k), Q1); // (1-k)Q1
+        let minusbSig: boolean = true;
         if (deltaBSig) {
             b = b.add(ideltaB); // (1-k)Q1+i*deltaB
         } else {
             kQ02Q1 = kQ02Q1.add(ideltaB); // i*deltaB+kQ0^2/Q1
         }
         if (b >= kQ02Q1) {
-            b = Number(b).sub(kQ02Q1);
+            b = Decimal(b).sub(kQ02Q1);
             minusbSig = true;
         } else {
-            b = Number(kQ02Q1).sub(b);
+            b = Decimal(kQ02Q1).sub(b);
             minusbSig = false;
         }
 
         // calculate sqrt
-        let squareRoot:number = DecimalMath.mul(
-            Number(DecimalMath.ONE).sub(k).mul(4),
+        let squareRoot: number = DecimalMath.mul(
+            Decimal(DecimalMath.ONE).sub(k).mul(4),
             DecimalMath.mul(k, Q0).mul(Q0)
         ); // 4(1-k)kQ0^2
         squareRoot = b.mul(b).add(squareRoot).sqrt(); // sqrt(b*b+4(1-k)kQ0*Q0)
 
         // final res
-        let denominator:number = Number(DecimalMath.ONE).sub(k).mul(2); // 2(1-k)
-        let numerator:number;
+        let denominator: number = Decimal(DecimalMath.ONE).sub(k).mul(2); // 2(1-k)
+        let numerator: number;
         if (minusbSig) {
             numerator = b.add(squareRoot);
         } else {
-            numerator = Number(squareRoot).sub(b);
+            numerator = Decimal(squareRoot).sub(b);
         }
 
+        //console.log("(numerator,==== denominator)", numerator, denominator);
+
         if (deltaBSig) {
+            //console.log("DecimalMath.divFloor(numerator,***** denominator)", DecimalMath.divFloor(numerator, denominator));
             return DecimalMath.divFloor(numerator, denominator);
         } else {
+            //console.log("DecimalMath.divCeil(numerator, denominator)", DecimalMath.divCeil(numerator, denominator));
             return DecimalMath.divCeil(numerator, denominator);
         }
     }
@@ -106,16 +114,20 @@ export class DODOMath {
         Assume Q2=Q0, Given Q1 and deltaB, solve Q0
         let fairAmount = i*deltaB
     */
-    static  _SolveQuadraticForTarget(
-        V1:number,
-        k:number,
-        fairAmount:number
-    )  {
+    static _SolveQuadraticForTarget(
+        V1: number,
+        k: number,
+        fairAmount: number
+    ) {
+        //console.log("V1, k, fairAmount==",V1, k, fairAmount);
         // V0 = V1+V1*(sqrt-1)/2k
-        let sqrt:number = DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1);
+        let sqrt: number = DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1);
         sqrt = sqrt.add(DecimalMath.ONE).mul(DecimalMath.ONE).sqrt();
-        let premium:number = DecimalMath.divCeil(Number(sqrt).sub(DecimalMath.ONE), k.mul(2));
+        let premium: number = DecimalMath.divCeil(Decimal(sqrt).sub(DecimalMath.ONE), k.mul(2));
+        //console.log("sqrt, premium=",sqrt, premium);
         // V0 is greater than or equal to V1 according to the solution
+        //console.log("DecimalMath.mul(V1, DecimalMath.ONE.add(premium))", DecimalMath.mul(V1, Decimal(DecimalMath.ONE).add(premium)));
+
         return DecimalMath.mul(V1, DecimalMath.ONE.add(premium));
     }
 }

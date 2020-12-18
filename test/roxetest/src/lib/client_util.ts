@@ -1,14 +1,14 @@
 export class ClientUtil {
-    static para: any={ONE_DECIMALS:9,MAX_SUPPLY:10,sym2dec:[],CONTRACT:""};
+    static para: any={ONE_DECIMALS:9,MAX_SUPPLY:10,sym2dec:[],TOKEN_CONTRACT:""};
     static decimals() { return Math.pow(10, ClientUtil.para.ONE_DECIMALS); }
     static BONE() { return Math.pow(10, ClientUtil.para.ONE_DECIMALS); }
 
-    static to_wei(value: any, decimal: any = 6) {
-        return value * Math.pow(10, decimal);
+    static to_wei(value: any) {
+        return value * Math.pow(10, ClientUtil.para.ONE_DECIMALS);
     }
 
     static to_max_supply(sym: any) {
-        return { quantity: ClientUtil.todecimal(ClientUtil.para.MAX_SUPPLY, ClientUtil.para.sym2dec[sym]) + sym, contract: ClientUtil.para.CONTRACT };
+        return { quantity: ClientUtil.todecimal(ClientUtil.para.MAX_SUPPLY, ClientUtil.para.sym2dec[sym]) + sym, contract: ClientUtil.para.TOKEN_CONTRACT };
     }
 
     static get_core_symbol() {
@@ -20,7 +20,7 @@ export class ClientUtil {
     }
 
     static to_sym(sym: any) {
-        return { symbol: ClientUtil.para.ONE_DECIMALS + "," + sym, contract: ClientUtil.para.CONTRACT };
+        return { symbol: ClientUtil.para.ONE_DECIMALS + "," + sym, contract: ClientUtil.para.TOKEN_CONTRACT };
     }
     static tounit(value: any, decimal: Number) {
         return ClientUtil.todecimal(ClientUtil.scalar_decimals(value, decimal), decimal);
@@ -35,7 +35,7 @@ export class ClientUtil {
     }
 
     static to_asset(value: any, sym: any) {
-        return { quantity: ClientUtil.todecimal(value, ClientUtil.para.sym2dec[sym]) + sym, contract: ClientUtil.para.CONTRACT };
+        return { quantity: ClientUtil.todecimal(value, ClientUtil.para.sym2dec[sym]) + sym, contract: ClientUtil.para.TOKEN_CONTRACT };
     }
 
     static to_wei_asset(value: any, sym: any) {

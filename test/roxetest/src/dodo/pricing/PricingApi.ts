@@ -23,7 +23,7 @@ export class PricingApi {
         let res = { rows: [], more: true };
         let lower_bound = "1";
         while (res.more) {
-            console.log(JSON.stringify(res));
+            // console.log(JSON.stringify(res));
             res = await rpc.get_table_rows({
                 code: dodotablecode,
                 table: 'dodos',

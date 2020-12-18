@@ -2,9 +2,19 @@
 const fs = require('fs')
 const { prettyJson } = require("./prettyjson");
 
+const path = require('path');
+
+
 async function deployContractjs(user_name, filePath, utils) {
-    const wasmFilePath = filePath + ".wasm"
-    const abiFilePath = filePath + ".abi"
+    console.log("deployContractjs==",user_name,"==");
+    // console.log(__dirname);
+    // console.log(__filename);
+    // console.log(process.cwd());
+    // console.log(path.resolve('./'));
+    const fullfilePath = path.join(__dirname, filePath);
+    // console.log(fullfilePath);
+    const wasmFilePath = fullfilePath + ".wasm"
+    const abiFilePath = fullfilePath + ".abi"
     const wasmHexString = fs.readFileSync(wasmFilePath).toString('hex')
 
     const buffer = new utils.Serialize.SerialBuffer({
@@ -22,8 +32,9 @@ async function deployContractjs(user_name, filePath, utils) {
     abiDefinitions.serialize(buffer, abiJSON)
     let serializedAbiHexString = Buffer.from(buffer.asUint8Array()).toString('hex')
 
+    let res;
     try {
-        const res = await utils.api.transact(
+        res = await utils.api.transact(
             {
                 actions: [
                     {
@@ -66,8 +77,10 @@ async function deployContractjs(user_name, filePath, utils) {
         prettyJson(res);
     }
     catch (e) {
+        res = e;
         console.log(e)
     }
+    return res;
 }
 
 // createNewAccount("gbp2usd11111", pub_key, pub_key);

@@ -100,28 +100,32 @@ export class SwapClient {
     }
 
     async newacc() {
-        const newusers = [this.pair_data.newaccdata.newuser];
+        const newusers = [this.pair_data.newaccdata.newuser];//Swap.admin];//
+        let result = "";
         for (let newuser of newusers) {
-            await this.common_client.newacc(newuser);
+            result += await this.common_client.newacc(newuser);
         }
+        return result;
     }
 
     async deployContract() {
-        const contracts = [[Swap.tokenowner, Swap.filePath], [Swap.admin, Swap.swapfilePath]];
+        const contracts = [[Swap.admin, Swap.swapfilePath]];//[Swap.tokenowner, Swap.filePath],
+        let result = "";
         for (let contract of contracts) {
-            await this.common_client.deployContract(contract[0], contract[1]);
+            result += await this.common_client.deployContract(contract[0], contract[1]);
         }
+        return result;
     }
 
     async newtoken() {
-        const tokens = [this.pair_data.token1, this.pair_data.token2];
+        const tokens = this.pair_data.tokens;
         for (let t of tokens) {
             await this.common_client.pushAction("newtoken", Swap.tokenissuer, ClientUtil.to_max_supply(t));
         }
     }
     async mintx() {///Swap.admin, Swap.nonadmin, Swap.user1, "112acnogsedo",
         const users = this.pair_data.mintdata.users;//[Swap.admin, "112acnogsedo", "1114wmpblocm"];
-        const tokens = [this.pair_data.token1, this.pair_data.token2];
+        const tokens = this.pair_data.tokens;
         for (let u of users) {
             for (let t of tokens) {
                 await this.common_client.pushAction("mint", u, ClientUtil.to_wei_asset(50000000, t));
@@ -151,10 +155,9 @@ export class SwapClient {
     async bind() {
         const user = Swap.admin;
         const pool = this.pair_data.currentPool;
-        const _ONE_DECIMAL_ = 9;
         const tokens = this.pair_data.binddata;
         for (let t of tokens) {
-            await this.common_client.pushAction("bind", user, pool, ClientUtil.to_wei_asset(t[0], t[1]), ClientUtil.to_wei(t[2], _ONE_DECIMAL_));
+            await this.common_client.pushAction("bind", user, pool, ClientUtil.to_wei_asset(t[0], t[1]), ClientUtil.to_wei(t[2]));
         }
         // await pushAction("bind", Swap.admin, this.pair_data.currentPool, ClientUtil.to_wei_asset(this.pair_data.binddata.token2.amount, this.pair_data.token2), ClientUtil.to_wei(this.pair_data.binddata.token1.denorm));
     }
@@ -173,110 +176,110 @@ export class SwapClient {
     }
     async swapamtin() {
         await this.common_client.pushAction("swapamtin", this.pair_data.swapindata.user, this.pair_data.currentPool,
-            ClientUtil.to_asset(this.pair_data.swapindata.tokenAmountIn, this.pair_data.token1),
-            ClientUtil.to_asset(this.pair_data.swapindata.minAmountOut, this.pair_data.token2),
+            ClientUtil.to_asset(this.pair_data.swapindata.tokenAmountIn, this.pair_data.tokens[0]),
+            ClientUtil.to_asset(this.pair_data.swapindata.minAmountOut, this.pair_data.tokens[1]),
             ClientUtil.to_wei(this.pair_data.swapindata.maxPrice));
     }
 
     async swapamtout() {
         await this.common_client.pushAction("swapamtout", this.pair_data.swapoutdata.user, this.pair_data.currentPool,
-            ClientUtil.to_asset(this.pair_data.swapoutdata.maxAmountIn, this.pair_data.token2),
-            ClientUtil.to_asset(this.pair_data.swapoutdata.tokenAmountOut, this.pair_data.token1),
+            ClientUtil.to_asset(this.pair_data.swapoutdata.maxAmountIn, this.pair_data.tokens[1]),
+            ClientUtil.to_asset(this.pair_data.swapoutdata.tokenAmountOut, this.pair_data.tokens[0]),
             ClientUtil.to_wei(this.pair_data.swapoutdata.maxPrice));
     }
 
 }
 
-var argumentss: any = process.argv.splice(2);
-// console.log(__line); 
-console.log('所传递的参数是：', argumentss);
+// var argumentss: any = process.argv.splice(2);
+// // console.log(__line); 
+// console.log('所传递的参数是：', argumentss);
 
-//////////////////////////
-// print process.argv
-process.argv.forEach(function (val, index, array) {
-    // console.log(__line); 
-    console.log(index + ': ' + val);
-});
+// //////////////////////////
+// // print process.argv
+// process.argv.forEach(function (val, index, array) {
+//     // console.log(__line); 
+//     console.log(index + ': ' + val);
+// });
 
-let client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
+// let client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
 
-const handlers: any = {
-    "newtestpool": (async function () {
-        await client.newtestpool("");
-    }),
-    "t": (async function () {
-        await client.extransfer();
-    }),
-    "newacc": (async function () {
-        await client.newacc();
-    }),
-    "deploy": (async function () {
-        await client.deployContract();
-    }),
-    "a": (async function () {
-        await client.common_client.allowContracts();
-    }),
-    "newtoken": (async function () {
-        await client.newtoken();
-    }),
-    "mint": (async function () {
-        await client.mint();
-    }),
-    "newpool": (async function () {
-        await client.newpool();
-    }),
-    "cppool2table": (async function () {
-        await client.cppool2table();
-    }),
-    "setswapfee": (async function () {
-        await client.setswapfee();
-    }),
-    "bind": (async function () {
-        await client.bind();
-    }),
-    "finalize": (async function () {
-        await client.finalize();
-    }),
-    "joinpool": (async function () {
-        await client.joinpool();
-    }),
-    "exitpool": (async function () {
-        await client.exitpool();
-    }),
-    "collect": (async function () {
-        await client.collect();
-    }),
-    "swapamtin": (async function () {
-        await client.swapamtin();
-    }),
-    "swapamtout": (async function () {
-        await client.swapamtout();
-    }),
-    "default": (async function () {
-        // console.log(__line); console.log("test option");
-        await prettyJson(ClientUtil.to_wei_asset(200, "BTC"));
-    })
+// const handlers: any = {
+//     "newtestpool": (async function () {
+//         await client.newtestpool("");
+//     }),
+//     "t": (async function () {
+//         await client.extransfer();
+//     }),
+//     "newacc": (async function () {
+//         await client.newacc();
+//     }),
+//     "deploy": (async function () {
+//         await client.deployContract();
+//     }),
+//     "a": (async function () {
+//         await client.common_client.allowContracts();
+//     }),
+//     "newtoken": (async function () {
+//         await client.newtoken();
+//     }),
+//     "mint": (async function () {
+//         await client.mint();
+//     }),
+//     "newpool": (async function () {
+//         await client.newpool();
+//     }),
+//     "cppool2table": (async function () {
+//         await client.cppool2table();
+//     }),
+//     "setswapfee": (async function () {
+//         await client.setswapfee();
+//     }),
+//     "bind": (async function () {
+//         await client.bind();
+//     }),
+//     "finalize": (async function () {
+//         await client.finalize();
+//     }),
+//     "joinpool": (async function () {
+//         await client.joinpool();
+//     }),
+//     "exitpool": (async function () {
+//         await client.exitpool();
+//     }),
+//     "collect": (async function () {
+//         await client.collect();
+//     }),
+//     "swapamtin": (async function () {
+//         await client.swapamtin();
+//     }),
+//     "swapamtout": (async function () {
+//         await client.swapamtout();
+//     }),
+//     "default": (async function () {
+//         // console.log(__line); console.log("test option");
+//         await prettyJson(ClientUtil.to_wei_asset(200, "BTC"));
+//     })
 
-};
+// };
 
-// "newacc", "deploy","exitpool","collect"
-// const actions = ["a", "newtoken", "mint", "newpool", "setswapfee", "bind", "finalize", "joinpool", "swapamtin","swapamtout"];
+// // "newacc", "deploy","exitpool","collect"
+// // const actions = ["a", "newtoken", "mint", "newpool", "setswapfee", "bind", "finalize", "joinpool", "swapamtin","swapamtout"];
 
-const actions = ["newacc", "newpool"];
+// const actions = ["newacc", "newpool"];
 
 
-const batchhandlers: any = {
-    "b2u": (async function () {
-        client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
-        for (let ac of actions) {
-            await handlers[ac]();
-        }
-    }),
-    "default": (async function () {
-        const f = handlers[argumentss[0]] || handlers["default"];
-        f();
-    })
-};
+// const batchhandlers: any = {
+//     "b2u": (async function () {
+//         client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
+//         for (let ac of actions) {
+//             await handlers[ac]();
+//         }
+//     }),
+//     "default": (async function () {
+//         // const f = handlers[argumentss[0]] || handlers["default"];
+//         // f();
+//     })
+// };
 
-const f = batchhandlers[argumentss[0]] || batchhandlers["default"];
-f();
+// const f = batchhandlers[argumentss[0]] || batchhandlers["default"];
+// f();

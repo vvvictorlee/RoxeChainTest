@@ -5,8 +5,9 @@ import { prettyJson } from "./prettyjson";
 export const buyram = async (
     account_name: any, api: any
 ) => {
+    let result;
     try {
-        const result = await api.transact(
+        result = await api.transact(
             {
                 actions: [
                     {
@@ -35,8 +36,10 @@ export const buyram = async (
         // return trans_id;
         prettyJson(result);
     } catch (err) {
+        result = err;
         console.log('error is : ___', err);
     }
+    return result;
 };
 
 export const createNewAccount = async (
@@ -45,8 +48,9 @@ export const createNewAccount = async (
     active_publicKey: any,
     api: any
 ) => {
+    let result;
     try {
-        const result = await api.transact(
+        result = await api.transact(
             {
                 actions: [
                     {
@@ -128,8 +132,11 @@ export const createNewAccount = async (
         // return trans_id;
         prettyJson(result);
     } catch (err) {
+        result = err;
         console.log('error is : ___', err);
     }
+
+    return result;
 };
 
 export async function deployContract(user_name: any, filePath: any, utils: any) {
@@ -147,7 +154,7 @@ export async function deployContract(user_name: any, filePath: any, utils: any) 
 
 
     abiJSON = abiDefinitions.fields.reduce(
-        (acc:any, { name }: any) => {
+        (acc: any, { name }: any) => {
             let fieldName: any = name;
             prettyJson(name);
             prettyJson([fieldName]);
@@ -169,9 +176,9 @@ export async function deployContract(user_name: any, filePath: any, utils: any) 
     )
     abiDefinitions.serialize(buffer, abiJSON)
     let serializedAbiHexString = Buffer.from(buffer.asUint8Array()).toString('hex')
-
+    let result;
     try {
-        await utils.api.transact(
+        result = await utils.api.transact(
             {
                 actions: [
                     {
@@ -213,8 +220,10 @@ export async function deployContract(user_name: any, filePath: any, utils: any) 
         )
     }
     catch (e) {
+        result = e;
         console.log(e)
     }
+    return result;
 }
 
 // createNewAccount("gbp2usd11111", pub_key, pub_key);

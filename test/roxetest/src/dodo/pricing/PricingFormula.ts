@@ -2,14 +2,14 @@ import "./utils/number.extensions";
 import { Trader } from "./impl/Trader";
 import { PricingApi } from "./PricingApi";
 import { prettyJson } from "../lib/prettyjson";
-const   dotenv = require('dotenv');
+const dotenv = require('dotenv');
 dotenv.load();
-const TokenDecimal= Math.pow(10,Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
+const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
 
 // import { SafeMath } from "./lib/SafeMath";
-// console.log(SafeMath.divCeil(70, 7));
+// //console.log(SafeMath.divCeil(70, 7));
 // let n: number = 70;
-// console.log(n.divCeil(7));
+// //console.log(n.divCeil(7));
 export class TraderPricingApi {
 
     filter_fields: any[] = [
@@ -29,56 +29,59 @@ export class TraderPricingApi {
 
     init(strdodos: any) {
         this.galldodos = JSON.parse(strdodos);
-        prettyJson(this.galldodos);
+        // prettyJson(this.galldodos);
     }
 
     async queryDodo(baseToken: any, quoteToken: any) {
         let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "44444";
         dodo_name = dodo_name.substr(0, 12);
-        const testdodo_name: any = { "rousd2rogbp1": "usd2gbp2222", "rousd2rohkd1": "usd2hkd2222", "weth2dai1111": "dai2mkr11111", "eth2mkr11111": "ethbasemkr11" };
-        const mapname = testdodo_name[dodo_name];
-        if (undefined != mapname) {
-            dodo_name = mapname;
-        }
+        // const testdodo_name: any = { "rousd2rogbp1": "usd2gbp2222", "rousd2rohkd1": "usd2hkd2222", "weth2dai1111": "dai2mkr11111", "eth2mkr11111": "ethbasemkr11" };
+        // const mapname = testdodo_name[dodo_name];
+        // if (undefined != mapname) {
+        //     dodo_name = mapname;
+        // }
 
-        // console.log("======dodo_name======",dodo_name);
+        // //console.log("======dodo_name======",dodo_name);
         let dodo = this.galldodos[Object.keys(this.galldodos)[0]];
         if (this.galldodos.hasOwnProperty(dodo_name)) {
             dodo = this.galldodos[dodo_name];
         }
+        else {
+            //console.log("====NOT FOUND==dodo_name======", dodo_name);
+        }
 
         // dodo._ORACLE_PRICE_ = Number(galloracles[baseToken]);
-        // //console.log(dodo);
+        // ////console.log(dodo);
 
         return dodo;
     }
 
     async queryBuyTokenWithDodo(amount: any, dodo: any) {
         this.t.setParameters(dodo);
-        ////console.log(amount, dodo);
+        //console.log(amount, dodo);
         let r = this.t.queryBuyBaseToken(amount);
-        ////console.log(r);
+        //console.log(r);
         return r;
     }
 
     async querySellTokenWithDodo(amount: any, dodo: any) {
         this.t.setParameters(dodo);
         let r = this.t.querySellBaseToken(amount);
-        ////console.log(r);
+        //////console.log(r);
         return r;
     }
 
     async queryBuyToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        //////console.log(amount, dodojson);
+        ////////console.log(amount, dodojson);
         let r = await this.queryBuyTokenWithDodo(amount, dodo);
-        //////console.log(r);
+        ////////console.log(r);
         return Number(r);
     }
     async querySellToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         let r = await this.querySellTokenWithDodo(amount, dodo);
-        //////console.log(r);
+        ////////console.log(r);
         return Number(r);
     }
 
@@ -86,14 +89,14 @@ export class TraderPricingApi {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         this.t.setParameters(dodo);
         return this.t.queryBuyBaseTokenDetail(amount * TokenDecimal);
-        //////console.log(r);
+        ////////console.log(r);
     }
 
     async querySellTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         this.t.setParameters(dodo);
         return this.t.querySellBaseTokenDetail(amount * TokenDecimal);
-        //////console.log(r);
+        ////////console.log(r);
     }
 }
 
@@ -101,39 +104,19 @@ export class TraderPricingApi {
 
     const papi = new PricingApi();
     let bb: any = await papi.getDodo();
-    // console.log("===m======");
+    // //console.log("===m======");
     // prettyJson(bb);
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
     const amount = 1000000;
-    const basetoken = "USD";
-    const quotetoken = "GBP";
-    let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-    console.log("==b==", Number(b)* TokenDecimal, "=====");
-    let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-    console.log("=s==", s, "===");
-    {
-        const basetoken = "GBP";
-        const quotetoken = "HKD";
+    const tokens = [["USD", "GBP"], ["USD", "HKD"], ["GBP", "HKD"]];
+    for (let t of tokens) {
+        const basetoken = t[0];
+        const quotetoken = t[1];
         let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-        console.log("==b==", Number(b)*TokenDecimal, "=====");
+        console.log("=buy =", basetoken, "=by=", quotetoken, "===", Number(b), "=====");
         let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-        console.log("=s==", s, "===");
+        console.log("=sell =", basetoken, "=by=", quotetoken, "===", Number(b), "=====");
     }
-
-    {
-        const basetoken = "USD";
-        const quotetoken = "HKD";
-        let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-        console.log("==b==", Number(b)*TokenDecimal, "=====");
-        let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-        console.log("=s==", s, "===");
-    }
-   
 
 })();
-
-
-
-
-

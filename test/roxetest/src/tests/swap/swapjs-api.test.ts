@@ -57,7 +57,8 @@ describe('eosjs-api', () => {
     });
 
     it('deployContract', async () => {
-        await client.deployContract();
+        const result = await client.deployContract();
+        console.log(result);
     });
 
     it('allowContracts', async () => {

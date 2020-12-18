@@ -151,9 +151,10 @@ describe('JSON RPC', () => {
 
 
     it('accounts', async () => {
+const users = ["roxeswaptest"];
         for (let user of users) {
             const res = await rpc.get_table_rows({
-                code: "eoswapxtoken",
+                code: "roxe.token",
                 table: "accounts",
                 scope: user
             });
@@ -165,9 +166,9 @@ describe('JSON RPC', () => {
 
     it('roxeswaptest pools', async () => {
         const res = await rpc.get_table_rows({
-            code: 'roxeswap1213',
+            code: 'roxeswaptest',
             table: 'pools',
-            scope: 'roxeswap1213'
+            scope: 'roxeswaptest'
         });
         prettyJson(res);
     });

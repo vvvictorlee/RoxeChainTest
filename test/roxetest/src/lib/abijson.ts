@@ -1,6 +1,8 @@
 
 import { loadJson } from './util';
 import './arr2obj';
+const path = require('path');
+
 
 export class SwapAbiJson {
     static async swapjson() {
@@ -9,8 +11,6 @@ export class SwapAbiJson {
         const actionjson = arrToObjES2019(swap.structs.filter((obj: any) => a.indexOf(obj.name) >= 0));
         return actionjson;
     }
-
-
 
     static async buildActionParameterJson(firstPara: any, ...restOfPara: any[]) {
         const actionparas = await SwapAbiJson.swapjson();
@@ -38,7 +38,6 @@ export class DosAbiJson {
     }
 
 
-
     static async buildActionParameterJson(firstPara: any, ...restOfPara: any[]) {
         // console.log(JSON.stringify(restOfPara));
         const actionparas = await DosAbiJson.dosjson();
@@ -52,9 +51,17 @@ export class DosAbiJson {
     }
 }
 
-
+const abiPaths:{[name:string]:any} = { "swap": "../abi/eoswap.abi", "earn": "../abi/eosdos.abi" };
 export class AbiJson {
-    static abiPath = "/Users/lisheng/mygit/vvvictorlee/RoxeChainTest/test/roxetest/src/abi/eoswap.abi";
+    static abiPath = "../abi/eoswap.abi";
+    // console.log(__dirname);
+    // console.log(__filename);
+    // console.log(process.cwd());
+    // console.log(path.resolve('./'));
+    static async setabi(abiname: any) {
+        AbiJson.abiPath = path.join(__dirname, abiPaths[abiname]);
+    }
+
     static async json() {
         const dos = await loadJson(AbiJson.abiPath);
         const a = dos.actions.map((obj: any) => obj.type);
@@ -69,7 +76,7 @@ export class AbiJson {
         // for (var i = 0; i < ap.length; i++) {
         //     json[ap[i]] = restOfPara[i];
         // }
-        return actionparas[firstPara].reduce((obj:any, curval:any, currindex:any) => { obj[curval] = restOfPara[currindex]; return obj; }, {}as { [k: string]: any });
+        return actionparas[firstPara].reduce((obj: any, curval: any, currindex: any) => { obj[curval] = restOfPara[currindex]; return obj; }, {} as { [k: string]: any });
     }
 }
 

@@ -14,7 +14,7 @@ const fetch = require('node-fetch')                                   // node on
 const { TextEncoder, TextDecoder } = require('util')
 
 const signatureProvider = new JsSignatureProvider(Dos.keys)
-const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
+export const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
 const api = new Api({
     rpc,
@@ -233,7 +233,7 @@ export class DosClient {
         await pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.para.currentquotestr));
     }
     async buybt() {
-        await pushAction("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_wei_asset(this.para.buydata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
+        await pushAction("buybasetoken", Dos.trader, this.para.currentDodo, ClientUtil.to_asset(this.para.buydata.amount, this.para.currentbasestr), ClientUtil.to_wei_asset(this.para.buydata.maxPay, this.para.currentquotestr));
     }
     async buyfakebt() {
         const a = { quantity: "1.000000 XXX", contract: "a" };
@@ -381,7 +381,7 @@ const handlers: any = {
 // const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-const actions = ["buybt", "sellbt"];//, "depositbasequote", "buybt", "sellbt"
+const actions = ["buybt"];//, "depositbasequote", "buybt", "sellbt"/, "sellbt"
 
 // const actions = ["u2gwithdrawquote"];//, "depositbasequote", "buybt", "sellbt"
 

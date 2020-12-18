@@ -34,6 +34,7 @@ export class Client {
     para: { [name: string]: any } = { contract: {}, acc2pub_keys: [], keys: [] };
 
     constructor(para: any) {
+        AbiJson.setabi(para.abiname);
         this.para = para;
         this.para.signatureProvider = new JsSignatureProvider(para.keys)
 
@@ -53,6 +54,7 @@ export class Client {
     }
 
     transactWithConfig = async (actionjson: any) => {
+
         const results = await this.para.api.transact(actionjson, {
             blocksBehind: 3,
             expireSeconds: 30,
@@ -85,26 +87,27 @@ export class Client {
         return results;
     }
 
-    async allowContract(user: any, pubk: any, contract: any) {
-        const results = await this.transactWithConfig(TxUtil.allowContract(user, pubk, contract));
+    async allowContract(user: any, pubk: any) {
+        const results = await this.transactWithConfig(TxUtil.allowContract(user, pubk, this.para.contract));
         await prettyJson(results);
     }
 
-    async allowContracts(acc2pub_keys: any, contract: any) {
-        const accounts = Object.keys(acc2pub_keys);
+    async allowContracts() {
+        const accounts = Object.keys(this.para.acc2pub_keys);
         for (let acc of accounts) {
-            this.allowContract(acc, acc2pub_keys[acc], contract);
+            await this.allowContract(acc, this.para.acc2pub_keys[acc]);
         }
     }
 
     async newacc(newuser: any) {
         // const newuser = this.para.newaccdata.newuser;
         const pub_key = this.para.acc2pub_keys[newuser];
-        createNewAccount(newuser, pub_key, pub_key, this.para.api);
+        await createNewAccount(newuser, pub_key, pub_key, this.para.api);
     }
 
     async deployContract(contractuser: any, filePath: any) {
-        deployContractjs(contractuser, filePath, this.para.utils);
+        const result = await deployContractjs(contractuser, filePath, this.para.utils);
+        return result;
     }
 
     async newtoken(issuer: any, tokens: any) {

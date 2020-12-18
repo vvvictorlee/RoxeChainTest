@@ -1,4 +1,5 @@
 
+import {DosClient,rpc} from "../../dodo/dodo_client"
 
 describe('JSON RPC', () => {
     // const endpointExtraSlash = 'http://localhost/';
@@ -12,6 +13,24 @@ describe('JSON RPC', () => {
     });
 
     it('throws error bad status', async () => {
+        // const expPath = '/v1/history/get_transaction';
+        const id = 'myaccountaaa';
+        const blockNumHint: number = null;
+        const expReturn = { data: '12345' };
+        // const expParams = {
+        //     body: JSON.stringify({
+        //         id,
+        //         block_num_hint: blockNumHint,
+        //     }),
+        //     method: 'POST',
+        // };
+
+        // fetchMock.once(JSON.stringify(expReturn));
+
+        const response = await rpc.history_get_transaction(id);
+
+        expect(response).toEqual(expReturn);
+        // expect(fetch).toBeCalledWith(endpoint + expPath, expParams);
         // let actMessage = '';
         // const expMessage = 'Not Found';
         // const accountName = 'myaccountaaa';

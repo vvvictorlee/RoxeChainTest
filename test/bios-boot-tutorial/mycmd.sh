@@ -193,11 +193,10 @@ curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
 # curl  http://10.11.5.37:8000/v1/wallet/list_keys
 
 
-# curl -X POST --url http://127.0.0.1:8888/v1/history/get_transaction -d '{	"id":"1295233e6d72e252c15b2440da39fbc812936086d031e4a2e79a42cd6305d216"}' | jq
+# curl -X POST --url http://127.0.0.1:8888/v1/history/get_transaction -d '{	"id":"37932d090584e3d2c661122c1a331cb970b412596c455e73a83dd5b980869ef5"}' | jq
 
-# curl -X POST --url http://172.17.3.161:8888/v1/history/get_transaction -d '{	"id":"1295233e6d72e252c15b2440da39fbc812936086d031e4a2e79a42cd6305d216"}' | jq
-# curl -X POST --url http://172.17.3.161:8888/v1/history/get_transaction -d '{	"id":"ca197744cee06148ba92a82f4f2147350f44164400cec1f69f0331ee640aa6ee"}'
-#  | jq
+# curl -X POST --url http://172.17.3.161:8888/v1/history/get_transaction -d '{	"id":"37932d090584e3d2c661122c1a331cb970b412596c455e73a83dd5b980869ef5"}' | jq
+# curl -X POST --url http://172.17.3.161:8888/v1/history/get_transaction -d '{	"id":"df9f3044ad1f3fe84c71f99c23f7a1b6c4871921858108e12a89e95c70eff2d7"}' | jq
 
 # curl -X POST --url http://172.17.3.161:8888/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"eoswapeoswap"}'
 
