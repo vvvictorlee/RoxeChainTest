@@ -189,6 +189,13 @@ export class DosClient {
         await this.common_client.pushAction("setparameter", Dos.admin, this.pair_data.base.DODO_NAME, "mtfeerate", this.pair_data.mtFeeRate);
     }
 
+    async depositbasequote1() {
+        const dodo_name = this.pair_data.base.DODO_NAME;
+        const baseamount = this.pair_data.depositdata.baseamount;
+        const quoteamount = this.pair_data.depositdata.quoteamount;
+        await this.common_client.pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.pair_data.base.tokens[1]));
+    }
+
     async depositbasequote() {
         const dodo_name = this.pair_data.base.DODO_NAME;
         const baseamount = this.pair_data.depositdata.baseamount;
@@ -389,5 +396,15 @@ process.argv.forEach(function (val, index, array) {
 if (process.argv[2] == "a") {
     let client = new DosClient(Dos.USD2HKD, Dos.para);
     client.common_client.allowContracts();
+}
+
+if (process.argv[2] == "u2g") {
+    let client = new DosClient(Dos.USD2GBP, Dos.para);
+    client.depositbasequote1();
+}
+
+if (process.argv[2] == "u2h") {
+    let client = new DosClient(Dos.USD2HKD, Dos.para);
+    client.depositbasequote();
 }
 

@@ -8,6 +8,8 @@
     "dodo:pricing:test": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.test",
     "dodo:pricing:prod": "ts-node  -r dotenv/config src/dodo/pricing/PricingFormula.ts dotenv_config_path=.env.prod",
     "dodo:allow": "ts-node  -r dotenv/config src/dodo/dodo_client.ts a dotenv_config_path=.env",
+    "dodo:u2g": "ts-node  -r dotenv/config src/dodo/dodo_client.ts u2g  dotenv_config_path=.env",
+    "dodo:u2h": "ts-node  -r dotenv/config src/dodo/dodo_client.ts u2h dotenv_config_path=.env",
     "start": "ts-node src/picture.ts",
     "dev": "nodemon",
     "jest": "jest src/tests/dodo/*",
