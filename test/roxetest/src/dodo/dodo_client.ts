@@ -160,16 +160,24 @@ export class DosClient {
         // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
         // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
         // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
-        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name,"trading",1);
-        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name,"quotedeposit",1);
+        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "quotedeposit", 1);
     }
     async enable2() {
         const dodo_name = this.pair_data.base.DODO_NAME;
         // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
         // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
         // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
-        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name,"basedeposit",1);
+        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "basedeposit", 1);
     }
+
+    async enable3() {
+        const dodo_name = this.pair_data.base.DODO_NAME;
+        // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
+        // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
+        // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
+        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "trading", 1);
+    }
+
 
     async setprice() {
         await this.common_client.pushAction("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.oracleprice, this.pair_data.base.tokens[1]));
@@ -231,18 +239,18 @@ export class DosClient {
 
 }
 
-// var argumentss: any = process.argv.splice(2);
-// // console.log(__line); 
-// // console.log('所传递的参数是：', argumentss);
+var argumentss: any = process.argv.splice(3);
+// console.log(__line); 
+// console.log('所传递的参数是：', argumentss);
 
 // // //////////////////////////
 // // // print process.argv
-// // process.argv.forEach(function (val, index, array) {
-// //     // console.log(__line); 
-// //     console.log(index + ': ' + val);
-// // });
+process.argv.forEach(function (val, index, array) {
+    // console.log(__line); 
+    console.log(index + ': ' + val);
+});
 
-// let client = new DosClient(U2G_PAIR_DATA.pairpara);
+// let client = new DosClient(U2G_pairpara);
 // // let client = new DosClient(U2H_PAIR_DATA.pairpara);
 
 // const handlers: any = {
@@ -378,4 +386,8 @@ export class DosClient {
 
 // createtoken();
 
+if (process.argv[2] == "a") {
+    let client = new DosClient(Dos.USD2HKD, Dos.para);
+    client.common_client.allowContracts();
+}
 

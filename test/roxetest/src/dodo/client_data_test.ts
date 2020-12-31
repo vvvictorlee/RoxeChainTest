@@ -37,7 +37,7 @@ export class Dos {
     static para: { [name: string]: any } = {
         util_para: {
             TOKEN_CONTRACT: "roxe.ro",
-            ONE_DECIMALS: 9,
+            ONE_DECIMALS: 6,
             sym2dec: { "USD": 6, "GBP": 6, "HKD": 6, "ROC": 4 },
             MAX_SUPPLY: "10000000000"
         },
@@ -55,6 +55,8 @@ export class Dos {
                 "ethbasemkr11": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "ethquotemkr1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "daimkrdaimkr": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "re.usdgbp": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "re.usdhkd": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "dai2mkr11111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "usd2gbp44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "usd2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",

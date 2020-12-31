@@ -30,7 +30,14 @@ describe('usd2gbpeosjs-api', () => {
     it('paraenable2', async () => {
         await client.enable2();
     });
+
+  it('paraenable3', async () => {
+        await client.enable3();
+    });
   
+   it('allowContracts', async () => {
+        await client.common_client.allowContracts();
+    });
 
 
 });

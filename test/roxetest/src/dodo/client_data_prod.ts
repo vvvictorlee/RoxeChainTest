@@ -28,16 +28,16 @@ export class Dos {
     static dodo_ethbase_name = "ethbasemkr11";
     static dodo_ethquote_name = "ethquotemkr1";
     static dodo_stablecoin_name = "dai2mkr11111";//daimkrdaimkr
-    static dodo_u2g_name = "usd2gbp44444";
-    static dodo_u2h_name = "usd2hkd44444";
-    static dodo_g2h_name = "gbp2hkd44444";
+    static dodo_u2g_name = "re.usdgbp";
+    static dodo_u2h_name = "re.usdhkd";
+    static dodo_g2h_name = "gbp2hkd55555";
     static contract = "roxe.earn";
     static filePath = '../wasms/roxe.token/roxe.token';
     static dosfilePath = '../wasms/roxeearn/roxeearn';
     static para: { [name: string]: any } = {
         util_para: {
             TOKEN_CONTRACT: "roxe.ro",
-            ONE_DECIMALS: 9,
+            ONE_DECIMALS: 6,
             sym2dec: { "USD": 6, "GBP": 6, "HKD": 6, "ROC": 4 },
             MAX_SUPPLY: "10000000000"
         },
@@ -57,9 +57,8 @@ export class Dos {
                 "ethquotemkr1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "daimkrdaimkr": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "dai2mkr11111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "usd2gbp44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "usd2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "gbp2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "re.usdgbp": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "re.usdhkd": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "tokenissuer1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "maintainer11": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
                 "alice1111111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
@@ -77,7 +76,7 @@ export class Dos {
         }
     };
 
-    static USD2GBP_BASE = { tokens: ["USD", "GBP"], DODO_NAME: "usd2gbp44444" };
+    static USD2GBP_BASE = { tokens: ["USD", "GBP"], DODO_NAME: "re.usdgbp" };
     static USD2GBP: { [name: string]: any } = {
         base: Dos.USD2GBP_BASE,
         newaccdata: {
@@ -108,7 +107,7 @@ export class Dos {
 
     };
 
-    static USD2HKD_BASE = { tokens: ["USD", "HKD"], DODO_NAME: "usd2hkd44444" };
+    static USD2HKD_BASE = { tokens: ["USD", "HKD"], DODO_NAME: "re.usdhkd" };
     static USD2HKD: { [name: string]: any } = {
         base: Dos.USD2HKD_BASE,
         newaccdata: {
@@ -138,7 +137,7 @@ export class Dos {
         }
     };
 
-    static GBP2HKD_BASE = { tokens: ["GBP", "HKD"], DODO_NAME: "gbp2hkd44444" };
+    static GBP2HKD_BASE = { tokens: ["GBP", "HKD"], DODO_NAME: "gbp2hkd55555" };
     static GBP2HKD: { [name: string]: any } = {
         base: Dos.GBP2HKD_BASE,
         newaccdata: {

@@ -67,9 +67,17 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{
 
 
 "dodos") 
-curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
-   "scope":"eos",
-   "code":"eosdoseosdos",
+
+curl -X POST --url http://127.0.0.1:18888/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
+   "table":"dodos",
+   "json":true
+}'
+
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
    "table":"dodos",
    "json":true
 }' |jq
