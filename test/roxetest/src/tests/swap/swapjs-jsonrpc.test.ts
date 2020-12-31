@@ -14,7 +14,7 @@ describe('JSON RPC', () => {
     // const fetchMock = fetch as any;
     // let jsonRpc: JsonRpc;
     let rpc: any;
-    let client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
+    let client = new SwapClient(Swap.BTC2USD, Swap.para);
 
     beforeEach(() => {
         rpc = client.common_client.para.rpc;
@@ -73,28 +73,6 @@ describe('JSON RPC', () => {
     });
 
 
-    it('dodos', async () => {
-        const code = "roxeearntest"
-        const res = await rpc.get_table_rows({
-            code: code,
-            table: 'dodos',
-            scope: code,
-            reverse: true
-        });
-        prettyJson(res);
-
-        {
-            const res = await rpc.get_table_rows({
-                code: code,
-                table: 'oracleprices',
-                scope: code,
-                reverse: true
-            });
-            prettyJson(res);
-        }
-
-    });
-
 
     it('getaccount', async () => {
         for (let user of users) {
@@ -151,7 +129,7 @@ describe('JSON RPC', () => {
 
 
     it('accounts', async () => {
-const users = ["roxeswaptest"];
+        const users = ["roxeswaptest"];
         for (let user of users) {
             const res = await rpc.get_table_rows({
                 code: "roxe.token",

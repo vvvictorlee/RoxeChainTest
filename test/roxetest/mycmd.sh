@@ -25,6 +25,7 @@ esac
 # http://10.100.1.10:8889/v1/wallet/create_key
 # curl http://localhost:6666/v1/wallet/create_key -X POST -d '["default","K1"]' default 为钱包名
 
+./clroxe create account roxe orc.polygon ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z
 
 
 

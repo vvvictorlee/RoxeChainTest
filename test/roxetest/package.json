@@ -24,7 +24,11 @@
     "test:swapapi:swapamtout": "jest -i src/tests/swap/swapjs-api.test.ts -t \"swapamtout\"",
     "test:swaprpc:account": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"account\"",
     "test:swaprpc:pools": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"roxeswaptest pools\"",
-  "test:swaprpc:dodos": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"dodos\"",
+    "test:earnrpc:gt": "jest -i src/tests/dodo/earnjs-jsonrpc.test.ts -t \"get_transaction\"",
+    "test:earnrpc:ga": "jest -i src/tests/dodo/earnjs-jsonrpc.test.ts -t \"get_actions\"",
+    "test:earnrpc:do": "jest -i src/tests/dodo/earnjs-jsonrpc.test.ts -t \"dodos\"",
+    "test:earnapi:deployContract": "jest -i src/tests/dodo/earnjs-api.test.ts -t \"deployContract\"",
+    "test:earnapi:setprice": "jest -i src/tests/dodo/earnjs-api.test.ts -t \"setprice\"",
     "test:math1": "jest -t \"abitojson\""
   },
   "author": "",

@@ -21,11 +21,11 @@ export class Dos {
     static hexuser = "carol1111111";
     static testadmin = "roxeearntest";
     static prodadmin = "roxeearnprod";
-    static admin = Dos.testadmin;//"roxeearn1213";
+    static admin = Dos.testadmin;//"roxeearn1231";
     static tokenowner = "roxe.ro";
     static tokenissuer = "tokenissuer1";
     static maintainer = "maintainer11";
-    static oracleadmin = "eosdosoracle";
+    static oracleadmin = "orc.polygon";
     static doowner = Dos.admin;
     static dodo_ethbase_name = "ethbasemkr11";
     static dodo_ethquote_name = "ethquotemkr1";
@@ -33,101 +33,102 @@ export class Dos {
     static dodo_u2g_name = "usd2gbp44444";
     static dodo_u2h_name = "usd2hkd44444";
     static dodo_g2h_name = "gbp2hkd44444";
-
-    static acc2pub_keys: any = {
-        "roxe1": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
-        "roxeearn1213": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "roxeearntest": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "roxeearnprod": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "roxearntoken": "ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z",
-        "eosdosoracle": "ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z",
-        "ethbasemkr11": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "ethquotemkr1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "daimkrdaimkr": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "dai2mkr11111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "usd2gbp44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "usd2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "gbp2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "tokenissuer1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "maintainer11": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
-        "alice1111111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-        "bob111111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX",
-        "carol1111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"
+    static contract = "roxeearntest";
+    static filePath = '../wasms/roxe.token/roxe.token';
+    static dosfilePath = '../wasms/roxeearn/roxeearn';
+    static para: { [name: string]: any } = {
+        util_para: {
+            TOKEN_CONTRACT: "roxe.ro",
+            ONE_DECIMALS: 9,
+            sym2dec: { "USD": 6, "GBP": 6, "HKD": 6, "ROC": 4 },
+            MAX_SUPPLY: "10000000000"
+        },
+        client_para: {
+            abiname: "earn",
+            contract: Dos.contract,
+            acc2pub_keys: {
+                "orc.polygon": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "roxe1": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
+                "roxeearn1213": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "roxeearntest": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "roxeearnprod": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "roxearntoken": "ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z",
+                "eosdosoracle": "ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z",
+                "ethbasemkr11": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "ethquotemkr1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "daimkrdaimkr": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "dai2mkr11111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "usd2gbp44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "usd2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "gbp2hkd44444": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "tokenissuer1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "maintainer11": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
+                "alice1111111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "bob111111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX",
+                "carol1111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"
+            },
+            keys: [process.env.EOS_KEY,
+                "5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w",
+                "5JxT1aA8MiZZe7XjN3SYaQ65NSbZXrBcjePaSwRifK7jJLdjSf3",
+                "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8",
+                "5HwYSQMW2Xy37Q9nhdKz7T32eLxwbDq29rMzGXrRQJwveh9B7sG",
+                "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN",
+                "5KQkb4xcjWfNvvotM6JspVpupddbPCj62SvTTUTKeLhHmfuH3Zp",
+                "5JyL5XytgZSdDK3DR2snUX5wVEGD7Jg7mXcVNq7tNgQL5T4DxC9"]
+        }
     };
 
-
-    static keys = [process.env.EOS_KEY,
-        "5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w",
-        "5JxT1aA8MiZZe7XjN3SYaQ65NSbZXrBcjePaSwRifK7jJLdjSf3",
-        "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8",
-        "5HwYSQMW2Xy37Q9nhdKz7T32eLxwbDq29rMzGXrRQJwveh9B7sG",
-        "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN"];
-}
-
-
-export class U2G_PAIR_DATA {
-    static PAIR = { base: "USD", quote: "GBP" };
-    static DODO_NAME = "usd2gbp44444";
-    static pairpara = {
-        currentDodo: U2G_PAIR_DATA.DODO_NAME,
-        currentbasestr: U2G_PAIR_DATA.PAIR.base,
-        currentquotestr: U2G_PAIR_DATA.PAIR.quote,
-        currentLp: Dos.lp,
-        currentTrader: Dos.trader,
+    static USD2GBP_BASE = { tokens: ["USD", "GBP"], DODO_NAME: "usd2gbp44444" };
+    static USD2GBP: { [name: string]: any } = {
+        base: Dos.USD2GBP_BASE,
         newaccdata: {
-            newuser: U2G_PAIR_DATA.DODO_NAME,
+            newuser: Dos.USD2GBP_BASE.DODO_NAME,
             pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
         },
         mintdata: {
             users: [Dos.lp, Dos.trader],
-            tokens: [[1000000, U2G_PAIR_DATA.PAIR.base], [740000, U2G_PAIR_DATA.PAIR.quote]]
+            tokens: [[1000000, Dos.USD2GBP_BASE.tokens[0]], [740000, Dos.USD2GBP_BASE.tokens[1]]]
         },
         depositdata:
         {
             baseamount: 1000000,
             quoteamount: 740000
         },
-        lpFeeRate: 1,
-        mtFeeRate: 0,
-        k: 1,
-        oracleprice:740000,
+        lpFeeRate: 595,
+        mtFeeRate: 105,
+        k: 100,
+        oracleprice: 740000,
         buydata: {
             amount: 1323603731,
             maxPay: 1000
         },
         selldata: {
-            amount: 1,
-            minReceive: 1
+            amount: 998500000,
+            minReceive: 728900000
         }
-    }
-}
 
-export class U2H_PAIR_DATA {
-    static PAIR = { base: "USD", quote: "HKD" };
-    static DODO_NAME = "usd2hkd44444";
-    static pairpara = {
-        currentDodo: U2H_PAIR_DATA.DODO_NAME,
-        currentbasestr: U2H_PAIR_DATA.PAIR.base,
-        currentquotestr: U2H_PAIR_DATA.PAIR.quote,
-        currentLp: Dos.lp,
-        currentTrader: Dos.trader,
+    };
+
+    static USD2HKD_BASE = { tokens: ["USD", "HKD"], DODO_NAME: "usd2hkd44444" };
+    static USD2HKD: { [name: string]: any } = {
+        base: Dos.USD2HKD_BASE,
         newaccdata: {
-            newuser: U2H_PAIR_DATA.DODO_NAME,
+            newuser: Dos.USD2HKD_BASE.DODO_NAME,
             pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
         },
         mintdata: {
             users: [Dos.lp, Dos.trader],
-            tokens: [[1000000, U2H_PAIR_DATA.PAIR.base], [7750000, U2H_PAIR_DATA.PAIR.quote]]
+            tokens: [[1000000, Dos.USD2HKD_BASE.tokens[0]], [7750000, Dos.USD2HKD_BASE.tokens[1]]]
         },
         depositdata:
         {
             baseamount: 1000000,
             quoteamount: 7750000
         },
-        lpFeeRate: 1,
-        mtFeeRate: 0,
-        k: 1,
-        oracleprice:7750000,
+        lpFeeRate: 595,
+        mtFeeRate: 105,
+        k: 100,
+        oracleprice: 7750000,
         buydata: {
             amount: 1,
             maxPay: 10
@@ -136,35 +137,28 @@ export class U2H_PAIR_DATA {
             amount: 1,
             minReceive: 1
         }
-    }
-}
+    };
 
-export class G2H_PAIR_DATA {
-    static PAIR = { base: "GBP", quote: "HKD" };
-    static DODO_NAME = "gbp2hkd44444";
-    static pairpara = {
-        currentDodo: G2H_PAIR_DATA.DODO_NAME,
-        currentbasestr: G2H_PAIR_DATA.PAIR.base,
-        currentquotestr: G2H_PAIR_DATA.PAIR.quote,
-        currentLp: Dos.lp,
-        currentTrader: Dos.trader,
+    static GBP2HKD_BASE = { tokens: ["GBP", "HKD"], DODO_NAME: "gbp2hkd44444" };
+    static GBP2HKD: { [name: string]: any } = {
+        base: Dos.GBP2HKD_BASE,
         newaccdata: {
-            newuser: G2H_PAIR_DATA.DODO_NAME,
+            newuser: Dos.GBP2HKD_BASE.DODO_NAME,
             pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
         },
         mintdata: {
             users: [Dos.lp, Dos.trader],
-            tokens: [[740000, G2H_PAIR_DATA.PAIR.base], [7750000, G2H_PAIR_DATA.PAIR.quote]]
+            tokens: [[740000, Dos.GBP2HKD_BASE.tokens[0]], [7750000, Dos.GBP2HKD_BASE.tokens[1]]]
         },
         depositdata:
         {
             baseamount: 740000,
             quoteamount: 7750000
         },
-        lpFeeRate: 1,
-        mtFeeRate: 0,
-        k: 1,
-        oracleprice:10472973,
+        lpFeeRate: 595,
+        mtFeeRate: 105,
+        k: 100,
+        oracleprice: 10472973,
         buydata: {
             amount: 1,
             maxPay: 15
@@ -173,5 +167,7 @@ export class G2H_PAIR_DATA {
             amount: 1,
             minReceive: 1
         }
-    }
+    };
+
+
 }

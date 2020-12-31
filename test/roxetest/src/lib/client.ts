@@ -2,7 +2,7 @@ import { AbiJson } from "./abijson";
 import { buyram, createNewAccount, deployContract } from "./api_utils";
 import { ClientUtil } from "./client_util";
 import { TxUtil } from "./tx_util";
-// import { Swap, BTC2USD_PAIR_DATA,ETH2USD_PAIR_DATA } from "./client_data";
+// import { Swap, BTC2USD,ETH2USD_PAIR_DATA } from "./client_data";
 import { prettyJson } from "./prettyjson";
 const { deployContractjs } = require('../lib/deployContract_api_utils')
 

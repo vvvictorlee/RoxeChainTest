@@ -1,24 +1,13 @@
 
-import {DosClient} from "../../dodo/dodo_client"
+import { DosClient } from "../../dodo/dodo_client"
+import { AbiJson } from "../../lib/abijson";
+import { Dos } from "../../dodo/client_data_test";
 
 describe('eosjs-api', () => {
-    // let api: any;
-    // let rpc: any;
-    // const fetch = async (input: any, init: any): Promise<any> => ({
-    //     ok: true,
-    //     json: async () => {
-    //         if (input === '/v1/chain/get_raw_code_and_abi') {
-    //             return {
-    //                 account_name: 'testeostoken',
-    //                 abi: 'DmVvc2lvOjphYmkvMS4wAQxhY2NvdW50X25hbWUEbmFtZQUIdHJhbnNmZXIABARmcm9tDGFjY291bnRfbmFtZQJ0bwxhY2NvdW50X25hbWUIcXVhbnRpdHkFYXNzZXQEbWVtbwZzdHJpbmcGY3JlYXRlAAIGaXNzdWVyDGFjY291bnRfbmFtZQ5tYXhpbXVtX3N1cHBseQVhc3NldAVpc3N1ZQADAnRvDGFjY291bnRfbmFtZQhxdWFudGl0eQVhc3NldARtZW1vBnN0cmluZwdhY2NvdW50AAEHYmFsYW5jZQVhc3NldA5jdXJyZW5jeV9zdGF0cwADBnN1cHBseQVhc3NldAptYXhfc3VwcGx5BWFzc2V0Bmlzc3VlcgxhY2NvdW50X25hbWUDAAAAVy08zc0IdHJhbnNmZXLnBSMjIFRyYW5zZmVyIFRlcm1zICYgQ29uZGl0aW9ucwoKSSwge3tmcm9tfX0sIGNlcnRpZnkgdGhlIGZvbGxvd2luZyB0byBiZSB0cnVlIHRvIHRoZSBiZXN0IG9mIG15IGtub3dsZWRnZToKCjEuIEkgY2VydGlmeSB0aGF0IHt7cXVhbnRpdHl9fSBpcyBub3QgdGhlIHByb2NlZWRzIG9mIGZyYXVkdWxlbnQgb3IgdmlvbGVudCBhY3Rpdml0aWVzLgoyLiBJIGNlcnRpZnkgdGhhdCwgdG8gdGhlIGJlc3Qgb2YgbXkga25vd2xlZGdlLCB7e3RvfX0gaXMgbm90IHN1cHBvcnRpbmcgaW5pdGlhdGlvbiBvZiB2aW9sZW5jZSBhZ2FpbnN0IG90aGVycy4KMy4gSSBoYXZlIGRpc2Nsb3NlZCBhbnkgY29udHJhY3R1YWwgdGVybXMgJiBjb25kaXRpb25zIHdpdGggcmVzcGVjdCB0byB7e3F1YW50aXR5fX0gdG8ge3t0b319LgoKSSB1bmRlcnN0YW5kIHRoYXQgZnVuZHMgdHJhbnNmZXJzIGFyZSBub3QgcmV2ZXJzaWJsZSBhZnRlciB0aGUge3t0cmFuc2FjdGlvbi5kZWxheX19IHNlY29uZHMgb3Igb3RoZXIgZGVsYXkgYXMgY29uZmlndXJlZCBieSB7e2Zyb219fSdzIHBlcm1pc3Npb25zLgoKSWYgdGhpcyBhY3Rpb24gZmFpbHMgdG8gYmUgaXJyZXZlcnNpYmx5IGNvbmZpcm1lZCBhZnRlciByZWNlaXZpbmcgZ29vZHMgb3Igc2VydmljZXMgZnJvbSAne3t0b319JywgSSBhZ3JlZSB0byBlaXRoZXIgcmV0dXJuIHRoZSBnb29kcyBvciBzZXJ2aWNlcyBvciByZXNlbmQge3txdWFudGl0eX19IGluIGEgdGltZWx5IG1hbm5lci4KAAAAAAClMXYFaXNzdWUAAAAAAKhs1EUGY3JlYXRlAAIAAAA4T00RMgNpNjQBCGN1cnJlbmN5AQZ1aW50NjQHYWNjb3VudAAAAAAAkE3GA2k2NAEIY3VycmVuY3kBBnVpbnQ2NA5jdXJyZW5jeV9zdGF0cwAAAA===', // eslint-disable-line
-    //             };
-    //         }
-
-    //         return transaction;
-    //     },
-    // });
+    let client: any;
 
     beforeEach(() => {
+        client = new DosClient(Dos.USD2GBP, Dos.para);
         // rpc = new JsonRpc('', { fetch });
         // const signatureProvider = new JsSignatureProvider(['5JtUScZK2XEp3g9gh7F8bwtPTRAkASmNrrftmx4AxDKD5K4zDnr']);
         // const chainId = '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca';
@@ -27,15 +16,55 @@ describe('eosjs-api', () => {
         // });
     });
 
-
-   
-    it('rawAbiToJson returns correct Json from raw Abi', async () => {
-        // const expected = await api.getAbi('testeostoken');
-        // const response = await rpc.getRawAbi('testeostoken');
-        // const actual = api.rawAbiToJson(response.abi);
-
-        // expect(actual).toEqual(expected);
+    it('extransfer', async () => {
+        await client.extransfer();
+    });
+    it('newacc', async () => {
+        await client.newacc();
+    });
+    it('newdodoacc', async () => {
+        await client.common_client.newacc(Dos.admin);
+    });
+    it('deployContract', async () => {
+        await client.deployContract();
+    });
+    it('newtoken', async () => {
+        await client.newtoken();
+    });
+    it('mint', async () => {
+        await client.mint();
+    });
+    it('newdodo', async () => {
+        await client.newdodo();
+    });
+    it('enable', async () => {
+        await client.enable();
+    });
+    it('setprice', async () => {
+        await client.setprice();
+    });
+    it('setparameter', async () => {
+        await client.setparameter();
+    });
+    it('setkparameter', async () => {
+        await client.setkparameter();
     });
 
-   
+    it('buybt', async () => {
+        await client.buybt();
+    });
+    it('sellbt', async () => {
+        await client.sellbt();
+    });
+    it('buyfakebt', async () => {
+        await client.buyfakebt();
+    });
+    it('buydecbt', async () => {
+        await client.buydecbt();
+    });
+    it('initproxy', async () => {
+        await client.initproxy();
+    });
+
+
 });

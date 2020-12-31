@@ -2,7 +2,7 @@
 // import { buyram, createNewAccount, deployContract } from "../lib/api_utils";
 // import { ClientUtil } from "../lib/client_util";
 // import { TxUtil } from "../lib/tx_util";
-// import { Swap, BTC2USD_PAIR_DATA,ETH2USD_PAIR_DATA } from "./client_data";
+// import { Swap, BTC2USD,ETH2USD_PAIR_DATA } from "./client_data";
 import { Swap } from "./client_data_test";
 import { prettyJson } from "../lib/prettyjson";
 // const { deployContractjs } = require('../lib/deployContract_api_utils')
@@ -84,7 +84,7 @@ export class SwapClient {
     // }
 
     async cppool2table() {
-        await this.common_client.pushAction("cppool2table", Swap.admin, this.pair_data.currentPool);
+        await this.common_client.pushAction("cppool2table", Swap.admin, this.pair_data.base.POOL_NAME);
     }
     async extransfer() {
         let results: any = await this.common_client.pushAction("extransfer",
@@ -143,46 +143,46 @@ export class SwapClient {
         }
     }
     async newpool() {
-        await this.common_client.pushAction("newpool", Swap.admin, this.pair_data.currentPool);
+        await this.common_client.pushAction("newpool", Swap.admin, this.pair_data.base.POOL_NAME);
     }
     async newtestpool(poolName: any) {
         await this.common_client.pushAction("newpool", Swap.admin, poolName);
     }
     async setswapfee() {
-        await this.common_client.pushAction("setswapfee", Swap.admin, this.pair_data.currentPool, this.pair_data.swapfee);
-        await this.common_client.pushAction("setpubswap", Swap.admin, this.pair_data.currentPool, this.pair_data.pubswap);
+        await this.common_client.pushAction("setswapfee", Swap.admin, this.pair_data.base.POOL_NAME, this.pair_data.swapfee);
+        await this.common_client.pushAction("setpubswap", Swap.admin, this.pair_data.base.POOL_NAME, this.pair_data.pubswap);
     }
     async bind() {
         const user = Swap.admin;
-        const pool = this.pair_data.currentPool;
+        const pool = this.pair_data.base.POOL_NAME;
         const tokens = this.pair_data.binddata;
         for (let t of tokens) {
             await this.common_client.pushAction("bind", user, pool, ClientUtil.to_wei_asset(t[0], t[1]), ClientUtil.to_wei(t[2]));
         }
-        // await pushAction("bind", Swap.admin, this.pair_data.currentPool, ClientUtil.to_wei_asset(this.pair_data.binddata.token2.amount, this.pair_data.token2), ClientUtil.to_wei(this.pair_data.binddata.token1.denorm));
+        // await pushAction("bind", Swap.admin, this.pair_data.base.POOL_NAME, ClientUtil.to_wei_asset(this.pair_data.binddata.token2.amount, this.pair_data.token2), ClientUtil.to_wei(this.pair_data.binddata.token1.denorm));
     }
 
     async finalize() {
-        await this.common_client.pushAction("finalize", Swap.admin, this.pair_data.currentPool);
+        await this.common_client.pushAction("finalize", Swap.admin, this.pair_data.base.POOL_NAME);
     }
     async joinpool() {
-        await this.common_client.pushAction("joinpool", Swap.nonadmin, this.pair_data.currentPool, ClientUtil.to_wei(this.pair_data.joinpooldata), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
+        await this.common_client.pushAction("joinpool", Swap.nonadmin, this.pair_data.base.POOL_NAME, ClientUtil.to_wei(this.pair_data.joinpooldata), [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER]);
     }
     async exitpool() {
-        await this.common_client.pushAction("exitpool", Swap.nonadmin, this.pair_data.currentPool, ClientUtil.to_wei(this.pair_data.exitpooldata), [0, 0]);
+        await this.common_client.pushAction("exitpool", Swap.nonadmin, this.pair_data.base.POOL_NAME, ClientUtil.to_wei(this.pair_data.exitpooldata), [0, 0]);
     }
     async collect() {
-        await this.common_client.pushAction("collect", Swap.admin, this.pair_data.currentPool);
+        await this.common_client.pushAction("collect", Swap.admin, this.pair_data.base.POOL_NAME);
     }
     async swapamtin() {
-        await this.common_client.pushAction("swapamtin", this.pair_data.swapindata.user, this.pair_data.currentPool,
+        await this.common_client.pushAction("swapamtin", this.pair_data.swapindata.user, this.pair_data.base.POOL_NAME,
             ClientUtil.to_asset(this.pair_data.swapindata.tokenAmountIn, this.pair_data.tokens[0]),
             ClientUtil.to_asset(this.pair_data.swapindata.minAmountOut, this.pair_data.tokens[1]),
             ClientUtil.to_wei(this.pair_data.swapindata.maxPrice));
     }
 
     async swapamtout() {
-        await this.common_client.pushAction("swapamtout", this.pair_data.swapoutdata.user, this.pair_data.currentPool,
+        await this.common_client.pushAction("swapamtout", this.pair_data.swapoutdata.user, this.pair_data.base.POOL_NAME,
             ClientUtil.to_asset(this.pair_data.swapoutdata.maxAmountIn, this.pair_data.tokens[1]),
             ClientUtil.to_asset(this.pair_data.swapoutdata.tokenAmountOut, this.pair_data.tokens[0]),
             ClientUtil.to_wei(this.pair_data.swapoutdata.maxPrice));
@@ -201,7 +201,7 @@ export class SwapClient {
 //     console.log(index + ': ' + val);
 // });
 
-// let client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
+// let client = new SwapClient(Swap.BTC2USD, Swap.para);
 
 // const handlers: any = {
 //     "newtestpool": (async function () {
@@ -270,7 +270,7 @@ export class SwapClient {
 
 // const batchhandlers: any = {
 //     "b2u": (async function () {
-//         client = new SwapClient(Swap.BTC2USD_PAIR_DATA, Swap.para);
+//         client = new SwapClient(Swap.BTC2USD, Swap.para);
 //         for (let ac of actions) {
 //             await handlers[ac]();
 //         }

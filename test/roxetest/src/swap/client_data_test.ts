@@ -51,24 +51,22 @@ export class Swap {
                 "5JyL5XytgZSdDK3DR2snUX5wVEGD7Jg7mXcVNq7tNgQL5T4DxC9"]
         }
     };
-    static tokens = [["BTC", "USD"]];
-    static POOL_NAMES = ["btc2usd44444"];
-    static PAIR_INDEX = 0;
-    static BTC2USD_PAIR_DATA: { [name: string]: any } = {
-        currentPool: Swap.POOL_NAMES[Swap.PAIR_INDEX],
-        tokens: Swap.tokens[Swap.PAIR_INDEX],
+
+    static BTC2USD_BASE = { tokens: ["BTC", "USD"], POOL_NAME: "gbp2hkd44444" };
+    static BTC2USD: { [name: string]: any } = {
+        base: Swap.BTC2USD_BASE,
         newaccdata: {
-            newuser: Swap.POOL_NAMES[Swap.PAIR_INDEX],
+            newuser: Swap.BTC2USD_BASE.POOL_NAME,
             pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
         },
         mintdata: {
             users: [Swap.nonadmin, Swap.user1],
-            tokens: [[10000, Swap.tokens[Swap.PAIR_INDEX][0]], [20000000, Swap.tokens[Swap.PAIR_INDEX][1]]]
+            tokens: [[10000, Swap.BTC2USD_BASE.tokens[0]], [20000000, Swap.BTC2USD_BASE.tokens[1]]]
         },
         binddata:
             [
-                [10000, Swap.tokens[Swap.PAIR_INDEX][0], 5],
-                [200000000, Swap.tokens[Swap.PAIR_INDEX][1], 5]
+                [10000, Swap.BTC2USD_BASE.tokens[0], 5],
+                [200000000, Swap.BTC2USD_BASE.tokens[1], 5]
             ],
         joinpooldata: 10,
         exitpooldata: 10,
