@@ -23,6 +23,8 @@ $CLS set contract ethquotemkr1 /data/roxe/balanceos/RoxeChain/roxe.contracts/bui
 "e")  
 $CLS set contract eosdoseosdos /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/eosdos -p eosdoseosdos
 ;;
+$CLS system newaccount roxe roxe.earn ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
+
 "s") 测试链   roxeearntest合约 orc.polygon 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8
 $CLS system newaccount roxe orc.polygon ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
 $CLS set contract daimkrdaimkr /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p daimkrdaimkr
@@ -72,6 +74,8 @@ curl http://172.17.3.161:7878/v1/chain/get_info|jq
 *) echo "u --unlock \n n --new account \n d  --depoly contract";;
 esac
 
+
+./clroxe  system newaccount roxe roxe.earn ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
 
 
 # ./clroxe create key --to-console

@@ -8,18 +8,18 @@ dotenv.load();
 export class Dos {
     static interval = process.env.FREQ;
     static owner = process.env.ADMIN;
-    static dosContract = "roxeearntest";//process.env.DOS_CONTRACT;
+    static dosContract = "roxe.earn";//process.env.DOS_CONTRACT;
     static ONE_DECIMALS = 6;
     static TOKEN_CONTRACT = "roxe.ro";
 
-    //cosnt      doowner            = "dodoowner111";
+    //const      doowner            = "dodoowner111";
     static bp = "roxe1";
-    static lp = "alice1111111";
     static trader = "bob111111111";
     static hexuser = "carol1111111";
     static testadmin = "roxeearntest";
-    static prodadmin = "roxeearnprod";
-    static admin = Dos.testadmin;//"roxeearn1231";
+    static prodadmin = "roxe.earn";
+    static admin = Dos.prodadmin;//"roxeearn1231";
+    static lp = Dos.prodadmin;
     static tokenowner = "roxe.ro";
     static tokenissuer = "tokenissuer1";
     static maintainer = "maintainer11";
@@ -31,7 +31,7 @@ export class Dos {
     static dodo_u2g_name = "usd2gbp44444";
     static dodo_u2h_name = "usd2hkd44444";
     static dodo_g2h_name = "gbp2hkd44444";
-    static contract = "roxeearntest";
+    static contract = "roxe.earn";
     static filePath = '../wasms/roxe.token/roxe.token';
     static dosfilePath = '../wasms/roxeearn/roxeearn';
     static para: { [name: string]: any } = {
@@ -46,6 +46,7 @@ export class Dos {
             contract: Dos.contract,
             acc2pub_keys: {
                 "orc.polygon": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "roxe.earn": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "roxe1": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
                 "roxeearn1213": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "roxeearntest": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
@@ -89,8 +90,8 @@ export class Dos {
         },
         depositdata:
         {
-            baseamount: 1000000,
-            quoteamount: 740000
+            baseamount: 952,
+            quoteamount: 700
         },
         lpFeeRate: 595,
         mtFeeRate: 105,
@@ -120,11 +121,11 @@ export class Dos {
         },
         depositdata:
         {
-            baseamount: 1000000,
-            quoteamount: 7750000
+            baseamount: 904,
+            quoteamount: 7000
         },
-        lpFeeRate: 595,
-        mtFeeRate: 105,
+        lpFeeRate: 680,
+        mtFeeRate: 120,
         k: 100,
         oracleprice: 7750000,
         buydata: {

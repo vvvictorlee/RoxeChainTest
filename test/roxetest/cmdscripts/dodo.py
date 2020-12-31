@@ -243,18 +243,9 @@ for (flag, command, function, inAll, help) in commands:
 
 args = parser.parse_args()
 
-args.cleos += '--url http://10.11.5.37:%d ' % args.http_port
-
-logFile = open(args.log_path, 'a')
+# args.cleos += '--url http://10.11.5.37:%d ' % args.http_port
 
 logFile.write('\n\n' + '*' * 80 + '\n\n\n')
-
-with open('accounts.json') as f:
-    a = json.load(f)
-    if args.user_limit:
-        del a['users'][args.user_limit:]
-    firstProducer = len(a['users'])
-    accounts = a['users']
 
 maxClients = 10
 

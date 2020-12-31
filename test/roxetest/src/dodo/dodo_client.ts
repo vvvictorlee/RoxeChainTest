@@ -23,7 +23,7 @@
 //     textEncoder: new TextEncoder()
 // })
 
-import { Dos } from "./client_data_test";
+import { Dos } from "./client_data_prod";
 import { prettyJson } from "../lib/prettyjson";
 // const { deployContractjs } = require('../lib/deployContract_api_utils')
 import { Client } from "../lib/client";
@@ -162,8 +162,15 @@ export class DosClient {
         // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
         await this.common_client.pushAction("setparameter", Dos.admin, dodo_name,"trading",1);
         await this.common_client.pushAction("setparameter", Dos.admin, dodo_name,"quotedeposit",1);
+    }
+    async enable2() {
+        const dodo_name = this.pair_data.base.DODO_NAME;
+        // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
+        // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
+        // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
         await this.common_client.pushAction("setparameter", Dos.admin, dodo_name,"basedeposit",1);
     }
+
     async setprice() {
         await this.common_client.pushAction("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.oracleprice, this.pair_data.base.tokens[1]));
     }

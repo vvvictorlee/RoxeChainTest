@@ -1,7 +1,7 @@
 
 import { DosClient } from "../../dodo/dodo_client"
 import { AbiJson } from "../../lib/abijson";
-import { Dos } from "../../dodo/client_data_test";
+import { Dos } from "../../dodo/client_data_prod";
 
 describe('eosjs-api', () => {
     let client: any;
