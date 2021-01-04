@@ -121,7 +121,7 @@ curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{
 curl http://10.100.1.10:8888/v1/chain/get_info|jq
 curl http://172.17.3.161:7878/v1/chain/get_info|jq
 ;;
-*) echo "u --unlock \n n --new account \n d  --depoly contract";;
+*) echo "u --unlock \n n --new account \n d  --deploy contract";;
 esac
 
 # 测试链   roxeearntest合约 orc.polygon 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8

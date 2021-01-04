@@ -247,164 +247,119 @@ export class DosClient {
 }
 
 var argumentss: any = process.argv.splice(3);
-// console.log(__line); 
-// console.log('所传递的参数是：', argumentss);
+console.log('所传递的参数是：', argumentss);
 
 // // //////////////////////////
 // // // print process.argv
 process.argv.forEach(function (val, index, array) {
-    // console.log(__line); 
     console.log(index + ': ' + val);
 });
 
-// let client = new DosClient(U2G_pairpara);
-// // let client = new DosClient(U2H_PAIR_DATA.pairpara);
+let client = new DosClient(Dos.USD2GBP, Dos.para);
+// let client = new DosClient(Dos.USD2HKD, Dos.para);
 
-// const handlers: any = {
-//     "a": (async function () {
-//         await client.allowDosContracts();
-//     }),
-//     "t": (async function () {
-//         await client.extransfer();
-//     }),
-//     "newacc": (async function () {
-//         await client.newacc();
-//     }),
-//     "newtokenacc": (async function () {
-//         await client.newtokenacc();
-//     }),
-//     "newdodoacc": (async function () {
-//         await client.newdodoacc();
-//     }),
-//     "deploy": (async function () {
-//         await client.deploy();
-//     }),
-//     "deploytoken": (async function () {
-//         await client.deploytoken();
-//     }),
-//     "deploydodo": (async function () {
-//         await client.deploydodo(Dos.testadmin);
-//         // await client.deploydodo(Dos.prodadmin);
-//     }),
-//     "newtoken": (async function () {
-//         await client.newtoken();
-//     }),
-//     "mint": (async function () {
-//         await client.mint();
-//     }),
-//     "newdodo": (async function () {
-//         await client.newdodo();
-//     }),
-//     "enable": (async function () {
-//         await client.enable();
-//     }),
-//     "setprice": (async function () {
-//         await client.setprice();
-//     }),
-//     "setparameter": (async function () {
-//         await client.setparameter();
-//     }),
-//     "setkparameter": (async function () {
-//         await client.setkparameter();
-//     }),
-//     "g2hwithdrawbase": (async function () {
-//         await client.g2hwithdrawbase();
-//     }),
-//     "u2gwithdrawquote": (async function () {
-//         await client.u2gwithdrawquote();
-//     }),
-//     "depositbasequote": (async function () {
-//         await client.depositbasequote();
-//     }),
-//     "buybt": (async function () {
-//         await client.buybt();
-//     }),
-//     "sellbt": (async function () {
-//         await client.sellbt();
-//     }),
-//     "buyfakebt": (async function () {
-//         await client.buyfakebt();
-//     }),
-//     "buydecbt": (async function () {
-//         await client.buydecbt();
-//     }),
-//     "initproxy": (async function () {
-//         await client.initproxy();
-//     }),
-//     "buy": (async function () {
-//         const base.tokens[0] = "";
-//         const base.tokens[1] = "";
-//         await this.common_client.pushAction("buyethtoken", Dos.trader, ClientUtil.to_wei_asset(1, base.tokens[0]), ClientUtil.to_wei_asset(200, "MKR"));
-//         await this.common_client.pushAction("sellethtoken", Dos.trader, ClientUtil.to_wei_asset(1, base.tokens[0]), ClientUtil.to_wei_asset(50, "MKR"));
-//         await this.common_client.pushAction("withdraweab", Dos.lp, ClientUtil.to_wei_asset(5, base.tokens[0]), ClientUtil.to_sym("MKR"));
-//         await this.common_client.pushAction("withdrawaeab", Dos.lp, ClientUtil.to_sym("MKR"));
-//         await this.common_client.pushAction("buytokeneth", Dos.trader, ClientUtil.to_wei_asset(200, "MKR"), ClientUtil.to_asset(21000, base.tokens[0]));
-//         await this.common_client.pushAction("selltokeneth", Dos.trader, ClientUtil.to_wei_asset(50, "MKR"), ClientUtil.to_asset(4500, base.tokens[0]));
-//         await this.common_client.pushAction("withdraweaq", Dos.lp, ClientUtil.to_wei_asset(5, base.tokens[0]), ClientUtil.to_sym("MKR"));
-//         await this.common_client.pushAction("withdrawaeaq", Dos.lp, ClientUtil.to_sym("MKR"));
-//         await this.common_client.pushAction("buybasetoken", Dos.trader, ClientUtil.to_wei_asset(1000, base.tokens[1]), ClientUtil.to_wei_asset(1001, "MKR"));
-//         await this.common_client.pushAction("sellbastoken", Dos.trader, ClientUtil.to_wei_asset(8990, base.tokens[1]), ClientUtil.to_wei_asset(10000, "MKR"));
-//     }),
-//     "default": (async function () {
-//         // await client.mintx();
-//         // await client.setpricex();
-//         // await client.depositbasequotex();
-//         console.log(ClientUtil.todecimal((1000)), "test option", ClientUtil.todecimal(1000));
-//     })
+const handlers: any = {
+    "a": (async function () {
+        await client.common_client.allowDosContracts();
+    }),
+    "t": (async function () {
+        await client.extransfer();
+    }),
+    "newacc": (async function () {
+        await client.newacc();
+    }),
+    "deploy": (async function () {
+        await client.deployContract();
+    }),
+    "newtoken": (async function () {
+        await client.newtoken();
+    }),
+    "mint": (async function () {
+        await client.mint();
+    }),
+    "newdodo": (async function () {
+        await client.newdodo();
+    }),
+    "enable": (async function () {
+        await client.enable();
+    }),
+    "setprice": (async function () {
+        await client.setprice();
+    }),
+    "setparameter": (async function () {
+        await client.setparameter();
+    }),
+    "depositbasequote": (async function () {
+        await client.depositbasequote();
+    }),
+    "buybt": (async function () {
+        await client.buybt();
+    }),
+    "sellbt": (async function () {
+        await client.sellbt();
+    }),
+    "buyfakebt": (async function () {
+        await client.buyfakebt();
+    }),
+    "initproxy": (async function () {
+        await client.initproxy();
+    }),
+    "default": (async function () {
+        // await client.mintx();
+        // await client.setpricex();
+        // await client.depositbasequotex();
+        console.log(ClientUtil.todecimal((1000)), "test option", ClientUtil.todecimal(1000));
+    })
 
-// };
+};
 
-// // "newacc", "deploy",
-// // const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
+// "newacc", "deploy",
+// const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
-// // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-// const actions = ["setkparameter"];//, "depositbasequote", "buybt", "sellbt"/, "sellbt"
+// "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
+const actions = ["a"];//, "depositbasequote", "buybt", "sellbt"/, "sellbt"
 
-// // const actions = ["u2gwithdrawquote"];//, "depositbasequote", "buybt", "sellbt"
+// const actions = ["u2gwithdrawquote"];//, "depositbasequote", "buybt", "sellbt"
 
-// const batchhandlers: any = {
-//     "u2g": (async function () {
-//         client = new DosClient(U2G_PAIR_DATA.pairpara);
-//         for (let ac of actions) {
-//             await handlers[ac]();
-//         }
-//     }),
-//     "u2h": (async function () {
-//         client = new DosClient(U2H_PAIR_DATA.pairpara);
-//         for (let ac of actions) {
-//             await handlers[ac]();
-//         }
-//     }),
-//     "g2h": (async function () {
-//         client = new DosClient(G2H_PAIR_DATA.pairpara);
-//         for (let ac of actions) {
-//             await handlers[ac]();
-//         }
-//     }),
-//     "default": (async function () {
-//         const f = handlers[argumentss[0]] || handlers["default"];
-//         f();
-//     })
-// };
+async function main(arg: any) {
+    const para: { [name: string]: any } = {
+        "u2g": Dos.USD2GBP,
+        "u2h": Dos.USD2HKD,
+        "g2h": Dos.GBP2HKD
+    };
+    const p = para[arg[0]];
+    if (undefined != p) {
+        client = new DosClient(p, Dos.para);
+        if (undefined != arg[1]) {
+            await handlers[arg[1]]();
+        } else {
+            for (let ac of actions) {
+                await handlers[ac]();
+            }
+        }
+    }
+    else { console.log("unknown arguments", arg) };
+}
 
+main(argumentss);
 // const f = batchhandlers[argumentss[0]] || batchhandlers["default"];
 // f();
 
 
 // createtoken();
 
-if (process.argv[2] == "a") {
-    let client = new DosClient(Dos.USD2HKD, Dos.para);
-    client.common_client.allowContracts();
-}
+// if (process.argv[2] == "a") {
+//     let client = new DosClient(Dos.USD2HKD, Dos.para);
+//     client.common_client.allowContracts();
+// }
 
-if (process.argv[2] == "u2g") {
-    let client = new DosClient(Dos.USD2GBP, Dos.para);
-    client.depositbasequote1();
-}
+// if (process.argv[2] == "u2g") {
+//     let client = new DosClient(Dos.USD2GBP, Dos.para);
+//     client.depositbasequote1();
+// }
 
-if (process.argv[2] == "u2h") {
-    let client = new DosClient(Dos.USD2HKD, Dos.para);
-    client.depositbasequote();
-}
+// if (process.argv[2] == "u2h") {
+//     let client = new DosClient(Dos.USD2HKD, Dos.para);
+//     client.depositbasequote();
+// }
 

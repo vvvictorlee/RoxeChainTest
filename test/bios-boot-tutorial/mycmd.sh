@@ -50,13 +50,20 @@ $CLS transfer rox1 eoswapeoswap "1000000.0000 ROC"
 }'|jq
 ;;
 "gt") 
-curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
-   "scope":"roxeearntest",
-   "code":"roxeearntest",
+curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
    "table":"oracleprices",
    "json":true
 }' |jq
 ;;
+
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
+   "table":"oracleprices",
+   "json":true
+}'
 
 curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
    "scope":"roxe.earn",

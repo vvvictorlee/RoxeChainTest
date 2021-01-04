@@ -4,11 +4,12 @@ const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')
 const dotenv = require('dotenv');
 dotenv.load();
+// const TokenDecimal = process.env.PRICING_DODO_EARN_ONE_DECIMALS;
+
 // node only; not needed in browsers
 const protocol = process.env.EOS_PROTOCOL||"http";
 const host = process.env.EOS_HOST||"172.17.3.161";
 const port = process.env.EOS_PORT||"7878";
-
 const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
 import { prettyJson } from "../lib/prettyjson";
@@ -42,7 +43,7 @@ export class PricingApi {
 
         }
         //console.log(JSON.stringify(res));
-        // prettyJson(JSON.stringify(res));
+        prettyJson(allrows);
         return allrows;
     }
 
@@ -67,7 +68,8 @@ export class PricingApi {
             }
 
         }
-        // console.log(JSON.stringify(allrows));
+
+        prettyJson(allrows);
 
         return allrows;
     }

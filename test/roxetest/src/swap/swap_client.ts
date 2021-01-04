@@ -190,83 +190,104 @@ export class SwapClient {
 
 }
 
-// var argumentss: any = process.argv.splice(2);
-// // console.log(__line); 
-// console.log('所传递的参数是：', argumentss);
+var argumentss: any = process.argv.splice(2);
+// console.log(__line); 
+console.log('所传递的参数是：', argumentss);
 
-// //////////////////////////
-// // print process.argv
-// process.argv.forEach(function (val, index, array) {
-//     // console.log(__line); 
-//     console.log(index + ': ' + val);
-// });
+//////////////////////////
+// print process.argv
+process.argv.forEach(function (val, index, array) {
+    // console.log(__line); 
+    console.log(index + ': ' + val);
+});
 
-// let client = new SwapClient(Swap.BTC2USD, Swap.para);
+let client = new SwapClient(Swap.BTC2USD, Swap.para);
 
-// const handlers: any = {
-//     "newtestpool": (async function () {
-//         await client.newtestpool("");
-//     }),
-//     "t": (async function () {
-//         await client.extransfer();
-//     }),
-//     "newacc": (async function () {
-//         await client.newacc();
-//     }),
-//     "deploy": (async function () {
-//         await client.deployContract();
-//     }),
-//     "a": (async function () {
-//         await client.common_client.allowContracts();
-//     }),
-//     "newtoken": (async function () {
-//         await client.newtoken();
-//     }),
-//     "mint": (async function () {
-//         await client.mint();
-//     }),
-//     "newpool": (async function () {
-//         await client.newpool();
-//     }),
-//     "cppool2table": (async function () {
-//         await client.cppool2table();
-//     }),
-//     "setswapfee": (async function () {
-//         await client.setswapfee();
-//     }),
-//     "bind": (async function () {
-//         await client.bind();
-//     }),
-//     "finalize": (async function () {
-//         await client.finalize();
-//     }),
-//     "joinpool": (async function () {
-//         await client.joinpool();
-//     }),
-//     "exitpool": (async function () {
-//         await client.exitpool();
-//     }),
-//     "collect": (async function () {
-//         await client.collect();
-//     }),
-//     "swapamtin": (async function () {
-//         await client.swapamtin();
-//     }),
-//     "swapamtout": (async function () {
-//         await client.swapamtout();
-//     }),
-//     "default": (async function () {
-//         // console.log(__line); console.log("test option");
-//         await prettyJson(ClientUtil.to_wei_asset(200, "BTC"));
-//     })
+const handlers: any = {
+    "newtestpool": (async function () {
+        await client.newtestpool("");
+    }),
+    "t": (async function () {
+        await client.extransfer();
+    }),
+    "newacc": (async function () {
+        await client.newacc();
+    }),
+    "deploy": (async function () {
+        await client.deployContract();
+    }),
+    "a": (async function () {
+        await client.common_client.allowContracts();
+    }),
+    "newtoken": (async function () {
+        await client.newtoken();
+    }),
+    "mint": (async function () {
+        await client.mint();
+    }),
+    "newpool": (async function () {
+        await client.newpool();
+    }),
+    "cppool2table": (async function () {
+        await client.cppool2table();
+    }),
+    "setswapfee": (async function () {
+        await client.setswapfee();
+    }),
+    "bind": (async function () {
+        await client.bind();
+    }),
+    "finalize": (async function () {
+        await client.finalize();
+    }),
+    "joinpool": (async function () {
+        await client.joinpool();
+    }),
+    "exitpool": (async function () {
+        await client.exitpool();
+    }),
+    "collect": (async function () {
+        await client.collect();
+    }),
+    "swapamtin": (async function () {
+        await client.swapamtin();
+    }),
+    "swapamtout": (async function () {
+        await client.swapamtout();
+    }),
+    "default": (async function () {
+        // console.log(__line); console.log("test option");
+        await prettyJson(ClientUtil.to_wei_asset(200, "BTC"));
+    })
 
-// };
+};
 
-// // "newacc", "deploy","exitpool","collect"
-// // const actions = ["a", "newtoken", "mint", "newpool", "setswapfee", "bind", "finalize", "joinpool", "swapamtin","swapamtout"];
+// "newacc", "deploy","exitpool","collect"
+// const actions = ["a", "newtoken", "mint", "newpool", "setswapfee", "bind", "finalize", "joinpool", "swapamtin","swapamtout"];
 
-// const actions = ["newacc", "newpool"];
+const actions = ["a"];
 
+
+
+async function main(arg: any) {
+    const para: { [name: string]: any } = {
+        "b2u": Swap.BTC2USD
+    };
+    const p = para[arg[0]];
+    if (undefined != p) {
+        client = new SwapClient(p, Swap.para);
+        if (undefined != arg[1]) {
+            await handlers[arg[1]]();
+        } else {
+            for (let ac of actions) {
+                await handlers[ac]();
+            }
+        }
+    }
+    else { console.log("unknown arguments", arg) };
+}
+
+main(argumentss);
 
 // const batchhandlers: any = {
 //     "b2u": (async function () {
