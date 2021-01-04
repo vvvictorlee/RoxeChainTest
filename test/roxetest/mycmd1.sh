@@ -74,7 +74,7 @@ $CLS system newaccount roxe1 usd2hkd2222 ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3
 $CLS set contract usd2hkd2222 /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p usd2hkd2222
 ;;
 "t") 
-$CLS transfer rox1 ${DODO_CONTRACT}  "1000000.0000 ROC"
+$CLS transfer roxe1 ${DODO_CONTRACT}  "1000000.0000 ROC" -p roxe1
 ;;
 "g") 
  curl -X POST --url http://10.100.1.10:8888/v1/chain/get_account -d '{
