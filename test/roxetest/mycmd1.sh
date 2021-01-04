@@ -14,10 +14,10 @@ case "$1" in
 $CLS wallet  import --private-key 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8   -n v 
 ;;
 "u2ga") 
-$CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p  ${usd2gbp_account}@active
+$CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold':1,'keys': [{'key':'"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],'accounts': [{'weight': 1,'permission': {'actor':'"${DODO_CONTRACT}"','permission': 'active'}}]}}" -p  ${usd2gbp_account}@active
 ;;
 "u2ha") 
-$CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p ${usd2hkd_account}@active
+$CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],'accounts': [{'weight': 1,'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}}]}}" -p ${usd2hkd_account}@active
 ;;
 "tu2g") 
 $CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2gbp_account}"','1.0000 ROC','']" -p rox1@active
@@ -109,40 +109,40 @@ esac
 # updateAuth("usd2gbp44444", 'active', 'owner', 'roxe.code')
 # updateAuth("usd2hkd44444", 'active', 'owner', 'roxe.code')
 # def updateAuth(account, permission, parent, controller):
-#     run(args.cleos + 'push action roxe updateauth' + jsonArg({
-#         'account': account,
-#         'permission': permission,
-#         'parent': parent,
-#         'auth': {
-#             'threshold': 1, 'keys': [], 'waits': [],
-#             'accounts': [{
-#                 'weight': 1,
-#                 'permission': {'actor': controller, 'permission': 'active'}
-#             }]
-#         }
-#     }) + '-p ' + account + '@' + permission)
+# run(args.cleos + 'push action roxe updateauth' + jsonArg({
+# 'account': account,
+# 'permission': permission,
+# 'parent': parent,
+# 'auth': {
+# 'threshold': 1, 'keys': [], 'waits': [],
+# 'accounts': [{
+# 'weight': 1,
+# 'permission': {'actor': controller, 'permission': 'active'}
+# }]
+# }
+# }) + '-p ' + account + '@' + permission)
 # usd2gbp_account=re.usdgbp
 # usd2hkd_account=re.usdhkd
 # usd2gbp_pubkey=ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH
 # usd2hkd_pubkey=ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH
 # DODO_CONTRACT=roxe.earn
 
-# $CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p  ${usd2gbp_account}@active
+# $CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],'accounts': [{'weight': 1,'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}}]}}" -p  ${usd2gbp_account}@active
 
-# $CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p "${usd2hkd_account}@active
+# $CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],'accounts': [{'weight': 1,'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}}]}}" -p "${usd2hkd_account}@active
 
 # # $CLS push action roxe updateauth "{
-# #         'account': '${usd2gbp_account}',
-# #         'permission': 'active',
-# #         'parent': 'owner',
-# #         'auth': {
-# #             'threshold': 1, 'keys': [{"key": "'${usd2gbp_pubkey}'","weight": 1}], 'waits': [],
-# #             'accounts': [{
-# #                 'weight': 1,
-# #                 'permission': {'actor': '${DODO_CONTRACT}', 'permission': 'active'}
-# #             }]
-# #         }
-# #     }" -p ' + account + '@active
+# # 'account': '${usd2gbp_account}',
+# # 'permission': 'active',
+# # 'parent': 'owner',
+# # 'auth': {
+# # 'threshold': 1, 'keys': [{"key": "'${usd2gbp_pubkey}'","weight": 1}], 'waits': [],
+# # 'accounts': [{
+# # 'weight': 1,
+# # 'permission': {'actor': '${DODO_CONTRACT}', 'permission': 'active'}
+# # }]
+# # }
+# # }" -p ' + account + '@active
 
 # $CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2gbp_account}"','1.0000 ROC','']" -p rox1@active
 # $CLS push action ${DODO_CONTRACT} extransfer "['"${usd2gbp_account}"','rox1','1.0000 ROC','']" -p ${usd2gbp_account}@active
@@ -155,7 +155,7 @@ esac
 # $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2gbp_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
 # $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2hkd_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
 
-    # ${!cleos}  set account permission ${contract_consumer}  active '{"threshold": 1,"keys": [{"key": "'${consumer_c_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${contract_consumer}'","permission":"eosio.code"},"weight":1}]}' owner -p ${contract_consumer}@owner
+# ${!cleos}  set account permission ${contract_consumer}  active '{"threshold": 1,"keys": [{"key": "'${consumer_c_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${contract_consumer}'","permission":"eosio.code"},"weight":1}]}' owner -p ${contract_consumer}@owner
 
 # ./clroxe  system newaccount roxe roxe.earn ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
 
@@ -217,15 +217,15 @@ esac
 # curl http://127.0.0.1:8888/v1/chain/get_info
 
 # eosdosxtoken
-    #   admin              = N(eosdoseosdos);
-    #   doowner            = N(dodoowner111);
-    #   tokenissuer        = N(tokenissuer1);
-    #   maintainer         = N(maintainer11);
-    #   oracleadmin        = N(eosdosoracle);
-    #   lp                 = N(alice);
-    #   trader             = N(bob);
-    #   dodo_ethbase_name  = N(ethbasemkr11);
-    #   dodo_ethquote_name = N(ethquotemkr1);
+#   admin  = N(eosdoseosdos);
+#   doowner= N(dodoowner111);
+#   tokenissuer= N(tokenissuer1);
+#   maintainer = N(maintainer11);
+#   oracleadmin= N(eosdosoracle);
+#   lp = N(alice);
+#   trader = N(bob);
+#   dodo_ethbase_name  = N(ethbasemkr11);
+#   dodo_ethquote_name = N(ethquotemkr1);
 ######################## eosdos
 
 # http://10.100.1.10:8889/v1/wallet/list_wallets
@@ -255,17 +255,17 @@ esac
 # }'
 
 # curl -X POST --url http://10.11.5.37:8000/v1/chain/get_table_rows -d '{  
-#    "scope":"eosio",
-#    "code":"eosio.token",
-#    "table":"accounts",
-#    "json":true
+#"scope":"eosio",
+#"code":"eosio.token",
+#"table":"accounts",
+#"json":true
 # }'
 
 # curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
-#     "scope":"112acnogsedo",
-#     "code":"eoswapxtoken",
-#     "table":"accounts",
-#     "json":true
+# "scope":"112acnogsedo",
+# "code":"eoswapxtoken",
+# "table":"accounts",
+# "json":true
 #  }'
 
 
@@ -279,7 +279,7 @@ esac
 # }'
 
 # curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
-#    "account_name": "112acnogsedo"
+#"account_name": "112acnogsedo"
 #  }'
 
 # curl  http://10.11.5.37:8000/v1/wallet/list_keys
@@ -324,7 +324,7 @@ esac
 
 # clroxe convert unpack_transaction '{
 #   "signatures": [
-#     "SIG_K1_KmRbWahefwxs6uyCGNR6wNRjw7cntEeFQhNCbyg8S92Kbp7zdSSVGTD2QS7pNVWgcU126zpxaBp9CwUxFpRwSnfkjd46bS"
+# "SIG_K1_KmRbWahefwxs6uyCGNR6wNRjw7cntEeFQhNCbyg8S92Kbp7zdSSVGTD2QS7pNVWgcU126zpxaBp9CwUxFpRwSnfkjd46bS"
 #   ],
 #   "compression": "none",
 #   "packed_context_free_data": "",
