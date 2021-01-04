@@ -1,9 +1,37 @@
 
 CLS=/data/roxe/test/cls
 
+usd2gbp_account=re.usdgbp
+usd2hkd_account=re.usdhkd
+usd2gbp_pubkey=ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH
+usd2hkd_pubkey=ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH
+DODO_CONTRACT=roxe.earn
+
+
 case "$1" in
 "u") $CLS wallet unlock -n v --password PW5KSexTLPfZxhbFKTvjhV6MgyDLmsmMN6Vhp2bSGoRqoDkqFNfoD ;;
-"i") $CLS wallet  import --private-key 5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w   -n v ;;
+"i") $CLS wallet  import --private-key 5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w   -n v 
+$CLS wallet  import --private-key 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8   -n v 
+;;
+"u2ga") 
+$CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p  ${usd2gbp_account}@active
+;;
+"u2ha") 
+$CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p "${usd2hkd_account}@active
+;;
+"tu2g") 
+$CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2gbp_account}"','1.0000 ROC','']" -p rox1@active
+$CLS push action ${DODO_CONTRACT} extransfer "['"${usd2gbp_account}"','rox1','1.0000 ROC','']" -p ${usd2gbp_account}@active
+;;
+"tu2h") 
+$CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2hkd_account}"','1.0000 ROC','']" -p rox1@active
+$CLS push action ${DODO_CONTRACT} extransfer "['"${usd2hkd_account}"','rox1','1.0000 ROC','']" -p ${usd2hkd_account}@active
+;;
+"per") 
+$CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2gbp_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
+$CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2hkd_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
+;;
+
 "n") 
 $CLS system newaccount roxe1 eosdosxtoken ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
 $CLS system newaccount roxe1 eosdoseosdos ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
@@ -23,9 +51,10 @@ $CLS set contract ethquotemkr1 /data/roxe/balanceos/RoxeChain/roxe.contracts/bui
 "e")  
 $CLS set contract eosdoseosdos /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/eosdos -p eosdoseosdos
 ;;
-$CLS system newaccount roxe roxe.earn ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
-
-"s") 测试链   roxeearntest合约 orc.polygon 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8
+"13")  
+$CLS system newaccount roxe 12345123451.1 ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
+;;
+"s") 
 $CLS system newaccount roxe orc.polygon ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
 $CLS set contract daimkrdaimkr /data/roxe/balanceos/RoxeChain/roxe.contracts/build/contracts/roxe.token -p daimkrdaimkr
 ;;
@@ -74,13 +103,66 @@ curl http://172.17.3.161:7878/v1/chain/get_info|jq
 *) echo "u --unlock \n n --new account \n d  --depoly contract";;
 esac
 
+# 测试链   roxeearntest合约 orc.polygon 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8
 
-./clroxe  system newaccount roxe roxe.earn ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
+
+# updateAuth("usd2gbp44444", 'active', 'owner', 'roxe.code')
+# updateAuth("usd2hkd44444", 'active', 'owner', 'roxe.code')
+# def updateAuth(account, permission, parent, controller):
+#     run(args.cleos + 'push action roxe updateauth' + jsonArg({
+#         'account': account,
+#         'permission': permission,
+#         'parent': parent,
+#         'auth': {
+#             'threshold': 1, 'keys': [], 'waits': [],
+#             'accounts': [{
+#                 'weight': 1,
+#                 'permission': {'actor': controller, 'permission': 'active'}
+#             }]
+#         }
+#     }) + '-p ' + account + '@' + permission)
+# usd2gbp_account=re.usdgbp
+# usd2hkd_account=re.usdhkd
+# usd2gbp_pubkey=ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH
+# usd2hkd_pubkey=ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH
+# DODO_CONTRACT=roxe.earn
+
+# $CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p  ${usd2gbp_account}@active
+
+# $CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],            'accounts': [{                'weight': 1,                'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}            }]        }    }" -p "${usd2hkd_account}@active
+
+# # $CLS push action roxe updateauth "{
+# #         'account': '${usd2gbp_account}',
+# #         'permission': 'active',
+# #         'parent': 'owner',
+# #         'auth': {
+# #             'threshold': 1, 'keys': [{"key": "'${usd2gbp_pubkey}'","weight": 1}], 'waits': [],
+# #             'accounts': [{
+# #                 'weight': 1,
+# #                 'permission': {'actor': '${DODO_CONTRACT}', 'permission': 'active'}
+# #             }]
+# #         }
+# #     }" -p ' + account + '@active
+
+# $CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2gbp_account}"','1.0000 ROC','']" -p rox1@active
+# $CLS push action ${DODO_CONTRACT} extransfer "['"${usd2gbp_account}"','rox1','1.0000 ROC','']" -p ${usd2gbp_account}@active
+
+# $CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2hkd_account}"','1.0000 ROC','']" -p rox1@active
+# $CLS push action ${DODO_CONTRACT} extransfer "['"${usd2hkd_account}"','rox1','1.0000 ROC','']" -p ${usd2hkd_account}@active
 
 
-./clroxe  system newaccount roxe re.usdhkd ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
 
-./clroxe  system newaccount roxe re.usdgbp ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
+# $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2gbp_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
+# $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2hkd_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
+
+    # ${!cleos}  set account permission ${contract_consumer}  active '{"threshold": 1,"keys": [{"key": "'${consumer_c_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${contract_consumer}'","permission":"eosio.code"},"weight":1}]}' owner -p ${contract_consumer}@owner
+
+# ./clroxe  system newaccount roxe roxe.earn ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
+
+
+# ./clroxe  system newaccount roxe re.usdhkd ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
+
+# ./clroxe  system newaccount roxe re.usdgbp ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
 
 
 # ./clroxe create key --to-console
