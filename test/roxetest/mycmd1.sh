@@ -20,12 +20,12 @@ $CLS push action roxe updateauth '{"account": "'${usd2gbp_account}'","permission
 $CLS push action roxe updateauth '{"account": "'${usd2hkd_account}'","permission": "active","parent": "owner","auth": {"threshold":1,"keys": [{"key":"'${usd2hkd_pubkey}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'", "permission": "active"}}]}}' -p ${usd2hkd_account}@active
 ;;
 "tu2g") 
-$CLS push action ${DODO_CONTRACT} extransfer '{"from":"rox1","to":"'${usd2gbp_account}'","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p rox1@active
-$CLS push action ${DODO_CONTRACT} extransfer '{"from":"'${usd2gbp_account}'","to":"rox1","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p ${usd2gbp_account}@active
+$CLS push action ${DODO_CONTRACT} extransfer '{"from":"'${DODO_CONTRACT}'","to":"'${usd2gbp_account}'","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p ${DODO_CONTRACT}@active
+$CLS push action ${DODO_CONTRACT} extransfer '{"from":"'${usd2gbp_account}'","to":"'${DODO_CONTRACT}'","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p ${usd2gbp_account}@active
 ;;
 "tu2h") 
-$CLS push action ${DODO_CONTRACT} extransfer '{"from":"rox1","to":"'${usd2hkd_account}'","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p rox1@active
-$CLS push action ${DODO_CONTRACT} extransfer '{"from":"'${usd2hkd_account}'","to":"rox1","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p ${usd2hkd_account}@active
+$CLS push action ${DODO_CONTRACT} extransfer '{"from":"'${DODO_CONTRACT}'","to":"'${usd2hkd_account}'","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p ${DODO_CONTRACT}@active
+$CLS push action ${DODO_CONTRACT} extransfer '{"from":"'${usd2hkd_account}'","to":"'${DODO_CONTRACT}'","quantity":{"quantity":"1.0000 ROC","contract":"roxe.token"},"memo":""}' -p ${usd2hkd_account}@active
 ;;
 "per") 
 $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2gbp_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
