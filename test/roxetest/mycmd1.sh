@@ -14,10 +14,10 @@ case "$1" in
 $CLS wallet  import --private-key 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8   -n v 
 ;;
 "u2ga") 
-$CLS push action roxe updateauth "{'account': '"${usd2gbp_account}"','permission': 'active','parent': 'owner','auth': {'threshold':1,'keys': [{'key':'"${usd2gbp_pubkey}"','weight': 1}], 'waits': [],'accounts': [{'weight': 1,'permission': {'actor':'"${DODO_CONTRACT}"','permission': 'active'}}]}}" -p  ${usd2gbp_account}@active
+$CLS push action roxe updateauth '{"account": "'${usd2gbp_account}'","permission": "active","parent": "owner","auth": {"threshold":1,"keys": [{"key":"'${usd2gbp_pubkey}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'","permission": "active"}}]}}' -p  ${usd2gbp_account}@active
 ;;
 "u2ha") 
-$CLS push action roxe updateauth "{'account': '"${usd2hkd_account}"','permission': 'active','parent': 'owner','auth': {'threshold': 1, 'keys': [{'key': '"${usd2hkd_account}"','weight': 1}], 'waits': [],'accounts': [{'weight': 1,'permission': {'actor': '"${DODO_CONTRACT}"', 'permission': 'active'}}]}}" -p ${usd2hkd_account}@active
+$CLS push action roxe updateauth '{"account": "'${usd2hkd_account}'","permission": "active","parent": "owner","auth": {"threshold": 1, "keys": [{"key": "'${usd2hkd_account}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'", "permission": "active"}}]}}' -p ${usd2hkd_account}@active
 ;;
 "tu2g") 
 $CLS push action ${DODO_CONTRACT} extransfer "['rox1','"${usd2gbp_account}"','1.0000 ROC','']" -p rox1@active
