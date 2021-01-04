@@ -20,18 +20,17 @@ $CLS push action roxe updateauth '{"account": "'${usd2gbp_account}'","permission
 $CLS push action roxe updateauth '{"account": "'${usd2hkd_account}'","permission": "active","parent": "owner","auth": {"threshold":1,"keys": [{"key":"'${usd2hkd_pubkey}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'", "permission": "active"}}]}}' -p ${usd2hkd_account}@active
 ;;
 "tu2g") 
-$CLS push action ${DODO_CONTRACT} extransfer '["rox1","'${usd2gbp_account}'","1.0000 ROC@roxe.token",""]' -p rox1@active
-$CLS push action ${DODO_CONTRACT} extransfer '["'${usd2gbp_account}'","rox1","1.0000 ROC@roxe.token",""]' -p ${usd2gbp_account}@active
+$CLS push action ${DODO_CONTRACT} extransfer '{"from":"rox1","to":"'${usd2gbp_account}'","quantity":{"quantity":"1.0000 ROC,"contract":"roxe.token"},"memo":""]' -p rox1@active
+$CLS push action ${DODO_CONTRACT} extransfer '["from":"'${usd2gbp_account}'","to":"rox1","quantity":{"quantity":"1.0000 ROC,"contract":"roxe.token"},"memo":""]' -p ${usd2gbp_account}@active
 ;;
 "tu2h") 
-$CLS push action ${DODO_CONTRACT} extransfer '["rox1","'${usd2hkd_account}'","1.0000 ROC@roxe.token",""]' -p rox1@active
-$CLS push action ${DODO_CONTRACT} extransfer '["'${usd2hkd_account}'","rox1","1.0000 ROC@roxe.token",""]' -p ${usd2hkd_account}@active
+$CLS push action ${DODO_CONTRACT} extransfer '{"from":"rox1","to":"'${usd2hkd_account}'","quantity":{"quantity":"1.0000 ROC,"contract":"roxe.token"},"memo":""]' -p rox1@active
+$CLS push action ${DODO_CONTRACT} extransfer '["from":"'${usd2hkd_account}'","to":"rox1","quantity":{"quantity":"1.0000 ROC,"contract":"roxe.token"},"memo":""]' -p ${usd2hkd_account}@active
 ;;
 "per") 
 $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2gbp_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
 $CLS  set account permission ${DODO_CONTRACT}  active '{"threshold": 1,"keys": [{"key": "'${usd2hkd_pubkey}'","weight": 1}],"accounts": [{"permission":{"actor":"'${DODO_CONTRACT}'","permission":"roxe.code"},"weight":1}]}' owner -p ${DODO_CONTRACT}@owner
 ;;
-
 "n") 
 $CLS system newaccount roxe1 eosdosxtoken ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
 $CLS system newaccount roxe1 eosdoseosdos ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
