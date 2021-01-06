@@ -6,7 +6,7 @@ import prettyFormat from 'pretty-format'; // ES2015 modules
 import { SwapClient } from "../../swap/swap_client"
 import { Swap } from "../../swap/client_data_test";
 
-const users = ["bob111111111"];
+const users = ["roxeearntest"];
 
 describe('JSON RPC', () => {
     // const endpointExtraSlash = 'http://localhost/';

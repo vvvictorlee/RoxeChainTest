@@ -37,7 +37,7 @@ export class DODOMath {
         let V0V0V1V2: number = DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
         let penalty: number = DecimalMath.mul(k, V0V0V1V2); // k(V0^2/V1/V2)
 
-        //console.log("DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty))", Decimal(DecimalMath.ONE).sub(k).add(penalty));
+        console.log("_GeneralIntegrate===DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty))", Decimal(DecimalMath.ONE).sub(k).add(penalty));
 
         return DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty));
     }
@@ -97,13 +97,13 @@ export class DODOMath {
             numerator = Decimal(squareRoot).sub(b);
         }
 
-        //console.log("(numerator,==== denominator)", numerator, denominator);
+        console.log("(numerator,==== denominator)", numerator, denominator);
 
         if (deltaBSig) {
-            //console.log("DecimalMath.divFloor(numerator,***** denominator)", DecimalMath.divFloor(numerator, denominator));
+            console.log("DecimalMath.divFloor(numerator,***** denominator)", DecimalMath.divFloor(numerator, denominator));
             return DecimalMath.divFloor(numerator, denominator);
         } else {
-            //console.log("DecimalMath.divCeil(numerator, denominator)", DecimalMath.divCeil(numerator, denominator));
+            console.log("DecimalMath.divCeil(numerator, denominator)", DecimalMath.divCeil(numerator, denominator));
             return DecimalMath.divCeil(numerator, denominator);
         }
     }
@@ -121,13 +121,15 @@ export class DODOMath {
     ) {
         //console.log("V1, k, fairAmount==",V1, k, fairAmount);
         // V0 = V1+V1*(sqrt-1)/2k
-        let sqrt: number = DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1);
+        let sqrt: number = (DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1));
+   console.log("sqrt, premium=",sqrt);
         sqrt = sqrt.add(DecimalMath.ONE).mul(DecimalMath.ONE).sqrt();
+   console.log("sqrt, premium=",sqrt);
         let premium: number = DecimalMath.divCeil(Decimal(sqrt).sub(DecimalMath.ONE), k.mul(2));
-        //console.log("sqrt, premium=",sqrt, premium);
+        console.log("sqrt, premium=",sqrt, premium);
         // V0 is greater than or equal to V1 according to the solution
-        //console.log("DecimalMath.mul(V1, DecimalMath.ONE.add(premium))", DecimalMath.mul(V1, Decimal(DecimalMath.ONE).add(premium)));
+        console.log("DecimalMath.mul(V1, DecimalMath.ONE.add(premium))", DecimalMath.mul(V1, Decimal(DecimalMath.ONE).add(premium)));
 
-        return DecimalMath.mul(V1, DecimalMath.ONE.add(premium));
+        return (DecimalMath.mul(V1, DecimalMath.ONE.add(premium)));
     }
 }

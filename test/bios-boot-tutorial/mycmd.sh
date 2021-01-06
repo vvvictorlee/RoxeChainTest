@@ -78,6 +78,13 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{
 curl -X POST --url http://127.0.0.1:18888/v1/chain/get_table_rows -d '{  
    "scope":"roxe.earn",
    "code":"roxe.earn",
+   "table":"oracleprices",
+   "json":true
+}'
+
+curl -X POST --url http://127.0.0.1:18888/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
    "table":"dodos",
    "json":true
 }'
@@ -200,18 +207,20 @@ curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{
     "json":true
  }'
 
-
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_code_hash -d '{
+  "account_name": "eosio.token"
+}'
 
 # curl -X POST --url http://10.11.5.37:8000/v1/chain/get_code_hash -d '{
 #   "account_name": "eosio.token"
 # }'
 
 # curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
-#   "account_name": "112acnogsedo"
+#   "account_name": "roxeearntest"
 # }'
 
-curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
-   "account_name": "112acnogsedo"
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_account -d '{
+   "account_name": "roxeearntest"
  }'
 
 # curl  http://10.11.5.37:8000/v1/wallet/list_keys
@@ -230,6 +239,8 @@ curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":0
 curl -X POST --url http://172.17.3.161:7878/v1/history/get_key_accounts -d '{
   "public_key": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"
 }'
+
+curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{	"pos":0,	"offset":100,	"account_name":"roxe.earn"}'
 
 # curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{	"pos":0,	"offset":100,	"account_name":"roxeearntest"}'|grep 2eed5f9da4090956d7bc779618c69424a954a0f935048e67b463efabd2ce82c4
 curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{	"pos":0,	"offset":100,	"account_name":"roxeliml1222"}'|grep 37932d090584e3d2c661122c1a331cb970b412596c455e73a83dd5b980869ef5

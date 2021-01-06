@@ -155,29 +155,16 @@ export class DosClient {
         await this.common_client.pushAction("breeddodo",
             msg_sender, dodo_name, maintainer, baseToken, quoteToken, oracle, lpFeeRate, mtFeeRate, k, gasPriceLimit);
     }
+
     async enable() {
         const dodo_name = this.pair_data.base.DODO_NAME;
         // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
         // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
         // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
+        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "trading", 1);
+        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "basedeposit", 1);
         await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "quotedeposit", 1);
     }
-    async enable2() {
-        const dodo_name = this.pair_data.base.DODO_NAME;
-        // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
-        // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
-        // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
-        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "basedeposit", 1);
-    }
-
-    async enable3() {
-        const dodo_name = this.pair_data.base.DODO_NAME;
-        // await this.common_client.pushAction("enabletradin", Dos.admin, dodo_name);
-        // await this.common_client.pushAction("enablequodep", Dos.admin, dodo_name);
-        // await this.common_client.pushAction("enablebasdep", Dos.admin, dodo_name);
-        await this.common_client.pushAction("setparameter", Dos.admin, dodo_name, "trading", 1);
-    }
-
 
     async setprice() {
         await this.common_client.pushAction("setprice", Dos.oracleadmin, ClientUtil.to_sym(this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.oracleprice, this.pair_data.base.tokens[1]));
@@ -187,13 +174,6 @@ export class DosClient {
         await this.common_client.pushAction("setparameter", Dos.admin, this.pair_data.base.DODO_NAME, "k", this.pair_data.k);
         await this.common_client.pushAction("setparameter", Dos.admin, this.pair_data.base.DODO_NAME, "lpfeerate", this.pair_data.lpFeeRate);
         await this.common_client.pushAction("setparameter", Dos.admin, this.pair_data.base.DODO_NAME, "mtfeerate", this.pair_data.mtFeeRate);
-    }
-
-    async depositbasequote1() {
-        const dodo_name = this.pair_data.base.DODO_NAME;
-        const baseamount = this.pair_data.depositdata.baseamount;
-        const quoteamount = this.pair_data.depositdata.quoteamount;
-        await this.common_client.pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.pair_data.base.tokens[1]));
     }
 
     async depositbasequote() {
@@ -246,14 +226,7 @@ export class DosClient {
 
 }
 
-var argumentss: any = process.argv.splice(3);
-console.log('所传递的参数是：', argumentss);
 
-// // //////////////////////////
-// // // print process.argv
-process.argv.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-});
 
 let client = new DosClient(Dos.USD2GBP, Dos.para);
 // let client = new DosClient(Dos.USD2HKD, Dos.para);
@@ -321,17 +294,31 @@ const actions = ["a"];//, "depositbasequote", "buybt", "sellbt"/, "sellbt"
 
 // const actions = ["u2gwithdrawquote"];//, "depositbasequote", "buybt", "sellbt"
 
+
+const arg_offset = 2;
+const user_arg_offset = 0;
+
+var argumentss: any = process.argv.splice(arg_offset);
+console.log('所传递的参数是：', argumentss);
+
+// // //////////////////////////
+// // // print process.argv
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+});
+
+
 async function main(arg: any) {
     const para: { [name: string]: any } = {
         "u2g": Dos.USD2GBP,
         "u2h": Dos.USD2HKD,
         "g2h": Dos.GBP2HKD
     };
-    const p = para[arg[0]];
+    const p = para[arg[user_arg_offset]];
     if (undefined != p) {
         client = new DosClient(p, Dos.para);
-        if (undefined != arg[1]) {
-            await handlers[arg[1]]();
+        if (undefined != arg[user_arg_offset+1]) {
+            await handlers[arg[user_arg_offset+1]]();
         } else {
             for (let ac of actions) {
                 await handlers[ac]();

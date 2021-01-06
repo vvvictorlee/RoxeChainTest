@@ -190,17 +190,6 @@ export class SwapClient {
 
 }
 
-var argumentss: any = process.argv.splice(2);
-// console.log(__line); 
-console.log('所传递的参数是：', argumentss);
-
-//////////////////////////
-// print process.argv
-process.argv.forEach(function (val, index, array) {
-    // console.log(__line); 
-    console.log(index + ': ' + val);
-});
-
 let client = new SwapClient(Swap.BTC2USD, Swap.para);
 
 const handlers: any = {
@@ -267,17 +256,28 @@ const handlers: any = {
 
 const actions = ["a"];
 
+const arg_offset = 3;
+const user_arg_offset = 0;
 
+var argumentss: any = process.argv.splice(arg_offset);
+// console.log(__line); 
+console.log('所传递的参数是：', argumentss);
+//////////////////////////
+// print process.argv
+process.argv.forEach(function (val, index, array) {
+    // console.log(__line); 
+    console.log(index + ': ' + val);
+});
 
 async function main(arg: any) {
     const para: { [name: string]: any } = {
         "b2u": Swap.BTC2USD
     };
-    const p = para[arg[0]];
+    const p = para[arg[user_arg_offset]];
     if (undefined != p) {
         client = new SwapClient(p, Swap.para);
-        if (undefined != arg[1]) {
-            await handlers[arg[1]]();
+        if (undefined != arg[user_arg_offset+1]) {
+            await handlers[arg[user_arg_offset+1]]();
         } else {
             for (let ac of actions) {
                 await handlers[ac]();

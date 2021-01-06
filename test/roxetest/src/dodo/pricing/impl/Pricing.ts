@@ -34,7 +34,7 @@ export class Pricing extends Storage {
         ));
         // in theory Q2 <= targetQuoteTokenAmount
         // however when amount is close to 0, precision problems may cause Q2 > targetQuoteTokenAmount
-      //console.log(Decimal(targetQuoteTokenAmount).sub(Q2),Decimal(Q2),(targetQuoteTokenAmount));
+      console.log("==_ROneSellBaseToken===",Decimal(targetQuoteTokenAmount).sub(Q2),Decimal(Q2),(targetQuoteTokenAmount));
 
         return Decimal(targetQuoteTokenAmount).sub(Q2);
     }
@@ -104,7 +104,7 @@ export class Pricing extends Storage {
             fairAmount
         ));
 
-        // //console.log("==",Decimal(newTargetQuote),"===",(this._QUOTE_BALANCE_),"====Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
+        console.log("==",Decimal(newTargetQuote),"===",(this._QUOTE_BALANCE_),"====Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
 
         return (Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
     }
@@ -137,14 +137,14 @@ export class Pricing extends Storage {
         // important: carefully design the system to make sure spareBase always greater than or equal to 0
         let spareQuote: number = Decimal(this._QUOTE_BALANCE_).sub(this._TARGET_QUOTE_TOKEN_AMOUNT_);
         let price: number = this.getOraclePrice();
-        let fairAmount: number = DecimalMath.divFloor(spareQuote, Decimal(price).mul(DecimalMath.ONE));
+        let fairAmount: number = DecimalMath.divFloor(spareQuote, Decimal(price).mul(DecimalMath.ONE));//
         let newTargetBase: number = Decimal(DODOMath._SolveQuadraticForTarget(
             this._BASE_BALANCE_,
             this._K_,
             fairAmount
         ));
-
-        //console.log("==_RAboveBackToOne==fairAmount===", fairAmount, price,spareQuote,this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        
+        console.log("==_RAboveBackToOne==fairAmount===", fairAmount, price,spareQuote,this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_,Decimal(newTargetBase).sub(this._BASE_BALANCE_));
 
         return Decimal(newTargetBase).sub(this._BASE_BALANCE_);
     }
@@ -164,7 +164,7 @@ export class Pricing extends Storage {
             return [this._TARGET_BASE_TOKEN_AMOUNT_, Decimal(Q).add(payQuoteToken)];
         } else if (this._R_STATUS_ == Types_RStatus.ABOVE_ONE) {
             let payBaseToken: number = this._RAboveBackToOne();
-            return [B.add(payBaseToken), this._TARGET_QUOTE_TOKEN_AMOUNT_];
+            return [(B.add(payBaseToken)), this._TARGET_QUOTE_TOKEN_AMOUNT_];
         }
         return [0, 0];
     }

@@ -318,6 +318,12 @@ esac
 #  }'
 
 
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_by_scope -d '{
+  "code": "roxeearntest",
+  "table": "accounts"
+}'
+
+
 
 # curl -X POST --url http://10.11.5.37:8000/v1/chain/get_code_hash -d '{
 #   "account_name": "eosio.token"
