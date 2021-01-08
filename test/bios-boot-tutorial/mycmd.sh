@@ -225,16 +225,19 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_account -d '{
 
 # curl  http://10.11.5.37:8000/v1/wallet/list_keys
 
+# curl -X POST --url http://127.0.0.1:8888/v1/history/get_transaction -d '{	"id":"51beb4effcd3021dcd6e5b55d4568b4b34cda8158ec3ec393723b256bde3bb33"}' | jq
 
-# curl -X POST --url http://127.0.0.1:18888/v1/history/get_transaction -d '{	"id":"51042808cb7445e32f790d2f699e65bed3758870a000aac1099509dcb9df3fb2"}' | jq
+# curl -X POST --url http://127.0.0.1:18888/v1/history/get_transaction -d '{	"id":"51beb4effcd3021dcd6e5b55d4568b4b34cda8158ec3ec393723b256bde3bb33"}' | jq
 
-# curl -X POST --url http://172.17.3.161:7878/v1/history/get_transaction -d '{	"id":"176b54e5a01df049b46c8a2d56f19587b388a18f9c1ad2fb17e712e4d3878b13"}' | jq
+# curl -X POST --url http://172.17.3.161:7878/v1/history/get_transaction -d '{	"id":"51beb4effcd3021dcd6e5b55d4568b4b34cda8158ec3ec393723b256bde3bb33"}' | jq
 # curl -X POST --url http://172.17.3.161:7878/v1/history/get_transaction -d '{	"id":"2eed5f9da4090956d7bc779618c69424a954a0f935048e67b463efabd2ce82c4"}' | jq
 
 curl -X POST --url http://172.17.3.161:7878/v1/history/get_transaction -d '{	"id":"6b2d8e34a34c1004310c424cb090d11d41f91c0f6100a92836eb464362cde68c"}'
 
+curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{	"pos":0,	"offset":200,	"account_name":"roxe.ro"}'|jq
+
 # 
-curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"roxeliml1222"}'
+curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"roxe.ro"}'
 
 curl -X POST --url http://172.17.3.161:7878/v1/history/get_key_accounts -d '{
   "public_key": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"
