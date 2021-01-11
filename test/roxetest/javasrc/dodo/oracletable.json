@@ -1,0 +1,51 @@
+{
+    "rows": [
+        {
+            "oracles": [
+                {
+                    "key": "0x04444149000000003015a4b9639a3055",
+                    "value": {
+                        "ownable": {
+                            "_OWNER_": "",
+                            "_NEW_OWNER_": ""
+                        },
+                        "_OWNER_": "eosdosoracle",
+                        "tokenPrice": {
+                            "quantity": "1.0000 DAI",
+                            "contract": "eosdosxtoken"
+                        }
+                    }
+                },
+                {
+                    "key": "0x044d4b52000000003015a4b9639a3055",
+                    "value": {
+                        "ownable": {
+                            "_OWNER_": "",
+                            "_NEW_OWNER_": ""
+                        },
+                        "_OWNER_": "eosdosoracle",
+                        "tokenPrice": {
+                            "quantity": "0.0100 MKR",
+                            "contract": "eosdosxtoken"
+                        }
+                    }
+                },
+                {
+                    "key": "0x04574554480000003015a4b9639a3055",
+                    "value": {
+                        "ownable": {
+                            "_OWNER_": "",
+                            "_NEW_OWNER_": ""
+                        },
+                        "_OWNER_": "eosdosoracle",
+                        "tokenPrice": {
+                            "quantity": "100.0000 WETH",
+                            "contract": "eosdosxtoken"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "more": false
+}
