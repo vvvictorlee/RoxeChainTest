@@ -24,7 +24,7 @@ export class DecimalMath {
 
     static mul(target: number, d: number) {
         //console.log("====mul=====",target, d);
-        return Decimal(target).mul(Decimal(d)) / DecimalMath.ONE;
+        return (Decimal(target).mul(Decimal(d)) / DecimalMath.ONE);
     }
 
     static mulCeil(target: number, d: number) {

@@ -162,16 +162,16 @@ export class TraderPricingApi {
     // prettyJson(bb);
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
-    const amount = 5890310000;
+    const amount = 199998500000;//6008550000;
     const amount1 = 100000;
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
     for (let t of tokens) {
         const basetoken = t[0];
         const quotetoken = t[1];
-        let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-        console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        // let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-        // console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+        // let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+        // console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+        let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+        console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // {
         //         let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
         //         console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");

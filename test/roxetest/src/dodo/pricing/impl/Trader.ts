@@ -106,13 +106,13 @@ export class Trader extends Pricing {
             // _R_STATUS_ == Types_RStatus.BELOW_ONE
             // case 3: R<1
             receiveQuote = this._RBelowSellBaseToken(sellBaseAmount, this._QUOTE_BALANCE_, newQuoteTarget);
- console.log("===case 3=receiveQuote=======", receiveQuote);
+            console.log("===case 3=receiveQuote=======", receiveQuote);
             newRStatus = Types_RStatus.BELOW_ONE;
         }
 
         // count fees
-        lpFeeQuote = DecimalMath.mul(receiveQuote, this._LP_FEE_RATE_);
-        mtFeeQuote = DecimalMath.mul(receiveQuote, this._MT_FEE_RATE_);
+        lpFeeQuote = Math.floor(DecimalMath.mul(receiveQuote, this._LP_FEE_RATE_));
+        mtFeeQuote = Math.floor(DecimalMath.mul(receiveQuote, this._MT_FEE_RATE_));
         receiveQuote = Decimal(receiveQuote).sub(lpFeeQuote).sub(mtFeeQuote);
 
         return [receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget];
