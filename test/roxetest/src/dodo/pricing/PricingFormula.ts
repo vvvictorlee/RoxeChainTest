@@ -156,9 +156,9 @@ export class TraderPricingApi {
 
 (async function () {
    const papi = new PricingApi();
-// const s = await papi.getTransferFee();
-// console.log(s);
-// return;
+const s = await papi.getTransferFee();
+console.log(s);
+return;
  
     let bb: any = await papi.getDodo();
     // //console.log("===m======");

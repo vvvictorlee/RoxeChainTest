@@ -85,7 +85,8 @@ export class PricingApi {
             res = await rpc.get_table_rows({
                 code: tokencode,
                 table: 'stat',
-                scope: tokencode
+                scope: tokencode,
+limit:1
             });
 
             // lower_bound: lower_bound + 1
