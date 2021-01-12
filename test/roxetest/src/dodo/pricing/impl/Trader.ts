@@ -137,7 +137,7 @@ export class Trader extends Pricing {
         } else if (this._R_STATUS_ == Types_RStatus.BELOW_ONE) {
             let backToOnePayQuote: number = Decimal(newQuoteTarget).sub(this._QUOTE_BALANCE_);
             let backToOneReceiveBase: number = Decimal(this._BASE_BALANCE_).sub(newBaseTarget);// / DecimalMath.ONE;
-            console.log("==_queryBuyBaseToken=BELOW_ONE==buyBaseAmount=backToOnePayQuote, backToOnePayQuote===",buyBaseAmount, backToOnePayQuote, backToOneReceiveBase);
+            console.log("==_queryBuyBaseToken=BELOW_ONE==buyBaseAmount=backToOnePayQuote, backToOneReceiveBase===",buyBaseAmount, backToOnePayQuote, backToOneReceiveBase);
 
             // case 3: R<1
             // complex case, R status may change
@@ -154,10 +154,10 @@ export class Trader extends Pricing {
                 newRStatus = Types_RStatus.ONE;
             } else {
                 // case 3.3: R status changes to ABOVE_ONE
-                payQuote = backToOnePayQuote.add(
+                payQuote = Decimal(backToOnePayQuote.add(
                     this._ROneBuyBaseToken(Decimal(buyBaseAmount).sub(backToOneReceiveBase), newBaseTarget)
-                );
-                console.log("==_queryBuyBaseToken=BELOW_ONE===case 3.3=payQuote==", payQuote);
+                )).floor(0);
+                console.log("==_queryBuyBaseToken=BELOW_ONE===case 3.3=payQuote==",buyBaseAmount,backToOneReceiveBase, payQuote);
 
                 newRStatus = Types_RStatus.ABOVE_ONE;
             }

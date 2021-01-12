@@ -71,15 +71,15 @@ export class TraderPricingApi {
         // let dodo = await this.queryDodo(baseToken, quoteToken);
         // let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await this.queryDodo(baseToken, quoteToken);
         let dodo = {
-            _ORACLE_PRICE_: 0.730985,
-            _LP_FEE_RATE_: 595,
-            _MT_FEE_RATE_: 105,
-            _K_: 100,
-            _R_STATUS_: 1,
-            _TARGET_BASE_TOKEN_AMOUNT_: 952000000,
-            _TARGET_QUOTE_TOKEN_AMOUNT_: 700000000,
-            _BASE_BALANCE_: 952000000,
-            _QUOTE_BALANCE_: 700000000
+  _ORACLE_PRICE_: 0.74,
+  _LP_FEE_RATE_: 595,
+  _MT_FEE_RATE_: 105,
+  _K_: 100,
+  _R_STATUS_: 2,
+  _TARGET_BASE_TOKEN_AMOUNT_: '994358158970',
+  _TARGET_QUOTE_TOKEN_AMOUNT_: '739566542199',
+  _BASE_BALANCE_: '1750540351660',
+  _QUOTE_BALANCE_: '180165525862'
         };
         ////////console.log(amount, dodojson);
         let r = await this.queryBuyTokenWithDodo(amount, dodo);
@@ -155,21 +155,24 @@ export class TraderPricingApi {
 
 
 (async function () {
-
-    const papi = new PricingApi();
+   const papi = new PricingApi();
+// const s = await papi.getTransferFee();
+// console.log(s);
+// return;
+ 
     let bb: any = await papi.getDodo();
     // //console.log("===m======");
     // prettyJson(bb);
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
-    const amount = 199998500000;//6008550000;
-    const amount1 = 5945945990;//4400;
+    const amount = 1750540351660;//199998500000;//6008550000;
+    const amount1 = 1545915510000;//5945945990;//4400;
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
     for (let t of tokens) {
         const basetoken = t[0];
         const quotetoken = t[1];
-        let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
-        console.log("=*********buy1 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+        // let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
+        // console.log("=*********buy1 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
         // let s: any = await api.querySellToken(amount, basetoken, quotetoken);
         // console.log("=**********sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // {
@@ -179,8 +182,8 @@ export class TraderPricingApi {
         //         console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // }
         // {
-        //     let b: any = await api.queryBuyTokenTest(amount, basetoken, quotetoken);
-        //     console.log("=buy2 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+            let b: any = await api.queryBuyTokenTest(amount1, basetoken, quotetoken);
+            console.log("=buy2 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
         //     let s: any = await api.querySellTokenTest(amount, basetoken, quotetoken);
         //     console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // }
