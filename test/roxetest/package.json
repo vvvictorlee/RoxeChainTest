@@ -14,7 +14,7 @@
     "dev": "nodemon",
     "jest": "jest src/tests/dodo/*",
     "test": "jest src/tests/swap/*",
-   "abi": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"get_raw_code_and_abi\"",
+    "abi": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"get_raw_code_and_abi\"",
     "u2g:allowContracts": "jest -i src/tests/dodo/earnjs-api.produ2g.test.ts -t \"allowContracts\"",
     "u2g": "jest -i src/tests/dodo/earnjs-api.produ2g.test.ts -t \"deployContract\"",
     "u2g:depositbasequote": "jest -i src/tests/dodo/earnjs-api.produ2g.test.ts -t \"depositbasequote\"",
@@ -38,6 +38,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "bignumber.js": "^9.0.1",
     "decimal.js": "^10.2.1",
     "dotenv": "^6.0.0",
     "fs": "^0.0.1-security",
