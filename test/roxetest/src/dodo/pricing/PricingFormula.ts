@@ -163,15 +163,15 @@ export class TraderPricingApi {
     const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
     const amount = 199998500000;//6008550000;
-    const amount1 = 100000;
+    const amount1 = 5945945990;//4400;
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
     for (let t of tokens) {
         const basetoken = t[0];
         const quotetoken = t[1];
-        // let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-        // console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-        console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+        let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
+        console.log("=*********buy1 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+        // let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+        // console.log("=**********sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // {
         //         let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
         //         console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
@@ -186,10 +186,9 @@ export class TraderPricingApi {
         // }
         // {
         //     let b: any = await api.queryBuyTokenDetail(amount1, basetoken, quotetoken);
-        //     console.log("=buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+        //     console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
         //     let s: any = await api.querySellTokenDetail(amount1, basetoken, quotetoken);
-        //     console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-
+        //     console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // }
         // {
         //     let b: any = await api.queryBuyTokenDetailTest(amount, basetoken, quotetoken);

@@ -70,20 +70,20 @@ export class Trader extends Pricing {
             // case 1: R=1
             // R falls below one
             receiveQuote = this._ROneSellBaseToken(sellBaseAmount, newQuoteTarget);
-            // console.log("===case 1=receiveQuote=======", receiveQuote);
+            console.log("===case 1=receiveQuote=======", receiveQuote);
             newRStatus = Types_RStatus.BELOW_ONE;
         } else if (this._R_STATUS_ == Types_RStatus.ABOVE_ONE) {
             let backToOnePayBase: number = Decimal(newBaseTarget).sub(this._BASE_BALANCE_);
-            // console.log("=======backToOnePayBase====", backToOnePayBase);
+            console.log("=======backToOnePayBase====", backToOnePayBase);
             let backToOneReceiveQuote: number = Decimal(this._QUOTE_BALANCE_).sub(newQuoteTarget) / DecimalMath.ONE;
-            // console.log("===backToOneReceiveQuote========", backToOneReceiveQuote);
+            console.log("===backToOneReceiveQuote========", backToOneReceiveQuote);
             // case 2: R>1
             // complex case, R status depends on trading amount
             if (sellBaseAmount < backToOnePayBase) {
                 // case 2.1: R status do not change
                 receiveQuote = this._RAboveSellBaseToken(sellBaseAmount, this._BASE_BALANCE_, newBaseTarget);
                 newRStatus = Types_RStatus.ABOVE_ONE;
-                // console.log("===case 2.1=receiveQuote=======", receiveQuote);
+                console.log("===case 2.1=receiveQuote=======", receiveQuote);
 
                 if (receiveQuote > backToOneReceiveQuote) {
                     // [Important corner case!] may enter this branch when some precision problem happens. And consequently contribute to negative spare quote amount
@@ -96,7 +96,7 @@ export class Trader extends Pricing {
                 newRStatus = Types_RStatus.ONE;
             } else {
                 // case 2.3: R status changes to BELOW_ONE
-                // console.log("backToOneReceiveQuote==", backToOneReceiveQuote);
+                console.log("backToOneReceiveQuote==", backToOneReceiveQuote);
                 receiveQuote = backToOneReceiveQuote.add(
                     this._ROneSellBaseToken(Decimal(sellBaseAmount).sub(backToOnePayBase), newQuoteTarget)
                 );
@@ -106,7 +106,7 @@ export class Trader extends Pricing {
             // _R_STATUS_ == Types_RStatus.BELOW_ONE
             // case 3: R<1
             receiveQuote = this._RBelowSellBaseToken(sellBaseAmount, this._QUOTE_BALANCE_, newQuoteTarget);
-            // console.log("===case 3=receiveQuote=======", receiveQuote);
+            console.log("===case 3=receiveQuote=======", receiveQuote);
             newRStatus = Types_RStatus.BELOW_ONE;
         }
 
@@ -121,12 +121,11 @@ export class Trader extends Pricing {
     _queryBuyBaseToken(amount: number) {
         let payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget;
         [newBaseTarget, newQuoteTarget] = this.getExpectedTarget();
-
+        console.log("==_queryBuyBaseToken===newBaseTarget, newQuoteTarget====", newBaseTarget, newQuoteTarget);
         // charge fee from user receive amount
-        lpFeeBase = DecimalMath.mul(amount, this._LP_FEE_RATE_);
-        mtFeeBase = DecimalMath.mul(amount, this._MT_FEE_RATE_);
+        lpFeeBase = Math.floor(DecimalMath.mul(amount, this._LP_FEE_RATE_));
+        mtFeeBase = Math.floor(DecimalMath.mul(amount, this._MT_FEE_RATE_));
         let buyBaseAmount: number = amount.add(lpFeeBase).add(mtFeeBase);
-
         if (this._R_STATUS_ == Types_RStatus.ONE) {
             // case 1: R=1
             payQuote = this._ROneBuyBaseToken(buyBaseAmount, newBaseTarget);
@@ -137,13 +136,17 @@ export class Trader extends Pricing {
             newRStatus = Types_RStatus.ABOVE_ONE;
         } else if (this._R_STATUS_ == Types_RStatus.BELOW_ONE) {
             let backToOnePayQuote: number = Decimal(newQuoteTarget).sub(this._QUOTE_BALANCE_);
-            let backToOneReceiveBase: number = Decimal(this._BASE_BALANCE_).sub(newBaseTarget);
+            let backToOneReceiveBase: number = Decimal(this._BASE_BALANCE_).sub(newBaseTarget);// / DecimalMath.ONE;
+            console.log("==_queryBuyBaseToken=BELOW_ONE==buyBaseAmount=backToOnePayQuote, backToOnePayQuote===",buyBaseAmount, backToOnePayQuote, backToOneReceiveBase);
+
             // case 3: R<1
             // complex case, R status may change
-            if (buyBaseAmount < backToOneReceiveBase) {
+            if (Number(buyBaseAmount) < Number(backToOneReceiveBase)) {
                 // case 3.1: R status do not change
                 // no need to check payQuote because spare base token must be greater than zero
                 payQuote = this._RBelowBuyBaseToken(buyBaseAmount, this._QUOTE_BALANCE_, newQuoteTarget);
+                console.log("==_queryBuyBaseToken=BELOW_ONE===case 3.1==payQuote=", payQuote);
+
                 newRStatus = Types_RStatus.BELOW_ONE;
             } else if (buyBaseAmount == backToOneReceiveBase) {
                 // case 3.2: R status changes to ONE
@@ -154,6 +157,8 @@ export class Trader extends Pricing {
                 payQuote = backToOnePayQuote.add(
                     this._ROneBuyBaseToken(Decimal(buyBaseAmount).sub(backToOneReceiveBase), newBaseTarget)
                 );
+                console.log("==_queryBuyBaseToken=BELOW_ONE===case 3.3=payQuote==", payQuote);
+
                 newRStatus = Types_RStatus.ABOVE_ONE;
             }
         }
