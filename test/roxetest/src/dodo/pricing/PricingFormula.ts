@@ -7,9 +7,9 @@ dotenv.load();
 const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
 
 // import { SafeMath } from "./lib/SafeMath";
-// //console.log(SafeMath.divCeil(70, 7));
+// ////console.log(SafeMath.divCeil(70, 7));
 // let n: number = 70;
-// //console.log(n.divCeil(7));
+// ////console.log(n.divCeil(7));
 export class TraderPricingApi {
 
     filter_fields: any[] = [
@@ -33,173 +33,191 @@ export class TraderPricingApi {
     }
 
     async queryDodo(baseToken: any, quoteToken: any) {
-//prod env
+        //prod env
         // let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
-//test env
- let dodo_name =  baseToken.toLowerCase()+"2"  + quoteToken.toLowerCase()+"44444";
-        console.log("======dodo_name======", dodo_name);
+        //test env
+        let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "44444";
+        //console.log("======dodo_name======", dodo_name);
         let dodo = this.galldodos[Object.keys(this.galldodos)[0]];
         if (this.galldodos.hasOwnProperty(dodo_name)) {
             dodo = this.galldodos[dodo_name];
         }
         else {
-            console.log("====NOT FOUND==dodo_name======", dodo_name);
+            //console.log("====NOT FOUND==dodo_name======", dodo_name);
         }
 
         // dodo._ORACLE_PRICE_ = Number(galloracles[baseToken]);
-        console.log(dodo);
+        //console.log(dodo);
 
         return dodo;
     }
 
     async queryBuyTokenWithDodo(amount: any, dodo: any) {
         this.t.setParameters(dodo);
-        //console.log(amount, dodo);
+        ////console.log(amount, dodo);
         let r = this.t.queryBuyBaseToken(amount);
-        //console.log(r);
+        ////console.log(r);
         return r;
     }
 
     async querySellTokenWithDodo(amount: any, dodo: any) {
         this.t.setParameters(dodo);
         let r = this.t.querySellBaseToken(amount);
-        //////console.log(r);
+        ////////console.log(r);
         return r;
-    }
-
-    async queryBuyTokenTest(amount: any, baseToken: any, quoteToken: any) {
-        // let dodo = await this.queryDodo(baseToken, quoteToken);
-        // let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await this.queryDodo(baseToken, quoteToken);
-        let dodo = {
-  _ORACLE_PRICE_: 0.74,
-  _LP_FEE_RATE_: 595,
-  _MT_FEE_RATE_: 105,
-  _K_: 100,
-  _R_STATUS_: 2,
-  _TARGET_BASE_TOKEN_AMOUNT_: '994358158970',
-  _TARGET_QUOTE_TOKEN_AMOUNT_: '739566542199',
-  _BASE_BALANCE_: '1750540351660',
-  _QUOTE_BALANCE_: '180165525862'
-        };
-        ////////console.log(amount, dodojson);
-        let r = await this.queryBuyTokenWithDodo(amount, dodo);
-        console.log(r);
-        return Number(r);
-    }
-
-    async querySellTokenTest(amount: any, baseToken: any, quoteToken: any) {
-        // let dodo = await this.queryDodo(baseToken, quoteToken);
-        // let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await this.queryDodo(baseToken, quoteToken);
-
-        let dodo = {
-            _ORACLE_PRICE_: 0.730985,
-            _LP_FEE_RATE_: 595,
-            _MT_FEE_RATE_: 105,
-            _K_: 100,
-            _R_STATUS_: 1,
-            _TARGET_BASE_TOKEN_AMOUNT_: 952000000,
-            _TARGET_QUOTE_TOKEN_AMOUNT_: 700000000,
-            _BASE_BALANCE_: 952000000,
-            _QUOTE_BALANCE_: 700000000
-        };
-        let r = await this.querySellTokenWithDodo(amount, dodo);
-        console.log(r);
-        return Number(r);
     }
 
     async queryBuyToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        ////////console.log(amount, dodojson);
+        //////////console.log(amount, dodojson);
         let r = await this.queryBuyTokenWithDodo(amount, dodo);
-        console.log(r);
+        // //console.log(r);
         return Number(r);
     }
     async querySellToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         let r = await this.querySellTokenWithDodo(amount, dodo);
-        console.log(r);
+        //console.log(r);
         return Number(r);
     }
 
     async queryBuyTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         this.t.setParameters(dodo);
-        return this.t.queryBuyBaseTokenDetail(amount* TokenDecimal );
-        ////////console.log(r);
+        return this.t.queryBuyBaseTokenDetail(amount * TokenDecimal);
+        //////////console.log(r);
     }
 
     async querySellTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         this.t.setParameters(dodo);
         return this.t.querySellBaseTokenDetail(amount);
-        ////////console.log(r);
-    }
-
-    async queryBuyTokenDetailTest(amount: any, baseToken: any, quoteToken: any) {
-        // let dodo = await this.queryDodo(baseToken, quoteToken);
-        let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await this.queryDodo(baseToken, quoteToken);
-        this.t.setParameters(dodo);
-        return this.t.queryBuyBaseTokenDetail(amount);
-        ////////console.log(r);
-    }
-
-    async querySellTokenDetailTest(amount: any, baseToken: any, quoteToken: any) {
-        let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await this.queryDodo(baseToken, quoteToken);
-        this.t.setParameters(dodo);
-        let r = this.t.querySellBaseTokenDetail(amount);
-        console.log(r);
-        return r;
+        //////////console.log(r);
     }
 
 }
 
+
+const papi = new PricingApi();
+const api = new TraderPricingApi();
+
+
+async function queryBuyTokenDetailTest(amount: any, baseToken: any, quoteToken: any) {
+    // let dodo = await this.queryDodo(baseToken, quoteToken);
+    let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await this.queryDodo(baseToken, quoteToken);
+    api.t.setParameters(dodo);
+    return api.t.queryBuyBaseTokenDetail(amount);
+    //////////console.log(r);
+}
+
+async function querySellTokenDetailTest(amount: any, baseToken: any, quoteToken: any) {
+    let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await api.queryDodo(baseToken, quoteToken);
+    api.t.setParameters(dodo);
+    let r = api.t.querySellBaseTokenDetail(amount);
+    //console.log(r);
+    return r;
+}
+
+async function queryBuyTokenTest(amount: any, baseToken: any, quoteToken: any) {
+    // let dodo = await api.queryDodo(baseToken, quoteToken);
+    // let dodo = JSON.parse('{"_ORACLE_PRICE_":0.735475,"_LP_FEE_RATE_":595,"_MT_FEE_RATE_":105,"_K_":100,"_R_STATUS_":1,"_TARGET_BASE_TOKEN_AMOUNT_":952032051,"_TARGET_QUOTE_TOKEN_AMOUNT_":700013214,"_BASE_BALANCE_":939607513,"_QUOTE_BALANCE_":709146807}');//await api.queryDodo(baseToken, quoteToken);
+    let dodo = {
+        _ORACLE_PRICE_: 0.74,
+        _LP_FEE_RATE_: 595,
+        _MT_FEE_RATE_: 105,
+        _K_: 100,
+        _R_STATUS_: 2,
+        _TARGET_BASE_TOKEN_AMOUNT_: '994358158970',
+        _TARGET_QUOTE_TOKEN_AMOUNT_: '739566542199',
+        _BASE_BALANCE_: '1750540351660',
+        _QUOTE_BALANCE_: '180165525862'
+    };
+    //////////console.log(amount, dodojson);
+    let r = await api.queryBuyTokenWithDodo(amount, dodo);
+    //console.log(r);
+    return Number(r);
+}
+
+async function querySellTokenTest(amount: any, baseToken: any, quoteToken: any) {
+    let dodo = {
+        _ORACLE_PRICE_: 0.730985,
+        _LP_FEE_RATE_: 595,
+        _MT_FEE_RATE_: 105,
+        _K_: 100,
+        _R_STATUS_: 1,
+        _TARGET_BASE_TOKEN_AMOUNT_: 952000000,
+        _TARGET_QUOTE_TOKEN_AMOUNT_: 700000000,
+        _BASE_BALANCE_: 952000000,
+        _QUOTE_BALANCE_: 700000000
+    };
+    // "usd2gbp44444":
+    const dodostr = ' {\
+    "_ORACLE_PRICE_": 0.74,\
+    "_LP_FEE_RATE_": 595,\
+    "_MT_FEE_RATE_": 105,\
+    "_K_": 100,\
+    "_R_STATUS_": 1,\
+    "_TARGET_BASE_TOKEN_AMOUNT_": "994984160697",\
+    "_TARGET_QUOTE_TOKEN_AMOUNT_": "739567242253",\
+    "_BASE_BALANCE_": "699158038448",\
+    "_QUOTE_BALANCE_": "958488190546"\
+  }';
+    dodo = JSON.parse(dodostr);
+
+
+    let r = await api.querySellTokenWithDodo(amount, dodo);
+    // //console.log(r);
+    return Number(r);
+}
+
+
 (async function () {
-   const papi = new PricingApi();
     let bb: any = await papi.getDodo();
-    // //console.log("===m======");
+    // ////console.log("===m======");
     // prettyJson(bb);
-    const api = new TraderPricingApi();
     api.init(JSON.stringify(bb));
     const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amount1 = 1000;//1545915510000;//5945945990;//4400;
+    const amounts = [500000000000];//1,1000,//1545915510000;//5945945990;//4400;
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
     for (let t of tokens) {
-        const basetoken = t[0];
-        const quotetoken = t[1];
-        let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
-        console.log("=*********buy1 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-        console.log("=**********sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-        // {
-        //         let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
-        //         console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        //         let s: any = await api.querySellToken(amount1, basetoken, quotetoken);
-        //         console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-        // }
-        // {
-            // let b: any = await api.queryBuyTokenTest(amount1, basetoken, quotetoken);
-            // console.log("=buy2 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        //     let s: any = await api.querySellTokenTest(amount, basetoken, quotetoken);
-        //     console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-        // }
+        for (let a of amounts) {
+            const basetoken = t[0];
+            const quotetoken = t[1];
+            // let b: any = await api.queryBuyToken(a, basetoken, quotetoken);
+            // console.log("=*********buy1 =",a," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+            // let s: any = await api.querySellToken(a, basetoken, quotetoken);
+            // console.log("=**********sell1 =", a, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            // {
+            //         let b: any = await api.queryBuyToken(amount1, basetoken, quotetoken);
+            //         //console.log("=buy1 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+            //         let s: any = await api.querySellToken(amount1, basetoken, quotetoken);
+            //         //console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            // }
+            {
+                // let b: any = await queryBuyTokenTest(a, basetoken, quotetoken);
+                //console.log("=buy2 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                let s: any = await querySellTokenTest(a, basetoken, quotetoken);
+                console.log("=sell =",a," ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            }
 
-        {
-            let b: any = await api.queryBuyTokenDetail(amount1, basetoken, quotetoken);
-            console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-            let s: any = await api.querySellTokenDetail(amount1, basetoken, quotetoken);
-            console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            // {
+            //     let b: any = await api.queryBuyTokenDetail(amount1, basetoken, quotetoken);
+            //     //console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+            //     let s: any = await api.querySellTokenDetail(amount1, basetoken, quotetoken);
+            //     //console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            // }
+
+            // {
+            //     let b: any = await api.queryBuyTokenDetailTest(amount, basetoken, quotetoken);
+            //     //console.log("=buy4 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+            //     let s: any = await api.querySellTokenDetailTest(amount, basetoken, quotetoken);
+            //     //console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            //     {
+            //         let s: any = await api.querySellTokenDetailTest(amount1, basetoken, quotetoken);
+            //         //console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+            //     }
+            // }
         }
-
-        // {
-        //     let b: any = await api.queryBuyTokenDetailTest(amount, basetoken, quotetoken);
-        //     console.log("=buy4 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        //     let s: any = await api.querySellTokenDetailTest(amount, basetoken, quotetoken);
-        //     console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-        //     {
-        //         let s: any = await api.querySellTokenDetailTest(amount1, basetoken, quotetoken);
-        //         console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-        //     }
-        // }
     }
 
 })();
