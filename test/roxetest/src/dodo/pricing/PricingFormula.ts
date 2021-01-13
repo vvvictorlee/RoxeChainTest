@@ -182,12 +182,14 @@ export class TraderPricingApi {
         //     let s: any = await api.querySellTokenTest(amount, basetoken, quotetoken);
         //     console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
         // }
-        // {
-        //     let b: any = await api.queryBuyTokenDetail(amount1, basetoken, quotetoken);
-        //     console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-        //     let s: any = await api.querySellTokenDetail(amount1, basetoken, quotetoken);
-        //     console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-        // }
+
+        {
+            let b: any = await api.queryBuyTokenDetail(amount1, basetoken, quotetoken);
+            console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+            let s: any = await api.querySellTokenDetail(amount1, basetoken, quotetoken);
+            console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+        }
+
         // {
         //     let b: any = await api.queryBuyTokenDetailTest(amount, basetoken, quotetoken);
         //     console.log("=buy4 =", basetoken, "=by=", quotetoken, "===", (b), "=====");

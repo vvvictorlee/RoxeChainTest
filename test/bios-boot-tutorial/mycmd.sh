@@ -59,11 +59,18 @@ curl -X POST --url http://47.91.226.192:7878/v1/chain/get_table_rows -d '{
 ;;
 
 curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
-   "scope":"roxe.earn",
-   "code":"roxe.earn",
-   "table":"oracleprices",
+   "scope":"......2ocldp5",
+   "code":"roxe.ro",
+   "table":"stat",
    "json":true
-}'
+}'|jq
+
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
+   "scope":"......23cldp5",
+   "code":"roxe.ro",
+   "table":"stat",
+   "json":true
+}'|jq
 
 curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
    "scope":"roxe.earn",
