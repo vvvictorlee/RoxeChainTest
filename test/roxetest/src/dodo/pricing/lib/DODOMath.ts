@@ -46,12 +46,12 @@ export class DODOMath {
         const mm1 = new BigNumber(V1);
         const mm2 = new BigNumber(V2);
         const mmm0 = Decimal(mm0.multipliedBy(mm0).toString()).floor(0);
-        const mmm = Decimal(new BigNumber(mmm0).dividedToIntegerBy(mm1).toString()).floor(0);
-        const mmm1 = Decimal(new BigNumber(mmm * DecimalMath.ONE).dividedBy(mm2).toString()).ceil(0);
-        //console.log("mm1,mm2===", mmm, mmm1, mm0, mm1, mm2, mm0.multipliedBy(mm0).toString(), mmm0);
-        let V0V0V1V20: number = V0.mul(V0);
-        let V0V0V1V21: number = V0.mul(V0).div(V1);
-        let V0V0V1V2: number = mmm1;//Decimal(Decimal(mmm).div(V2)).ceil(0);//DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
+        const mmm1 = Decimal(new BigNumber(mmm0).dividedBy(mm1).toString()).floor(0);
+        const mmm = Decimal(new BigNumber(mmm1 * DecimalMath.ONE).dividedBy(mm2).toString()).ceil(0);
+        //console.log("==mmm, mmm1, mmm0, ===",  mmm0,mmm1,mmm);
+        let V0V0V1V20: number = mmm0;//V0.mul(V0);
+        let V0V0V1V21: number = mmm1;//V0.mul(V0).div(V1);
+        let V0V0V1V2: number = mmm;//Decimal(Decimal(mmm).div(V2)).ceil(0);//DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
         let penalty: number = Decimal(DecimalMath.mul(k, V0V0V1V2)).floor(0); // k(V0^2/V1/V2)
 
         //console.log("_GeneralIntegrate===", fairAmount, V0V0V1V20, V0V0V1V21, V0V0V1V2, penalty);
@@ -158,16 +158,19 @@ export class DODOMath {
     static _SolveQuadraticForTarget(
         V1: number,
         k: number,
-        fairAmount: number
+        fairAmountd: number
     ) {
+        const fairAmount = Decimal(fairAmountd).floor(0);
         //console.log("V1, k, fairAmount==", V1, k, fairAmount);
         // V0 = V1+V1*(sqrt-1)/2k
-        let sqrt: number = (DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1)) * DecimalMath.ONE;
-        //console.log("sqrtv1=", sqrt);
-        sqrt = sqrt.add(DecimalMath.ONE).mul(DecimalMath.ONE).sqrt();
-        //console.log("sqrtv=", sqrt);
+        let sq: number = DecimalMath.mul(k, fairAmount);
+        let sqrtv0: number = Decimal(sq).mul(4);
+        let sqrtv1: number = Decimal(sqrtv0/V1);
+        let sqrtv: number = sqrtv1 * DecimalMath.ONE;
+        // let sqrt: number = (DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1)) * DecimalMath.ONE;
+        let sqrt = sqrtv.add(DecimalMath.ONE).mul(DecimalMath.ONE).sqrt();
         let premium: number = Decimal(DecimalMath.divCeil(Decimal(sqrt).sub(DecimalMath.ONE), k.mul(2))).floor(0);
-        //console.log("premium=", premium);
+        //console.log("===sq, sqrtv0, sqrtv1, sqrtv, sqrt, premium=", sq, sqrtv0, sqrtv1, sqrtv, sqrt, premium);
         // V0 is greater than or equal to V1 according to the solution
         const r = Decimal(DecimalMath.mul(V1, DecimalMath.ONE.add(premium))).floor(0);
         //console.log("r= ", r);

@@ -85,13 +85,13 @@ export class Pricing extends Storage {
             true,
             this._K_
         ));
-        //console.log(Decimal(Q2).sub(quoteBalance),Decimal(Q2),(quoteBalance));
+        console.log(Decimal(Q2).sub(quoteBalance),Decimal(Q2),(quoteBalance));
         return Decimal(Q2).sub(quoteBalance);
     }
 
     _RBelowBackToOne() {
         // important: carefully design the system to make sure spareBase always greater than or equal to 0
-        ////console.log("=======", this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        //console.log("=======", this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
         let spareBase: number = Decimal(this._BASE_BALANCE_).sub(this._TARGET_BASE_TOKEN_AMOUNT_);
         console.log("==_RBelowBackToOne=spareBase====", spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
         let price: number = this.getOraclePrice();
@@ -106,7 +106,7 @@ export class Pricing extends Storage {
             fairAmount
         ));
 
-        console.log("=_RBelowBackToOne=", Decimal(newTargetQuote), "===", (this._QUOTE_BALANCE_), "====Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
+        console.log("=_RBelowBackToOne= newTargetQuote=", Decimal(newTargetQuote), "===", (this._QUOTE_BALANCE_), "====Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
 
         return (Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
     }
@@ -146,7 +146,7 @@ export class Pricing extends Storage {
             fairAmount
         ));
 
-        console.log("==_RAboveBackToOne==fairAmount===", fairAmount, price, spareQuote, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_, Decimal(newTargetBase).sub(this._BASE_BALANCE_));
+        console.log("==_RAboveBackToOne=newTargetBase=fairAmount===",newTargetBase, fairAmount, price, spareQuote, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_, Decimal(newTargetBase).sub(this._BASE_BALANCE_));
 
         return Decimal(newTargetBase).sub(this._BASE_BALANCE_);
     }

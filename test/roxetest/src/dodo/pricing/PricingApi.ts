@@ -73,38 +73,6 @@ export class PricingApi {
 
         return allrows;
     }
-
-    async getTransferFee() {
-        const tokencode = "roxe.ro";
-        let allrows = { rows: [], more: false };
-        let res = { rows: [], more: true };
-        // let reverses = [false, true];
-        let lower_bound = 0;
-        while (res.more) {
-            // console.log(JSON.stringify(res));
-            res = await rpc.get_table_rows({
-                code: tokencode,
-                table: 'stat',
-                scope: tokencode,
-limit:1
-            });
-
-            // lower_bound: lower_bound + 1
-            if (res.more) {
-                res.more = false;
-                lower_bound = Number(res.rows[res.rows.length - 1]["supply"]);
-            }
-            if (res.rows.length > 0) {
-                allrows.rows = allrows.rows.concat(res.rows);
-            }
-
-        }
-
-        prettyJson(allrows);
-
-        return allrows;
-    }
-
     async getDodo() {
         let dodo = await this.getDodos();
         let oracle = await this.getOraclePrices();
