@@ -194,8 +194,8 @@ async function querySellTokenTest(amount: any, baseToken: any, quoteToken: any) 
             //         //console.log("=sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
             // }
             {
-                // let b: any = await queryBuyTokenTest(a, basetoken, quotetoken);
-                //console.log("=buy2 =",amount1," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                let b: any = await queryBuyTokenTest(a, basetoken, quotetoken);
+                console.log("=buy2 =",a," ", basetoken, "=by=", quotetoken, "===", (b), "=====");
                 let s: any = await querySellTokenTest(a, basetoken, quotetoken);
                 console.log("=sell =",a," ", basetoken, "=by=", quotetoken, "===", (s), "=====");
             }

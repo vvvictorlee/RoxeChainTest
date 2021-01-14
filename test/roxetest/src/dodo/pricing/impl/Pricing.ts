@@ -34,7 +34,7 @@ export class Pricing extends Storage {
         ));
         // in theory Q2 <= targetQuoteTokenAmount
         // however when amount is close to 0, precision problems may cause Q2 > targetQuoteTokenAmount
-        console.log("==_ROneSellBaseToken===", Decimal(targetQuoteTokenAmount).sub(Q2), Decimal(Q2), (targetQuoteTokenAmount));
+        //console.log("==_ROneSellBaseToken===", Decimal(targetQuoteTokenAmount).sub(Q2), Decimal(Q2), (targetQuoteTokenAmount));
 
         return Decimal(targetQuoteTokenAmount).sub(Q2);
     }
@@ -44,7 +44,7 @@ export class Pricing extends Storage {
         let B2: number = Decimal(targetBaseTokenAmount).sub(amount);
 
         let payQuoteToken = this._RAboveIntegrate(targetBaseTokenAmount, targetBaseTokenAmount, B2);
-        console.log("====_ROneBuyBaseToken=========B2, targetBaseTokenAmount, amount, payQuoteToke==", B2, targetBaseTokenAmount, amount, payQuoteToken);
+        //console.log("====_ROneBuyBaseToken=========B2, targetBaseTokenAmount, amount, payQuoteToke==", B2, targetBaseTokenAmount, amount, payQuoteToken);
         return payQuoteToken;
     }
 
@@ -64,7 +64,7 @@ export class Pricing extends Storage {
             this._K_
         ));
 
-        console.log("==_RBelowSellBaseToken ==Decimal(quoteBalance).sub(Q2)", Decimal(quoteBalance).sub(Q2), Decimal(Q2), (quoteBalance));
+        //console.log("==_RBelowSellBaseToken ==Decimal(quoteBalance).sub(Q2)", Decimal(quoteBalance).sub(Q2), Decimal(Q2), (quoteBalance));
 
         return Decimal(quoteBalance).sub(Q2);
     }
@@ -85,20 +85,20 @@ export class Pricing extends Storage {
             true,
             this._K_
         ));
-        console.log(Decimal(Q2).sub(quoteBalance),Decimal(Q2),(quoteBalance));
+        //console.log(Decimal(Q2).sub(quoteBalance),Decimal(Q2),(quoteBalance));
         return Decimal(Q2).sub(quoteBalance);
     }
 
     _RBelowBackToOne() {
         // important: carefully design the system to make sure spareBase always greater than or equal to 0
-        //console.log("=======", this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        ////console.log("=======", this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
         let spareBase: number = Decimal(this._BASE_BALANCE_).sub(this._TARGET_BASE_TOKEN_AMOUNT_);
-        console.log("==_RBelowBackToOne=spareBase====", spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        //console.log("==_RBelowBackToOne=spareBase====", spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
         let price: number = this.getOraclePrice();
-        console.log("=_RBelowBackToOne===price===", price, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        //console.log("=_RBelowBackToOne===price===", price, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
 
         let fairAmount: number = DecimalMath.mul(spareBase, price);
-        console.log("==_RBelowBackToOne=_RBelowBackToOne=fairAmount===", fairAmount, price, spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        //console.log("==_RBelowBackToOne=_RBelowBackToOne=fairAmount===", fairAmount, price, spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
 
         let newTargetQuote: number = Decimal(DODOMath._SolveQuadraticForTarget(
             this._QUOTE_BALANCE_,
@@ -106,7 +106,7 @@ export class Pricing extends Storage {
             fairAmount
         ));
 
-        console.log("=_RBelowBackToOne= newTargetQuote=", Decimal(newTargetQuote), "===", (this._QUOTE_BALANCE_), "====Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
+        //console.log("=_RBelowBackToOne= newTargetQuote=", Decimal(newTargetQuote), "===", (this._QUOTE_BALANCE_), "====Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_)===", Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
 
         return (Decimal(newTargetQuote).sub(this._QUOTE_BALANCE_));
     }
@@ -146,7 +146,7 @@ export class Pricing extends Storage {
             fairAmount
         ));
 
-        console.log("==_RAboveBackToOne=newTargetBase=fairAmount===",newTargetBase, fairAmount, price, spareQuote, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_, Decimal(newTargetBase).sub(this._BASE_BALANCE_));
+        //console.log("==_RAboveBackToOne=newTargetBase=fairAmount===",newTargetBase, fairAmount, price, spareQuote, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_, Decimal(newTargetBase).sub(this._BASE_BALANCE_));
 
         return Decimal(newTargetBase).sub(this._BASE_BALANCE_);
     }
@@ -156,13 +156,13 @@ export class Pricing extends Storage {
     getExpectedTarget() {
         let Q: number = this._QUOTE_BALANCE_;
         let B: number = this._BASE_BALANCE_;
-        console.log("==this._QUOTE_BALANCE_==", this._QUOTE_BALANCE_, "==this._BASE_BALANCE_===", this._BASE_BALANCE_);
+        //console.log("==this._QUOTE_BALANCE_==", this._QUOTE_BALANCE_, "==this._BASE_BALANCE_===", this._BASE_BALANCE_);
 
         if (this._R_STATUS_ == Types_RStatus.ONE) {
             return [this._TARGET_BASE_TOKEN_AMOUNT_, this._TARGET_QUOTE_TOKEN_AMOUNT_];
         } else if (this._R_STATUS_ == Types_RStatus.BELOW_ONE) {
             let payQuoteToken: number = this._RBelowBackToOne();
-            console.log("==Q===", Q, "====payQuoteToken==", payQuoteToken, "====");
+            //console.log("==Q===", Q, "====payQuoteToken==", payQuoteToken, "====");
             return [this._TARGET_BASE_TOKEN_AMOUNT_, Decimal(Q).add(payQuoteToken)];
         } else if (this._R_STATUS_ == Types_RStatus.ABOVE_ONE) {
             let payBaseToken: number = this._RAboveBackToOne();
@@ -197,7 +197,7 @@ export class Pricing extends Storage {
         B2: number
     ) {
         let i: number = this.getOraclePrice();
-        console.log("===_RAboveIntegrate====B0, B1, B2, i, this._K_===", B0, B1, B2, i, this._K_);
+        //console.log("===_RAboveIntegrate====B0, B1, B2, i, this._K_===", B0, B1, B2, i, this._K_);
         return DODOMath._GeneralIntegrate(B0, B1, B2, i, this._K_);
     }
 
