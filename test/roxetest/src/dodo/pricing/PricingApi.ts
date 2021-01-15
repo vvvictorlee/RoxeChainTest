@@ -40,10 +40,9 @@ export class PricingApi {
             if (res.rows.length > 0) {
                 allrows.rows = allrows.rows.concat(res.rows);
             }
-
         }
         //console.log(JSON.stringify(res));
-        // prettyJson(allrows);
+        prettyJson(allrows);
         return allrows;
     }
 

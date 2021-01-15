@@ -29,10 +29,10 @@ export class TraderPricingApi {
 
     galldodos: any = {};
 
-    init(strdodos: any) {
+    async init(strdodos: any) {
         this.galldodos = JSON.parse(strdodos);
         // prettyJson(this.galldodos);
-        this.tfapi.fetchTransferFees();
+        await this.tfapi.fetchTransferFees();
     }
 
     async setTestDodo(dodos: any, xtimes: any) {
@@ -42,8 +42,11 @@ export class TraderPricingApi {
         const times: number = Math.pow(10, Number(xtimes));
         const keys = Object.keys(dodos);
         for (let key of keys) {
-            this.galldodos[key]._TARGET_BASE_TOKEN_AMOUNT_ = dodos[key]._TARGET_BASE_TOKEN_AMOUNT_ * Number(times);
-            this.galldodos[key]._TARGET_QUOTE_TOKEN_AMOUNT_ = dodos[key]._TARGET_QUOTE_TOKEN_AMOUNT_ * Number(times);
+            if (!this.galldodos.hasOwnProperty(key)) {
+                continue;
+            }
+            this.galldodos[key]._TARGET_BASE_TOKEN_AMOUNT_ = dodos[key]._BASE_BALANCE_ * Number(times);
+            this.galldodos[key]._TARGET_QUOTE_TOKEN_AMOUNT_ = dodos[key]._QUOTE_BALANCE_ * Number(times);
             this.galldodos[key]._BASE_BALANCE_ = dodos[key]._BASE_BALANCE_ * Number(times);
             this.galldodos[key]._QUOTE_BALANCE_ = dodos[key]._QUOTE_BALANCE_ * Number(times);
         }
@@ -82,7 +85,6 @@ export class TraderPricingApi {
     }
 
     async queryBuyTokenWithDodo(amount: any, dodo: any) {
-
         this.t.setParameters(dodo);
         ////console.log(amount, dodo);
         let r = this.t.queryBuyBaseToken(amount);

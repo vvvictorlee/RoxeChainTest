@@ -117,8 +117,9 @@ export class Trader extends Pricing {
         }
 
         // count fees
-        lpFeeQuote = (DecimalMath.mul(receiveQuote, this._LP_FEE_RATE_));
-        mtFeeQuote = (DecimalMath.mul(receiveQuote, this._MT_FEE_RATE_));
+        lpFeeQuote = Math.floor(DecimalMath.mul(receiveQuote, this._LP_FEE_RATE_));
+        mtFeeQuote = Math.floor(DecimalMath.mul(receiveQuote, this._MT_FEE_RATE_));
+        console.log("==before=this.transfer_fee=receiveQuote=======", this.transfer_fee, receiveQuote);
         receiveQuote = Decimal(receiveQuote).sub(lpFeeQuote).sub(mtFeeQuote).sub(this.transfer_fee);
 
         console.log('receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget', receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget);
@@ -128,12 +129,13 @@ export class Trader extends Pricing {
     _queryBuyBaseToken(amount: number) {
         let payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget;
         [newBaseTarget, newQuoteTarget] = this.getExpectedTarget();
-        ////console.log("==_queryBuyBaseToken===newBaseTarget, newQuoteTarget====", newBaseTarget, newQuoteTarget);
+        console.log(amount, "==_queryBuyBaseToken===newBaseTarget, newQuoteTarget====", newBaseTarget, newQuoteTarget);
         // charge fee from user receive amount
         lpFeeBase = Math.floor(DecimalMath.mul(amount, this._LP_FEE_RATE_));
         mtFeeBase = Math.floor(DecimalMath.mul(amount, this._MT_FEE_RATE_));
 
         let buyBaseAmount: number = amount.add(lpFeeBase).add(mtFeeBase).add(this.transfer_fee);
+        console.log(amount, this.transfer_fee, "==_queryBuyBaseToken===amount,this.transfer_fee,===buyBaseAmount=", buyBaseAmount);
 
         if (this._R_STATUS_ == Types_RStatus.ONE) {
             // case 1: R=1

@@ -111,7 +111,7 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{
    "code":"roxeearntest",
    "table":"dodos",
    "json":true
-}' 
+}' |jq
 
 
 # ./clroxe system newaccount roxe1 eoswapxtoken ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
