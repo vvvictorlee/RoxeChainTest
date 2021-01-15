@@ -51,14 +51,14 @@ export class TransferFeeApi {
             }
 
             this.symcode2fee = refactoringObj(allrows.rows);
-            prettyJson(this.symcode2fee);
+            // prettyJson(this.symcode2fee);
 
             return allrows;
         }
 
     }
 
-    async getTransferFees(amount: number, symbolcode: any, is_in: boolean = false) {
+    async getTransferFee(amount: number, symbolcode: any, is_in: boolean = false) {
         if (!this.symcode2fee.hasOwnProperty(symbolcode)) {
             return 0;
         }
@@ -95,25 +95,25 @@ function refactoringObj(arr: any[]) {
 }
 
 
-(async function () {
-    const tfapi = new TransferFeeApi();
-    let bb: any = await tfapi.fetchTransferFees();
-    // //console.log("===m======");
-    // prettyJson(bb);
-    for (const t of Object.keys(tfapi.symcode2fee)) {
-        const o = tfapi.symcode2fee[t];
-        const tv = [Math.pow(10,12),o.maxfee + 1, o.maxfee, o.maxfee / 2, o.minfee + 1];
-        const inout = [false, true];
-        for (const v of tv) {
-            for (const io of inout) {
+// (async function () {
+//     const tfapi = new TransferFeeApi();
+//     let bb: any = await tfapi.fetchTransferFees();
+//     // //console.log("===m======");
+//     // prettyJson(bb);
+//     for (const t of Object.keys(tfapi.symcode2fee)) {
+//         const o = tfapi.symcode2fee[t];
+//         const tv = [Math.pow(10,12),o.maxfee + 1, o.maxfee, o.maxfee / 2, o.minfee + 1];
+//         const inout = [false, true];
+//         for (const v of tv) {
+//             for (const io of inout) {
 
-                const fee = await tfapi.getTransferFees(v, t, io);
-                console.log("v,t,io,fee", v, t, io, fee);
-            }
-        }
-    }
+//                 const fee = await tfapi.getTransferFee(v, t, io);
+//                 console.log("v,t,io,fee", v, t, io, fee);
+//             }
+//         }
+//     }
 
-})();
+// })();
 
 
 

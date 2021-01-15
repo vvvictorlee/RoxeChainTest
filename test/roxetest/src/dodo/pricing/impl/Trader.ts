@@ -15,6 +15,7 @@ const dotenv = require('dotenv');
 dotenv.load();
 const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
 
+
 /**
  * @title Trader
  * @author DODO Breeder
@@ -85,7 +86,7 @@ export class Trader extends Pricing {
                 newRStatus = Types_RStatus.ABOVE_ONE;
                 //console.log("===case 2.1=receiveQuote=======", receiveQuote);
 
-                if (Number(receiveQuote)  > Number(backToOneReceiveQuote)) {
+                if (Number(receiveQuote) > Number(backToOneReceiveQuote)) {
                     // [Important corner case!] may enter this branch when some precision problem happens. And consequently contribute to negative spare quote amount
                     // to make sure spare quote>=0, mannually set receiveQuote=backToOneReceiveQuote
                     receiveQuote = backToOneReceiveQuote;
@@ -118,7 +119,7 @@ export class Trader extends Pricing {
         // count fees
         lpFeeQuote = (DecimalMath.mul(receiveQuote, this._LP_FEE_RATE_));
         mtFeeQuote = (DecimalMath.mul(receiveQuote, this._MT_FEE_RATE_));
-        receiveQuote = Decimal(receiveQuote).sub(lpFeeQuote).sub(mtFeeQuote);
+        receiveQuote = Decimal(receiveQuote).sub(lpFeeQuote).sub(mtFeeQuote).sub(this.transfer_fee);
 
         console.log('receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget', receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget);
         return [receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget];
@@ -131,7 +132,9 @@ export class Trader extends Pricing {
         // charge fee from user receive amount
         lpFeeBase = Math.floor(DecimalMath.mul(amount, this._LP_FEE_RATE_));
         mtFeeBase = Math.floor(DecimalMath.mul(amount, this._MT_FEE_RATE_));
-        let buyBaseAmount: number = amount.add(lpFeeBase).add(mtFeeBase);
+
+        let buyBaseAmount: number = amount.add(lpFeeBase).add(mtFeeBase).add(this.transfer_fee);
+
         if (this._R_STATUS_ == Types_RStatus.ONE) {
             // case 1: R=1
             payQuote = this._ROneBuyBaseToken(buyBaseAmount, newBaseTarget);
@@ -169,7 +172,7 @@ export class Trader extends Pricing {
             }
         }
 
-        console.log("===payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget===",payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget);
+        console.log("===payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget===", payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget);
         return [payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget];
     }
 }

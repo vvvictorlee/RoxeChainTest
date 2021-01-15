@@ -11,6 +11,10 @@ import { DecimalMath } from "../lib/DecimalMath";
 
 import { Types_RStatus } from "../lib/Types";
 
+function isNumber(obj: any) {
+    return obj === +obj
+}
+
 
 /**
  * @title Storage
@@ -19,7 +23,7 @@ import { Types_RStatus } from "../lib/Types";
  * @notice Local Variables
  */
 export class Storage {
-
+    transfer_fee:number ;
     // ============ Variables for Control ============
 
     _INITIALIZED_: boolean;
@@ -67,6 +71,7 @@ export class Storage {
     // ============ Variables for Oracle Price ============
     _ORACLE_PRICE_: number;
     constructor() {
+        this.transfer_fee = 0;
         this._INITIALIZED_ = false;
         this._CLOSED_ = false;
         this._DEPOSIT_QUOTE_ALLOWED_ = false;
@@ -118,6 +123,9 @@ export class Storage {
     }
 
     setParameters(para: any) {
+        if (isNumber(Number(para.transfer_fee))) {
+            this.transfer_fee = Number(para.transfer_fee);
+        }
 
         // this._BASE_BALANCE_LIMIT_ = para._BASE_BALANCE_LIMIT_;
         // // this._QUOTE_BALANCE_LIMIT_ = para._QUOTE_BALANCE_LIMIT_;

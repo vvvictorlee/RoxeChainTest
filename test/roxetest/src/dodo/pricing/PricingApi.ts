@@ -73,6 +73,7 @@ export class PricingApi {
 
         return allrows;
     }
+
     async getDodo() {
         let dodo = await this.getDodos();
         let oracle = await this.getOraclePrices();
