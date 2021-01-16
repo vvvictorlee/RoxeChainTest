@@ -2,7 +2,15 @@ import { refactoringPoolTableJson } from "./SwapRefactoringTableJson"
 
 const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
-const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
+const dotenv = require('dotenv');
+dotenv.load();
+// const TokenDecimal = process.env.PRICING_DODO_EARN_ONE_DECIMALS;
+
+// node only; not needed in browsers
+const protocol = process.env.EOS_PROTOCOL || "http";
+const host = process.env.EOS_HOST || "172.17.3.161";
+const port = process.env.EOS_PORT || "7878";
+const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
 const { init, buy, sell } = require('./swapapi')
 import { prettyJson } from "../../lib/prettyjson";

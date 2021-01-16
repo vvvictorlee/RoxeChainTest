@@ -15,6 +15,8 @@
     "jest": "jest src/tests/dodo/*",
     "test": "jest src/tests/swap/*",
     "abi": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"get_raw_code_and_abi\"",
+    "test:swap:pricing": "jest -i src/tests/swap/swapjs-pricing-jsonrpc.test.ts ",
+    "test:swap:pricing:transferfee": "jest -i src/tests/swap/swapjs-pricing-jsonrpc.test.ts -t \"transferfee\"",
    "test:pricing": "jest -i src/tests/dodo/earnjs-pricing-jsonrpc.test.ts ",
     "test:pricing:transferfee": "jest -i src/tests/dodo/earnjs-pricing-jsonrpc.test.ts -t \"transferfee\"",
     "test:earnapi:setprice": "jest -i src/tests/dodo/earnjs-api.test.ts -t \"setprice\"",

@@ -1,3 +1,4 @@
+
 const { Api, JsonRpc, RpcError } = require('roxejs')
 const fetch = require('node-fetch')
 const dotenv = require('dotenv');
@@ -10,9 +11,7 @@ const host = process.env.EOS_HOST || "172.17.3.161";
 const port = process.env.EOS_PORT || "7878";
 const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
-import { prettyJson } from "../lib/prettyjson";
-
-const dodotablecode = process.env.PRICING_EARN_DODO_CONTRACT_ACCOUNT;
+import { prettyJson } from "../../lib/prettyjson";
 
 export class TransferFeeApi {
     symcode2fee: { [name: string]: any } = {};
@@ -56,7 +55,7 @@ export class TransferFeeApi {
 
     }
 
-    async getTransferFee(amount: number, symbolcode: any, is_in: boolean = false) {
+   async  getTransferFee(amount: number, symbolcode: any, is_in: boolean = false) {
         if (!this.symcode2fee.hasOwnProperty(symbolcode)) {
             return 0;
         }

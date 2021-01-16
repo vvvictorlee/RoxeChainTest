@@ -200,12 +200,11 @@ function isNumber(obj: any) {
     api.init(JSON.stringify(dodosFromTestChain));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
     const amounts = [1000000000, 517000000000];//698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
-    const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
+    const tokens = [["USD", "HKD"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
         for (let amount of amounts) {
             const basetoken = t[0];
             const quotetoken = t[1];
-
             {
                 let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                 console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
