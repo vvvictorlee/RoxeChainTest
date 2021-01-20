@@ -69,7 +69,7 @@ describe('test chain', () => {
     beforeEach(async () => {
         let dodosFromTestChain: any = await papi.getDodo();
 
-        console.log(dodosFromTestChain);
+        // console.log(dodosFromTestChain);
         // prettyJson(dodosFromTestChain);
         // api.init(JSON.stringify(TestDodo));
         await api.init(JSON.stringify(dodosFromTestChain));
@@ -78,41 +78,41 @@ describe('test chain', () => {
         // jsonRpc = new JsonRpc(endpointExtraSlash);
     });
 
-    it('test from test chain', async () => {
-        let amounts = [500000000];//1,1000,//1545915510000;//5945945990;//4400;
-        const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
-        for (let t of tokens) {
-            const basetoken = t[0];
-            const quotetoken = t[1];
+    // it('test from test chain', async () => {
+    //     let amounts = [500000000];//1,1000,//1545915510000;//5945945990;//4400;
+    //     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
+    //     for (let t of tokens) {
+    //         const basetoken = t[0];
+    //         const quotetoken = t[1];
 
-            const dodo = await api.queryDodo(basetoken, quotetoken);
-            // console.log("======************dodo=========",dodo);
-            const bb = dodo._BASE_BALANCE_;
-            // const qb = dodo._QUOTE_BALANCE_;
-            const bbs = [bb, bb - 1, bb * 0.9, bb * 0.5];
-            amounts = amounts.concat(bbs);
-            // console.log(amounts);
-            for (let amount of amounts) {
-                let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-                console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-                console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                {
-                    let b: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
-                    console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                    let s: any = await api.querySellTokenDetail(amount, basetoken, quotetoken);
-                    console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                }
-            }
-        }
+    //         const dodo = await api.queryDodo(basetoken, quotetoken);
+    //         // console.log("======************dodo=========",dodo);
+    //         const bb = dodo._BASE_BALANCE_;
+    //         // const qb = dodo._QUOTE_BALANCE_;
+    //         const bbs = [bb, bb - 1, bb * 0.9, bb * 0.5];
+    //         amounts = amounts.concat(bbs);
+    //         // console.log(amounts);
+    //         for (let amount of amounts) {
+    //             let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+    //             console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+    //             let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+    //             console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+    //             {
+    //                 let b: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
+    //                 console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+    //                 let s: any = await api.querySellTokenDetail(amount, basetoken, quotetoken);
+    //                 console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+    //             }
+    //         }
+    //     }
 
-    });
+    // });
 
 
-    it('test from times of dodo balances', async () => {
+    it.only('test from times of dodo balances', async () => {
         api.init(JSON.stringify(TestDodo));
         let amounts = [500];//1,1000,//1545915510000;//5945945990;//4400;
-        const tokens = [["USD", "GBP"], ["GBP", "HKD"], ["USD", "HKD"]];//
+        const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
         for (let x = 0; x < 3; ++x) {
             api.setTestDodo(TestDodoBalances, x);
             for (let r = 0; r < 3; ++r) {
@@ -123,20 +123,22 @@ describe('test chain', () => {
 
                     const dodo = await api.queryDodo(basetoken, quotetoken);
                     const bb = dodo._BASE_BALANCE_;
+                    console.log(bb);
                     // const qb = dodo._QUOTE_BALANCE_;
-                    const bbs = [bb, bb - 1, bb * 0.9, bb * 0.5];
+                    const bbs = [bb * 0.5, bb * 0.1, bb * 0.01, bb * 0.001, bb * 0.0001];
                     amounts = amounts.concat(bbs);
+                    console.log(amounts);
                     for (let amount of amounts) {
                         let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                         console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
                         let s: any = await api.querySellToken(amount, basetoken, quotetoken);
                         console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                        {
-                            let b: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
-                            console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                            let s: any = await api.querySellTokenDetail(amount, basetoken, quotetoken);
-                            console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                        }
+                        // {
+                        //     let b: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
+                        //     console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                        //     let s: any = await api.querySellTokenDetail(amount, basetoken, quotetoken);
+                        //     console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                        // }
                     }
                 }
             }
@@ -145,27 +147,27 @@ describe('test chain', () => {
     });
 
 
-    it.only('transfer fee test from test chain', async () => {
-        let amounts = [500000000];//1,1000,//1545915510000;//5945945990;//4400;
-        const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
-        for (let t of tokens) {
-            const basetoken = t[0];
-            const quotetoken = t[1];
-            for (let amount of amounts) {
-                let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-                console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-                console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                {
-                    let b: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
-                    console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                    let s: any = await api.querySellTokenDetail(amount, basetoken, quotetoken);
-                    console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                }
-            }
-        }
+    // it.only('transfer fee test from test chain', async () => {
+    //     let amounts = [500000000];//1,1000,//1545915510000;//5945945990;//4400;
+    //     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
+    //     for (let t of tokens) {
+    //         const basetoken = t[0];
+    //         const quotetoken = t[1];
+    //         for (let amount of amounts) {
+    //             let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+    //             console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+    //             let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+    //             console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+    //             {
+    //                 let b: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
+    //                 console.log("=******buy3 =", basetoken, "=by=", quotetoken, "===", (b), "=====");
+    //                 let s: any = await api.querySellTokenDetail(amount, basetoken, quotetoken);
+    //                 console.log("=******sell =", basetoken, "=by=", quotetoken, "===", (s), "=====");
+    //             }
+    //         }
+    //     }
 
-    });
+    // });
 
 
 

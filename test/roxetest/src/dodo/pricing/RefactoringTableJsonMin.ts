@@ -3,7 +3,7 @@
 import { prettyJson } from "../../lib/prettyjson";
 const dotenv = require('dotenv');
 dotenv.load();
-const TokenDecimal = process.env.PRICING_DODO_EARN_ONE_DECIMALS;
+const TokenDecimal = process.env.PRICING_DODO_EARN_ONE_DECIMALS||6;
 
 export class RefactoringTableJsonMin {
     refactoring_fields: any[] = [
@@ -38,7 +38,7 @@ export class RefactoringTableJsonMin {
                 continue;
             }
 
-            alldodos[d.dodo]["_ORACLE_PRICE_"] = Number(oraclejson[basetoken][quotetoken]);
+            alldodos[d.dodo]["_ORACLE_PRICE_"] = Number(oraclejson[basetoken][quotetoken])*Math.pow(10,Number(TokenDecimal));
 
             for (let f of this.refactoring_fields) {
                 alldodos[d.dodo][f] = d.dodos[f];

@@ -29,7 +29,7 @@ export class DecimalMath {
 
     static mulCeil(target: number, d: number) {
         // return Decimal(target).mul(Decimal(d)).divCeil(DecimalMath.ONE);
-        return Decimal(target).mul(Decimal(d)).div(DecimalMath.ONE);
+        return Decimal(Decimal(target).mul(Decimal(d)).div(DecimalMath.ONE)).ceil(0);
     }
 
     static divFloor(target: number, d: number) {
@@ -38,7 +38,7 @@ export class DecimalMath {
 
     static divCeil(target: number, d: number) {
         // return Decimal(target).mul(DecimalMath.ONE).divCeil(Decimal(d));
-        return Decimal(target).mul(DecimalMath.ONE).div(Decimal(d));
+        return Decimal(Decimal(target).mul(DecimalMath.ONE).div(Decimal(d))).ceil(0);
     }
 }
 

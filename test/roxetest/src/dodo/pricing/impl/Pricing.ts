@@ -91,13 +91,13 @@ export class Pricing extends Storage {
 
     _RBelowBackToOne() {
         // important: carefully design the system to make sure spareBase always greater than or equal to 0
-        ////console.log("=======", this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
+        //console.log("=======", this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
         let spareBase: number = Decimal(this._BASE_BALANCE_).sub(this._TARGET_BASE_TOKEN_AMOUNT_);
         //console.log("==_RBelowBackToOne=spareBase====", spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
         let price: number = this.getOraclePrice();
         //console.log("=_RBelowBackToOne===price===", price, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
 
-        let fairAmount: number = DecimalMath.mul(spareBase, price);
+        let fairAmount: number = Decimal(DecimalMath.mul(spareBase, price)).floor(0);
         //console.log("==_RBelowBackToOne=_RBelowBackToOne=fairAmount===", fairAmount, price, spareBase, this._BASE_BALANCE_, this._TARGET_BASE_TOKEN_AMOUNT_);
 
         let newTargetQuote: number = Decimal(DODOMath._SolveQuadraticForTarget(
@@ -139,7 +139,7 @@ export class Pricing extends Storage {
         // important: carefully design the system to make sure spareBase always greater than or equal to 0
         let spareQuote: number = Decimal(this._QUOTE_BALANCE_).sub(this._TARGET_QUOTE_TOKEN_AMOUNT_);
         let price: number = this.getOraclePrice();
-        let fairAmount: number = DecimalMath.divFloor(spareQuote, Decimal(price).mul(DecimalMath.ONE));//
+        let fairAmount: number = DecimalMath.divFloor(spareQuote,price);//
         let newTargetBase: number = Decimal(DODOMath._SolveQuadraticForTarget(
             this._BASE_BALANCE_,
             this._K_,

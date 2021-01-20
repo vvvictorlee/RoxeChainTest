@@ -6,7 +6,7 @@ import { prettyJson } from "../lib/prettyjson";
 const dotenv = require('dotenv');
 dotenv.load();
 const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
-const suffix = process.env.suffix || ""
+const suffix = process.env.suffix || "re"
 
 // import { SafeMath } from "./lib/SafeMath";
 // ////console.log(SafeMath.divCeil(70, 7));
@@ -37,10 +37,7 @@ export class TraderPricingApi {
     }
 
     async setTestDodo(dodos: any, xtimes: any) {
-        //prod env
-        // let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
-        //test env
-        const times: number = Math.pow(10, Number(xtimes));
+        const times: number = Math.pow(10, Number(xtimes+6));
         const keys = Object.keys(dodos);
         for (let key of keys) {
             if (!this.galldodos.hasOwnProperty(key)) {
@@ -55,9 +52,6 @@ export class TraderPricingApi {
     }
 
     async setTestRStatus(status: any) {
-        //prod env
-        // let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
-        //test env
         const keys = Object.keys(this.galldodos);
         for (let key of keys) {
             this.galldodos[key]._R_STATUS_ = status;
@@ -68,9 +62,10 @@ export class TraderPricingApi {
     async queryDodo(baseToken: any, quoteToken: any) {
         //prod env
         let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
-        if ("44444" == suffix) {
+        if ("re" != suffix) {
             //test env
-            dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "44444";
+            console.log("suffix==",suffix);
+            dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + suffix;
         }
 
         //console.log("======dodo_name======", dodo_name);
@@ -219,7 +214,8 @@ function isNumber(obj: any) {
     // api.init(JSON.stringify(TestDodos));
     api.init(JSON.stringify(dodosFromTestChain));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amounts = [999000000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    const amounts = [50556060000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
         for (let amount of amounts) {
@@ -228,10 +224,10 @@ function isNumber(obj: any) {
             {
                 let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                 console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                // let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-                // console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
-                console.log("=sell =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
+                let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+                console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                // let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
+                // console.log("=sell =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
             }
 
             // {
