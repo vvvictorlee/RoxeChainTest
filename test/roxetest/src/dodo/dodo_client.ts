@@ -23,7 +23,7 @@
 //     textEncoder: new TextEncoder()
 // })
 
-import { Dos } from "./client_data_prod";
+import { Dos } from "./client_data_test";
 import { prettyJson } from "../lib/prettyjson";
 // const { deployContractjs } = require('../lib/deployContract_api_utils')
 import { Client } from "../lib/client";
@@ -184,6 +184,12 @@ export class DosClient {
         await this.common_client.pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.pair_data.base.tokens[1]));
     }
 
+    async withdrawquote() {
+        const dodo_name = this.pair_data.base.DODO_NAME;
+        const quoteamount = 534980.057645;///this.pair_data.depositdata.quoteamount;89996396426;//-6735980057645.38
+        await this.common_client.pushAction("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.pair_data.base.tokens[1]));
+    }
+
     async buybt() {
         await this.common_client.pushAction("buybasetoken", Dos.trader, this.pair_data.base.DODO_NAME, ClientUtil.to_asset(this.pair_data.buydata.amount, this.pair_data.base.tokens[0]), ClientUtil.to_wei_asset(this.pair_data.buydata.maxPay, this.pair_data.base.tokens[1]));
     }
@@ -265,6 +271,9 @@ const handlers: any = {
     "depositbasequote": (async function () {
         await client.depositbasequote();
     }),
+    "withdrawquote": (async function () {
+        await client.withdrawquote();
+    }),
     "buybt": (async function () {
         await client.buybt();
     }),
@@ -290,7 +299,7 @@ const handlers: any = {
 // const actions = ["a", "newtoken", "mint", "newdodo", "enable", "setprice", "depositbasequote", "buybt", "sellbt"];
 
 // "newacc", "deploy","a", "newtoken", "mint", "newdodo","enable", "setprice",
-const actions = ["a"];//, "depositbasequote", "buybt", "sellbt"/, "sellbt"
+const actions = ["withdrawquote"];//, "depositbasequote", "buybt", "sellbt"/, "sellbt"
 
 // const actions = ["u2gwithdrawquote"];//, "depositbasequote", "buybt", "sellbt"
 

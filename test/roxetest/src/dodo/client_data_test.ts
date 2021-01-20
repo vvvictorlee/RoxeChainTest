@@ -99,11 +99,11 @@ export class Dos {
         k: 100,
         oracleprice: 740000,
         buydata: {
-            amount: 1323603731,
-            maxPay: 1000
+            amount: 132300603731,
+            maxPay: 999000
         },
         selldata: {
-            amount: 998500000,
+            amount: 9980500000,
             minReceive: 728900000
         }
 

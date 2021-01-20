@@ -6,6 +6,7 @@ import { prettyJson } from "../lib/prettyjson";
 const dotenv = require('dotenv');
 dotenv.load();
 const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
+const suffix = process.env.suffix || ""
 
 // import { SafeMath } from "./lib/SafeMath";
 // ////console.log(SafeMath.divCeil(70, 7));
@@ -66,16 +67,19 @@ export class TraderPricingApi {
 
     async queryDodo(baseToken: any, quoteToken: any) {
         //prod env
-        // let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
-        //test env
-        let dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "44444";
+        let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
+        if ("44444" == suffix) {
+            //test env
+            dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + "44444";
+        }
+
         //console.log("======dodo_name======", dodo_name);
         let dodo = this.galldodos[Object.keys(this.galldodos)[0]];
         if (this.galldodos.hasOwnProperty(dodo_name)) {
             dodo = this.galldodos[dodo_name];
         }
         else {
-            console.log("====NOT FOUND==dodo_name======", dodo_name);
+            console.error("====NOT FOUND==dodo_name======", dodo_name);
         }
 
         // dodo._ORACLE_PRICE_ = Number(galloracles[baseToken]);
@@ -99,6 +103,13 @@ export class TraderPricingApi {
         return r;
     }
 
+    async querySellQuoteWithDodo(amount: any, dodo: any) {
+        this.t.setParameters(dodo);
+        let r = this.t.querySellQuoteToken(amount);
+        ////////console.log(r);
+        return r;
+    }
+
     async queryBuyToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         dodo.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
@@ -114,6 +125,15 @@ export class TraderPricingApi {
         //console.log(r);
         return Number(r);
     }
+
+    async querySellQuote(amount: any, baseToken: any, quoteToken: any) {
+        let dodo = await this.queryDodo(baseToken, quoteToken);
+        dodo.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
+        let r = await this.querySellQuoteWithDodo(amount, dodo);
+        //console.log(r);
+        return Number(r);
+    }
+
 
     async queryBuyTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
@@ -199,8 +219,8 @@ function isNumber(obj: any) {
     // api.init(JSON.stringify(TestDodos));
     api.init(JSON.stringify(dodosFromTestChain));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amounts = [1000000000, 517000000000];//698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
-    const tokens = [["USD", "HKD"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
+    const amounts = [999000000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
         for (let amount of amounts) {
             const basetoken = t[0];
@@ -208,8 +228,10 @@ function isNumber(obj: any) {
             {
                 let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                 console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-                console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                // let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+                // console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
+                console.log("=sell =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
             }
 
             // {
