@@ -15,6 +15,7 @@ import BigNumber from "bignumber.js";
 // or
 // import { BigNumber } from "bignumber.js";
 
+const dodomath = require("debug")('dodomath');
 
 /**
  * @title DODOMath
@@ -38,7 +39,7 @@ export class DODOMath {
         i: number,
         k: number
     ) {
-        //console.log("_GeneralIntegrate==i, V1, V2=", i, V0, V1, V2);
+        console.log("_GeneralIntegrate==i, V1, V2=", i, V0, V1, V2);
 
         // let fairAmount: number = Decimal(DecimalMath.mul(i, Decimal(V1).sub(V2)) * DecimalMath.ONE).floor(0); // i*delta
         let fairAmount: number = Decimal(DecimalMath.mul(i, Decimal(V1).sub(V2))).floor(0); // i*delta
@@ -49,17 +50,17 @@ export class DODOMath {
         const mmm0 = Decimal(mm0.multipliedBy(mm0).toString()).floor(0);
         const mmm1 = Decimal(new BigNumber(mmm0).dividedBy(mm1).toString()).floor(0);
         const mmm = Decimal(new BigNumber(mmm1 * DecimalMath.ONE).dividedBy(mm2).toString()).ceil(0);
-        //console.log("==mmm, mmm1, mmm0, ===",  mmm0,mmm1,mmm);
+        console.log("==mmm, mmm1, mmm0, ===", mmm0, mmm1, mmm);
         let V0V0V1V20: number = mmm0;//V0.mul(V0);
         let V0V0V1V21: number = mmm1;//V0.mul(V0).div(V1);
         let V0V0V1V2: number = mmm;//Decimal(Decimal(mmm).div(V2)).ceil(0);//DecimalMath.divCeil(V0.mul(V0).div(V1), V2);
         let penalty: number = Decimal(DecimalMath.mul(k, V0V0V1V2)).floor(0); // k(V0^2/V1/V2)
 
-        //console.log("_GeneralIntegrate===", fairAmount, V0V0V1V20, V0V0V1V21, V0V0V1V2, penalty);
+        console.log("_GeneralIntegrate===", fairAmount, V0V0V1V20, V0V0V1V21, V0V0V1V2, penalty);
         const r0 = Decimal(DecimalMath.ONE).sub(k);
         const r1 = Decimal(DecimalMath.ONE).sub(k).add(penalty);
         const r = DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty));
-        //console.log("_GeneralIntegrate===", r0, r1, r);
+        console.log("_GeneralIntegrate===", r0, r1, r);
 
         return DecimalMath.mul(fairAmount, Decimal(DecimalMath.ONE).sub(k).add(penalty));
     }
@@ -85,7 +86,7 @@ export class DODOMath {
         deltaBSig: boolean,
         k: number
     ) {
-        //console.log("==_SolveQuadraticForTrade==", ideltaB, deltaBSig, k, Q0, Q1);
+        console.log("==_SolveQuadraticForTrade==", ideltaB, deltaBSig, k, Q0, Q1);
 
         // calculate -b value and sig
         // -b = (1-k)Q1-kQ0^2/Q1+i*deltaB
@@ -93,24 +94,24 @@ export class DODOMath {
         let kQ02Q1: number = Decimal(Decimal(s).mul(Q0).div(Q1)).floor(0); // kQ0^2/Q1
         let b: number = Decimal(DecimalMath.mul(Decimal(DecimalMath.ONE).sub(k), Q1)).floor(0); // (1-k)Q1
         let minusbSig: boolean = true;
-        //console.log("==_SolveQuadraticForTrade=73=", b, kQ02Q1);
+        console.log("==_SolveQuadraticForTrade=73=", b, kQ02Q1);
         ideltaB = ideltaB;
         if (deltaBSig) {
             b = b.add(ideltaB); // (1-k)Q1+i*deltaB
         } else {
             kQ02Q1 = Decimal(kQ02Q1).add(ideltaB); // i*deltaB+kQ0^2/Q1
         }
-        //console.log("==_SolveQuadraticForTrade=80=", b, kQ02Q1);
+        console.log("==_SolveQuadraticForTrade=80=", b, kQ02Q1);
 
         if (Number(b) >= Number(kQ02Q1)) {
-            //console.log("==_SolveQuadraticForTrade=b >= kQ02Q1=", minusbSig, b, kQ02Q1);
+            console.log("==_SolveQuadraticForTrade=b >= kQ02Q1=", minusbSig, b, kQ02Q1);
             b = Decimal(b).sub(kQ02Q1);
             minusbSig = true;
         } else {
             b = Decimal(kQ02Q1).sub(b);
             minusbSig = false;
         }
-        //console.log("==_SolveQuadraticForTrade=88=", minusbSig, b, kQ02Q1);
+        console.log("==_SolveQuadraticForTrade=88=", minusbSig, b, kQ02Q1);
 
 
         // calculate sqrt
@@ -120,14 +121,14 @@ export class DODOMath {
 
         //  const m1 = (Decimal(squareRootv0/ DecimalMath.ONE).mul(Decimal(squareRootv01/ DecimalMath.ONE)) );
         //  const m2 = m1* DecimalMath.ONE;
-        // //console.log("m1,m2===",m1,m2);
+        // console.log("m1,m2===",m1,m2);
         const mm1 = new BigNumber(squareRootv0);
         const mm2 = new BigNumber(squareRootv01);
         const mmm = Decimal(mm1.multipliedBy(mm2).dividedBy(DecimalMath.ONE).toString()).floor(0);
-        //console.log("mm1,mm2===", mmm, mm1, mm2);
+        console.log("mm1,mm2===", mmm, mm1, mm2);
 
         let squareRootv1: number = mmm;//Decimal(DecimalMath.mul(squareRootv0,squareRootv01));//.floor(0); // 4(1-k)kQ0^2
-        //console.log("==_SolveQuadraticForTrade=squareRootv1=", squareRootv0, squareRootv010, squareRootv01, squareRootv1);
+        console.log("==_SolveQuadraticForTrade=squareRootv1=", squareRootv0, squareRootv010, squareRootv01, squareRootv1);
         let squareRoot = Decimal(b.mul(b).add(squareRootv1).sqrt()).floor(0); // sqrt(b*b+4(1-k)kQ0*Q0)
 
         // final res
@@ -139,13 +140,13 @@ export class DODOMath {
             numerator = Decimal(squareRoot).sub(b);
         }
 
-        //console.log("(numerator,==== denominator)", squareRoot, minusbSig, numerator, denominator);
+        console.log("(numerator,==== denominator)", squareRoot, minusbSig, numerator, denominator);
 
         if (deltaBSig) {
-            //console.log("DecimalMath.divFloor(numerator,***** denominator)", DecimalMath.divFloor(numerator, denominator));
+            console.log("DecimalMath.divFloor(numerator,***** denominator)", DecimalMath.divFloor(numerator, denominator));
             return DecimalMath.divFloor(numerator, denominator).floor(0);
         } else {
-            //console.log("DecimalMath.divCeil(numerator, denominator)", DecimalMath.divCeil(numerator, denominator).ceil(0));
+            console.log("DecimalMath.divCeil(numerator, denominator)", DecimalMath.divCeil(numerator, denominator).ceil(0));
             return DecimalMath.divCeil(numerator, denominator).ceil(0);
         }
     }
@@ -162,22 +163,22 @@ export class DODOMath {
         fairAmountd: number
     ) {
         const fairAmount = Decimal(fairAmountd).floor(0);
-        //console.log("V1, k, fairAmount==", V1, k, fairAmount);
+        console.log("V1, k, fairAmount==", V1, k, fairAmount);
         // V0 = V1+V1*(sqrt-1)/2k
         let sq: number = Decimal(DecimalMath.mul(k, fairAmount)).floor(0);
         let sqrtv0: number = Decimal(Decimal(sq).mul(4)).floor(0);
-        let sqrtv1: number = Decimal(sqrtv0/V1);//.ceil(0);
+        let sqrtv1: number = Decimal(sqrtv0 / V1);//.ceil(0);
         let sqrtv: number = (sqrtv1 * DecimalMath.ONE);
         // let sqrtv: number = DecimalMath.divCeil(sqrtv0,V1);/////0120updatebylisheng
         // let sqrt: number = (DecimalMath.divCeil(DecimalMath.mul(k, fairAmount).mul(4), V1)) * DecimalMath.ONE;
         let sqrt = sqrtv.add(DecimalMath.ONE).mul(DecimalMath.ONE).sqrt();
         let premium: number = Decimal(DecimalMath.divCeil(Decimal(sqrt).sub(DecimalMath.ONE), k.mul(2))).floor(0);
-        //console.log("===sq, sqrtv0,  sqrtv1,sqrtv, sqrt, premium=", sq, sqrtv0,  sqrtv, sqrt, premium);
+        console.log("===sq, sqrtv0,  sqrtv1,sqrtv, sqrt, premium=", sq, sqrtv0, sqrtv, sqrt, premium);
         // V0 is greater than or equal to V1 according to the solution
         const r = Decimal(DecimalMath.mul(V1, DecimalMath.ONE.add(premium))).floor(0);
-        //console.log("r= ", r);
+        console.log("r= ", r);
         // premium=1.254822;
-        ////console.log("DecimalMath.mul(V1, DecimalMath.ONE.add(premium))", DecimalMath.mul(V1, Decimal(DecimalMath.ONE).add(Decimal(premium*DecimalMath.ONE).floor(0))));
+        //console.log("DecimalMath.mul(V1, DecimalMath.ONE.add(premium))", DecimalMath.mul(V1, Decimal(DecimalMath.ONE).add(Decimal(premium*DecimalMath.ONE).floor(0))));
         return r;
     }
 }

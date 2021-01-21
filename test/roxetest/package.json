@@ -17,7 +17,7 @@
     "abi": "jest -i src/tests/swap/swapjs-jsonrpc.test.ts -t \"get_raw_code_and_abi\"",
     "test:swap:pricing": "jest -i src/tests/swap/swapjs-pricing-jsonrpc.test.ts ",
     "test:swap:pricing:transferfee": "jest -i src/tests/swap/swapjs-pricing-jsonrpc.test.ts -t \"transferfee\"",
-   "test:pricing": "jest -i src/tests/dodo/earnjs-pricing-jsonrpc.test.ts ",
+    "test:pricing": "jest -i src/tests/dodo/earnjs-pricing-jsonrpc.test.ts ",
     "test:pricing:transferfee": "jest -i src/tests/dodo/earnjs-pricing-jsonrpc.test.ts -t \"transferfee\"",
     "test:earnapi:setprice": "jest -i src/tests/dodo/earnjs-api.test.ts -t \"setprice\"",
     "test:math1": "jest -t \"abitojson\""
@@ -26,6 +26,7 @@
   "license": "",
   "dependencies": {
     "bignumber.js": "^9.0.1",
+    "debug": "^4.3.1",
     "decimal.js": "^10.2.1",
     "dotenv": "^6.0.0",
     "fs": "^0.0.1-security",

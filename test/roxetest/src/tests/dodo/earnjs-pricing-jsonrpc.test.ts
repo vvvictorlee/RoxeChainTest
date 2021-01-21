@@ -17,7 +17,7 @@ describe('test chain', () => {
     const api = new TraderPricingApi();
     const TestDodo = {
         gbp2hkd44444: {
-            _ORACLE_PRICE_: 10.472973,
+            _ORACLE_PRICE_: 10472973,
             _LP_FEE_RATE_: 1,
             _MT_FEE_RATE_: 0,
             _K_: 1,
@@ -28,7 +28,7 @@ describe('test chain', () => {
             _QUOTE_BALANCE_: '7749979054074'
         },
         usd2gbp44444: {
-            _ORACLE_PRICE_: 0.74,
+            _ORACLE_PRICE_: 740000,
             _LP_FEE_RATE_: 595,
             _MT_FEE_RATE_: 105,
             _K_: 100,
@@ -39,7 +39,7 @@ describe('test chain', () => {
             _QUOTE_BALANCE_: '958398324877'
         },
         usd2hkd44444: {
-            _ORACLE_PRICE_: 7.75,
+            _ORACLE_PRICE_: 7750000,
             _LP_FEE_RATE_: 680,
             _MT_FEE_RATE_: 120,
             _K_: 100,
@@ -111,10 +111,10 @@ describe('test chain', () => {
 
     it.only('test from times of dodo balances', async () => {
         api.init(JSON.stringify(TestDodo));
-        let amounts = [500];//1,1000,//1545915510000;//5945945990;//4400;
+        let amounts = [1000000];//1,1000,//1545915510000;//5945945990;//4400;
         const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"]
-        for (let x = 0; x < 3; ++x) {
-            api.setTestDodo(TestDodoBalances, x);
+        for (let x = 0; x < 1; ++x) {
+            // api.setTestDodo(TestDodoBalances, x);
             for (let r = 0; r < 3; ++r) {
                 api.setTestRStatus(r);
                 for (let t of tokens) {
@@ -123,10 +123,10 @@ describe('test chain', () => {
 
                     const dodo = await api.queryDodo(basetoken, quotetoken);
                     const bb = dodo._BASE_BALANCE_;
-                    console.log(bb);
+                    console.log(bb,dodo);
                     // const qb = dodo._QUOTE_BALANCE_;
-                    const bbs = [bb * 0.5, bb * 0.1, bb * 0.01, bb * 0.001, bb * 0.0001];
-                    amounts = amounts.concat(bbs);
+                    // const bbs = [bb * 0.5, bb * 0.1];//, bb * 0.01, bb * 0.001, bb * 0.0001];
+                    // amounts = amounts.concat(bbs);
                     console.log(amounts);
                     for (let amount of amounts) {
                         let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
