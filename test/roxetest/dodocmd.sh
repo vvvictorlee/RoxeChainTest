@@ -21,7 +21,7 @@ $CLS wallet  import --private-key 5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9t
 $CLS system newaccount roxe re.lp ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe@active
 ;;
 "lpa") 
-$CLS push action roxe updateauth '{"account": "'${lp_account}'","permission": "active","parent": "owner","auth": {"threshold":1,"keys": [{"key":"'${lp_pubkey}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'", "permission": "active"}}]}}' -p ${lp_pubkey}@active
+$CLS push action roxe updateauth '{"account": "'${lp_account}'","permission": "active","parent": "owner","auth": {"threshold":1,"keys": [{"key":"'${lp_pubkey}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'", "permission": "active"}}]}}' -p ${lp_account}@active
 ;;
 "u2ga") 
 $CLS push action roxe updateauth '{"account": "'${usd2gbp_account}'","permission": "active","parent": "owner","auth": {"threshold":1,"keys": [{"key":"'${usd2gbp_pubkey}'","weight": 1}], "waits": [],"accounts": [{"weight": 1,"permission": {"actor":"'${DODO_CONTRACT}'","permission": "active"}}]}}' -p  ${usd2gbp_account}@active
