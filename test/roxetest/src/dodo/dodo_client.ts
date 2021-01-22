@@ -184,14 +184,21 @@ export class DosClient {
         await this.common_client.pushAction("depositquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.pair_data.base.tokens[1]));
     }
 
-    async withdrawquote() {
+    async withdrawbase() {
         const dodo_name = this.pair_data.base.DODO_NAME;
-        const quoteamount = 534980.057645;///this.pair_data.depositdata.quoteamount;89996396426;//-6735980057645.38
-        await this.common_client.pushAction("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_wei_asset(quoteamount, this.pair_data.base.tokens[1]));
+        const baseamount = this.pair_data.withdrawdata.baseamount;
+        await this.common_client.pushAction("withdrawbase", Dos.lp, dodo_name, ClientUtil.to_asset(baseamount, this.pair_data.base.tokens[0]));
     }
 
+    async withdrawquote() {
+        const dodo_name = this.pair_data.base.DODO_NAME;
+        const quoteamount = this.pair_data.withdrawdata.quoteamount;
+        await this.common_client.pushAction("withdrawquote", Dos.lp, dodo_name, ClientUtil.to_asset(quoteamount, this.pair_data.base.tokens[1]));
+    }
+
+
     async buybt() {
-        await this.common_client.pushAction("buybasetoken", Dos.trader, this.pair_data.base.DODO_NAME, ClientUtil.to_asset(this.pair_data.buydata.amount, this.pair_data.base.tokens[0]), ClientUtil.to_wei_asset(this.pair_data.buydata.maxPay, this.pair_data.base.tokens[1]));
+        await this.common_client.pushAction("buybasetoken", Dos.trader, this.pair_data.base.DODO_NAME, ClientUtil.to_asset(this.pair_data.buydata.amount, this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.buydata.maxPay, this.pair_data.base.tokens[1]));
     }
     async sellbt() {
         await this.common_client.pushAction("sellbastoken", Dos.trader, this.pair_data.base.DODO_NAME, ClientUtil.to_asset(this.pair_data.selldata.amount, this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.selldata.minReceive, this.pair_data.base.tokens[1]));
@@ -273,6 +280,9 @@ const handlers: any = {
     }),
     "withdrawquote": (async function () {
         await client.withdrawquote();
+    }),
+    "withdrawbase": (async function () {
+        await client.withdrawbase();
     }),
     "buybt": (async function () {
         await client.buybt();

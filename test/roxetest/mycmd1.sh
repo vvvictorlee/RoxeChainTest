@@ -350,6 +350,8 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_by_scope -d '{
 # # 
 # curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"roxeearntest"}'|jq
 
+curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":100,	"offset":200,	"account_name":"roxeearntest"}'
+
 # curl -X POST --url http://172.17.3.161:7878/v1/history/get_key_accounts -d '{
 #   "public_key": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"
 # }'

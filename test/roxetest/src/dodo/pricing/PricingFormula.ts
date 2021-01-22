@@ -7,6 +7,10 @@ const dotenv = require('dotenv');
 dotenv.load();
 const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIMALS));
 const suffix = process.env.suffix || "re"
+const debug = require("debug");
+const formula = debug('formula');
+debug.enable("formula");
+// debug.disable("formula");
 
 // import { SafeMath } from "./lib/SafeMath";
 // ////console.log(SafeMath.divCeil(70, 7));
@@ -37,7 +41,7 @@ export class TraderPricingApi {
     }
 
     async setTestDodo(dodos: any, xtimes: any) {
-        const times: number = Math.pow(10, Number(xtimes+6));
+        const times: number = Math.pow(10, Number(xtimes + 6));
         const keys = Object.keys(dodos);
         for (let key of keys) {
             if (!this.galldodos.hasOwnProperty(key)) {
@@ -64,7 +68,7 @@ export class TraderPricingApi {
         let dodo_name = "re." + baseToken.toLowerCase() + quoteToken.toLowerCase();
         if ("re" != suffix) {
             //test env
-           //console.log("suffix==",suffix);
+            //console.log("suffix==",suffix);
             dodo_name = baseToken.toLowerCase() + "2" + quoteToken.toLowerCase() + suffix;
         }
 
@@ -199,8 +203,16 @@ function isNumber2(obj: any) {
 function isNumber(obj: any) {
     return obj === +obj
 }
-
+// function test() {
+//     const s = "1"
+//     const t = "2"
+//     // const ss = {s,t};
+//     return [s, t];
+// }
 (async function () {
+    // const [s, t] = test();
+    // const ss = { s, t };
+    // console.log(ss);
     // const s :{[name:string]:any}= {};
     ////console.log(isNumber1("1"));
     ////console.log(isNumber2("w"));
@@ -209,8 +221,8 @@ function isNumber(obj: any) {
 
     let dodosFromTestChain: any = await papi.getDodo();
 
-   //console.log(dodosFromTestChain);
-    prettyJson(dodosFromTestChain);
+    formula("dodosFromTestChain===", dodosFromTestChain, "====");
+    // prettyJson(dodosFromTestChain);
     // api.init(JSON.stringify(TestDodos));
     api.init(JSON.stringify(dodosFromTestChain));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
@@ -223,9 +235,9 @@ function isNumber(obj: any) {
             const quotetoken = t[1];
             {
                 let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-               console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-            //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-            //    console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+                //    console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
                 // let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
                 ////console.log("=sell =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
             }

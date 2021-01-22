@@ -91,20 +91,25 @@ export class Dos {
         },
         depositdata:
         {
-            baseamount: 1000000,
-            quoteamount: 740000
+            baseamount: 10000,
+            quoteamount: 10000
+        },
+        withdrawdata:
+        {
+            baseamount: 1300000000,
+            quoteamount: 1200000000
         },
         lpFeeRate: 595,
         mtFeeRate: 105,
         k: 100,
         oracleprice: 740000,
         buydata: {
-            amount: 132300603731,
-            maxPay: 999000
+            amount: 1300000000,
+            maxPay: 99990000000
         },
         selldata: {
-            amount: 9980500000,
-            minReceive: 728900000
+            amount: 210000000,
+            minReceive: 89000
         }
 
     };
@@ -124,6 +129,11 @@ export class Dos {
         {
             baseamount: 1000000,
             quoteamount: 7750000
+        },
+        withdrawdata:
+        {
+            baseamount: 8000000000,
+            quoteamount: 6750000000
         },
         lpFeeRate: 595,
         mtFeeRate: 105,
@@ -154,6 +164,11 @@ export class Dos {
         {
             baseamount: 740000,
             quoteamount: 7750000
+        },
+        withdrawdata:
+        {
+            baseamount: 8000000000,
+            quoteamount: 6750000000
         },
         lpFeeRate: 595,
         mtFeeRate: 105,
