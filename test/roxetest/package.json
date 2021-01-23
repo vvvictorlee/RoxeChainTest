@@ -25,11 +25,13 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "@types/node-cron": "^2.0.3",
     "bignumber.js": "^9.0.1",
     "debug": "^4.3.1",
     "decimal.js": "^10.2.1",
     "dotenv": "^6.0.0",
     "fs": "^0.0.1-security",
+    "node-cron": "^2.0.3",
     "prettier": "^2.2.0",
     "pretty-format": "^26.6.2",
     "roxejs": "^1.0.4"
