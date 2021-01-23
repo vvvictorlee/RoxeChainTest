@@ -1,0 +1,2150 @@
+{
+    "____comment": "This file was generated with roxe-abigen. DO NOT EDIT ",
+    "version": "roxe::abi/1.1",
+    "types": [
+        {
+            "new_type_name": "address",
+            "type": "name"
+        },
+        {
+            "new_type_name": "bytes32",
+            "type": "bytes"
+        },
+        {
+            "new_type_name": "namesym",
+            "type": "uint128"
+        },
+        {
+            "new_type_name": "uint112",
+            "type": "uint64"
+        }
+    ],
+    "structs": [
+        {
+            "name": "DODOEthProxyStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "_DODO_ZOO_",
+                    "type": "address"
+                },
+                {
+                    "name": "_WETH_",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "core_symbol",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "DODOMineStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "dodoRewardVault",
+                    "type": "address"
+                },
+                {
+                    "name": "dodoPerBlock",
+                    "type": "uint64"
+                },
+                {
+                    "name": "poolInfos",
+                    "type": "PoolInfo[]"
+                },
+                {
+                    "name": "lpTokenRegistry",
+                    "type": "pair_address_uint64[]"
+                },
+                {
+                    "name": "userInfo",
+                    "type": "pair_uint64_user2info[]"
+                },
+                {
+                    "name": "realizedReward",
+                    "type": "pair_address_uint64[]"
+                },
+                {
+                    "name": "totalAllocPoint",
+                    "type": "uint64"
+                },
+                {
+                    "name": "startBlock",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "DODORewardVaultStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "dodoToken",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "DODOStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "dodos",
+                    "type": "pair_name_DODOStore[]"
+                }
+            ]
+        },
+        {
+            "name": "DODOStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "initownable",
+                    "type": "OwnableStore"
+                },
+                {
+                    "name": "guard",
+                    "type": "ReentrancyGuardStore"
+                },
+                {
+                    "name": "_INITIALIZED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_CLOSED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_DEPOSIT_QUOTE_ALLOWED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_DEPOSIT_BASE_ALLOWED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_TRADE_ALLOWED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_GAS_PRICE_LIMIT_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_BUYING_ALLOWED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_SELLING_ALLOWED_",
+                    "type": "bool"
+                },
+                {
+                    "name": "_BASE_BALANCE_LIMIT_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_QUOTE_BALANCE_LIMIT_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_SUPERVISOR_",
+                    "type": "address"
+                },
+                {
+                    "name": "_MAINTAINER_",
+                    "type": "address"
+                },
+                {
+                    "name": "_BASE_TOKEN_",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "_QUOTE_TOKEN_",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "_ORACLE_",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "_LP_FEE_RATE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_MT_FEE_RATE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_K_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_R_STATUS_",
+                    "type": "uint8"
+                },
+                {
+                    "name": "_TARGET_BASE_TOKEN_AMOUNT_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_TARGET_QUOTE_TOKEN_AMOUNT_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_BASE_BALANCE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_QUOTE_BALANCE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_BASE_CAPITAL_TOKEN_",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "_QUOTE_CAPITAL_TOKEN_",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "_BASE_CAPITAL_RECEIVE_QUOTE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_QUOTE_CAPITAL_RECEIVE_BASE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_CLAIMED_",
+                    "type": "pair_address_bool[]"
+                }
+            ]
+        },
+        {
+            "name": "EmergencyCall",
+            "base": "",
+            "fields": [
+                {
+                    "name": "selector",
+                    "type": "bytes32"
+                },
+                {
+                    "name": "paramsBytesCount",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "HelperStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "mig",
+                    "type": "MigrationsStore"
+                },
+                {
+                    "name": "msig",
+                    "type": "MultiSigWalletWithTimelockStore"
+                },
+                {
+                    "name": "factory",
+                    "type": "IUniswapV2FactoryStore"
+                },
+                {
+                    "name": "arbit",
+                    "type": "UniswapArbitrageurStore"
+                }
+            ]
+        },
+        {
+            "name": "IUniswapV2FactoryStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "factory",
+                    "type": "address"
+                },
+                {
+                    "name": "token0",
+                    "type": "address"
+                },
+                {
+                    "name": "token1",
+                    "type": "address"
+                },
+                {
+                    "name": "reserve0",
+                    "type": "uint112"
+                },
+                {
+                    "name": "reserve1",
+                    "type": "uint112"
+                },
+                {
+                    "name": "blockTimestampLast",
+                    "type": "uint32"
+                },
+                {
+                    "name": "price0CumulativeLast",
+                    "type": "uint64"
+                },
+                {
+                    "name": "price1CumulativeLast",
+                    "type": "uint64"
+                },
+                {
+                    "name": "kLast",
+                    "type": "uint64"
+                },
+                {
+                    "name": "unlocked",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "LockedTokenVaultStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "_TOKEN_",
+                    "type": "address"
+                },
+                {
+                    "name": "originBalances",
+                    "type": "pair_name_uint64[]"
+                },
+                {
+                    "name": "claimedBalances",
+                    "type": "pair_name_uint64[]"
+                },
+                {
+                    "name": "_UNDISTRIBUTED_AMOUNT_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_START_RELEASE_TIME_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_RELEASE_DURATION_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_CLIFF_RATE_",
+                    "type": "uint64"
+                },
+                {
+                    "name": "_DISTRIBUTE_FINISHED_",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "MigrationsStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "name": "last_completed_migration",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "MiningStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "mine",
+                    "type": "DODOMineStore"
+                },
+                {
+                    "name": "rewardvault",
+                    "type": "DODORewardVaultStore"
+                },
+                {
+                    "name": "lockedtoken",
+                    "type": "LockedTokenVaultStore"
+                }
+            ]
+        },
+        {
+            "name": "MultiSigWalletWithTimelockStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "transactions",
+                    "type": "pair_uint64_Transaction[]"
+                },
+                {
+                    "name": "confirmations",
+                    "type": "pair_uint64_a2b[]"
+                },
+                {
+                    "name": "isOwner",
+                    "type": "pair_address_bool[]"
+                },
+                {
+                    "name": "unlockTimes",
+                    "type": "pair_address_address[]"
+                },
+                {
+                    "name": "owners",
+                    "type": "address[]"
+                },
+                {
+                    "name": "required",
+                    "type": "uint64"
+                },
+                {
+                    "name": "transactionCount",
+                    "type": "uint64"
+                },
+                {
+                    "name": "emergencyCalls",
+                    "type": "EmergencyCall[]"
+                },
+                {
+                    "name": "mutex",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "OracleStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "oracles",
+                    "type": "pair_namesym_OracleStore[]"
+                }
+            ]
+        },
+        {
+            "name": "OracleStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "ownable",
+                    "type": "OwnableStore"
+                },
+                {
+                    "name": "_OWNER_",
+                    "type": "address"
+                },
+                {
+                    "name": "tokenPrice",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "OwnableStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "_OWNER_",
+                    "type": "address"
+                },
+                {
+                    "name": "_NEW_OWNER_",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "PoolInfo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "lpToken",
+                    "type": "address"
+                },
+                {
+                    "name": "allocPoint",
+                    "type": "uint64"
+                },
+                {
+                    "name": "lastRewardBlock",
+                    "type": "uint64"
+                },
+                {
+                    "name": "accDODOPerShare",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "ProxyStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "proxy",
+                    "type": "DODOEthProxyStore"
+                },
+                {
+                    "name": "guard",
+                    "type": "ReentrancyGuardStore"
+                }
+            ]
+        },
+        {
+            "name": "QuoteToken2Dodo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "q2d",
+                    "type": "pair_namesym_name[]"
+                }
+            ]
+        },
+        {
+            "name": "ReentrancyGuardStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "_ENTERED_",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "TokenStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "tokens",
+                    "type": "pair_namesym_TokenStore[]"
+                }
+            ]
+        },
+        {
+            "name": "TokenStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "originToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "esymbol",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "ownable",
+                    "type": "OwnableStore"
+                },
+                {
+                    "name": "names",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "Transaction",
+            "base": "",
+            "fields": [
+                {
+                    "name": "destination",
+                    "type": "address"
+                },
+                {
+                    "name": "value",
+                    "type": "uint64"
+                },
+                {
+                    "name": "data",
+                    "type": "bytes"
+                },
+                {
+                    "name": "executed",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "UniswapArbitrageurStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "_UNISWAP_",
+                    "type": "address"
+                },
+                {
+                    "name": "_DODO_",
+                    "type": "address"
+                },
+                {
+                    "name": "_BASE_",
+                    "type": "address"
+                },
+                {
+                    "name": "_QUOTE_",
+                    "type": "address"
+                },
+                {
+                    "name": "_REVERSE_",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "UserInfo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "amount",
+                    "type": "uint64"
+                },
+                {
+                    "name": "rewardDebt",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "ZooStorage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "ownable",
+                    "type": "OwnableStore"
+                },
+                {
+                    "name": "_DODO_LOGIC_",
+                    "type": "address"
+                },
+                {
+                    "name": "_CLONE_FACTORY_",
+                    "type": "address"
+                },
+                {
+                    "name": "_DEFAULT_SUPERVISOR_",
+                    "type": "address"
+                },
+                {
+                    "name": "_DODO_REGISTER_",
+                    "type": "pair_namesym_QuoteToken2Dodo[]"
+                },
+                {
+                    "name": "_DODOs",
+                    "type": "address[]"
+                }
+            ]
+        },
+        {
+            "name": "a2b",
+            "base": "",
+            "fields": [
+                {
+                    "name": "a2c",
+                    "type": "pair_address_bool[]"
+                }
+            ]
+        },
+        {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sequence",
+                    "type": "uint64"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "adddodo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "_dodo",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "breeddodo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "maintainer",
+                    "type": "address"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "oracle",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "lpFeeRate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "mtFeeRate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "k",
+                    "type": "uint64"
+                },
+                {
+                    "name": "gasPriceLimit",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "buybasetest",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayQuote",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
+            "name": "buybasetoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayQuote",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "buyethtoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayTokenAmount",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "buyethtokenx",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayTokenAmount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "pretransfer",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "buytokeneth",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayEthAmount",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "buytokenethx",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayEthAmount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "depositbase",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "depositethab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethtokenamount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "depositethaq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethtokenamount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "depositquote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "dodo_storage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "dodo",
+                    "type": "name"
+                },
+                {
+                    "name": "dodos",
+                    "type": "DODOStore"
+                }
+            ]
+        },
+        {
+            "name": "extended_symbol",
+            "base": "",
+            "fields": [
+                {
+                    "name": "symbol",
+                    "type": "symbol"
+                },
+                {
+                    "name": "contract",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "extransfer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "init",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodoZoo",
+                    "type": "address"
+                },
+                {
+                    "name": "weth",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "core_symbol",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "mint",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "moveoracle",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "newdodo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "name": "supervisor",
+                    "type": "address"
+                },
+                {
+                    "name": "maintainer",
+                    "type": "address"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "oracle",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "lpFeeRate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "mtFeeRate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "k",
+                    "type": "uint64"
+                },
+                {
+                    "name": "gasPriceLimit",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "newtoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "token",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "oracle_prices",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pair_token_hash_key",
+                    "type": "uint64"
+                },
+                {
+                    "name": "basetoken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quotetoken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "_OWNER_",
+                    "type": "address"
+                },
+                {
+                    "name": "_NEW_OWNER_",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "oracle_storage",
+            "base": "",
+            "fields": [
+                {
+                    "name": "basetoken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quotetoken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "_OWNER_",
+                    "type": "address"
+                },
+                {
+                    "name": "_NEW_OWNER_",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "pair_address_UserInfo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "address"
+                },
+                {
+                    "name": "value",
+                    "type": "UserInfo"
+                }
+            ]
+        },
+        {
+            "name": "pair_address_address",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "address"
+                },
+                {
+                    "name": "value",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "pair_address_bool",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "address"
+                },
+                {
+                    "name": "value",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "pair_address_uint64",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "address"
+                },
+                {
+                    "name": "value",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_DODOStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "DODOStore"
+                }
+            ]
+        },
+        {
+            "name": "pair_name_uint64",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "name"
+                },
+                {
+                    "name": "value",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "pair_namesym_OracleStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "namesym"
+                },
+                {
+                    "name": "value",
+                    "type": "OracleStore"
+                }
+            ]
+        },
+        {
+            "name": "pair_namesym_QuoteToken2Dodo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "namesym"
+                },
+                {
+                    "name": "value",
+                    "type": "QuoteToken2Dodo"
+                }
+            ]
+        },
+        {
+            "name": "pair_namesym_TokenStore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "namesym"
+                },
+                {
+                    "name": "value",
+                    "type": "TokenStore"
+                }
+            ]
+        },
+        {
+            "name": "pair_namesym_name",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "namesym"
+                },
+                {
+                    "name": "value",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "pair_uint64_Transaction",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "uint64"
+                },
+                {
+                    "name": "value",
+                    "type": "Transaction"
+                }
+            ]
+        },
+        {
+            "name": "pair_uint64_a2b",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "uint64"
+                },
+                {
+                    "name": "value",
+                    "type": "a2b"
+                }
+            ]
+        },
+        {
+            "name": "pair_uint64_user2info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "key",
+                    "type": "uint64"
+                },
+                {
+                    "name": "value",
+                    "type": "user2info"
+                }
+            ]
+        },
+        {
+            "name": "removedodo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "_dodo",
+                    "type": "address"
+                }
+            ]
+        },
+        {
+            "name": "sellbasetest",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minReceiveQuote",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
+            "name": "sellbastoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minReceiveQuote",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "sellethtoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minReceiveToken",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "sellquote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "minReceiveBase",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "sellquotetst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "minReceiveBase",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
+            "name": "selltokeneth",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minReceiveEth",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "selltokenetha",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minReceiveEth",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "receiveEthAmount",
+                    "type": "uint64"
+                },
+                {
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "setadmin",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "admin_name",
+                    "type": "name"
+                },
+                {
+                    "name": "admin",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "setparameter",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "para_name",
+                    "type": "name"
+                },
+                {
+                    "name": "para_value",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "setparametera",
+            "base": "",
+            "fields": [
+                {
+                    "name": "symbol",
+                    "type": "symbol"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
+            "name": "setprice",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "basetoken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quotetoken",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "transferdiff",
+            "base": "",
+            "fields": [
+                {
+                    "name": "diff",
+                    "type": "int64"
+                }
+            ]
+        },
+        {
+            "name": "user2info",
+            "base": "",
+            "fields": [
+                {
+                    "name": "a2info",
+                    "type": "pair_address_UserInfo[]"
+                }
+            ]
+        },
+        {
+            "name": "withdrawaeab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "withdrawaeaq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "withdrawaebx",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "withdrawaeqx",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "withdrawallb",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "withdrawallq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "withdrawbase",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "withdraweab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethtokenamount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "withdraweabx",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethtokenamount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "quoteToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "withdraweaq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethtokenamount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                }
+            ]
+        },
+        {
+            "name": "withdraweaqx",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "ethtokenamount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "baseToken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "state",
+                    "type": "uint8"
+                }
+            ]
+        },
+        {
+            "name": "withdrawquot",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
+            "name": "withdrawquote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "adddodo",
+            "type": "adddodo",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "breeddodo",
+            "type": "breeddodo",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buybasetest",
+            "type": "buybasetest",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buybasetoken",
+            "type": "buybasetoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buyethtoken",
+            "type": "buyethtoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buyethtokenx",
+            "type": "buyethtokenx",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buytokeneth",
+            "type": "buytokeneth",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buytokenethx",
+            "type": "buytokenethx",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "depositbase",
+            "type": "depositbase",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "depositethab",
+            "type": "depositethab",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "depositethaq",
+            "type": "depositethaq",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "depositquote",
+            "type": "depositquote",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "extransfer",
+            "type": "extransfer",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "init",
+            "type": "init",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "mint",
+            "type": "mint",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "moveoracle",
+            "type": "moveoracle",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newdodo",
+            "type": "newdodo",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newtoken",
+            "type": "newtoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "removedodo",
+            "type": "removedodo",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellbasetest",
+            "type": "sellbasetest",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellbastoken",
+            "type": "sellbastoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellethtoken",
+            "type": "sellethtoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellquote",
+            "type": "sellquote",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellquotetst",
+            "type": "sellquotetst",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "selltokeneth",
+            "type": "selltokeneth",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "selltokenetha",
+            "type": "selltokenetha",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setadmin",
+            "type": "setadmin",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setparameter",
+            "type": "setparameter",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setparametera",
+            "type": "setparametera",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "setprice",
+            "type": "setprice",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transferdiff",
+            "type": "transferdiff",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawaeab",
+            "type": "withdrawaeab",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawaeaq",
+            "type": "withdrawaeaq",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawaebx",
+            "type": "withdrawaebx",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawaeqx",
+            "type": "withdrawaeqx",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawallb",
+            "type": "withdrawallb",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawallq",
+            "type": "withdrawallq",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawbase",
+            "type": "withdrawbase",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraweab",
+            "type": "withdraweab",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraweabx",
+            "type": "withdraweabx",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraweaq",
+            "type": "withdraweaq",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdraweaqx",
+            "type": "withdraweaqx",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawquot",
+            "type": "withdrawquot",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "withdrawquote",
+            "type": "withdrawquote",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "dodo",
+            "type": "DODOStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "dodos",
+            "type": "dodo_storage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "helper",
+            "type": "HelperStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "mining",
+            "type": "MiningStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "oracle",
+            "type": "OracleStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "oracleprices",
+            "type": "oracle_prices",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "oracles",
+            "type": "oracle_storage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "proxy",
+            "type": "ProxyStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "token",
+            "type": "TokenStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "zoo",
+            "type": "ZooStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": []
+}
