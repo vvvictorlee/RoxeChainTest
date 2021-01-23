@@ -1,6 +1,6 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT ",
-    "version": "eosio::abi/1.1",
+    "____comment": "This file was generated with roxe-abigen. DO NOT EDIT ",
+    "version": "roxe::abi/1.1",
     "types": [
         {
             "new_type_name": "address",
@@ -653,6 +653,20 @@
             ]
         },
         {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "sequence",
+                    "type": "uint64"
+                },
+                {
+                    "name": "balance",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
             "name": "adddodo",
             "base": "",
             "fields": [
@@ -709,6 +723,32 @@
                 {
                     "name": "gasPriceLimit",
                     "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "buybasetest",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "maxPayQuote",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
                 }
             ]
         },
@@ -815,6 +855,24 @@
             ]
         },
         {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "depositbase",
             "base": "",
             "fields": [
@@ -901,53 +959,11 @@
             ]
         },
         {
-            "name": "enablebasdep",
-            "base": "",
-            "fields": [
-                {
-                    "name": "msg_sender",
-                    "type": "name"
-                },
-                {
-                    "name": "dodo_name",
-                    "type": "name"
-                }
-            ]
-        },
-        {
-            "name": "enablequodep",
-            "base": "",
-            "fields": [
-                {
-                    "name": "msg_sender",
-                    "type": "name"
-                },
-                {
-                    "name": "dodo_name",
-                    "type": "name"
-                }
-            ]
-        },
-        {
-            "name": "enabletradin",
-            "base": "",
-            "fields": [
-                {
-                    "name": "msg_sender",
-                    "type": "name"
-                },
-                {
-                    "name": "dodo_name",
-                    "type": "name"
-                }
-            ]
-        },
-        {
             "name": "extended_symbol",
             "base": "",
             "fields": [
                 {
-                    "name": "sym",
+                    "name": "symbol",
                     "type": "symbol"
                 },
                 {
@@ -1011,6 +1027,16 @@
                 {
                     "name": "amt",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "moveoracle",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
                 }
             ]
         },
@@ -1079,6 +1105,32 @@
                 {
                     "name": "token",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "oracle_prices",
+            "base": "",
+            "fields": [
+                {
+                    "name": "pair_token_hash_key",
+                    "type": "uint64"
+                },
+                {
+                    "name": "basetoken",
+                    "type": "extended_symbol"
+                },
+                {
+                    "name": "quotetoken",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "_OWNER_",
+                    "type": "address"
+                },
+                {
+                    "name": "_NEW_OWNER_",
+                    "type": "address"
                 }
             ]
         },
@@ -1301,6 +1353,32 @@
             ]
         },
         {
+            "name": "sellbasetest",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "minReceiveQuote",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
             "name": "sellbastoken",
             "base": "",
             "fields": [
@@ -1337,6 +1415,54 @@
                 {
                     "name": "minReceiveToken",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "sellquote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "minReceiveBase",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "sellquotetst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "minReceiveBase",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "amount",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
                 }
             ]
         },
@@ -1385,6 +1511,28 @@
             ]
         },
         {
+            "name": "setadmin",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "admin_name",
+                    "type": "name"
+                },
+                {
+                    "name": "admin",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "setparameter",
             "base": "",
             "fields": [
@@ -1407,6 +1555,20 @@
             ]
         },
         {
+            "name": "setparametera",
+            "base": "",
+            "fields": [
+                {
+                    "name": "symbol",
+                    "type": "symbol"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
             "name": "setprice",
             "base": "",
             "fields": [
@@ -1421,6 +1583,16 @@
                 {
                     "name": "quotetoken",
                     "type": "extended_asset"
+                }
+            ]
+        },
+        {
+            "name": "transferdiff",
+            "base": "",
+            "fields": [
+                {
+                    "name": "diff",
+                    "type": "int64"
                 }
             ]
         },
@@ -1625,6 +1797,28 @@
             ]
         },
         {
+            "name": "withdrawquot",
+            "base": "",
+            "fields": [
+                {
+                    "name": "msg_sender",
+                    "type": "name"
+                },
+                {
+                    "name": "dodo_name",
+                    "type": "name"
+                },
+                {
+                    "name": "amt",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "params",
+                    "type": "int64[]"
+                }
+            ]
+        },
+        {
             "name": "withdrawquote",
             "base": "",
             "fields": [
@@ -1652,6 +1846,11 @@
         {
             "name": "breeddodo",
             "type": "breeddodo",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "buybasetest",
+            "type": "buybasetest",
             "ricardian_contract": ""
         },
         {
@@ -1700,21 +1899,6 @@
             "ricardian_contract": ""
         },
         {
-            "name": "enablebasdep",
-            "type": "enablebasdep",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "enablequodep",
-            "type": "enablequodep",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "enabletradin",
-            "type": "enabletradin",
-            "ricardian_contract": ""
-        },
-        {
             "name": "extransfer",
             "type": "extransfer",
             "ricardian_contract": ""
@@ -1727,6 +1911,11 @@
         {
             "name": "mint",
             "type": "mint",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "moveoracle",
+            "type": "moveoracle",
             "ricardian_contract": ""
         },
         {
@@ -1745,6 +1934,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "sellbasetest",
+            "type": "sellbasetest",
+            "ricardian_contract": ""
+        },
+        {
             "name": "sellbastoken",
             "type": "sellbastoken",
             "ricardian_contract": ""
@@ -1752,6 +1946,16 @@
         {
             "name": "sellethtoken",
             "type": "sellethtoken",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellquote",
+            "type": "sellquote",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "sellquotetst",
+            "type": "sellquotetst",
             "ricardian_contract": ""
         },
         {
@@ -1765,13 +1969,28 @@
             "ricardian_contract": ""
         },
         {
+            "name": "setadmin",
+            "type": "setadmin",
+            "ricardian_contract": ""
+        },
+        {
             "name": "setparameter",
             "type": "setparameter",
             "ricardian_contract": ""
         },
         {
+            "name": "setparametera",
+            "type": "setparametera",
+            "ricardian_contract": ""
+        },
+        {
             "name": "setprice",
             "type": "setprice",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transferdiff",
+            "type": "transferdiff",
             "ricardian_contract": ""
         },
         {
@@ -1830,12 +2049,24 @@
             "ricardian_contract": ""
         },
         {
+            "name": "withdrawquot",
+            "type": "withdrawquot",
+            "ricardian_contract": ""
+        },
+        {
             "name": "withdrawquote",
             "type": "withdrawquote",
             "ricardian_contract": ""
         }
     ],
     "tables": [
+        {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
         {
             "name": "dodo",
             "type": "DODOStorage",
@@ -1872,6 +2103,13 @@
             "key_types": []
         },
         {
+            "name": "oracleprices",
+            "type": "oracle_prices",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "oracles",
             "type": "oracle_storage",
             "index_type": "i64",
@@ -1881,6 +2119,13 @@
         {
             "name": "proxy",
             "type": "ProxyStorage",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

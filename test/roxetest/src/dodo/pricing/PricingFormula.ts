@@ -9,8 +9,21 @@ const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIM
 const suffix = process.env.suffix || "re"
 const debug = require("debug");
 const formula = debug('formula');
-debug.enable("formula");
-// debug.disable("formula");
+// debug.enable("formula");
+// // debug.disable("formula");
+// // const trader = debug('trader');
+// debug.enable("trader");
+// debug.disable("trader");
+// debug.enable("pricing");
+// debug.disable("pricing");
+// debug.enable("dodomath");
+// debug.disable("dodomath");
+
+debug.enable("*");
+
+// debug.enable('foo:*,-foo:bar');
+// let namespaces = debug.disable();
+// debug.enable(namespaces);
 
 // import { SafeMath } from "./lib/SafeMath";
 // ////console.log(SafeMath.divCeil(70, 7));
@@ -192,32 +205,9 @@ const TestDodos = {
 };
 
 
-function isNumber1(obj: any) {
-    return typeof obj === 'number' && !isNaN(obj)
-}
 
-function isNumber2(obj: any) {
-    return typeof obj === 'number' && isFinite(obj)
-}
-
-function isNumber(obj: any) {
-    return obj === +obj
-}
-// function test() {
-//     const s = "1"
-//     const t = "2"
-//     // const ss = {s,t};
-//     return [s, t];
-// }
 (async function () {
-    // const [s, t] = test();
-    // const ss = { s, t };
-    // console.log(ss);
-    // const s :{[name:string]:any}= {};
-    ////console.log(isNumber1("1"));
-    ////console.log(isNumber2("w"));
-    ////console.log(isNumber(Number("22")));
-    ////console.log(isNumber(Number(s.s)),Number(s.s));
+
 
     let dodosFromTestChain: any = await papi.getDodo();
 
@@ -234,12 +224,15 @@ function isNumber(obj: any) {
             const basetoken = t[0];
             const quotetoken = t[1];
             {
-                let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-                console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                // let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+                // console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
                 //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
                 //    console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                // let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
-                ////console.log("=sell =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
+                let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
+                console.log("=sell quote =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
+                amount = q;
+                let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+                console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
             }
 
             // {

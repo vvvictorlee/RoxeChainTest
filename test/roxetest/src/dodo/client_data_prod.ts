@@ -103,6 +103,10 @@ export class Dos {
         selldata: {
             amount: 998500000,
             minReceive: 728900000
+        },   
+        sellquote: {
+            minReceive: 1000,
+            amount: 1323603731
         }
 
     };

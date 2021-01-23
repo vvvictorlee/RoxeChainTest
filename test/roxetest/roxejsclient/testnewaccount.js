@@ -13,6 +13,29 @@ const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 //     // let jsonstr = await jq.run('.', JSON.stringify(log), { input: 'string', output: 'pretty' });
 //     // console.log(JSON.stringify(log));
 // };
+
+
+function isNumber1(obj: any) {
+    return typeof obj === 'number' && !isNaN(obj)
+}
+
+function isNumber2(obj: any) {
+    return typeof obj === 'number' && isFinite(obj)
+}
+
+function isNumber(obj: any) {
+    return obj === +obj
+}
+
+ // const [s, t] = test();
+    // const ss = { s, t };
+    // console.log(ss);
+    // const s :{[name:string]:any}= {};
+    ////console.log(isNumber1("1"));
+    ////console.log(isNumber2("w"));
+    ////console.log(isNumber(Number("22")));
+    ////console.log(isNumber(Number(s.s)),Number(s.s));
+
 const {prettyJson}  = require("./prettyjson");
 
 const api = new Api({

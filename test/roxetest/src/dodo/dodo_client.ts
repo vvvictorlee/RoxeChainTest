@@ -23,7 +23,7 @@
 //     textEncoder: new TextEncoder()
 // })
 
-import { Dos } from "./client_data_test";
+import { Dos } from "./client_data_prod_test";
 import { prettyJson } from "../lib/prettyjson";
 // const { deployContractjs } = require('../lib/deployContract_api_utils')
 import { Client } from "../lib/client";
@@ -204,6 +204,10 @@ export class DosClient {
         await this.common_client.pushAction("sellbastoken", Dos.trader, this.pair_data.base.DODO_NAME, ClientUtil.to_asset(this.pair_data.selldata.amount, this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.selldata.minReceive, this.pair_data.base.tokens[1]));
     }
 
+    async sellqt() {
+        await this.common_client.pushAction("sellquote", Dos.trader, this.pair_data.base.DODO_NAME, ClientUtil.to_asset(this.pair_data.sellquote.minReceive, this.pair_data.base.tokens[0]), ClientUtil.to_asset(this.pair_data.sellquote.amount, this.pair_data.base.tokens[1]));
+    }
+
     async buyfakebt() {
         const a = { quantity: "1.000000 XXX", contract: "a" };
         await this.common_client.pushAction("buybasetoken", Dos.trader, this.pair_data.base.DODO_NAME, a, ClientUtil.to_wei_asset(this.pair_data.buydata.maxPay, this.pair_data.base.tokens[1]));
@@ -246,7 +250,7 @@ let client = new DosClient(Dos.USD2GBP, Dos.para);
 
 const handlers: any = {
     "a": (async function () {
-        await client.common_client.allowDosContracts();
+        await client.common_client.allowContracts();
     }),
     "t": (async function () {
         await client.extransfer();
@@ -289,6 +293,9 @@ const handlers: any = {
     }),
     "sellbt": (async function () {
         await client.sellbt();
+    }),
+    "sellqt": (async function () {
+        await client.sellqt();
     }),
     "buyfakebt": (async function () {
         await client.buyfakebt();
@@ -336,8 +343,8 @@ async function main(arg: any) {
     const p = para[arg[user_arg_offset]];
     if (undefined != p) {
         client = new DosClient(p, Dos.para);
-        if (undefined != arg[user_arg_offset+1]) {
-            await handlers[arg[user_arg_offset+1]]();
+        if (undefined != arg[user_arg_offset + 1]) {
+            await handlers[arg[user_arg_offset + 1]]();
         } else {
             for (let ac of actions) {
                 await handlers[ac]();
@@ -369,3 +376,10 @@ main(argumentss);
 //     client.depositbasequote();
 // }
 
+
+// function GetRandomNum(Min,Max)
+// {   
+// var Range = Max - Min;   
+// var Rand = Math.random();   
+// return(Min + Math.round(Rand * Range));   
+// }

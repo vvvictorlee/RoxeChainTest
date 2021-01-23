@@ -42,7 +42,7 @@ export class PricingApi {
             }
         }
         //console.log(JSON.stringify(res));
-        prettyJson(allrows);
+        // prettyJson(allrows);
         return allrows;
     }
 
