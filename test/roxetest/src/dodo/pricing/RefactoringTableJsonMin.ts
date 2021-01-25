@@ -3,7 +3,7 @@
 import { prettyJson } from "../../lib/prettyjson";
 const dotenv = require('dotenv');
 dotenv.load();
-const TokenDecimal = process.env.PRICING_DODO_EARN_ONE_DECIMALS||6;
+const TokenDecimal = process.env.PRICING_DODO_EARN_ONE_DECIMALS || 6;
 
 export class RefactoringTableJsonMin {
     refactoring_fields: any[] = [
@@ -32,13 +32,15 @@ export class RefactoringTableJsonMin {
         let alldodos: any = {};
         for (let d of dodos) {
             alldodos[d.dodo] = {};
+
             let basetoken = d.dodos._BASE_TOKEN_.symbol.split(",")[1];
             let quotetoken = d.dodos._QUOTE_TOKEN_.symbol.split(",")[1];
-            if (!oraclejson.hasOwnProperty(basetoken) || !oraclejson[basetoken].hasOwnProperty(quotetoken)) {
+
+            if (d.dodos._BASE_TOKEN_.contract != "roxe.ro" || !oraclejson.hasOwnProperty(basetoken) || !oraclejson[basetoken].hasOwnProperty(quotetoken)) {
                 continue;
             }
 
-            alldodos[d.dodo]["_ORACLE_PRICE_"] = Number(oraclejson[basetoken][quotetoken])*Math.pow(10,Number(TokenDecimal));
+            alldodos[d.dodo]["_ORACLE_PRICE_"] = Number(oraclejson[basetoken][quotetoken]) * Math.pow(10, Number(TokenDecimal));
 
             for (let f of this.refactoring_fields) {
                 alldodos[d.dodo][f] = d.dodos[f];
@@ -56,7 +58,7 @@ export class RefactoringTableJsonMin {
             let q = oracle.quotetoken.quantity.split(" ");
             let q0 = q[0].trim();
             let i = q0.indexOf(".");
-            if (b[0] != TokenDecimal || -1 == i || q0.substr(i+1).length != TokenDecimal) {
+            if (b[0] != TokenDecimal || -1 == i || q0.substr(i + 1).length != TokenDecimal) {
                 continue;
             }
 

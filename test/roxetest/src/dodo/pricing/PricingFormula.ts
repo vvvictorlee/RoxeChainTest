@@ -181,15 +181,15 @@ const TestDodos = {
         _QUOTE_BALANCE_: '7749979054074'
     },
     usd2gbp44444: {
-        _ORACLE_PRICE_: 0.74,
+        _ORACLE_PRICE_: 735475,
         _LP_FEE_RATE_: 595,
         _MT_FEE_RATE_: 105,
         _K_: 100,
         _R_STATUS_: 1,
-        _TARGET_BASE_TOKEN_AMOUNT_: '994984389360',
-        _TARGET_QUOTE_TOKEN_AMOUNT_: '739567295754',
-        _BASE_BALANCE_: '699279538448',
-        _QUOTE_BALANCE_: '958398324877'
+        _TARGET_BASE_TOKEN_AMOUNT_: '952116302',
+        _TARGET_QUOTE_TOKEN_AMOUNT_: '700018314',
+        _BASE_BALANCE_: '926894600',
+        _QUOTE_BALANCE_: '718454552'
     },
     usd2hkd44444: {
         _ORACLE_PRICE_: 7.75,
@@ -205,18 +205,25 @@ const TestDodos = {
 };
 
 
+        // "_R_STATUS_": 1,
+        // "_TARGET_BASE_TOKEN_AMOUNT_": 952116302,
+        // "_TARGET_QUOTE_TOKEN_AMOUNT_": 700018314,
+        // "_BASE_BALANCE_": 926894600,
+        // "_QUOTE_BALANCE_": 718454552,
+
 
 (async function () {
 
 
-    let dodosFromTestChain: any = await papi.getDodo();
+    // let dodosFromTestChain: any = await papi.getDodo();
 
-    formula("dodosFromTestChain===", dodosFromTestChain, "====");
+    // formula("dodosFromTestChain===", dodosFromTestChain, "====");
     // prettyJson(dodosFromTestChain);
-    // api.init(JSON.stringify(TestDodos));
-    api.init(JSON.stringify(dodosFromTestChain));
+    // api.init(JSON.stringify(dodosFromTestChain));
+
+    api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amounts = [1060000];//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    const amounts = [8500000];//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
@@ -226,13 +233,13 @@ const TestDodos = {
             {
                 // let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                 // console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-                //    console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
-                console.log("=sell quote =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
-                amount = q;
-                let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-                console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
+                    let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+                   console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                // let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
+                // console.log("=sell quote =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
+                // amount = q;
+                // let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+                // console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
             }
 
             // {

@@ -120,6 +120,22 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{
    "json":true
 }' |jq
 
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
+   "table":"oracleprices",
+   "json":true
+}' |jq
+
+
+
+curl -X POST --url http://47.75.253.127:8888/v1/chain/get_table_rows -d '{  
+   "scope":"roxe.earn",
+   "code":"roxe.earn",
+   "table":"oracleprices",
+   "json":true
+}' |jq
+
 
 # ./clroxe system newaccount roxe1 eoswapxtoken ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active
 # ./clroxe system newaccount roxe1 eoswapeoswap ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH --stake-net "10000.0000 ROC" --stake-cpu "10000.0000 ROC" --buy-ram "10000.0000 ROC" -p roxe1@active

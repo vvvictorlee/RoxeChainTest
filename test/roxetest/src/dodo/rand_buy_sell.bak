@@ -1,0 +1,74 @@
+
+import { Dos } from "./client_data_prod_test";
+import { prettyJson } from "../lib/prettyjson";
+import { Client } from "../lib/client";
+import { ClientUtil } from "../lib/client_util";
+
+const dotenv = require('dotenv');
+const dotenvParseVariables = require('dotenv-parse-variables');
+
+let env = dotenv.config({})
+if (env.error) throw env.error;
+env = dotenvParseVariables(env.parsed);
+
+
+const arg_offset = 2;
+const user_arg_offset = 0;
+
+var argumentss: any = process.argv.splice(arg_offset);
+console.log('所传递的参数是：', argumentss);
+
+// // //////////////////////////
+// // // print process.argv
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+});
+
+
+const cron = require('node-cron')
+async function runJob() {
+    const mintues = 1000 * 60 ;
+    let counter = 0;
+    let rate = 0.1;
+    let step = 0.1;
+    let direction = 1;
+    const min = 50;
+    const max = 100000;
+    const range = 10 - 5;
+    let action = "buy";
+    var lasttimestamp = 0;
+    let task = cron.schedule('*/1 * * * * *', async () => {
+        var currtimestamp = +new Date();//timestamp milliseconds
+        // if (currtimestamp >= lasttimestamp) {
+            var s = await GetRandomNum(min, max);
+            // lasttimestamp = currtimestamp + s * mintues;
+            action = "sell"
+            if (s %2==0) {
+                action = "buy"
+            }
+
+            console.log(action, Number(s).toFixed(6), counter++, new Date())
+
+        // }
+
+
+    }, {scheduled:false})
+
+    task.start()
+    // task.stop()
+    // task.destroy()
+    // cron.validate('* * * * * *')
+
+
+}
+
+
+
+async function GetRandomNum(Min: any, Max: any) {
+    var Range = Max - Min;
+    var Rand = Math.random();
+    return (Min + Math.round(Rand * Range));
+}
+
+
+runJob()
