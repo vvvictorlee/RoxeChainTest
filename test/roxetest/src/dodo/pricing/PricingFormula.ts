@@ -181,7 +181,7 @@ const TestDodos = {
         _QUOTE_BALANCE_: '7749979054074'
     },
     usd2gbp44444: {
-        _ORACLE_PRICE_: 735475,
+        _ORACLE_PRICE_: 730295,
         _LP_FEE_RATE_: 595,
         _MT_FEE_RATE_: 105,
         _K_: 100,
@@ -215,13 +215,13 @@ const TestDodos = {
 (async function () {
 
 
-    // let dodosFromTestChain: any = await papi.getDodo();
+    let dodosFromTestChain: any = await papi.getDodo();
 
     // formula("dodosFromTestChain===", dodosFromTestChain, "====");
     // prettyJson(dodosFromTestChain);
-    // api.init(JSON.stringify(dodosFromTestChain));
+    api.init(JSON.stringify(dodosFromTestChain));
 
-    api.init(JSON.stringify(TestDodos));
+    // api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
     const amounts = [8500000];//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    

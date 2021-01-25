@@ -36,7 +36,7 @@ export class RefactoringTableJsonMin {
             let basetoken = d.dodos._BASE_TOKEN_.symbol.split(",")[1];
             let quotetoken = d.dodos._QUOTE_TOKEN_.symbol.split(",")[1];
 
-            if (d.dodos._BASE_TOKEN_.contract != "roxe.ro" || !oraclejson.hasOwnProperty(basetoken) || !oraclejson[basetoken].hasOwnProperty(quotetoken)) {
+            if (!oraclejson.hasOwnProperty(basetoken) || !oraclejson[basetoken].hasOwnProperty(quotetoken)) {
                 continue;
             }
 
@@ -58,7 +58,7 @@ export class RefactoringTableJsonMin {
             let q = oracle.quotetoken.quantity.split(" ");
             let q0 = q[0].trim();
             let i = q0.indexOf(".");
-            if (b[0] != TokenDecimal || -1 == i || q0.substr(i + 1).length != TokenDecimal) {
+            if (oracle.basetoken.contract != "roxe.ro" || b[0] != TokenDecimal || -1 == i || q0.substr(i + 1).length != TokenDecimal) {
                 continue;
             }
 
