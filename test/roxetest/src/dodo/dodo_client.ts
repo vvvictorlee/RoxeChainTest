@@ -23,7 +23,7 @@
 //     textEncoder: new TextEncoder()
 // })
 
-import { Dos } from "./client_data_prod_test";
+import { Dos } from "./client_data_test";
 import { prettyJson } from "../lib/prettyjson";
 // const { deployContractjs } = require('../lib/deployContract_api_utils')
 import { Client } from "../lib/client";
