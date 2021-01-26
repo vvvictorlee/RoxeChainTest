@@ -231,7 +231,7 @@ curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
 curl -X POST --url http://172.17.3.161:7878/v1/history/get_transaction -d '{	"id":"6b2d8e34a34c1004310c424cb090d11d41f91c0f6100a92836eb464362cde68c"}'
 
 # 
-curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"roxeliml1222"}'
+curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":0,	"offset":2,	"account_name":"roxe.earn"}'
 
 curl -X POST --url http://172.17.3.161:7878/v1/history/get_key_accounts -d '{
   "public_key": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"

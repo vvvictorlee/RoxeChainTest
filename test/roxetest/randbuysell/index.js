@@ -5,15 +5,15 @@ if (env.error) throw env.error;
 // const dotenvParseVariables = require('dotenv-parse-variables');
 // env = dotenvParseVariables(env.parsed);
 
-const  sleep = require('sleep');
+const sleep = require('sleep');
 const { Api, JsonRpc, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
 
-const defaultPrivateKey = process.env.EOS_KEY||"5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN";
-const defaultPrivateKey2 = process.env.EOS_KEY2||"5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8";
-const signatureProvider = new JsSignatureProvider([defaultPrivateKey,defaultPrivateKey2])
+const defaultPrivateKey = process.env.EOS_KEY || "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN";
+const defaultPrivateKey2 = process.env.EOS_KEY2 || "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8";
+const signatureProvider = new JsSignatureProvider([defaultPrivateKey, defaultPrivateKey2])
 // const rpc = new JsonRpc('http://172.17.3.161:7878', { fetch })
 
 const protocol = process.env.EOS_PROTOCOL || "http";
@@ -21,8 +21,8 @@ const host = process.env.EOS_HOST || "172.17.3.161";
 const port = process.env.EOS_PORT || "7878";
 const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
-const timer_ticker = process.env.TIMER_TICKER||'*/1 * * * * *'
-const freq = process.env.FREQ||500
+const timer_ticker = process.env.TIMER_TICKER || '*/1 * * * * *'
+const freq = process.env.FREQ || 500
 
 const contract = "roxe.earn";// "roxeearntest";//
 const msg_senders = ["earntrader11", "earntrader22"];//["bob111111111", "bob111111111"];//earntrader11
@@ -71,18 +71,26 @@ const logerror = async (msg) => {
     }
 }
 
+const sendaction = async (action, data) => {
+    try {
+        const transactionResponse = await transactWithConfig("buybasetoken", data);
+        logerror(transactionResponse)
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const buy = async (msg_sender, dodo_name, amount, maxPayQuote) => {
     const data = { msg_sender, dodo_name, amount, maxPayQuote };
     // console.log(data);
-    const transactionResponse = await transactWithConfig("buybasetoken", data);
-    logerror(transactionResponse)
+    await sendaction("buybasetoken", data);
+
 }
 
 const sell = async (msg_sender, dodo_name, amount, minReceiveQuote) => {
     const data = { msg_sender, dodo_name, amount, minReceiveQuote };
+    await transactWithConfig("sellbastoken", data);
 
-    const transactionResponse = await transactWithConfig("sellbastoken", data);
-    logerror(transactionResponse)
 }
 
 
@@ -95,7 +103,7 @@ async function runJob() {
         const m = Number(s * 11).toFixed(6);
         console.log(Number(s).toFixed(6), counter++, new Date())
         const i = s % 2;
-        const ii = (i+1) % 2;
+        const ii = (i + 1) % 2;
         sell(msg_senders[i], dodo_names[i], to_asset(a, para_names[i][0]), to_asset("0.000000", para_names[i][1]));
         sleep.msleep(freq);
         buy(msg_senders[ii], dodo_names[ii], to_asset(a, para_names[ii][0]), to_asset(m, para_names[ii][1]));
