@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "rand": "node  -r dotenv/config rand_buy_sell.js dotenv_config_path=.env",
-    "rand:test": "node  -r dotenv/config rand_buy_sell.js dotenv_config_path=.env.test",
-    "rand:prod": "node  -r dotenv/config rand_buy_sell.js dotenv_config_path=.env.prod",
+    "rand": "node  -r dotenv/config index.js dotenv_config_path=.env",
+    "rand:test": "node  -r dotenv/config index.js dotenv_config_path=.env.test",
+    "rand:prod": "node  -r dotenv/config index.js dotenv_config_path=.env.prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
