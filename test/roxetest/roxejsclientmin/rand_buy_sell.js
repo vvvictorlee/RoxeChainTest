@@ -1,10 +1,19 @@
+const dotenv = require('dotenv');
+
+let env = dotenv.config({})
+if (env.error) throw env.error;
+// const dotenvParseVariables = require('dotenv-parse-variables');
+// env = dotenvParseVariables(env.parsed);
+
+const  sleep = require('sleep');
 const { Api, JsonRpc, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
 
-const defaultPrivateKey = "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN";
-const signatureProvider = new JsSignatureProvider([defaultPrivateKey,"5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8"])
+const defaultPrivateKey = process.env.EOS_KEY||"5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN";
+const defaultPrivateKey2 = process.env.EOS_KEY2||"5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8";
+const signatureProvider = new JsSignatureProvider([defaultPrivateKey,defaultPrivateKey2])
 // const rpc = new JsonRpc('http://172.17.3.161:7878', { fetch })
 
 const protocol = process.env.EOS_PROTOCOL || "http";
@@ -15,14 +24,16 @@ const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 const timer_ticker = process.env.TIMER_TICKER||'*/1 * * * * *'
 const freq = process.env.FREQ||500
 
-let sleep = require('sleep');
+const contract = "roxe.earn";// "roxeearntest";//
+const msg_senders = ["earntrader11", "earntrader22"];//["bob111111111", "bob111111111"];//earntrader11
+const dodo_names = ["re.usdgbp", "re.usdhkd"];//["usd2gbp44444", "usd2hkd44444"];//
+const para_names = [["USD", "GBP"], ["USD", "HKD"]];
+let counter = 0;
+const min = 1;
+const max = 10;
+const token_contract = "roxe.ro";
 
-const dotenv = require('dotenv');
 
-let env = dotenv.config({})
-if (env.error) throw env.error;
-// const dotenvParseVariables = require('dotenv-parse-variables');
-// env = dotenvParseVariables(env.parsed);
 
 
 const api = new Api({
@@ -47,7 +58,6 @@ const transactWithConfig = async (action, data) => await api.transact({
     expireSeconds: 30,
 });
 
-const token_contract = "roxe.ro";
 const to_asset = (value, sym) => {
     return { "quantity": value + " " + sym, contract: token_contract };
 }
@@ -76,14 +86,6 @@ const sell = async (msg_sender, dodo_name, amount, minReceiveQuote) => {
 }
 
 
-const contract = "roxe.earn";// "roxeearntest";//
-const msg_senders = ["earntrader11", "earntrader22"];//["bob111111111", "bob111111111"];//earntrader11
-const dodo_names = ["re.usdgbp", "re.usdhkd"];//["usd2gbp44444", "usd2hkd44444"];//
-const para_names = [["USD", "GBP"], ["USD", "HKD"]];
-const mintues = 1000 * 60;
-let counter = 0;
-const min = 1;
-const max = 10;
 
 const cron = require('node-cron')
 async function runJob() {
