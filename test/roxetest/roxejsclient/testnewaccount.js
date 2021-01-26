@@ -15,17 +15,17 @@ const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 // };
 
 
-function isNumber1(obj: any) {
-    return typeof obj === 'number' && !isNaN(obj)
-}
+// function isNumber1(obj: any) {
+//     return typeof obj === 'number' && !isNaN(obj)
+// }
 
-function isNumber2(obj: any) {
-    return typeof obj === 'number' && isFinite(obj)
-}
+// function isNumber2(obj: any) {
+//     return typeof obj === 'number' && isFinite(obj)
+// }
 
-function isNumber(obj: any) {
-    return obj === +obj
-}
+// function isNumber(obj: any) {
+//     return obj === +obj
+// }
 
  // const [s, t] = test();
     // const ss = { s, t };
@@ -208,9 +208,9 @@ const createNewAccount = async (
 };
 
 // buyram("roxe1");
-// const pub_key = "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH";
-// createNewAccount("gbp2usd11111", pub_key, pub_key);
-// createNewAccount("hkd2usd11111", pub_key, pub_key);
+const pub_key = "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH";
+createNewAccount("earntrader11", pub_key, pub_key);
+createNewAccount("earntrader22", pub_key, pub_key);
 
 // prettyJson("result");
 

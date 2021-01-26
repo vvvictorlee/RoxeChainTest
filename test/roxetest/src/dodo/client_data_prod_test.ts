@@ -23,14 +23,14 @@ export class Dos {
     static tokenowner = "roxe.ro";
     static tokenissuer = "tokenissuer1";
     static maintainer = "maintainer11";
-    static oracleadmin = Dos.admin;//"orc.polygon";
+    static oracleadmin = "orc.polygon";
     static doowner = Dos.admin;
     static dodo_ethbase_name = "ethbasemkr11";
     static dodo_ethquote_name = "ethquotemkr1";
     static dodo_stablecoin_name = "dai2mkr11111";//daimkrdaimkr
     static dodo_u2g_name = "re.usdgbp";
     static dodo_u2h_name = "re.usdhkd";
-    static dodo_g2h_name = "gbp2hkd55555";
+    static dodo_g2h_name = "re.gpbhkd";
     static contract = "roxe.earn";
     static filePath = '../wasms/roxe.token/roxe.token';
     static dosfilePath = '../wasms/0123/eosdos/eosdos';
@@ -49,15 +49,10 @@ export class Dos {
                 "roxe.earn": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "roxe1": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
                 "roxeearnprod": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "roxearntoken": "ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z",
-                "eosdosoracle": "ROXE5rM2nqtmCqyeRMpmQQMVTMYYZ9VYq9JDgve4t3Gzy6gVU1wB1z",
                 "re.usdgbp": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
                 "re.usdhkd": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "tokenissuer1": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "maintainer11": "ROXE6m2TpGWE59yDPWuBaB3xSJSgYWkggzSTuDv5vLfS3hYzB6UTU2",
-                "alice1111111": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
-                "bob111111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX",
-                "carol1111111": "ROXE6bYcFRBBLugKtxfkNxnyyrxUFV2LMGT3h9GcDisd6QYUyt2xfX"
+                "earntrader11": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH",
+                "earntrader22": "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
             },
             keys: [process.env.EOS_KEY,
                 "5JZDFmwRwxJU2j1fugGtLLaNp2bcAP2PKy5zsqNkhn47v3S3e5w",
