@@ -48,21 +48,17 @@ const max = process.env.MAX || 10;
 // randbuysell("=====max====", max);
 const token_contract = process.env.TOKEN_CONTRACT || "roxe.ro";
 
-let rpc;
-let api;
-try {
-    rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
-    api = new Api({
-        rpc,
-        signatureProvider,
-        textDecoder: new TextDecoder(),
-        textEncoder: new TextEncoder()
-    })
-}
-catch (error) {
-    console.error("==========rpc=========", error);
-}
+const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch });//.catch(e => console.error(e));
+
+const api = new Api({
+    rpc,
+    signatureProvider,
+    textDecoder: new TextDecoder(),
+    textEncoder: new TextEncoder()
+});//.catch(e => console.error(e));
+
+
 
 const transactWithConfig = async (action, data) => await api.transact({
     actions: [{
@@ -77,7 +73,7 @@ const transactWithConfig = async (action, data) => await api.transact({
 }, {
     blocksBehind: 3,
     expireSeconds: 30,
-});
+}).catch(e => console.error(e));
 
 const to_asset = (value, sym) => {
     return { "quantity": value + " " + sym, contract: token_contract };
