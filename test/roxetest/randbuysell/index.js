@@ -1,9 +1,7 @@
 const dotenv = require('dotenv');
-const dotenvParseVariables = require('dotenv-parse-variables');
 let env = dotenv.config({})
 if (env.error) throw env.error;
-env = dotenvParseVariables(env.parsed);
-console.log(env);
+// console.log(env);
 
 const debug = require("debug");
 const randbuysell = debug('randbuysell');
@@ -15,13 +13,15 @@ const { Api, JsonRpc, RpcError } = require('roxejs')
 const { JsSignatureProvider } = require('roxejs/dist/roxejs-jssig')      // development only
 const fetch = require('node-fetch')                                   // node only; not needed in browsers
 const { TextEncoder, TextDecoder } = require('util')
-const keys = process.env.KEYS ||[];
-const msg_senderss = process.env.MSG_SENDERS ||[];
-console.log(keys,msg_senders);
-const defaultPrivateKey = process.env.EOS_KEY || "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN";
-const defaultPrivateKey2 = process.env.EOS_KEY2 || "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8";
-const signatureProvider = new JsSignatureProvider([defaultPrivateKey, defaultPrivateKey2])
+// const defaultPrivateKey = process.env.EOS_KEY || "5J6BA1U4QdQPwkFWsphU96oBusvsA8V2UJDtMtKgNneakBK9YrN";
+// const defaultPrivateKey2 = process.env.EOS_KEY2 || "5JHFTcGiKFDXFR64voMJXnxWZUqBgaEAnqMiyjJzBLQn9tHhWA8";
+// const signatureProvider = new JsSignatureProvider([defaultPrivateKey,defaultPrivateKey2])
 // const rpc = new JsonRpc('http://172.17.3.161:7878', { fetch })
+
+const keys = (process.env.KEYS||"").split(",") ||[];
+const msg_senders = (process.env.MSG_SENDERS||"").split(",") ||[];
+// console.log(keys,msg_senders,keys);
+const signatureProvider = new JsSignatureProvider(keys)
 
 const protocol = process.env.EOS_PROTOCOL || "http";
 const host = process.env.EOS_HOST || "172.17.3.161";
@@ -30,16 +30,23 @@ const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
 const timer_ticker = process.env.TIMER_TICKER || '*/1 * * * * *'
 const freq = process.env.FREQ || 500
-const msg_sender1 = process.env.MSG_SENDER1 || "earntrader11";
-const msg_sender2 = process.env.MSG_SENDER2 || "earntrader22";
+// const msg_sender1 = process.env.MSG_SENDER1 || "earntrader11";
+// const msg_sender2 = process.env.MSG_SENDER2 || "earntrader22";
+// const msg_senders = [msg_sender1, msg_sender2];//["bob111111111", "bob111111111"];//earntrader11
+
 const contract = process.env.CONTRACT || "roxe.earn";// "roxeearntest";//
-const msg_senders = [msg_sender1, msg_sender2];//["bob111111111", "bob111111111"];//earntrader11
-const dodo_names = ["re.usdgbp", "re.usdhkd"];//["usd2gbp44444", "usd2hkd44444"];//
-const para_names = [["USD", "GBP"], ["USD", "HKD"]];
+// const dodo_names = ["re.usdgbp", "re.usdhkd"];//["usd2gbp44444", "usd2hkd44444"];//
+// const para_names = [["USD", "GBP"], ["USD", "HKD"]];
+const dodo_names = (process.env.DODO_NAMES||"").split(",") ||[]
+const para_namess = process.env.PARA_NAMES ||[]
+// console.log(dodo_names,para_namess);
+// console.log(JSON.parse(para_namess));
+const para_names = JSON.parse(para_namess);
+
 let counter = 0;
 const min = process.env.MIN || 1;
 const max = process.env.MAX || 10;
-randbuysell("=====max====", max);
+// randbuysell("=====max====", max);
 const token_contract = process.env.TOKEN_CONTRACT || "roxe.ro";
 
 
@@ -82,6 +89,7 @@ const logerror = async (msg) => {
 
 const sendaction = async (action, data) => {
     try {
+  verbose(action,data);
         const transactionResponse = await transactWithConfig("buybasetoken", data);
         logerror(transactionResponse)
     } catch (error) {
