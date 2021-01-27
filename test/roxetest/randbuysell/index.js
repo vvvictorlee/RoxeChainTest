@@ -18,15 +18,14 @@ const { TextEncoder, TextDecoder } = require('util')
 // const signatureProvider = new JsSignatureProvider([defaultPrivateKey,defaultPrivateKey2])
 // const rpc = new JsonRpc('http://172.17.3.161:7878', { fetch })
 
-const keys = (process.env.KEYS||"").split(",") ||[];
-const msg_senders = (process.env.MSG_SENDERS||"").split(",") ||[];
+const keys = (process.env.KEYS || "").split(",") || [];
+const msg_senders = (process.env.MSG_SENDERS || "").split(",") || [];
 // console.log(keys,msg_senders,keys);
 const signatureProvider = new JsSignatureProvider(keys)
 
 const protocol = process.env.EOS_PROTOCOL || "http";
 const host = process.env.EOS_HOST || "172.17.3.161";
 const port = process.env.EOS_PORT || "7878";
-const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
 const timer_ticker = process.env.TIMER_TICKER || '*/1 * * * * *'
 const freq = process.env.FREQ || 500
@@ -37,8 +36,8 @@ const freq = process.env.FREQ || 500
 const contract = process.env.CONTRACT || "roxe.earn";// "roxeearntest";//
 // const dodo_names = ["re.usdgbp", "re.usdhkd"];//["usd2gbp44444", "usd2hkd44444"];//
 // const para_names = [["USD", "GBP"], ["USD", "HKD"]];
-const dodo_names = (process.env.DODO_NAMES||"").split(",") ||[]
-const para_namess = process.env.PARA_NAMES ||[]
+const dodo_names = (process.env.DODO_NAMES || "").split(",") || []
+const para_namess = process.env.PARA_NAMES || []
 // console.log(dodo_names,para_namess);
 // console.log(JSON.parse(para_namess));
 const para_names = JSON.parse(para_namess);
@@ -49,15 +48,21 @@ const max = process.env.MAX || 10;
 // randbuysell("=====max====", max);
 const token_contract = process.env.TOKEN_CONTRACT || "roxe.ro";
 
+let rpc;
+let api;
+try {
+    rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
-
-
-const api = new Api({
-    rpc,
-    signatureProvider,
-    textDecoder: new TextDecoder(),
-    textEncoder: new TextEncoder()
-})
+    api = new Api({
+        rpc,
+        signatureProvider,
+        textDecoder: new TextDecoder(),
+        textEncoder: new TextEncoder()
+    })
+}
+catch (error) {
+    console.error("==========rpc=========", error);
+}
 
 const transactWithConfig = async (action, data) => await api.transact({
     actions: [{
@@ -89,7 +94,7 @@ const logerror = async (msg) => {
 
 const sendaction = async (action, data) => {
     try {
-  verbose(action,data);
+        verbose(action, data);
         const transactionResponse = await transactWithConfig("buybasetoken", data);
         logerror(transactionResponse)
     } catch (error) {
