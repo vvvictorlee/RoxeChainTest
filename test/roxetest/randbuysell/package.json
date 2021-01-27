@@ -7,6 +7,7 @@
     "rand": "node  -r dotenv/config index.js dotenv_config_path=.env",
     "randd": "DEBUG=randbuysell node  -r dotenv/config index.js dotenv_config_path=.env",
     "randv": "DEBUG=randbuysell,verbose node  -r dotenv/config index.js dotenv_config_path=.env",
+    "randd:test": "DEBUG=randbuysell node  -r dotenv/config index.js dotenv_config_path=.env.test",
     "rand:test": "node  -r dotenv/config index.js dotenv_config_path=.env.test",
     "rand:prod": "node  -r dotenv/config index.js dotenv_config_path=.env.prod",
     "test": "echo \"Error: no test specified\" && exit 1"
