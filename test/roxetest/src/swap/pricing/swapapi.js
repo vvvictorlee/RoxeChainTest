@@ -8,10 +8,10 @@ const {
 } = require('./calc_comparisons');
 const ONE_DECIMALS = 9;
 
-const SYM2DEC={"BTC":8,"USD":6};
+const SYM2DEC = { "BTC": 8, "USD": 6 };
 
 var s = {
-   };
+};
 
 
 var BONE = Math.pow(10, 9);
@@ -31,6 +31,13 @@ var sumWeights = Number(1);
 var tokenInNorm = Decimal(tokenInDenorm).div(Decimal(sumWeights));
 var tokenOutNorm = Decimal(tokenOutDenorm).div(Decimal(sumWeights));
 
+function getPrecision(token) {
+    if (SYM2DEC.hasOwnProperty(token)) {
+        return SYM2DEC[token];
+    }
+    console.error("=======NOT FOUND==precision====", token);
+    return ONE_DECIMALS;
+}
 
 function init(p) {
     s = JSON.parse(p);
@@ -65,6 +72,16 @@ function setParameter(tokenIn, tokenOut) {
     sumWeights = pool.totalWeight;
     tokenInNorm = Decimal(tokenInDenorm).div(Decimal(sumWeights));
     tokenOutNorm = Decimal(tokenOutDenorm).div(Decimal(sumWeights));
+}
+
+function convert_one_decimals( amount,token,signed_one = 1) {
+    const p = getPrecision(token);
+    if (p < ONE_DECIMALS) {
+        const d = ONE_DECIMALS - p;
+        return amount * Math.pow(10, d * signed_one);
+    }
+
+    return amount;
 }
 
 function sell(tokenAmountIn, tokenIn, tokenOut) {

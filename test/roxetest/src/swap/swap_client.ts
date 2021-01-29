@@ -256,7 +256,7 @@ const handlers: any = {
 
 const actions = ["a"];
 
-const arg_offset = 3;
+const arg_offset = 2;
 const user_arg_offset = 0;
 
 var argumentss: any = process.argv.splice(arg_offset);

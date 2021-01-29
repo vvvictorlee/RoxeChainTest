@@ -58,8 +58,6 @@ const api = new Api({
     textEncoder: new TextEncoder()
 });//.catch(e => console.error(e));
 
-
-
 const transactWithConfig = async (action, data) => await api.transact({
     actions: [{
         account: contract,
@@ -87,6 +85,7 @@ const logerror = async (msg) => {
         console.error(JSON.stringify(msg));
     }
 }
+
 
 const sendaction = async (action, data) => {
     try {
@@ -117,7 +116,6 @@ const cron = require('node-cron')
 async function runJob() {
     let task = cron.schedule(timer_ticker, async () => {
         const [amount, minreceive, maxpay] = await GetRandomNum(min, max);
-        randbuysell(amount, counter++, new Date())
         let a = Number(amount);
         if (Number(a) == Number(0)) {
             a = 1;
@@ -127,13 +125,21 @@ async function runJob() {
         }
         const i = Math.round(a) % 2;
         const ii = (i + 1) % 2;
-
+        // if (Number(i) == Number(0)) {
+        sleep.msleep(freq/2);
+        randbuysell(amount, counter++, new Date())
+        // }
         sell(msg_senders[i], dodo_names[i], to_asset(amount, para_names[i][0]), to_asset(minreceive, para_names[i][1]));
-        sleep.msleep(freq);
+        // if (Number(ii) == Number(0)) {
+        sleep.msleep(freq/2);
+        randbuysell(amount, counter++, new Date())
+        // }
         buy(msg_senders[ii], dodo_names[ii], to_asset(amount, para_names[ii][0]), to_asset(maxpay, para_names[ii][1]));
+
     }, { scheduled: false })
 
     task.start()
+
     // task.stop()
     // task.destroy()
     // cron.validate('* * * * * *')

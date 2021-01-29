@@ -359,10 +359,20 @@ curl -X POST --url http://172.17.3.161:7878/v1/history/get_actions -d '{	"pos":1
 # # curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{	"pos":0,	"offset":100,	"account_name":"roxeearntest"}'|grep 2eed5f9da4090956d7bc779618c69424a954a0f935048e67b463efabd2ce82c4
 # curl -X POST --url http://127.0.0.1:8888/v1/history/get_actions -d '{	"pos":0,	"offset":100,	"account_name":"roxeliml1222"}'|grep 37932d090584e3d2c661122c1a331cb970b412596c455e73a83dd5b980869ef5
 
-# curl -X POST --url http://172.17.3.161:7878/v1/chain/get_block -d '{
-#   "block_num_or_id": "14287890"
-# }'
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_block -d '{
+  "block_num_or_id": "21020177"
+}'|jq
 
+DD=`curl http://172.17.3.161:8888/v1/chain/get_info | sed 's/,/\n/g' | grep "head_block_num" | sed 's/:/\n/g' | sed '1d' | sed 's/}//g'|sed -n '1p' ` && 
+curl -X POST --url http://172.17.3.161:7878/v1/chain/get_block -d '{
+  "block_num_or_id": "'$DD'"
+}'|jq
+
+
+curl http://172.17.3.161:8888/v1/chain/get_info | sed 's/,/\n/g' | grep "head_block_num" | sed 's/:/\n/g' | sed '1d' | sed 's/}//g'|sed -n '1p' 
+
+| awk '{print $1}' 
+|
 
 # curl http://172.17.3.161:8888/v1/chain/get_info
 

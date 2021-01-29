@@ -15,7 +15,7 @@ function calcSpotPrice(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeig
 }
 
 function calcOutGivenIn(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee) {
-    console.log(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee);
+    console.log("calcOutGivenIn==",tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee);
     const weightRatio = Decimal(tokenWeightIn).div(Decimal(tokenWeightOut));
     const adjustedIn = Decimal(tokenAmountIn).times((Decimal(1).minus(Decimal(swapFee))));
     const y = Decimal(tokenBalanceIn).div(Decimal(tokenBalanceIn).plus(adjustedIn));
@@ -26,7 +26,7 @@ function calcOutGivenIn(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWei
 }
 
 function calcInGivenOut(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee) {
-    console.log(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee);
+    console.log("calcInGivenOut===",tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee);
     const weightRatio = Decimal(tokenWeightOut).div(Decimal(tokenWeightIn));
     const diff = Decimal(tokenBalanceOut).minus(tokenAmountOut);
     const y = Decimal(tokenBalanceOut).div(diff);

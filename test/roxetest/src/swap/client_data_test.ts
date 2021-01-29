@@ -55,7 +55,7 @@ export class Swap {
     static BTC2USD: { [name: string]: any } = {
         base: Swap.BTC2USD_BASE,
         newaccdata: {
-            newuser: Swap.BTC2USD_BASE.POOL_NAME,
+            newuser: "testest2222",
             pub_key: "ROXE6ftHab5c81LAcL1izHNyFVawBaZTEpFDXN3BYybx1pcJHQsTmH"
         },
         mintdata: {

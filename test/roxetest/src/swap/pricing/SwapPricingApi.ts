@@ -39,14 +39,14 @@ export class SwapPricingApi {
 
         }
         //console.log(JSON.stringify(res));
-        prettyJson(allrows);
+        // prettyJson(allrows);
         return allrows;
     }
 
     async getPool() {
         let pool = await this.getPools();
-        // let oracle = await this.getOraclePrices();
-        let jsonstr = refactoringPoolTableJson(pool);
+        let jsonstr = JSON.stringify(refactoringPoolTableJson(pool));
+// prettyJson(jsonstr);
         return jsonstr;
     }
 }

@@ -55,7 +55,7 @@ export class TransferFeeApi {
 
     }
 
-   async  getTransferFee(amount: number, symbolcode: any, is_in: boolean = false) {
+    async getTransferFee(amount: number, symbolcode: any, is_in: boolean = false) {
         if (!this.symcode2fee.hasOwnProperty(symbolcode)) {
             return 0;
         }
@@ -71,10 +71,6 @@ export class TransferFeeApi {
         return fee_amount;
 
     }
-
-
-
-
 }
 
 function refactoringObj(arr: any[]) {
