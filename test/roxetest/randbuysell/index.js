@@ -125,15 +125,20 @@ async function runJob() {
         }
         const i = Math.round(a) % 2;
         const ii = (i + 1) % 2;
-        // if (Number(i) == Number(0)) {
-        sleep.msleep(freq/2);
-        randbuysell(amount, counter++, new Date())
+        // let ts = +new Date();
+        // while (ts % 1000 > 300) {
+        //     sleep.msleep(50);
+        //     randbuysell(amount, counter++, new Date(), ts)
+        //     ts = +Date();
         // }
         sell(msg_senders[i], dodo_names[i], to_asset(amount, para_names[i][0]), to_asset(minreceive, para_names[i][1]));
-        // if (Number(ii) == Number(0)) {
-        sleep.msleep(freq/2);
-        randbuysell(amount, counter++, new Date())
+        // ts = +new Date();
+        // while (ts % 1000 < 700) {
+        //     sleep.msleep(50);
+        //     randbuysell(amount, counter++, new Date(), ts)
+        //     ts = +Date();
         // }
+        sleep.msleep(freq);
         buy(msg_senders[ii], dodo_names[ii], to_asset(amount, para_names[ii][0]), to_asset(maxpay, para_names[ii][1]));
 
     }, { scheduled: false })
