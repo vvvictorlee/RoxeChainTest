@@ -237,7 +237,7 @@ const TestDodos = {
 
     // api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amounts = [11234567];//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    const amounts = [1345678];//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
@@ -249,9 +249,9 @@ const TestDodos = {
                 console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
                     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
                 //    console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                // // let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
-                // console.log("=sell quote =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
-                // amount = q;
+                let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
+                console.log("=sell quote =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
+                // amount = q;//1.821307
                 // let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                 // console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
             }

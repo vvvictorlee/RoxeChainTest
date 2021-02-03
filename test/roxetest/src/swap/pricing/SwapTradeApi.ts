@@ -2,6 +2,12 @@ const Decimal = require('decimal.js');
 import { TransferFeeApi } from "./TransferFeeApi";
 import { SwapPricingApi } from "./SwapPricingApi";
 
+const debug = require("debug");
+const swap = debug('swap');
+
+debug.enable("*");
+
+
 const {
     calcSpotPrice,
     calcOutGivenIn,
@@ -103,9 +109,11 @@ export class SwapTradeApi {
             tokenAmountIn,
             swapFee
         );
+        swap("==expected before transfer fee==", expected);
         const fee = await tfapi.getTransferFee(expected, tokenOut, true);
         expected -= fee;
         const p = await this.getPrecision(tokenOut);
+        swap("==expected=after==transfer fee==", expected);
         return Decimal(expected).toFixed(p);
     }
 
@@ -124,8 +132,10 @@ export class SwapTradeApi {
 
     async buy(tokenAmountOut: any, tokenIn: any, tokenOut: any) {
         await this.setParameter(tokenIn, tokenOut);
+        swap("==tokenAmountOut=before=", tokenAmountOut);
         const fee = await tfapi.getTransferFee(tokenAmountOut, tokenOut);
         tokenAmountOut += fee;
+        swap("==tokenAmountOut=after=", tokenAmountOut);
         var expected = calcInGivenOut(
             currenttokenOutBalance,
             tokenOutNorm,
@@ -135,6 +145,7 @@ export class SwapTradeApi {
             swapFee
         );
         const p = await this.getPrecision(tokenOut);
+        swap("==expected==", expected);
         return Decimal(expected).toFixed(p);
     }
 
@@ -150,7 +161,7 @@ export class SwapTradeApi {
         const sr = await t.sell(a, "BTC", "USD");
         console.log("==sell==", a, "==", sr);
         const br = await t.buy(a, "BTC", "USD");
-        console.log("==buy==",a,"==", br);
+        console.log("==buy==", a, "==", br);
     }
 })();
 
