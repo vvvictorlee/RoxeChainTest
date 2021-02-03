@@ -324,14 +324,13 @@ curl -X POST --url http://172.17.3.161:7878/v1/chain/get_table_by_scope -d '{
 }'
 
 
-
 # curl -X POST --url http://10.11.5.37:8000/v1/chain/get_code_hash -d '{
 #   "account_name": "eosio.token"
 # }'
 
-# curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
-#   "account_name": "112acnogsedo"
-# }'
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
+  "account_name": "earntrader11"
+}'|jq
 
 # curl -X POST --url http://172.17.3.161:8888/v1/chain/get_account -d '{
 #"account_name": "112acnogsedo"

@@ -145,11 +145,13 @@ export class SwapTradeApi {
     const t = new SwapTradeApi();
     const pool = await p.getPool();
     await t.init(pool);
-    const sr = await t.sell(1, "BTC", "USD");
-    console.log("==sell==", sr);
-    const br = await t.buy(1, "BTC", "USD");
-    console.log("==buy==", br);
-
+    const amounts = [1, 100, 10000];
+    for (let a of amounts) {
+        const sr = await t.sell(a, "BTC", "USD");
+        console.log("==sell==", a, "==", sr);
+        const br = await t.buy(a, "BTC", "USD");
+        console.log("==buy==",a,"==", br);
+    }
 })();
 
 

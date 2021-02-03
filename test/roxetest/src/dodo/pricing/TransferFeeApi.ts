@@ -49,7 +49,6 @@ export class TransferFeeApi {
             }
 
             this.symcode2fee = refactoringObj(allrows.rows);
-            // prettyJson(this.symcode2fee);
 
             return allrows;
         }
@@ -69,6 +68,8 @@ export class TransferFeeApi {
         }
 
         fee_amount = Math.min(Math.max(Number(fee_amount), Number(st.minfee)), Number(st.maxfee))
+
+
         return fee_amount;
 
     }
