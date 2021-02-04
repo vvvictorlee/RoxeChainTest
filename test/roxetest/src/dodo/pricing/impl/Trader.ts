@@ -71,9 +71,7 @@ export class Trader extends Pricing {
     async querySellQuoteToken(amountQuote: number,baseToken: any) {
         trader("=====this._ORACLE_PRICE_===", amountQuote, this._ORACLE_PRICE_);
         let amount = Decimal(DecimalMath.divFloor(amountQuote, Decimal(this._ORACLE_PRICE_))).floor(0);
-        trader("=====amount===", amount);
-        let [payQuote] = this._queryBuyBaseToken(Number(amount));
-        trader("=====payQuote===", payQuote);
+        let payQuote = 0;
 
         const times: number = 100; // tries
         const actual_diff: number = 1; // diff

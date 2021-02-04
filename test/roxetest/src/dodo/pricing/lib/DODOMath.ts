@@ -149,7 +149,7 @@ export class DODOMath {
 
         if (deltaBSig) {
             dodomath("DecimalMath.divFloor(numerator,***** denominator)", DecimalMath.divFloor(numerator, denominator));
-            return DecimalMath.divFloor(numerator, denominator).floor(0);
+            return DecimalMath.divFloor(numerator, denominator).toFixed(0);
         } else {
             dodomath("DecimalMath.divCeil(numerator, denominator)", DecimalMath.divCeil(numerator, denominator).ceil(0));
             return DecimalMath.divCeil(numerator, denominator).ceil(0);

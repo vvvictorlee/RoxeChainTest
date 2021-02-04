@@ -19,7 +19,7 @@ debug.enable("trader");
 // debug.enable("dodomath");
 // debug.disable("dodomath");
 
-// debug.enable("*");
+debug.enable("*");
 
 // debug.enable('foo:*,-foo:bar');
 // let namespaces = debug.disable();
