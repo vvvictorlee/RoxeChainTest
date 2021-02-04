@@ -242,9 +242,9 @@ const TestDodos = {
 
     // formula("dodosFromTestChain===", dodosFromTestChain, "====");
     // prettyJson(dodosFromTestChain);
-    await api.init(JSON.stringify(dodosFromTestChain));
+    // await api.init(JSON.stringify(dodosFromTestChain));
 
-    // api.init(JSON.stringify(TestDodos));
+    await api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
     const amounts = [1345678];//1345678//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
