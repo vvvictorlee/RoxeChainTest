@@ -46,7 +46,7 @@ export class SwapPricingApi {
     async getPool() {
         let pool = await this.getPools();
         let jsonstr = JSON.stringify(refactoringPoolTableJson(pool));
-// prettyJson(jsonstr);
+        // prettyJson(jsonstr);
         return jsonstr;
     }
 }

@@ -9,17 +9,17 @@ const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIM
 const suffix = process.env.suffix || "re"
 const debug = require("debug");
 const formula = debug('formula');
-// debug.enable("formula");
+debug.enable("formula");
 // // debug.disable("formula");
 // // const trader = debug('trader');
-// debug.enable("trader");
+debug.enable("trader");
 // debug.disable("trader");
 // debug.enable("pricing");
 // debug.disable("pricing");
 // debug.enable("dodomath");
 // debug.disable("dodomath");
 
-debug.enable("*");
+// debug.enable("*");
 
 // debug.enable('foo:*,-foo:bar');
 // let namespaces = debug.disable();
@@ -43,14 +43,14 @@ export class TraderPricingApi {
     ];
 
     t: Trader = new Trader();
-    tfapi: TransferFeeApi = new TransferFeeApi();
+ 
 
     galldodos: any = {};
 
     async init(strdodos: any) {
         this.galldodos = JSON.parse(strdodos);
         // prettyJson(this.galldodos);
-        await this.tfapi.fetchTransferFees();
+        await this.t.tfapi.fetchTransferFees();
     }
 
     async setTestDodo(dodos: any, xtimes: any) {
@@ -115,16 +115,16 @@ export class TraderPricingApi {
         return r;
     }
 
-    async querySellQuoteWithDodo(amount: any, dodo: any) {
+    async querySellQuoteWithDodo(amount: any, dodo: any,baseToken: any) {
         this.t.setParameters(dodo);
-        let r = this.t.querySellQuoteToken(amount);
+        let r = this.t.querySellQuoteToken(amount,baseToken);
         ////////console.log(r);
         return r;
     }
 
     async queryBuyToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        dodo.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
+        dodo.transfer_fee = await this.t.tfapi.getTransferFee(amount, baseToken);
         //////////console.log(amount, dodojson);
         let r = await this.queryBuyTokenWithDodo(amount, dodo);
         // //console.log(r);
@@ -132,7 +132,7 @@ export class TraderPricingApi {
     }
     async querySellToken(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        dodo.transfer_fee = await this.tfapi.getTransferFee(amount, quoteToken, true);
+        dodo.transfer_fee = await this.t.tfapi.getTransferFee(amount, quoteToken, true);
         let r = await this.querySellTokenWithDodo(amount, dodo);
         //console.log(r);
         return Number(r);
@@ -140,16 +140,16 @@ export class TraderPricingApi {
 
     async querySellQuote(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        dodo.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
-        let r = await this.querySellQuoteWithDodo(amount, dodo);
+        // dodo.transfer_fee = await this.t.tfapi.getTransferFee(amount, baseToken);
+        // formula("====dodo.transfer_fee=====",dodo.transfer_fee);
+        let r = await this.querySellQuoteWithDodo(amount, dodo,baseToken);
         //console.log(r);
         return Number(r);
     }
 
-
     async queryBuyTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        dodo.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
+        dodo.transfer_fee = await this.t.tfapi.getTransferFee(amount, baseToken);
         this.t.setParameters(dodo);
         return this.t.queryBuyBaseTokenDetail(amount * TokenDecimal);
         //////////console.log(r);
@@ -157,7 +157,7 @@ export class TraderPricingApi {
 
     async querySellTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
-        dodo.transfer_fee = await this.tfapi.getTransferFee(amount, quoteToken, true);
+        dodo.transfer_fee = await this.t.tfapi.getTransferFee(amount, quoteToken, true);
         this.t.setParameters(dodo);
         return this.t.querySellBaseTokenDetail(amount);
         //////////console.log(r);
@@ -185,11 +185,11 @@ const TestDodos = {
         _LP_FEE_RATE_: 595,
         _MT_FEE_RATE_: 105,
         _K_: 100,
-        _R_STATUS_: 1,
-        _TARGET_BASE_TOKEN_AMOUNT_: '10004687129',
-        _TARGET_QUOTE_TOKEN_AMOUNT_: '7302906402',
-        _BASE_BALANCE_: '8826149201',
-        _QUOTE_BALANCE_: '8163254191'
+        _R_STATUS_: 2,
+        _TARGET_BASE_TOKEN_AMOUNT_: '10004684893',
+        _TARGET_QUOTE_TOKEN_AMOUNT_: '7303456229',
+        _BASE_BALANCE_: '10126149201',
+        _QUOTE_BALANCE_: '7214802230'
     },
     usd2hkd44444: {
         _ORACLE_PRICE_: 7750000,
@@ -203,6 +203,15 @@ const TestDodos = {
         _QUOTE_BALANCE_: '7696808415748'
     }
 };
+
+//  "_LP_FEE_RATE_": 595,
+//         "_MT_FEE_RATE_": 105,
+//         "_K_": 100,
+//         "_R_STATUS_": 2,
+//         "_TARGET_BASE_TOKEN_AMOUNT_": "10004684893",
+//         "_TARGET_QUOTE_TOKEN_AMOUNT_": "7303456229",
+//         "_BASE_BALANCE_": "10126149201",
+//         "_QUOTE_BALANCE_": "7214802230",
 
 // {
 //   "usd2gbplml22": {
@@ -219,11 +228,11 @@ const TestDodos = {
 // }
 
 
-        // "_R_STATUS_": 1,
-        // "_TARGET_BASE_TOKEN_AMOUNT_": 952116302,
-        // "_TARGET_QUOTE_TOKEN_AMOUNT_": 700018314,
-        // "_BASE_BALANCE_": 926894600,
-        // "_QUOTE_BALANCE_": 718454552,
+// "_R_STATUS_": 1,
+// "_TARGET_BASE_TOKEN_AMOUNT_": 952116302,
+// "_TARGET_QUOTE_TOKEN_AMOUNT_": 700018314,
+// "_BASE_BALANCE_": 926894600,
+// "_QUOTE_BALANCE_": 718454552,
 
 
 (async function () {
@@ -237,7 +246,7 @@ const TestDodos = {
 
     // api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amounts = [1345678];//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    const amounts = [1345678];//1345678//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
@@ -245,15 +254,15 @@ const TestDodos = {
             const basetoken = t[0];
             const quotetoken = t[1];
             {
-                let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-                console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
-                    let s: any = await api.querySellToken(amount, basetoken, quotetoken);
-                //    console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                let q: any = await api.querySellQuote(amount, basetoken,quotetoken);
+                // let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+                // console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+                //     console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                let q: any = await api.querySellQuote(amount, basetoken, quotetoken);
                 console.log("=sell quote =", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
-                // amount = q;//1.821307
-                // let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
-                // console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
+                amount = q;//1.821307
+                let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+                console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
             }
 
             // {

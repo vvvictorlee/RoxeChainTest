@@ -7,6 +7,7 @@
 const Decimal = require('decimal.js');
 import { SafeMath } from "../lib/SafeMath";
 import { DecimalMath } from "../lib/DecimalMath";
+import { TransferFeeApi } from "../TransferFeeApi";
 import { Types_RStatus } from "../lib/Types";
 import { Pricing } from "./Pricing";
 // import "../utils/number.extensions";
@@ -31,7 +32,7 @@ const trader = debug('trader');
 export class Trader extends Pricing {
 
     // ============ Query s ============
-
+        tfapi: TransferFeeApi = new TransferFeeApi();
 
     querySellBaseTokenDetail(amount: number) {
         let [receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget] = this._querySellBaseToken(amount)
@@ -67,43 +68,48 @@ export class Trader extends Pricing {
         return payQuote;
     }
 
-    querySellQuoteToken(amountQuote: number) {
+    async querySellQuoteToken(amountQuote: number,baseToken: any) {
         trader("=====this._ORACLE_PRICE_===", amountQuote, this._ORACLE_PRICE_);
         let amount = Decimal(DecimalMath.divFloor(amountQuote, Decimal(this._ORACLE_PRICE_))).floor(0);
         trader("=====amount===", amount);
         let [payQuote] = this._queryBuyBaseToken(Number(amount));
         trader("=====payQuote===", payQuote);
 
-        const times: number = 10; // tries
+        const times: number = 100; // tries
         const actual_diff: number = 1; // diff
         let previousamount = Number(0);
         let previouspayQuote = Number(0);
         for (let i: number = 0; i < times; ++i) {
- trader("====for =amount===", amount);
-            let [payQuote] =
-                this._queryBuyBaseToken(amount);
-            payQuote = Decimal(payQuote).floor(0);
             trader("====for =amount===", amount);
-            trader("====for =payQuote===", payQuote);
+         this.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
+            let [payQuote] = this._queryBuyBaseToken(amount);
+            trader("===****=for =amount,payQuote===", amount, payQuote);
+            payQuote = Decimal(payQuote).floor(0);
             if (Number(payQuote) == Number(amountQuote) || Number(previouspayQuote) == Number(payQuote)) {
+                trader("====for =expect ######payQuote===", payQuote, amountQuote, previouspayQuote);
                 break;
             }
             previouspayQuote = payQuote;
             previousamount = amount;
-
+            const price = Decimal(DecimalMath.divFloor(amount, payQuote)).floor(0);
+            trader("====for =amount==price=", amount, price);
             if (payQuote > amountQuote) {
                 let high = payQuote - amountQuote;
                 // let newamount = amount- high*(amount/payQuote);1349.057104
-                amount = amount - Decimal(DecimalMath.mul(high, Decimal(DecimalMath.divFloor(amount, payQuote)).floor(0))).floor(0);
+                const nh = Decimal(DecimalMath.mul(high, price)).floor(0);
+                amount = amount - nh;
+                trader("====for =amount, high,nh===", amount, high, nh);
             }
             else if (amountQuote - payQuote > actual_diff) {
                 let low = amountQuote - payQuote;
-                amount = amount + Decimal(DecimalMath.mul(low, Decimal(DecimalMath.divFloor(amount, payQuote)).floor(0))).floor(0);
+                const nl = Decimal(DecimalMath.mul(low, price)).floor(0);
+                amount = amount + nl;
+                trader("====for =amount, low, nl===", amount, low, nl);
             }
-
         }
 
         trader("====for =return ===", payQuote);
+
         return amount;
     }
 
@@ -137,7 +143,6 @@ export class Trader extends Pricing {
                     // to make sure spare quote>=0, mannually set receiveQuote=backToOneReceiveQuote
                     receiveQuote = backToOneReceiveQuote;
                     trader("===case 2.1.1=receiveQuote=======", receiveQuote);
-
                 }
             } else if (sellBaseAmount == backToOnePayBase) {
                 // case 2.2: R status changes to ONE
