@@ -52,7 +52,7 @@ export class SwapTradeApi {
     }
 
     async init(p: any) {
-        console.log(p);
+        // console.log(p);
         s = JSON.parse(p);
         // s = refactoringPoolTableJson(s);
         await tfapi.fetchTransferFees();
@@ -133,7 +133,7 @@ export class SwapTradeApi {
     async buy(tokenAmountOut: any, tokenIn: any, tokenOut: any) {
         await this.setParameter(tokenIn, tokenOut);
         swap("==tokenAmountOut=before=", tokenAmountOut);
-        const fee = await tfapi.getTransferFee(tokenAmountOut, tokenOut);
+        const fee = await tfapi.getTransferFee(tokenAmountOut, tokenIn);//buy tokenIn is tokenOut in balancer
         tokenAmountOut += fee;
         swap("==tokenAmountOut=after=", tokenAmountOut);
         var expected = calcInGivenOut(
@@ -156,7 +156,7 @@ export class SwapTradeApi {
     const t = new SwapTradeApi();
     const pool = await p.getPool();
     await t.init(pool);
-    const amounts = [1, 100, 10000];
+    const amounts = [1];//, 100, 10000
     for (let a of amounts) {
         const sr = await t.sell(a, "BTC", "USD");
         console.log("==sell==", a, "==", sr);

@@ -1,6 +1,6 @@
 const Decimal = require('decimal.js');
 
-
+const ONE_DECIMAL=9;
 function calcRelativeDiff(expected, actual) {
     return ((Decimal(expected).minus(Decimal(actual))).div(expected)).abs();
 }
@@ -15,24 +15,27 @@ function calcSpotPrice(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeig
 }
 
 function calcOutGivenIn(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee) {
-    console.log("calcOutGivenIn==",tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee);
+    console.log("calcOutGivenIn=tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee=",tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountIn, swapFee);
     const weightRatio = Decimal(tokenWeightIn).div(Decimal(tokenWeightOut));
     const adjustedIn = Decimal(tokenAmountIn).times((Decimal(1).minus(Decimal(swapFee))));
-    const y = Decimal(tokenBalanceIn).div(Decimal(tokenBalanceIn).plus(adjustedIn));
-    const foo = y.pow(weightRatio);
+    const y = Decimal(Decimal(tokenBalanceIn).div(Decimal(tokenBalanceIn).plus(adjustedIn))).toFixed(ONE_DECIMAL);
+    const foo = Decimal(y).pow(weightRatio);
     const bar = Decimal(1).minus(foo);
     const tokenAmountOut = Decimal(tokenBalanceOut).times(bar);
-    return tokenAmountOut;
+    console.log("calcInGivenOut=weightRatio, adjustedIn, y, foo, bar, tokenAmountOut==",weightRatio, adjustedIn, y, foo, bar, tokenAmountOut);
+    return Decimal(tokenAmountOut).toFixed(ONE_DECIMAL);
 }
 
 function calcInGivenOut(tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee) {
-    console.log("calcInGivenOut===",tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee);
+    console.log("calcInGivenOut=tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee==",tokenBalanceIn, tokenWeightIn, tokenBalanceOut, tokenWeightOut, tokenAmountOut, swapFee);
     const weightRatio = Decimal(tokenWeightOut).div(Decimal(tokenWeightIn));
     const diff = Decimal(tokenBalanceOut).minus(tokenAmountOut);
     const y = Decimal(tokenBalanceOut).div(diff);
-    const foo = y.pow(weightRatio).minus(Decimal(1));
-    const tokenAmountIn = (Decimal(tokenBalanceIn).times(foo)).div(Decimal(1).minus(Decimal(swapFee)));
-    return tokenAmountIn;
+    const foo = Decimal(Decimal(y).pow(weightRatio).minus(Decimal(1))).toFixed(11);
+    const tokenAmountIn = Decimal((Decimal(tokenBalanceIn).times(foo)).div(Decimal(1).minus(Decimal(swapFee)))).toFixed(11);
+    console.log("calcInGivenOut==weightRatio, diff, y, foo,  tokenAmountIn=",weightRatio, diff, y, foo,  tokenAmountIn);
+    
+return tokenAmountIn;
 }
 
 function calcPoolOutGivenSingleIn(tokenBalanceIn, tokenWeightIn, poolSupply, totalWeight, tokenAmountIn, swapFee) {
