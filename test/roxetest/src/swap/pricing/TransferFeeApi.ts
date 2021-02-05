@@ -65,15 +65,15 @@ export class TransferFeeApi {
         const percent_decimal = Math.pow(10, 6);
         const st = this.symcode2fee[symbolcode];
         //   symbol      fee_sym    = st.useroc ? core_symbol : st.supply.symbol;
-        console.log(symdec);
+        // console.log(symdec);
         let fee_amount = Number(st.fee) + Number(amount) * Number(st.percent) / Number(percent_decimal);
         if (is_in) {
             fee_amount = (Number(st.fee) * Number(percent_decimal) + Number(amount) * Number(st.percent)) / (Number(st.percent) + Number(percent_decimal));
         }
         fee_amount= Math.floor(fee_amount*symdec);
-        console.log("=====fee_amount,st.minfee,st.maxfee=========",fee_amount,st.minfee,st.maxfee);
+        // console.log("=====fee_amount,st.minfee,st.maxfee=========",fee_amount,st.minfee,st.maxfee);
         fee_amount = Math.min(Math.max(Number(fee_amount), Number(st.minfee)), Number(st.maxfee))
-        console.log(Number(Number(Number(fee_amount)/symdec).toFixed(symprecision).valueOf()));
+        // console.log(Number(Number(Number(fee_amount)/symdec).toFixed(symprecision).valueOf()));
         return Number(Number(Number(fee_amount)/symdec).toFixed(symprecision).valueOf());
 
     }
