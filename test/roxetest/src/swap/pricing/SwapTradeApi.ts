@@ -113,9 +113,9 @@ export class SwapTradeApi {
         const fee = await tfapi.getTransferFee(expected, tokenOut, true);
         expected -= fee;
         const p = await this.getPrecision(tokenOut);
-        const d = Math.pow(10,p);
+        const d = Math.pow(10, p);
         swap("==expected=after==transfer fee==", expected);
-        return Decimal(Decimal(expected*d).floor(0)/d);
+        return Decimal(Decimal(expected * d).floor(0) / d);
     }
 
     async spotPrice(tokenIn: any, tokenOut: any) {
@@ -145,8 +145,9 @@ export class SwapTradeApi {
             swapFee
         );
         const p = await this.getPrecision(tokenIn);
-        swap("==expected==", expected);
-        return Decimal(expected).toFixed(p);
+        const d = Math.pow(10, p);
+        swap("==expected===", expected);
+        return Decimal(Decimal(expected * d).floor(0) / d);
     }
 
 }
