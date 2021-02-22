@@ -2,7 +2,9 @@
 // If your target environment supports ES2019, you could use Object.fromEntries(), like this:
 
 function arrToObjES2019(arr: any[]) {
-    return Object.fromEntries(arr.map(({ name, fields }) => [name, fields.map((obj: any) => obj.name)]));
+    // return Object.fromEntries(arr.map(({ name, fields }) => [name, fields.map((obj: any) => obj.name)]));
+
+    return fromEntries(arr.map(({ name, fields }) => [name, fields.map((obj: any) => obj.name)]));
 }
 // Or, if not, you can make your own polyfill-like version of Object.fromEntries() using array reduce() on an empty object, like this:
 

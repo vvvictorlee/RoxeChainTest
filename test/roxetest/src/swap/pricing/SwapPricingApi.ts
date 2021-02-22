@@ -12,7 +12,7 @@ const host = process.env.EOS_HOST || "172.17.3.161";
 const port = process.env.EOS_PORT || "7878";
 const rpc = new JsonRpc(protocol + '://' + host + ':' + port, { fetch })
 
-const { init, buy, sell } = require('./swapapi')
+// const { init, buy, sell } = require('./swapapi')
 import { prettyJson } from "../../lib/prettyjson";
 
 export class SwapPricingApi {

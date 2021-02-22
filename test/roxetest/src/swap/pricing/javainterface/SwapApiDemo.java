@@ -18,9 +18,11 @@ public class SwapApiDemo {
 
    public static void testbuysell() {
         String pool = "";
+ String fee = "";
         try {
            pool = readJsonData("./pools.json");
-           init(pool);
+  fee = readJsonData("./fees.json");
+           init(pool,fee);
         } catch (IOException e) {
            e.getStackTrace();
         }
@@ -89,12 +91,12 @@ public class SwapApiDemo {
     * 从JavaScript文件执行JavaScript脚本
     * @param engine 脚本引擎
     */
-   private static void init(String pool) {
+   private static void init(String pool,String fee) {
       try {
          Invocable invoke = getEngine();
          if (null != invoke) {
             // 方式1 通过对象调用方法， 获取结果
-            invoke.invokeFunction("init", pool);
+            invoke.invokeFunction("init", pool,fee);
          } else {
             System.err.println(" 不存在，无法执行脚本");
          }
@@ -138,7 +140,7 @@ public class SwapApiDemo {
       try {
          ScriptEngineManager manager = new ScriptEngineManager();
          engine                      = manager.getEngineByName("ECMAScript");
-         final String fileName       = "./swapapimin.js";
+         final String fileName       = "./swapapiminv2.js";
          File         file           = new File(fileName);
          if (file.exists()) {
             engine.eval(new FileReader(file));

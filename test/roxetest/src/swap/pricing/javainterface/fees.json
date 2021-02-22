@@ -1,0 +1,114 @@
+[
+  {
+    "supply": "812125.00000000 BTC",
+    "max_supply": "21000000.00000000 BTC",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub",
+      "1153otktw5kd",
+      "11aripihteqd",
+      "11ansbxdwglz"
+    ],
+    "fee": 0,
+    "fixed": 1,
+    "percent": 30000,
+    "maxfee": 420,
+    "minfee": 0,
+    "useroc": 0
+  },
+  {
+    "supply": "2665441288.150000 HKD",
+    "max_supply": "4611686018427.000000 HKD",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub"
+    ],
+    "fee": 0,
+    "fixed": 0,
+    "percent": 30000,
+    "maxfee": 780000,
+    "minfee": 0,
+    "useroc": 0
+  },
+  {
+    "supply": "325493416.600000 USD",
+    "max_supply": "4611686018427.000000 USD",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub",
+      "114listvtuib"
+    ],
+    "fee": 0,
+    "fixed": 1,
+    "percent": 30000,
+    "maxfee": 100000,
+    "minfee": 0,
+    "useroc": 0
+  },
+  {
+    "supply": "10.000000000 ETH",
+    "max_supply": "4611686018.000000000 ETH",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub",
+      "114listvtuib"
+    ],
+    "fee": 0,
+    "fixed": 1,
+    "percent": 30000,
+    "maxfee": 160000,
+    "minfee": 0,
+    "useroc": 0
+  },
+  {
+    "supply": "73973760.490000 GBP",
+    "max_supply": "4611686018427.000000 GBP",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub"
+    ],
+    "fee": 0,
+    "fixed": 1,
+    "percent": 30000,
+    "maxfee": 70000,
+    "minfee": 0,
+    "useroc": 0
+  },
+  {
+    "supply": "100000.000000 USDC",
+    "max_supply": "4611686018427.000000 USDC",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub",
+      "114listvtuib"
+    ],
+    "fee": 0,
+    "fixed": 1,
+    "percent": 30000,
+    "maxfee": 100000,
+    "minfee": 0,
+    "useroc": 0
+  },
+  {
+    "supply": "1411350000.000000 USDT",
+    "max_supply": "4611686018427.000000 USDT",
+    "issuer": "roxe.ro",
+    "authors": [
+      "roxe.ro",
+      "1vtqnirollub",
+      "114listvtuib"
+    ],
+    "fee": 0,
+    "fixed": 1,
+    "percent": 30000,
+    "maxfee": 100000,
+    "minfee": 0,
+    "useroc": 0
+  }
+]

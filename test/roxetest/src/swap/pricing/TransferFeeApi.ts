@@ -47,6 +47,7 @@ export class TransferFeeApi {
                 lower_bound = res.more;
             }
 
+            console.log(JSON.stringify(allrows.rows));
             this.symcode2fee = refactoringObj(allrows.rows);
             // prettyJson(this.symcode2fee);
 
@@ -54,14 +55,14 @@ export class TransferFeeApi {
         }
 
     }
-          sym2dec:{[name:string]:any}= { "USD": 6, "BTC": 8, "ROC": 4 }
+    sym2dec: { [name: string]: any } = { "USD": 6, "BTC": 8, "ROC": 4 }
     async getTransferFee(amount: number, symbolcode: any, is_in: boolean = false) {
         // console.log(symbolcode,this.symcode2fee);
         if (!this.symcode2fee.hasOwnProperty(symbolcode)) {
             return 0;
         }
         const symprecision = this.sym2dec[symbolcode];
-        const symdec = Math.pow(10,symprecision||9);
+        const symdec = Math.pow(10, symprecision || 9);
         const percent_decimal = Math.pow(10, 6);
         const st = this.symcode2fee[symbolcode];
         //   symbol      fee_sym    = st.useroc ? core_symbol : st.supply.symbol;
@@ -70,11 +71,11 @@ export class TransferFeeApi {
         if (is_in) {
             fee_amount = (Number(st.fee) * Number(percent_decimal) + Number(amount) * Number(st.percent)) / (Number(st.percent) + Number(percent_decimal));
         }
-        fee_amount= Math.floor(fee_amount*symdec);
+        fee_amount = Math.floor(fee_amount * symdec);
         // console.log("=====fee_amount,st.minfee,st.maxfee=========",fee_amount,st.minfee,st.maxfee);
         fee_amount = Math.min(Math.max(Number(fee_amount), Number(st.minfee)), Number(st.maxfee))
         // console.log(Number(Number(Number(fee_amount)/symdec).toFixed(symprecision).valueOf()));
-        return Number(Number(Number(fee_amount)/symdec).toFixed(symprecision).valueOf());
+        return Number(Number(Number(fee_amount) / symdec).toFixed(symprecision).valueOf());
 
     }
 }
