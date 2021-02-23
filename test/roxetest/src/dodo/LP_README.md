@@ -1,5 +1,5 @@
 
-## 查询流动性
+## 查询交易池流动性
 
 ### 查询请求
 ```
@@ -59,6 +59,37 @@ curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{
 
 * "_TARGET_BASE_TOKEN_AMOUNT_": 79522236,
 * "_TARGET_QUOTE_TOKEN_AMOUNT_": 1422412602,
+
+## 查询指定账户流动性份额
+### 查询请求
+
+```
+curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
+    "scope":"alice1111111",
+    "code":"roxeearntest",
+    "table":"accounts",
+    "json":true
+ }'
+```
+### 查询结果
+
+```
+{
+  "rows": [
+    {
+      "sequence": 0,
+      "balance": {
+        "quantity": "1364.072335 GBP",
+        "contract": "usd2gbp44444"
+      }
+    }
+  ],
+  "more": false
+}
+```
+**说明**
+* "quantity": "1364.072335 GBP",  其中GBP 是交易池其中一个交易代币
+* "contract": "usd2gbp44444" 其中usd2gbp44444是 交易池名称
 
 ## 添加流动性
 ### 添加Base流动性 `depositbase` 

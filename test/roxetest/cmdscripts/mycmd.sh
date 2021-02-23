@@ -200,8 +200,8 @@ curl -X POST --url http://47.75.253.127:8888/v1/chain/get_table_rows -d '{
 # }'
 
 curl -X POST --url http://172.17.3.161:8888/v1/chain/get_table_rows -d '{  
-    "scope":"112acnogsedo",
-    "code":"eoswapxtoken",
+    "scope":"alice1111111",
+    "code":"roxeearntest",
     "table":"accounts",
     "json":true
  }'
