@@ -8,17 +8,17 @@ const defaultPrivateKey = "5KS2QMfShmDjHaLAZEPJgehVXAobgo5YfVw1mzPBHaPpGfKbkZL";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey])
 const rpc = new JsonRpc('http://172.17.3.161:8888', { fetch })
 
-function isNumber1(obj: any) {
-    return typeof obj === 'number' && !isNaN(obj)
-}
+// function isNumber1(obj: any) {
+//     return typeof obj === 'number' && !isNaN(obj)
+// }
 
-function isNumber2(obj: any) {
-    return typeof obj === 'number' && isFinite(obj)
-}
+// function isNumber2(obj: any) {
+//     return typeof obj === 'number' && isFinite(obj)
+// }
 
-function isNumber(obj: any) {
-    return obj === +obj
-}
+// function isNumber(obj: any) {
+//     return obj === +obj
+// }
 const { prettyJson } = require("./prettyjson");
 
 const api = new Api({

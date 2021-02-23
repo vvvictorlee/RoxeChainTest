@@ -81,6 +81,11 @@ export class Dos {
             baseamount: 952,
             quoteamount: 700
         },
+       withdrawdata:
+        {
+            baseamount: 1300000000,
+            quoteamount: 1200000000
+        },
         lpFeeRate: 595,
         mtFeeRate: 105,
         k: 100,
@@ -115,6 +120,11 @@ export class Dos {
             baseamount: 904,
             quoteamount: 7000
         },
+       withdrawdata:
+        {
+            baseamount: 1300000000,
+            quoteamount: 1200000000
+        },
         lpFeeRate: 680,
         mtFeeRate: 120,
         k: 100,
@@ -144,6 +154,11 @@ export class Dos {
         {
             baseamount: 740000,
             quoteamount: 7750000
+        },
+       withdrawdata:
+        {
+            baseamount: 1300000000,
+            quoteamount: 1200000000
         },
         lpFeeRate: 595,
         mtFeeRate: 105,
