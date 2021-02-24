@@ -147,6 +147,13 @@ export class TraderPricingApi {
         return Number(r);
     }
 
+    async querySellQuoteDetail(amount: any, baseToken: any, quoteToken: any) {
+        let dodo = await this.queryDodo(baseToken, quoteToken);
+        this.t.setParameters(dodo);
+        return this.t.querySellQuoteTokenDetail(amount * TokenDecimal,baseToken);
+        //////////console.log(r);
+    }
+
     async queryBuyTokenDetail(amount: any, baseToken: any, quoteToken: any) {
         let dodo = await this.queryDodo(baseToken, quoteToken);
         dodo.transfer_fee = await this.t.tfapi.getTransferFee(amount, baseToken);
@@ -246,7 +253,7 @@ const TestDodos = {
 
     await api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
-    const amounts = [1345678];//1345678//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
+    const amounts = [1000000];//1345678//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
     const tokens = [["USD", "GBP"]];//, ["GBP", "HKD"], ["USD", "HKD"],["USD", "GBP"]
     for (let t of tokens) {
@@ -263,6 +270,19 @@ const TestDodos = {
                 amount = q;//1.821307
                 let qb: any = await api.queryBuyToken(amount, basetoken, quotetoken);
                 console.log("=buy by quote =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
+            }
+
+            {
+                // let b: any = await api.queryBuyToken(amount, basetoken, quotetoken);
+                // console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
+                //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
+                //     console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
+                amount = 1;
+               let q: any = await api.querySellQuoteDetail(amount, basetoken, quotetoken);
+                console.log("=sell quote detail=", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
+                amount = q.receiveBase;//1.821307
+                let qb: any = await api.queryBuyTokenDetail(amount, basetoken, quotetoken);
+                console.log("=buy by quote deatail  =", amount, " ", basetoken, "=by=", quotetoken, "===", (qb), "=====");
             }
 
             // {

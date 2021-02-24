@@ -32,7 +32,7 @@ const trader = debug('trader');
 export class Trader extends Pricing {
 
     // ============ Query s ============
-        tfapi: TransferFeeApi = new TransferFeeApi();
+    tfapi: TransferFeeApi = new TransferFeeApi();
 
     querySellBaseTokenDetail(amount: number) {
         let [receiveQuote, lpFeeQuote, mtFeeQuote, newRStatus, newQuoteTarget, newBaseTarget] = this._querySellBaseToken(amount)
@@ -68,10 +68,23 @@ export class Trader extends Pricing {
         return payQuote;
     }
 
-    async querySellQuoteToken(amountQuote: number,baseToken: any) {
+    async querySellQuoteTokenDetail(amountQuote: number, baseToken: any) {
+        let [receiveBase, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget] = await this._querySellQuoteToken(amountQuote, baseToken);
+        receiveBase = (receiveBase == undefined ? 0 : receiveBase) / TokenDecimal;
+        lpFeeBase = (lpFeeBase == undefined ? 0 : lpFeeBase) / TokenDecimal;
+        mtFeeBase = (mtFeeBase == undefined ? 0 : mtFeeBase) / TokenDecimal;
+        return { receiveBase, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget };
+    }
+
+    async querySellQuoteToken(amountQuote: number, baseToken: any) {
+        let [receiveBase] = await this._querySellQuoteToken(amountQuote, baseToken);
+        return receiveBase;
+    }
+    async _querySellQuoteToken(amountQuote: number, baseToken: any) {
+        let payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget;
         trader("=====this._ORACLE_PRICE_===", amountQuote, this._ORACLE_PRICE_);
         let amount = Decimal(DecimalMath.divFloor(amountQuote, Decimal(this._ORACLE_PRICE_))).floor(0);
-        let payQuote = 0;
+        payQuote = 0;
 
         const times: number = 100; // tries
         const actual_diff: number = 1; // diff
@@ -79,8 +92,8 @@ export class Trader extends Pricing {
         let previouspayQuote = Number(0);
         for (let i: number = 0; i < times; ++i) {
             trader("====for =amount===", amount);
-         this.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
-            let [payQuote] = this._queryBuyBaseToken(amount);
+            this.transfer_fee = await this.tfapi.getTransferFee(amount, baseToken);
+            [payQuote, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget] = this._queryBuyBaseToken(amount);
             trader("===****=for =amount,payQuote===", amount, payQuote);
             payQuote = Decimal(payQuote).floor(0);
             if (Number(payQuote) == Number(amountQuote) || Number(previouspayQuote) == Number(payQuote)) {
@@ -108,7 +121,7 @@ export class Trader extends Pricing {
 
         trader("====for =return ===", payQuote);
 
-        return amount;
+        return [amount, lpFeeBase, mtFeeBase, newRStatus, newQuoteTarget, newBaseTarget];
     }
 
     _querySellBaseToken(amount: number) {
