@@ -108,13 +108,13 @@ export class Trader extends Pricing {
                 let high = payQuote - amountQuote;
                 // let newamount = amount- high*(amount/payQuote);1349.057104
                 const nh = Decimal(DecimalMath.mul(high, price)).floor(0);
-                amount = amount - nh;
+                amount = Number(amount) - Number(nh);
                 trader("====for =amount, high,nh===", amount, high, nh);
             }
             else if (amountQuote - payQuote > actual_diff) {
                 let low = amountQuote - payQuote;
                 const nl = Decimal(DecimalMath.mul(low, price)).floor(0);
-                amount = amount + nl;
+                amount = Number(amount) + Number(nl);
                 trader("====for =amount, low, nl===", amount, low, nl);
             }
         }

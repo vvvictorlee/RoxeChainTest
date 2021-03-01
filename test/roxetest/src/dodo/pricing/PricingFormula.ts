@@ -9,17 +9,17 @@ const TokenDecimal = Math.pow(10, Number(process.env.PRICING_DODO_EARN_ONE_DECIM
 const suffix = process.env.suffix || "re"
 const debug = require("debug");
 const formula = debug('formula');
-debug.enable("formula");
-// // debug.disable("formula");
-// // const trader = debug('trader');
-debug.enable("trader");
+// debug.enable("formula");
+// // // debug.disable("formula");
+// // // const trader = debug('trader');
+// debug.enable("trader");
 // debug.disable("trader");
 // debug.enable("pricing");
 // debug.disable("pricing");
 // debug.enable("dodomath");
 // debug.disable("dodomath");
 
-debug.enable("*");
+// debug.enable("*");
 
 // debug.enable('foo:*,-foo:bar');
 // let namespaces = debug.disable();
@@ -249,9 +249,9 @@ const TestDodos = {
 
     // formula("dodosFromTestChain===", dodosFromTestChain, "====");
     // prettyJson(dodosFromTestChain);
-    // await api.init(JSON.stringify(dodosFromTestChain));
+    await api.init(JSON.stringify(dodosFromTestChain));
 
-    await api.init(JSON.stringify(TestDodos));
+    // await api.init(JSON.stringify(TestDodos));
     // const amount = 1000;//1750540351660;//199998500000;//6008550000;
     const amounts = [1000000];//1345678//50556060000, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;
     // const amounts = [400568337469, 50556060000, 5000000000, 500000000, 50000000, 5000000, 1000000, 1000];//, 517000000000 698649560000 //689263550000//1,1000,//1545915510000;//5945945990;//4400;    
@@ -277,7 +277,7 @@ const TestDodos = {
                 // console.log("=buy2 =", amount, " ", basetoken, "=by=", quotetoken, "===", (b), "=====");
                 //     let s: any = await api.querySellToken(amount, basetoken, quotetoken);
                 //     console.log("=sell =", amount, " ", basetoken, "=by=", quotetoken, "===", (s), "=====");
-                amount = 1;
+                amount = 100;
                let q: any = await api.querySellQuoteDetail(amount, basetoken, quotetoken);
                 console.log("=sell quote detail=", amount, " ", quotetoken, "=by=", basetoken, "===", (q), "=====");
                 amount = q.receiveBase;//1.821307
