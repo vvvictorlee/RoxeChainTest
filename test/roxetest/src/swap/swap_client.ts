@@ -118,14 +118,14 @@ export class SwapClient {
     }
 
     async newtoken() {
-        const tokens = this.pair_data.tokens;
+        const tokens = this.pair_data.base.tokens;
         for (let t of tokens) {
             await this.common_client.pushAction("newtoken", Swap.tokenissuer, ClientUtil.to_max_supply(t));
         }
     }
     async mintx() {///Swap.admin, Swap.nonadmin, Swap.user1, "112acnogsedo",
         const users = this.pair_data.mintdata.users;//[Swap.admin, "112acnogsedo", "1114wmpblocm"];
-        const tokens = this.pair_data.tokens;
+        const tokens = this.pair_data.base.tokens;
         for (let u of users) {
             for (let t of tokens) {
                 await this.common_client.pushAction("mint", u, ClientUtil.to_wei_asset(50000000, t));
@@ -176,15 +176,15 @@ export class SwapClient {
     }
     async swapamtin() {
         await this.common_client.pushAction("swapamtin", this.pair_data.swapindata.user, this.pair_data.base.POOL_NAME,
-            ClientUtil.to_asset(this.pair_data.swapindata.tokenAmountIn, this.pair_data.tokens[0]),
-            ClientUtil.to_asset(this.pair_data.swapindata.minAmountOut, this.pair_data.tokens[1]),
+            ClientUtil.to_asset(this.pair_data.swapindata.tokenAmountIn, this.pair_data.base.tokens[0]),
+            ClientUtil.to_asset(this.pair_data.swapindata.minAmountOut, this.pair_data.base.tokens[1]),
             ClientUtil.to_wei(this.pair_data.swapindata.maxPrice));
     }
 
     async swapamtout() {
         await this.common_client.pushAction("swapamtout", this.pair_data.swapoutdata.user, this.pair_data.base.POOL_NAME,
-            ClientUtil.to_asset(this.pair_data.swapoutdata.maxAmountIn, this.pair_data.tokens[1]),
-            ClientUtil.to_asset(this.pair_data.swapoutdata.tokenAmountOut, this.pair_data.tokens[0]),
+            ClientUtil.to_asset(this.pair_data.swapoutdata.maxAmountIn, this.pair_data.base.tokens[1]),
+            ClientUtil.to_asset(this.pair_data.swapoutdata.tokenAmountOut, this.pair_data.base.tokens[0]),
             ClientUtil.to_wei(this.pair_data.swapoutdata.maxPrice));
     }
 
@@ -275,6 +275,7 @@ async function main(arg: any) {
     };
     const p = para[arg[user_arg_offset]];
     if (undefined != p) {
+        console.log(p);
         client = new SwapClient(p, Swap.para);
         if (undefined != arg[user_arg_offset+1]) {
             await handlers[arg[user_arg_offset+1]]();
